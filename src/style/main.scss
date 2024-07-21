@@ -1,0 +1,52 @@
+@use './setup/mixin';
+@use './setup/variable-sets';
+
+// @formatter:off
+:root {
+  --color-a: rgb(80 255 120);
+  --color-b: rgb(255, 161, 20);
+
+  // Generated sets
+
+  // Color
+
+  // Panel - Cards, modals, backgrounds
+  @include mixin.color-set(color-panel, var(--color-panel), .07);
+
+  // Text - Body, content, paragraphs, labels
+  @include mixin.color-set(color-text, var(--color-text), .2);
+
+  // Border - Border color, outline color
+  @include mixin.color-set(color-border, var(--color-border), .3);
+
+  // Box Shadow - Box shadow color
+  @include mixin.color-set(color-box-shadow, var(--color-box-shadow), .4);
+
+  // Icon Fill - Icon component
+  @include mixin.color-set(color-icon-fill, var(--color-icon-fill), .2);
+
+  // Icon Stroke - Icon component
+  @include mixin.color-set(color-icon-stroke, var(--color-icon-stroke), .2);
+
+  // Size
+
+  // Space - Padding, margin, gap
+  @include mixin.size-set-exponential(space, var(--space), 2);
+
+  // Rounding - Border radius
+  @include mixin.size-set-exponential(rounding, var(--rounding), 1.6);
+
+  // Border Width - Border width
+  @include mixin.size-set-linear(border-width, var(--border-width), 1px);
+
+  // Font Size - Border radius
+  @include mixin.size-set-exponential(font-size, var(--font-size), 1.4);
+
+  // Font Weight - Border radius
+  @include mixin.size-set-linear(font-weight, var(--font-weight), 150);
+
+  // Icon Stroke Width - Icon component
+  @include mixin.size-set-linear(
+      icon-stroke-width, var(--icon-stroke-width), 1px);
+
+}

@@ -1,0 +1,38 @@
+/*
+  Mixins for generating sets of css variables from single base values.
+  The sets have 5 values, and the 3rd value is always the middle value,
+  which will be the given base value as well.
+ */
+
+// @formatter:off
+@mixin color-set($name, $base, $spread) {
+  --#{$name}-1: color(from #{$base} srgb
+  calc(r - #{$spread})
+  calc(g - #{$spread})
+  calc(b - #{$spread}) / 1);
+
+  --#{$name}-2: color-mix(in srgb,
+    var(--#{$name}-1), var(--#{$name}-3));
+
+  --#{$name}-3: #{$base};
+
+  --#{$name}-4: color-mix(in srgb,
+    var(--#{$name}-3), var(--#{$name}-5));
+
+  --#{$name}-5: color(from #{$base} srgb
+  calc(r + #{$spread})
+  calc(g + #{$spread})
+  calc(b + #{$spread}) / 1);
+}
+
+@mixin size-set-exponential($name, $base, $exponent: 2) {
+  @for $i from 1 through 5 {
+    --#{$name}-#{$i}: calc(#{$base} * pow(#{$exponent}, #{$i - 3}));
+  }
+}
+
+@mixin size-set-linear($name, $base, $step) {
+  @for $i from 1 through 5 {
+    --#{$name}-#{$i}: calc(#{$base} + #{($step * ($i - 3))});
+  }
+}

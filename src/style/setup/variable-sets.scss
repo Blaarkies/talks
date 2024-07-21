@@ -1,0 +1,25 @@
+/*
+  Name of each variable-set. The values here are used
+  as the base value. Theme generation creates 5 values
+  from each base value (base equals the 3rd value),
+
+  Definitions inside this file get copied into
+  generated-variable-name.scss to help IDE code
+  completion.
+ */
+:root {
+  --space: 8px;
+  --rounding: 3px;
+  --border-width: 3px;
+  --icon-stroke-width: 1.5px;
+
+  --font-size: 1.3em;
+  --font-weight: 400;
+
+  --color-panel: rgb(227, 222, 220);
+  --color-text: rgb(43, 47, 56);
+  --color-border: rgb(93, 108, 141);
+  --color-box-shadow: rgb(66, 57, 51);
+  --color-icon-fill: rgb(28, 21, 14);
+  --color-icon-stroke: rgb(28, 21, 14);
+}
