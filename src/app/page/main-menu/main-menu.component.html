@@ -1,0 +1,61 @@
+<div class="layout-main-menu"
+     (keydown.arrowDown)="selectNext(1)"
+     (keydown.arrowUp)="selectNext(-1)"
+     (keydown.enter)="launchSelected()"
+     tabindex="0"
+     autofocus
+>
+  <header class="rim">
+    BLAARKIES TALKS
+  </header>
+
+  <div class="content-menus">
+    <div class="panel shadow panel-menu">
+      <div class="title">MAIN MENU</div>
+
+      <ul class="navigation-list" role="menu">
+        @for (option of navigationsList(); track option) {
+          <a class="anti-a list-option"
+             [routerLink]="['../', routeNames.present, option.url]"
+             [attr.aria-selected]="selectedOption() === option"
+             (pointerenter)="selectedOption.set(option)"
+          >
+            {{ option.label }}
+          </a>
+        }
+      </ul>
+
+    </div>
+
+    <div class="panel shadow outline-double panel-description">
+      @switch (selectedOption()) {
+        @default {
+          <div class="title">Select an item from the MAIN MENU to learn more
+          </div>
+        }
+        @case (navigations().compression) {
+          <div class="title">Learn about data compression</div>
+
+          <ul>
+            <li>What is fundamentally compressed?</li>
+            <li>How can a small zipped file be uncompressed without data loss?
+            </li>
+          </ul>
+        }
+        @case (navigations().imageProcessing) {
+          <div class="title">You will learn:</div>
+
+          <div class="">
+            How to run this program
+
+            Learn To Use DOS's special keys and mouse shortcuts
+          </div>
+        }
+      }
+    </div>
+  </div>
+
+  <footer class="rim">
+    TO SELECT AN OPTION, USE ↑ OR ↓ AND ↵ OR A MOUSE CLICK; Ctrl+Q TO QUIT
+  </footer>
+</div>

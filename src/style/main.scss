@@ -40,7 +40,7 @@
   @include mixin.size-set-linear(border-width, var(--border-width), 1px);
 
   // Font Size - Border radius
-  @include mixin.size-set-exponential(font-size, var(--font-size), 1.4);
+  @include mixin.size-set-exponential(font-size, var(--font-size), 1.2);
 
   // Font Weight - Border radius
   @include mixin.size-set-linear(font-weight, var(--font-weight), 150);
@@ -49,4 +49,11 @@
   @include mixin.size-set-linear(
       icon-stroke-width, var(--icon-stroke-width), 1px);
 
+}
+
+html, body {
+  margin: 0;
+  font-family: "Lucida Console", system-ui;
+  font-size: var(--font-size-3);
+  font-weight: var(--font-weight-3);
 }
