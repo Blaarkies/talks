@@ -1,4 +1,3 @@
-import { provideHttpClient } from '@angular/common/http';
 import {
   ApplicationConfig,
   provideZoneChangeDetection,

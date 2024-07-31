@@ -1,1 +1,25 @@
-<p>What's up with entropy???</p>
+<div class="s-e-e-layout">
+
+  <app-entropy-measure
+    #pane1
+    class="pane-1"
+    [header]="'Low Entropy'"
+    [data]="loremsEasy()"
+  />
+
+  <app-entropy-measure
+    #pane2
+    class="pane-2"
+    [header]="'Extremely Mid Entropy'"
+    [data]="loremsMid()"
+  />
+
+  <app-entropy-measure
+    #pane3
+    class="pane-3"
+    [header]="'Entropy Super Maxx ++'"
+    [data]="loremsMaxed()"
+  />
+
+
+</div>

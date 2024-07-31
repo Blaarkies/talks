@@ -10,10 +10,18 @@
   </header>
 
   <div class="content-menus">
-    <div class="panel shadow panel-menu">
-      <div class="title">MAIN MENU</div>
 
-      <ul class="navigation-list" role="menu">
+    <app-pane
+      [header]="'MAIN MENU'"
+      [type]="1"
+      [shadow]="true"
+      #navPane
+    >
+      <ul
+        class="navigation-list"
+        [style.--panel-padding]="navPane.outerPadding()"
+        role="menu"
+      >
         @for (option of navigationsList(); track option) {
           <a class="anti-a list-option"
              [routerLink]="['../', routeNames.present, option.url]"
@@ -24,35 +32,38 @@
           </a>
         }
       </ul>
+    </app-pane>
 
-    </div>
-
-    <div class="panel shadow outline-double panel-description">
-      @switch (selectedOption()) {
-        @default {
-          <div class="title">Select an item from the MAIN MENU to learn more
-          </div>
+    <app-pane
+      [header]="selectedOption()?.title
+        || 'Select an item from the MAIN MENU to learn more'"
+      [type]="2"
+      [swap]="true"
+      [shadow]="true"
+      outline="double"
+    >
+      <ul class="description-list">
+        @switch (selectedOption()) {
+          @default {
+          }
+          @case (navigations().compression) {
+            <li>What is fundamentally compressed</li>
+            <li>Small zipped files can be uncompressed without data loss</li>
+            <li>How to compress your friends</li>
+          }
+          @case (navigations().imageProcessing) {
+            <li>How many pixels make a picture</li>
+            <li>Pixels are interpreted with the surrounding information</li>
+            <li>Your friends also have pixels</li>
+          }
+          @case (navigations().asdf) {
+            <li>Placeholder 1</li>
+            <li>Holder of la Place</li>
+            <li>Hold the place</li>
+          }
         }
-        @case (navigations().compression) {
-          <div class="title">Learn about data compression</div>
-
-          <ul>
-            <li>What is fundamentally compressed?</li>
-            <li>How can a small zipped file be uncompressed without data loss?
-            </li>
-          </ul>
-        }
-        @case (navigations().imageProcessing) {
-          <div class="title">You will learn:</div>
-
-          <div class="">
-            How to run this program
-
-            Learn To Use DOS's special keys and mouse shortcuts
-          </div>
-        }
-      }
-    </div>
+      </ul>
+    </app-pane>
   </div>
 
   <footer class="rim">

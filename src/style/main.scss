@@ -1,54 +1,62 @@
 @use './setup/mixin';
 @use './setup/variable-sets';
 
+@import './fix';
+
 // @formatter:off
 :root {
-  --color-a: rgb(80 255 120);
-  --color-b: rgb(255, 161, 20);
-
   // Generated sets
-
-  // Color
-
-  // Panel - Cards, modals, backgrounds
-  @include mixin.color-set(color-panel, var(--color-panel), .07);
-
-  // Text - Body, content, paragraphs, labels
-  @include mixin.color-set(color-text, var(--color-text), .2);
-
-  // Border - Border color, outline color
-  @include mixin.color-set(color-border, var(--color-border), .3);
-
-  // Box Shadow - Box shadow color
-  @include mixin.color-set(color-box-shadow, var(--color-box-shadow), .4);
-
-  // Icon Fill - Icon component
-  @include mixin.color-set(color-icon-fill, var(--color-icon-fill), .2);
-
-  // Icon Stroke - Icon component
-  @include mixin.color-set(color-icon-stroke, var(--color-icon-stroke), .2);
-
   // Size
 
   // Space - Padding, margin, gap
   @include mixin.size-set-exponential(space, var(--space), 2);
 
-  // Rounding - Border radius
-  @include mixin.size-set-exponential(rounding, var(--rounding), 1.6);
-
   // Border Width - Border width
   @include mixin.size-set-linear(border-width, var(--border-width), 1px);
 
   // Font Size - Border radius
-  @include mixin.size-set-exponential(font-size, var(--font-size), 1.2);
+  @include mixin.size-set-exponential(font-size, var(--font-size), 1.3);
 
   // Font Weight - Border radius
   @include mixin.size-set-linear(font-weight, var(--font-weight), 150);
 
-  // Icon Stroke Width - Icon component
-  @include mixin.size-set-linear(
-      icon-stroke-width, var(--icon-stroke-width), 1px);
+  // Color
+  --base-color-0:  rgb(0 0 0);
+  --base-color-1:  rgb(168 0 0);
+  --base-color-2:  rgb(0 168 0);
+  --base-color-3:  rgb(168 168 0);
+  --base-color-4:  rgb(0 0 168);
+  --base-color-5:  rgb(168 0 168);
+  --base-color-6:  rgb(0 168 168);
+  --base-color-7:  rgb(168 168 168);
+  --base-color-8:  rgb(128 128 128);
+  --base-color-9:  rgb(255 0 0);
+  --base-color-10: rgb(0 255 0);
+  --base-color-11: rgb(255 255 0);
+  --base-color-12: rgb(0 0 255);
+  --base-color-13: rgb(255 0 255);
+  --base-color-14: rgb(0 255 255);
+  --base-color-15: rgb(255 255 255);
 
+  --color-back-1: rgb(128 128 213);
+
+  --color-pane-1: var(--base-color-7);
+  --color-text-1: var(--base-color-1);
+  --color-border-1: magenta;
+
+  --color-swap-pane-1: var(--base-color-1);
+  --color-swap-text-1: var(--base-color-15);
+  --color-swap-border-1: magenta;
+
+  --color-text-2: var(--base-color-4);
+
+  // Swap refers to sets having a dark background and light text,
+  // when seen in light mode
+  --color-swap-pane-2: var(--base-color-4);
+  --color-swap-text-2: var(--base-color-15);
+  --color-swap-border-2: var(--base-color-15);
+
+  --color-shadow-1: var(--base-color-0);
 }
 
 html, body {

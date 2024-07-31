@@ -1,0 +1,22 @@
+.layout-entropy-measure {
+  font-size: var(--font-size-1);
+  display: grid;
+  grid-template: auto / auto 1fr;
+  gap: var(--space-4);
+}
+
+.title {
+  font-size: var(--font-size-3);
+}
+
+.title,
+.preview-data,
+.last-column {
+  grid-column: 1 / -1;
+}
+
+.span-stretch {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-1);
+}

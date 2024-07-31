@@ -10,20 +10,24 @@ import {
   RouterLink,
 } from '@angular/router';
 import { routeNames } from '../../../bootstrap/app.routes';
+import { PaneComponent } from '../../common/component/pane/pane.component';
 import { slideRouteNames } from '../mode-presentation/route';
 
 let options = {
   compression: {
     label: 'What is Compression?',
     url: slideRouteNames.compression,
+    title: 'Learn about data compression',
   },
   imageProcessing: {
     label: 'An image is worth 1000 pixels',
     url: slideRouteNames.imageProcessing,
+    title: 'Learn about image processing',
   },
   asdf: {
     label: 'Using a Hard Disk',
     url: 'asdfasdfs',
+    title: 'Learn about placeholders',
   },
 };
 
@@ -32,6 +36,7 @@ let options = {
   standalone: true,
   imports: [
     RouterLink,
+    PaneComponent,
   ],
   templateUrl: './main-menu.component.html',
   styleUrl: './main-menu.component.scss',
@@ -43,7 +48,6 @@ export class MainMenuComponent {
 
   protected navigations = signal(options);
   protected navigationsList = computed(() => Object.values(this.navigations()));
-
   protected selectedOption = signal<typeof options['compression']>(null);
 
   private router = inject(Router);

@@ -2,7 +2,7 @@
   width: 100vw;
   height: 100vh;
 
-  background: #8080d5;
+  background: var(--color-back-1);
 
   display: grid;
   grid-template: max-content 1fr max-content / 1fr;
@@ -17,71 +17,28 @@
 }
 
 .rim {
-  background: #a8a8a8;
+  background: var(--color-pane-1);
   padding: var(--space-1) var(--space-3);
-}
-
-.anti-a {
-  text-decoration: none;
-}
-
-.panel {
-  padding: var(--space-4);
-
-  .title {
-    text-align: center;
-    font-weight: var(--font-weight-5);
-    margin-bottom: var(--space-4);
-  }
-
-  &.outline-double {
-    position: relative;
-    padding: var(--space-5);
-
-    &:before {
-      content: '';
-      position: absolute;
-      --outside-padding: 1ch;
-      inset: var(--outside-padding);
-      width: calc(100% - var(--outside-padding) * 2);
-      height: calc(100% - var(--outside-padding) * 2);
-      outline: var(--border-width-5) double white;
-    }
-  }
-
-  &.shadow {
-    box-shadow: -1ch 1ch 0 0 black;
-  }
-}
-
-.panel-menu {
-  background: #a8a8a8;
-  padding-inline: 0;
-
-  .title {
-    color: #a80000;
-  }
 }
 
 .navigation-list {
   padding-left: 0;
 
   .list-option {
-    --panel-padding: var(--space-4);
     padding-inline: calc(var(--panel-padding) + var(--space-5)) calc(var(--panel-padding) + var(--space-3));
     display: block;
     padding-block: var(--space-3);
-    color: #0000a8;
+    color: var(--color-text-2);
     cursor: pointer;
+    margin-inline: calc(-1 * var(--panel-padding));
 
     &[aria-selected="true"] {
-      color: #fff;
-      background: #a80000;
+      color: var(--color-swap-text-1);
+      background: var(--color-swap-pane-1);
     }
   }
 }
 
-.panel-description {
-  background: #0000a8;
-  color: white;
+.description-list {
+  list-style: square;
 }

@@ -1,0 +1,14 @@
+<div
+  #main
+  class="pane-main"
+  [class.shadow]="shadow()"
+  [ngClass]="[typeClass(), outlineClass()]"
+>
+
+  @if (header()) {
+    <div class="title">{{ header() }}</div>
+  }
+
+  <ng-content/>
+
+</div>

@@ -1,0 +1,23 @@
+.s-e-e-layout {
+  overflow: hidden;
+  height: 100vh;
+  background: var(--color-back-1);
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding-inline: 5vw;
+
+  align-items: center;
+}
+
+.pane-1 {
+  translate: -50vw;
+}
+
+.pane-2 {
+  translate: 0 -100vh;
+}
+
+.pane-3 {
+  translate: 50vw;
+}

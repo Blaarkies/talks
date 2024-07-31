@@ -1,0 +1,19 @@
+.layout-progress {
+  font-size: var(--font-size-3);
+  position: relative;
+  height: calc(1cap + 1ex);
+}
+
+.px-to-ch-measure {
+  visibility: hidden;
+  height: 0;
+  width: 100ch;
+  display: block;
+  position: absolute;
+}
+
+.characters-bar {
+  text-align: center;
+  position: absolute;
+  width: 100%;
+}
