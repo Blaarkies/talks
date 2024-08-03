@@ -44,17 +44,21 @@
   --color-text-1: var(--base-color-1);
   --color-border-1: magenta;
 
+  // Swap refers to sets having a dark background and light text,
+  // when seen in light mode
   --color-swap-pane-1: var(--base-color-1);
   --color-swap-text-1: var(--base-color-15);
   --color-swap-border-1: magenta;
 
-  --color-text-2: var(--base-color-4);
-
-  // Swap refers to sets having a dark background and light text,
-  // when seen in light mode
   --color-swap-pane-2: var(--base-color-4);
   --color-swap-text-2: var(--base-color-15);
   --color-swap-border-2: var(--base-color-15);
+
+  --color-pane-2: var(--base-color-7);
+  --color-text-2: var(--base-color-4);
+  --color-border-2: magenta;
+
+
 
   --color-shadow-1: var(--base-color-0);
 }

@@ -4,26 +4,22 @@ import {
   computed,
   input,
 } from '@angular/core';
-import { PaneComponent } from '../../../../../common/component/pane/pane.component';
 import { ProgressComponent } from '../../../../../common/component/progress/progress.component';
+import { Data } from '../../common';
 import { getEntropyScore } from '../../common/entropy';
-
-type Data = string;
 
 @Component({
   selector: 'app-entropy-measure',
   standalone: true,
   imports: [
     ProgressComponent,
-    PaneComponent,
   ],
   templateUrl: './entropy-measure.component.html',
   styleUrl: './entropy-measure.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EntropyMeasureComponent {
 
-  header = input<string>();
   data = input.required<Data>();
 
   protected dataInBytes = computed(() => this.data()?.length);

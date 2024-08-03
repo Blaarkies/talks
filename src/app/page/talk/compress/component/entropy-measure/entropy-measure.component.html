@@ -1,24 +1,13 @@
-<app-pane
-  [type]="2"
-  [swap]="true"
->
-  <div class="layout-entropy-measure">
-
-    <div class="title">{{ header() }}</div>
-
-    <div class="preview-data">{{ data() }}</div>
-
-    <div>Data</div>
-    <div class="span-stretch">
-      <span>|--</span><span>{{ dataInBytes() }} bytes</span><span>--|</span>
-    </div>
-
-    <div>Information</div>
-    <div class="span-stretch">
-      <span>|--</span><span>{{ infoInBytes() }} bytes</span><span>--|</span>
-    </div>
-
-    <app-progress class="last-column" [value]="ratio()"/>
-
+<div class="layout-entropy-measure">
+  <div>Data</div>
+  <div class="span-stretch">
+    <span>|--</span><span>{{ dataInBytes() }} bytes</span><span>--|</span>
   </div>
-</app-pane>
+
+  <div>Information</div>
+  <div class="span-stretch">
+    <span>|--</span><span>{{ infoInBytes() }} bytes</span><span>--|</span>
+  </div>
+
+  <app-progress class="full-columns" [value]="ratio()"/>
+</div>

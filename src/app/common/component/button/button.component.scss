@@ -1,0 +1,49 @@
+:host {
+  // remove all native button styling
+  button,
+  input[type="submit"],
+  input[type="reset"] {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+  }
+
+  button {
+    padding: var(--space-2) 1ch;
+
+    &.outline-double {
+      outline: var(--border-width-5) double var(--outline-color);
+    }
+
+    &.type-1 {
+      background: var(--color-pane-1);
+      color: var(--color-text-1);
+      --outline-color: var(--color-border-1);
+    }
+
+    &.type-2 {
+      background: var(--color-pane-2);
+      color: var(--color-text-2);
+      --outline-color: var(--color-border-2);
+    }
+
+    &.type-swap-2 {
+      background: var(--color-swap-pane-2);
+      color: var(--color-swap-text-2);
+      --outline-color: var(--color-swap-border-2);
+    }
+
+    &.shadow {
+      box-shadow: -1ch 1ch 0 0 var(--color-shadow-1);
+    }
+
+    &:hover {
+      mix-blend-mode: plus-lighter;
+    }
+  }
+
+}

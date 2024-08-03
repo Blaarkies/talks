@@ -5,18 +5,13 @@
   gap: var(--space-4);
 }
 
-.title {
-  font-size: var(--font-size-3);
-}
-
-.title,
-.preview-data,
-.last-column {
-  grid-column: 1 / -1;
-}
 
 .span-stretch {
   display: flex;
   justify-content: space-between;
   font-size: var(--font-size-1);
+}
+
+.full-columns {
+  grid-column: 1 / -1;
 }

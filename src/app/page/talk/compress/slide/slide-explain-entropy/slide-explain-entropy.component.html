@@ -1,24 +1,24 @@
 <div class="s-e-e-layout">
 
-  <app-entropy-measure
+  <app-entropy-preview
     #pane1
     class="pane-1"
     [header]="'Low Entropy'"
-    [data]="loremsEasy()"
+    [data]="entropyTextLow()"
   />
 
-  <app-entropy-measure
+  <app-entropy-preview
     #pane2
     class="pane-2"
     [header]="'Extremely Mid Entropy'"
-    [data]="loremsMid()"
+    [data]="entropyTextMid()"
   />
 
-  <app-entropy-measure
+  <app-entropy-preview
     #pane3
     class="pane-3"
-    [header]="'Entropy Super Maxx ++'"
-    [data]="loremsMaxed()"
+    [header]="'Entropy Super Maxx++'"
+    [data]="entropyTextHigh()"
   />
 
 

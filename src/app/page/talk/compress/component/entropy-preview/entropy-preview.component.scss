@@ -1,0 +1,48 @@
+.layout-entropy-measure {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.title {
+  font-size: var(--font-size-3);
+}
+
+.preview-data {
+  font-size: var(--font-size-1);
+  display: flex;
+  flex-wrap: wrap;
+
+  span {
+    min-width: 1ch;
+    cursor: pointer;
+
+    &:hover {
+      outline: 1px solid white;
+    }
+
+    &.is-selected {
+      background: var(--base-color-2);
+    }
+  }
+}
+
+.title,
+.preview-data {
+  grid-column: 1 / -1;
+}
+
+.encoding-layout {
+  display: flex;
+  justify-content: space-between;
+
+  .token-label-list {
+    font-size: var(--font-size-1);
+  }
+
+  .info {
+    font-size: var(--font-size-1);
+    display: grid;
+    gap: var(--space-2);
+  }
+
+}

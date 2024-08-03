@@ -1,0 +1,7 @@
+<button
+  [class.shadow]="shadow()"
+  [ngClass]="[typeClass(), outlineClass()]"
+  (click)="onClick($event)"
+>
+  <ng-content/>
+</button>

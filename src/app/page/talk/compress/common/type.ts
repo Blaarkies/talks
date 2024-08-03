@@ -1,10 +1,16 @@
-type StepValues = (string | number)[];
+import {
+  ElementRef,
+  Signal,
+} from '@angular/core';
 
-export interface AnimationStep {
-  movePane1?: StepValues;
-  movePane2?: StepValues;
-  movePane3?: StepValues;
-  scalePane1?: StepValues;
-  scalePane2?: StepValues;
-  scalePane3?: StepValues;
+export interface AnimationJob {
+  signalRef: Signal<ElementRef>;
+  job: PropertyIndexedKeyframes;
+}
+
+export type Data = string;
+
+export type TokenElementGroup = {
+  eventTarget: EventTarget,
+  parentElement: HTMLDivElement,
 }

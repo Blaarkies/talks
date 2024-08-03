@@ -32,6 +32,7 @@ export class PaneComponent {
     'type-' + (this.swap() ? 'swap-' : '') + this.type());
   protected outlineClass = computed(() => 'outline-' + this.outline());
 
+  // for use by parents for padding-negation
   outerPadding = computed(() => this.window
     .getComputedStyle(this.main().nativeElement)
     .getPropertyValue('--outer-padding'));

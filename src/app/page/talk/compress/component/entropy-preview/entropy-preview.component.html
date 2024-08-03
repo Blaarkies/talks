@@ -1,0 +1,44 @@
+<app-pane
+  [type]="2"
+  [swap]="true"
+>
+  <div class="layout-entropy-measure">
+
+    <div class="title">{{ header() }}</div>
+
+    <div
+      #previewData
+      class="preview-data"
+      (click)="wordClick($event.target, previewData)"
+      (pointerover)="triggerWordHover($event.target, previewData)"
+      (pointerleave)="triggerWordHover()"
+    >
+      @for (token of text(); track $index) {
+        <span [attr.data-token]="token">{{ token }}</span>
+      }
+    </div>
+
+    @if (encodedTokens().length) {
+      <div class="encoding-layout">
+        <div class="token-label-list">
+          @for (encoding of encodedTokens(); track encoding) {
+            <div>{{ encoding }}</div>
+          }
+        </div>
+
+        <div class="info">
+          <app-button
+            [tabindex]="5"
+            [type]="2"
+            (click1)="clearTokens()">
+            CLEAR
+          </app-button>
+          <div>Total: {{ totalBytes() }} bytes</div>
+        </div>
+      </div>
+    } @else {
+      <app-entropy-measure [data]="data()"/>
+    }
+
+  </div>
+</app-pane>
