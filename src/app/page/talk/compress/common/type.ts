@@ -4,8 +4,9 @@ import {
 } from '@angular/core';
 
 export interface AnimationJob {
-  signalRef: Signal<ElementRef>;
+  ref: Signal<ElementRef>;
   job: PropertyIndexedKeyframes;
+  options?: KeyframeAnimationOptions;
 }
 
 export type Data = string;

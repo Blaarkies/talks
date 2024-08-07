@@ -23,6 +23,24 @@
     --outline-color: var(--color-border-1);
   }
 
+  &.type-2 {
+    background: var(--color-pane-2);
+    color: var(--color-text-2);
+    --outline-color: var(--color-border-2);
+  }
+
+  &.type-3 {
+    background: var(--color-pane-3);
+    color: var(--color-text-3);
+    --outline-color: var(--color-border-3);
+  }
+
+  &.type-4 {
+    background: var(--color-pane-4);
+    color: var(--color-text-4);
+    --outline-color: var(--color-border-4);
+  }
+
   &.type-swap-2 {
     background: var(--color-swap-pane-2);
     color: var(--color-swap-text-2);

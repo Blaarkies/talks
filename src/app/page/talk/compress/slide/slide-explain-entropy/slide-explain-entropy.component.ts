@@ -42,22 +42,21 @@ export class SlideExplainEntropyComponent {
   private animationIndex = signal(0);
   private animationSteps: AnimationJob[][] = [
     [
-      {signalRef: this.pane2, job: {translate: [0], scale: [1], width: '100%'}},
+      {ref: this.pane2, job: {translate: [0], scale: [1], width: '100%'}},
     ],
     [
-      {signalRef: this.pane1, job: {translate: ['-50vw']}},
-      {signalRef: this.pane2, job: {translate: [0], scale: [2]}},
-    ],
-
-    [
-      {signalRef: this.pane1, job: {translate: ['12vw'], scale: [1]}},
-      {signalRef: this.pane2, job: {translate: ['18vw'], scale: [1], width: '100%'}},
-      {signalRef: this.pane3, job: {translate: ['50vw'], scale: [1]}},
+      {ref: this.pane1, job: {translate: ['-50vw']}},
+      {ref: this.pane2, job: {translate: [0], scale: [2]}},
     ],
     [
-      {signalRef: this.pane1, job: {translate: ['5vw'], scale: [1.5]}},
-      {signalRef: this.pane2, job: {translate: ['10vw'], width: '0%'}},
-      {signalRef: this.pane3, job: {translate: ['-5vw'], scale: [1.5]}},
+      {ref: this.pane1, job: {translate: ['12vw'], scale: [1]}},
+      {ref: this.pane2, job: {translate: ['18vw'], scale: [1], width: '100%'}},
+      {ref: this.pane3, job: {translate: ['50vw'], scale: [1]}},
+    ],
+    [
+      {ref: this.pane1, job: {translate: ['5vw'], scale: [1.5]}},
+      {ref: this.pane2, job: {translate: ['10vw'], width: '0%'}},
+      {ref: this.pane3, job: {translate: ['-5vw'], scale: [1.5]}},
     ],
   ];
 
@@ -90,7 +89,7 @@ export class SlideExplainEntropyComponent {
         step: .5,
       };
 
-      animationJobs.forEach(j => j.signalRef().nativeElement
+      animationJobs.forEach(j => j.ref().nativeElement
         .animate(j.job, options));
     });
   }

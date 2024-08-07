@@ -23,7 +23,7 @@ import { WA_WINDOW } from '@ng-web-apis/common';
 export class PaneComponent {
 
   header = input<string>();
-  type = input<1 | 2>(1);
+  type = input<1 | 2 | 3 | 4>(1);
   swap = input<boolean>();
   shadow = input<boolean>(false);
   outline = input<'single' | 'double'>();

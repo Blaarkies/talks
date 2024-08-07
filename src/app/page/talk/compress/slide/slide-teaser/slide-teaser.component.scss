@@ -1,0 +1,127 @@
+.s-t-layout {
+  overflow: hidden;
+  height: 100vh;
+  background: var(--color-back-1);
+
+  display: grid;
+  grid-template: max-content / 1fr 1fr 1fr;
+  grid-template-areas: 'alice compressor bob';
+  align-content: center;
+  justify-items: center;
+
+  padding-inline: 5vw;
+
+  --stiffy-color: var(--base-color-12);
+  --stiffy-background: var(--base-color-15);
+}
+
+%stiffy-corner-cut {
+  clip-path: polygon(
+      100% 100%,
+      0% 100%,
+      0% 0%,
+      calc(100% - 1ch) 0%,
+      100% calc(1cap)); // corner sized to text char size
+}
+
+.stiffy-holder {
+  width: max-content;
+  height: max-content;
+  color: var(--stiffy-color);
+  background: var(--stiffy-background);
+
+  @extend %stiffy-corner-cut;
+}
+
+.stiffy-line {
+  width: max-content;
+  margin-block: 0;
+  color: var(--base-color-4);
+  background: var(--base-color-15);
+
+  &:first-child {
+    @extend %stiffy-corner-cut;
+  }
+}
+
+.ghost {
+  opacity: .1;
+  grid-row: 1 / 2;
+  grid-column: 1 / -1;
+}
+
+.desk {
+  position: relative;
+  height: 100%;
+  padding-inline: var(--space-4);
+  display: grid;
+  grid-template-rows: 240px max-content;
+  place-items: center;
+
+  color: var(--color-text-4);
+
+  .stiffy-holder {
+    grid-row: 1 / 2;
+    grid-column: 1 / -1;
+  }
+}
+
+.alice-desk {
+  grid-area: alice;
+  perspective: 20vw;
+
+  > .stiffy-holder {
+    width: 0%;
+    translate: 100%;
+  }
+}
+
+.compressor-desk {
+  grid-area: compressor;
+  opacity: 0;
+}
+
+.bob-desk {
+  grid-area: bob;
+  opacity: 0;
+}
+
+.bobs-lines {
+  display: grid;
+  gap: calc(var(--gap-factor) * (1cap + 1ex));
+
+  &.highlight {
+    position: relative;
+
+    &:before {
+      content: '';
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      --size: -1ch;
+      padding: calc(-1 * var(--size));
+      inset: var(--size) var(--size);
+
+      animation: kf-add-border 0s 1s forwards;
+    }
+  }
+}
+
+.extra-bytes {
+  background: var(--color-text-highlight-danger);
+}
+
+@property --gap-factor {
+  syntax: '<integer>';
+  initial-value: 0;
+  inherits: false;
+}
+
+@keyframes kf-add-border {
+  from {
+    border: none
+  }
+  to {
+    border: var(--border-width-5) double var(--color-text-highlight-danger)
+  }
+}
