@@ -4,13 +4,23 @@ import {
   DestroyRef,
   inject,
 } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {
+  takeUntilDestroyed,
+  toSignal,
+} from '@angular/core/rxjs-interop';
 import {
   ActivatedRoute,
+  NavigationEnd,
   Router,
   RouterOutlet,
 } from '@angular/router';
+import {
+  filter,
+  map,
+  startWith,
+} from 'rxjs';
 import { coerceBetween } from '../../../../common';
+import { RimComponent } from '../../../../common/component/rim/rim.component';
 import { ClickerService } from '../../../mode-presentation/service/clicker.service';
 import { compressionSlideRouteNames } from './route';
 
@@ -19,6 +29,7 @@ import { compressionSlideRouteNames } from './route';
   standalone: true,
   imports: [
     RouterOutlet,
+    RimComponent,
   ],
   templateUrl: './slideshow.component.html',
   styleUrl: './slideshow.component.scss',
@@ -30,9 +41,21 @@ export class SlideshowComponent {
   private destroyRef = inject(DestroyRef);
   private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
-  private routes = Object.values(compressionSlideRouteNames);
 
+  private routes = Object.values(compressionSlideRouteNames);
   private currentRouteIndex: number;
+  private pathToHeadingMap = new Map<string, string>([
+    [compressionSlideRouteNames.teaser, 'Welcome, Data Compression!'],
+    [compressionSlideRouteNames.entropy, 'Defining Information'],
+  ]);
+
+  protected header = toSignal(this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      startWith(0),
+      map(() => this.activatedRoute.firstChild.snapshot.url.at(-1).path),
+      map(path => this.pathToHeadingMap.get(path) ?? path),
+    ),
+  );
 
   constructor() {
     let firstPath = this.activatedRoute.firstChild.snapshot.url

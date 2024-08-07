@@ -11,6 +11,7 @@ import {
 } from '@angular/router';
 import { routeNames } from '../../../bootstrap/app.routes';
 import { PaneComponent } from '../../common/component/pane/pane.component';
+import { RimComponent } from '../../common/component/rim/rim.component';
 import { slideRouteNames } from '../mode-presentation/route';
 
 let options = {
@@ -37,6 +38,7 @@ let options = {
   imports: [
     RouterLink,
     PaneComponent,
+    RimComponent,
   ],
   templateUrl: './main-menu.component.html',
   styleUrl: './main-menu.component.scss',
@@ -69,4 +71,5 @@ export class MainMenuComponent {
     let url = this.selectedOption().url;
     await this.router.navigate(['../', routeNames.present, url]);
   }
+
 }

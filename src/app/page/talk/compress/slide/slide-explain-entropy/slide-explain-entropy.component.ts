@@ -30,7 +30,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SlideExplainEntropyComponent {
-  
+
   entropyTextLow = signal(entropyTextLow);
   entropyTextMid = signal(entropyTextMid);
   entropyTextHigh = signal(entropyTextHigh);

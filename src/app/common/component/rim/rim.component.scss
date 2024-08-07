@@ -1,0 +1,21 @@
+:host {
+
+  --padding: var(--space-3);
+  --width: calc(100vw - 2 * var(--padding));
+
+  > header {
+    position: absolute;
+    width: var(--width);
+  }
+
+  > footer {
+    position: absolute;
+    width: var(--width);
+    bottom: 0;
+  }
+}
+
+.rim {
+  background: var(--color-pane-1);
+  padding: var(--space-1) var(--padding);
+}

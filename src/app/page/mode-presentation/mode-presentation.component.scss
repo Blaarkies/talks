@@ -1,8 +1,10 @@
-.top-left {
+.top-left,
+.top-right {
+  z-index: 1;
   position: absolute;
+  font-size: var(--font-size-2);
 }
 
 .top-right {
-  position: absolute;
   right: 0;
 }
