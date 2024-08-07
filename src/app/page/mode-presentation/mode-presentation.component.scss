@@ -1,8 +1,16 @@
-.top-left {
+.top-left,
+.top-right,
+.bottom-right {
+  z-index: 1;
   position: absolute;
+  font-size: var(--font-size-2);
 }
 
 .top-right {
-  position: absolute;
   right: 0;
+}
+
+.bottom-right {
+  right: 0;
+  bottom: 0;
 }

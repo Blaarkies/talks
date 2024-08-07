@@ -34,10 +34,22 @@ export class ButtonComponent {
 
   click1 = output<MouseEvent>();
 
-  protected typeClass = computed(() =>
-    'type-' + (this.swap() ? 'swap-' : '') + this.type());
+  protected typeClass = computed(() => {
+    let type = this.type();
+    if (!type) {
+      return '';
+    }
+    let swap = this.swap() ? 'swap-' : '';
+    return 'type-' + swap + type;
+  });
 
-  protected outlineClass = computed(() => 'outline-' + this.outline());
+  protected outlineClass = computed(() => {
+    let outline = this.outline();
+    if (!outline) {
+      return '';
+    }
+    return 'outline-' + outline;
+  });
 
   @HostListener('keydown.enter', ['$event'])
   @HostListener('keydown.return', ['$event'])

@@ -28,4 +28,5 @@ export class ClickerService {
   left() {
     this.stepAction$.next('left');
   }
+
 }

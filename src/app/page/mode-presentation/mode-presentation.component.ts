@@ -5,7 +5,11 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+  RouterOutlet,
+} from '@angular/router';
 import { ButtonComponent } from '../../common/component/button/button.component';
 import { ClickerService } from './service/clicker.service';
 
@@ -23,12 +27,18 @@ import { ClickerService } from './service/clicker.service';
 })
 export class ModePresentationComponent {
 
+  private router = inject(Router);
   private clickerService = inject(ClickerService);
 
   private keydownActionMap = new Map<string, () => void>([
     ['ArrowRight', () => this.clickerService.right()],
     ['ArrowLeft', () => this.clickerService.left()],
   ]);
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeydown(event: KeyboardEvent) {
+    this.keydownActionMap.get(event.key)?.();
+  }
 
   forward() {
     this.clickerService.forward();
@@ -38,10 +48,8 @@ export class ModePresentationComponent {
     this.clickerService.backward();
   }
 
-  @HostListener('window:keydown', ['$event'])
-  handleKeydown(event: KeyboardEvent) {
-    this.keydownActionMap.get(event.key)?.();
+  quit() {
+    this.router.navigate(['../']);
   }
-
 
 }
