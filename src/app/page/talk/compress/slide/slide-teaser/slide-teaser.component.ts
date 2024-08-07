@@ -3,11 +3,14 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  DestroyRef,
   ElementRef,
+  inject,
   signal,
   viewChild,
 } from '@angular/core';
 import {
+  takeUntilDestroyed,
   toObservable,
   toSignal,
 } from '@angular/core/rxjs-interop';
@@ -23,6 +26,7 @@ import {
   timer,
 } from 'rxjs';
 import { PaneComponent } from '../../../../../common/component/pane/pane.component';
+import { ClickerService } from '../../../../mode-presentation/service/clicker.service';
 import { AnimationController } from '../../common/animation-controller';
 import { stiffyAsset } from '../../data/stiffy';
 
@@ -78,7 +82,8 @@ export class SlideTeaserComponent {
           translate: 0,
           '--stiffy-color': 'var(--base-color-4)',
           '--stiffy-background': 'var(--base-color-15)',
-        }, options: {delay: 1200}},
+        }, options: {delay: 1200},
+      },
       {ref: this.compressorGhost, job: {opacity: 0}, options: {delay: 500}},
       {ref: this.bobDesk, job: {opacity: 0}, options: {delay: 500}},
     ], // 1 move and compress disk
@@ -117,19 +122,19 @@ export class SlideTeaserComponent {
     .split(sep)
     .filter((_, i) => i % lineModulus === 0));
 
-  constructor() {
-    // TODO: use clicker server provided by PresentationComponent
-    window.addEventListener('keydown', e => {
-      let k = e.key;
-      if (k === 'ArrowRight') {
-        this.animationController.forward();
-      } else if (k === 'ArrowLeft') {
-        this.animationController.backward();
-      }
-    });
-    // TODO END
-  }
+  private clickerService = inject(ClickerService);
+  private destroyRef = inject(DestroyRef);
 
+  constructor() {
+    let actionAnimationMap = new Map<string, () => void>([
+      ['right', () => this.animationController.forward()],
+      ['left', () => this.animationController.backward()],
+    ]);
+
+    this.clickerService.stepAction$.pipe(
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe(newAction => actionAnimationMap.get(newAction)?.());
+  }
 
   private makeProgressSteps(count: number): Observable<number> {
     return timer(0, 300).pipe(

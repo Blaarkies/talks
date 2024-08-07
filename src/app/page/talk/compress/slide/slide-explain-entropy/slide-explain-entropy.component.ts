@@ -1,15 +1,16 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
-  effect,
+  DestroyRef,
   ElementRef,
+  inject,
   signal,
   viewChild,
 } from '@angular/core';
-import { coerceBetween } from '../../../../../common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ProgressComponent } from '../../../../../common/component/progress/progress.component';
-import { AnimationJob } from '../../common';
+import { ClickerService } from '../../../../mode-presentation/service/clicker.service';
+import { AnimationController } from '../../common/animation-controller';
 import { EntropyPreviewComponent } from '../../component/entropy-preview/entropy-preview.component';
 import {
   entropyTextHigh,
@@ -29,8 +30,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SlideExplainEntropyComponent {
-
-
+  
   entropyTextLow = signal(entropyTextLow);
   entropyTextMid = signal(entropyTextMid);
   entropyTextHigh = signal(entropyTextHigh);
@@ -39,8 +39,7 @@ export class SlideExplainEntropyComponent {
   pane2 = viewChild('pane2', {read: ElementRef});
   pane3 = viewChild('pane3', {read: ElementRef});
 
-  private animationIndex = signal(0);
-  private animationSteps: AnimationJob[][] = [
+  private animationController = new AnimationController([
     [
       {ref: this.pane2, job: {translate: [0], scale: [1], width: '100%'}},
     ],
@@ -58,40 +57,20 @@ export class SlideExplainEntropyComponent {
       {ref: this.pane2, job: {translate: ['10vw'], width: '0%'}},
       {ref: this.pane3, job: {translate: ['-5vw'], scale: [1.5]}},
     ],
-  ];
+  ]);
 
-  private animationStep = computed(() =>
-    this.animationSteps[this.animationIndex()]);
+  private clickerService = inject(ClickerService);
+  private destroyRef = inject(DestroyRef);
 
   constructor() {
-    // TODO: use clicker server provided by PresentationComponent
-    window.addEventListener('keydown', e => {
-      let k = e.key;
-      if (k === 'ArrowRight') {
-        this.animationIndex.update(v => coerceBetween(v + 1, 0, this.animationSteps.length - 1));
-      } else if (k === 'ArrowLeft') {
-        this.animationIndex.update(v => coerceBetween(v - 1, 0, this.animationSteps.length - 1));
-      }
-    });
-    // TODO END
+    let actionAnimationMap = new Map<string, () => void>([
+      ['right', () => this.animationController.forward()],
+      ['left', () => this.animationController.backward()],
+    ]);
 
-    effect(() => {
-      let animationJobs = this.animationStep();
-      if (!animationJobs) {
-        return;
-      }
-
-      let stepCount = 3;
-      let options = {
-        duration: stepCount * 100,
-        easing: `steps(${stepCount})`,
-        fill: 'both',
-        step: .5,
-      };
-
-      animationJobs.forEach(j => j.ref().nativeElement
-        .animate(j.job, options));
-    });
+    this.clickerService.stepAction$.pipe(
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe(newAction => actionAnimationMap.get(newAction)?.());
   }
 
 }
