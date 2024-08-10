@@ -1,7 +1,9 @@
 <app-rim>
-  <div head class="heading">{{header()}}</div>
+  <div head class="heading">{{ header() }}</div>
 
-  <router-outlet/>
+  <div [@routeAnimations]="currentRouteIndex()">
+    <router-outlet/>
+  </div>
 
-  <div foot class="footing">{{footer()}}</div>
+  <div foot class="footing">{{ footer() }}</div>
 </app-rim>

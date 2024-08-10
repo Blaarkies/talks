@@ -1,9 +1,20 @@
 import {
+  animate,
+  animateChild,
+  group,
+  query,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
+import {
   ChangeDetectionStrategy,
   Component,
   computed,
   DestroyRef,
   inject,
+  signal,
+  WritableSignal,
 } from '@angular/core';
 import {
   takeUntilDestroyed,
@@ -23,6 +34,7 @@ import {
 import { coerceBetween } from '../../../../common';
 import { RimComponent } from '../../../../common/component/rim/rim.component';
 import { ClickerService } from '../../../mode-presentation/service/clicker.service';
+import { routeAnimations } from '../common/route-animations';
 import { pathToHeadingFootingMap } from '../data/heading-footing';
 import { compressionSlideRouteNames } from './route';
 
@@ -36,8 +48,11 @@ import { compressionSlideRouteNames } from './route';
   templateUrl: './slideshow.component.html',
   styleUrl: './slideshow.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [routeAnimations],
 })
 export class SlideshowComponent {
+
+  protected currentRouteIndex: WritableSignal<number>;
 
   private clickerService = inject(ClickerService);
   private destroyRef = inject(DestroyRef);
@@ -45,7 +60,6 @@ export class SlideshowComponent {
   private activatedRoute = inject(ActivatedRoute);
 
   private routes = Object.values(compressionSlideRouteNames);
-  private currentRouteIndex: number;
 
   private headingFooting = toSignal(this.router.events.pipe(
     filter(event => event instanceof NavigationEnd),
@@ -59,7 +73,10 @@ export class SlideshowComponent {
 
   constructor() {
     let firstPath = this.activatedRoute.firstChild.snapshot.url.at(-1).path;
-    this.currentRouteIndex = this.routes.findIndex(path => path === firstPath);
+    let index = this.routes.findIndex(path => path === firstPath);
+    this.currentRouteIndex = signal(-1);
+    this.currentRouteIndex = signal(index);
+
     let routesMaxIndex = this.routes.length - 1;
     let getSafeValue =
       (value: number) => coerceBetween(value, 0, routesMaxIndex);
@@ -68,13 +85,13 @@ export class SlideshowComponent {
       takeUntilDestroyed(this.destroyRef),
     ).subscribe(newAction => {
       if (newAction === 'forward') {
-        this.currentRouteIndex = getSafeValue(this.currentRouteIndex + 1);
-        this.goToRouteIndex(this.currentRouteIndex);
+        this.currentRouteIndex.update(v => getSafeValue(v + 1));
+        this.goToRouteIndex(this.currentRouteIndex());
       }
 
       if (newAction === 'backward') {
-        this.currentRouteIndex = getSafeValue(this.currentRouteIndex - 1);
-        this.goToRouteIndex(this.currentRouteIndex);
+        this.currentRouteIndex.update(v => getSafeValue(v - 1));
+        this.goToRouteIndex(this.currentRouteIndex());
       }
     });
   }
