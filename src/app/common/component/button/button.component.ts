@@ -21,7 +21,7 @@ import {
 })
 export class ButtonComponent {
 
-  type = input<1 | 2>();
+  type = input<1 | 2 | 3 | 4>();
   swap = input<boolean>();
   shadow = input<boolean>(false);
   outline = input<'single' | 'double'>();

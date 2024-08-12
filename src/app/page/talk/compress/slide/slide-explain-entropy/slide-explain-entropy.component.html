@@ -2,6 +2,7 @@
 
   <app-entropy-preview
     #pane1
+    [type]="4"
     class="pane-1"
     [header]="'Low Entropy'"
     [data]="entropyTextLow()"
@@ -9,15 +10,17 @@
 
   <app-entropy-preview
     #pane2
+    [type]="2"
     class="pane-2"
-    [header]="'Extremely Mid Entropy'"
+    [header]="'Medium Entropy'"
     [data]="entropyTextMid()"
   />
 
   <app-entropy-preview
     #pane3
+    [type]="1"
     class="pane-3"
-    [header]="'Entropy Super Maxx++'"
+    [header]="'High Entropy'"
     [data]="entropyTextHigh()"
   />
 

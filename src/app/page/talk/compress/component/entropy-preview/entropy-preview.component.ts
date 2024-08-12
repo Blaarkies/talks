@@ -40,6 +40,8 @@ export class EntropyPreviewComponent {
   header = input<string>();
   data = input.required<Data>();
 
+  type = input<1 | 2 | 3 | 4>(1);
+
   private previewDataElement = viewChild('previewData', {read: ElementRef<HTMLElement>});
 
   protected text = computed(() => {
@@ -56,11 +58,15 @@ export class EntropyPreviewComponent {
   });
   protected encodedTokens = computed(() => {
     let refs = this.tokensRefs();
-    return refs.map(([t, r]) => `${this.tokenSymbol}${r} ${t}`);
+    return refs.map(refEntry => {
+      let [t, r] = refEntry;
+      return {refEntry, label: `${this.tokenSymbol}${r} ${t}`};
+    });
   });
   protected totalBytes = computed(() =>
     this.previewDataElement().nativeElement.textContent.length
-    + this.encodedTokens().join('').replaceAll(' ', '').length);
+    + this.encodedTokens().map(r => r.label)
+      .join('').replaceAll(' ', '').length);
 
   private tokensElementsMap = new Map<string, HTMLElement[]>();
   private tokensRefsMap = new Map<string, number>();
@@ -145,6 +151,10 @@ export class EntropyPreviewComponent {
     let wordElement = eventTarget as HTMLElement;
     let token = wordElement.getAttribute('data-token');
 
+    this.toggleToken(token, parentElement);
+  }
+
+  private toggleToken(token: string, parentElement?: HTMLDivElement) {
     let tokenRef = this.getAvailableToken();
     let nowState = this.tokensRefsMap.delete(token)
       || !this.tokensRefsMap.set(token, tokenRef);
@@ -155,7 +165,9 @@ export class EntropyPreviewComponent {
     );
 
     let isActive = !nowState;
-    this.cacheTokenElements(token, parentElement);
+    if (parentElement) {
+      this.cacheTokenElements(token, parentElement);
+    }
 
     this.tokensElementsMap.get(token)
       .forEach(e => {
@@ -168,6 +180,11 @@ export class EntropyPreviewComponent {
         }
       });
     this.activeAnimations.forEach(a => a.cancel());
+  }
+
+  removeEncoding(refEntry: (string | number)[]) {
+    let token = refEntry[0] as string;
+    this.toggleToken(token);
   }
 
   clearTokens() {
@@ -192,4 +209,5 @@ export class EntropyPreviewComponent {
            ? availables[0]
            : Math.max(...allNumbers) + 1;
   }
+
 }

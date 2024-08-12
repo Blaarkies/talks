@@ -26,6 +26,8 @@ const defaultAnimation = query(':enter, :leave',
   {optional: true},
 );
 
+let timings = '1s steps(10)';
+
 export const routeAnimations =
   trigger('routeAnimations', [
     transition(':increment', [
@@ -34,9 +36,9 @@ export const routeAnimations =
       query(':enter', [style({left: '100%'})], {optional: true}),
       query(':leave', animateChild(), {optional: true}),
       group([
-        query(':leave', [animate('1s steps(10)', style({left: '-100%'}))],
+        query(':leave', [animate(timings, style({left: '-100%'}))],
           {optional: true}),
-        query(':enter', [animate('1s steps(10)', style({left: '0%'}))],
+        query(':enter', [animate(timings, style({left: '0%'}))],
           {optional: true}),
         query('@*', animateChild(), {optional: true}),
       ]),
@@ -48,9 +50,9 @@ export const routeAnimations =
       query(':enter', [style({left: '-100%'})], {optional: true}),
       query(':leave', animateChild(), {optional: true}),
       group([
-        query(':leave', [animate('1s steps(10)', style({left: '100%'}))],
+        query(':leave', [animate(timings, style({left: '100%'}))],
           {optional: true}),
-        query(':enter', [animate('1s steps(10)', style({left: '0%'}))],
+        query(':enter', [animate(timings, style({left: '0%'}))],
           {optional: true}),
         query('@*', animateChild(), {optional: true}),
       ]),

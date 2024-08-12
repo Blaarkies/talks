@@ -41,10 +41,28 @@
     --outline-color: var(--color-border-4);
   }
 
+  &.type-swap-1 {
+    background: var(--color-swap-pane-1);
+    color: var(--color-swap-text-1);
+    --outline-color: var(--color-swap-border-1);
+  }
+
   &.type-swap-2 {
     background: var(--color-swap-pane-2);
     color: var(--color-swap-text-2);
     --outline-color: var(--color-swap-border-2);
+  }
+
+  &.type-swap-3 {
+    background: var(--color-swap-pane-3);
+    color: var(--color-swap-text-3);
+    --outline-color: var(--color-swap-border-3);
+  }
+
+  &.type-swap-4 {
+    background: var(--color-swap-pane-4);
+    color: var(--color-swap-text-4);
+    --outline-color: var(--color-swap-border-4);
   }
 
   &.shadow {

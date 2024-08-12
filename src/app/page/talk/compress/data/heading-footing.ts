@@ -2,11 +2,11 @@ import { compressionSlideRouteNames } from '../slide/route';
 
 export const pathToHeadingFootingMap = new Map<string, string[]>([
   [compressionSlideRouteNames.teaser, [
-    'Welcome, Data Compression!',
-    'Alice sends a zip file to Bob'
+    'WELCOME, DATA COMPRESSION!',
+    'USE ARROW KEYS ← → TO PROGRESS THE COMPRESSION'
   ]],
   [compressionSlideRouteNames.entropy, [
-    'Defining Information',
-    'Entropy is a measure of pure information'
+    'DEFINING INFORMATION',
+    'USE ARROW KEYS ← → TO VIEW THE NEXT ENTROPY EXAMPLE'
   ]],
 ]);

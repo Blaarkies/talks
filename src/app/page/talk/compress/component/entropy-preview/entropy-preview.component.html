@@ -1,6 +1,7 @@
 <app-pane
-  [type]="2"
+  [type]="type()"
   [swap]="true"
+  [shadow]="true"
 >
   <div class="layout-entropy-measure">
 
@@ -21,15 +22,20 @@
     @if (encodedTokens().length) {
       <div class="encoding-layout">
         <div class="token-label-list">
-          @for (encoding of encodedTokens(); track encoding) {
-            <div>{{ encoding }}</div>
+          @for (encoding of encodedTokens(); track encoding.refEntry) {
+            <span
+              class="entry-preview"
+              (click)="removeEncoding(encoding.refEntry)"
+            >
+              {{ encoding.label }}
+            </span>
           }
         </div>
 
         <div class="info">
           <app-button
             [tabindex]="5"
-            [type]="2"
+            [type]="type()"
             (click1)="clearTokens()">
             CLEAR
           </app-button>
