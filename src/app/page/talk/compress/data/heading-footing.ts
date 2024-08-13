@@ -9,4 +9,8 @@ export const pathToHeadingFootingMap = new Map<string, string[]>([
     'DEFINING INFORMATION',
     'USE ARROW KEYS ← → TO VIEW THE NEXT ENTROPY EXAMPLE'
   ]],
+  [compressionSlideRouteNames.runLengthEncoding, [
+    'RUN-LENGTH ENCODING',
+    'USE MOUSE HOVER TO HIGHLIGHT ENCODING RUNS',
+  ]],
 ]);

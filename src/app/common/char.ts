@@ -7,3 +7,5 @@ export const chars = {
   squareHigh: '▀',
   squareCenter: '■',
 };
+
+export const sep = '\n';

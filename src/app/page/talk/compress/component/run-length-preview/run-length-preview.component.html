@@ -1,0 +1,13 @@
+<div
+  class="layout"
+  [style.width.ch]="strideWidth()"
+  (pointerleave)="pointsAt(null)"
+>
+  @for (run of runs(); track run; let i = $index) {
+    <span
+      class="line"
+      [class.is-lighted]="i === highlightIndex()"
+      (pointerenter)="pointsAt(i)"
+    >{{ run }}</span>
+  }
+</div>

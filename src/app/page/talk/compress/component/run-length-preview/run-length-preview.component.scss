@@ -1,0 +1,11 @@
+.layout {
+  cursor: pointer;
+  font-size: var(--font-size-4);
+
+  .line {
+    &:hover,
+    &.is-lighted {
+      background: var(--base-color-2);
+    }
+  }
+}

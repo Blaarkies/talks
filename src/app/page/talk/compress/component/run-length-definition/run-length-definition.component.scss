@@ -1,0 +1,15 @@
+.layout {
+  word-break: break-all;
+  display: flex;
+  column-gap: 1ch;
+  flex-wrap: wrap;
+}
+
+.definition {
+  cursor: pointer;
+
+  &:hover,
+  &.is-lighted {
+    background: var(--base-color-2);
+  }
+}

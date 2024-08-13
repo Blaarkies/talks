@@ -1,0 +1,14 @@
+<div
+  class="layout"
+  (pointerleave)="pointsAt(null)"
+>
+  <span>{{ stride() }}W</span>
+
+  @for (def of defs(); track i + def.join(''); let i = $index) {
+    <span
+      class="definition"
+      [class.is-lighted]="i === highlightIndex()"
+      (pointerenter)="pointsAt(i)"
+    >{{ def.join('') }}</span>
+  }
+</div>

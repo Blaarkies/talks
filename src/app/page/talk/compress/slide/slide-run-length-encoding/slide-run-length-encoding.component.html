@@ -1,0 +1,37 @@
+<div class="s-r-l-e-layout">
+  <div class="tile preview">
+    <app-run-length-preview
+      #previewData
+      [class.conceal]="step() < 1"
+      [data]="imageString()"
+      [highlightIndex]="lightedPreview()"
+      (userPointsAt)="previewPointing($event)"
+    />
+    <app-entropy-measure
+      #previewMeasure
+      [class.conceal]="step() < 2"
+      [data]="imageString()"
+    />
+
+    <span class="terminal-cursor" [class.hide]="step() > 0">█</span>
+  </div>
+
+  <div class="tile encoded">
+    <app-run-length-definition
+      #defsData
+      [class.conceal]="step() < 4"
+      [defs]="encodings()"
+      [stride]="imageWidth()"
+      [highlightIndex]="lightedDef()"
+      (userPointsAt)="definitionsPointing($event)"
+    />
+    <app-entropy-measure
+      #defsMeasure
+      [class.conceal]="step() < 5"
+      [data]="encodingsData()"
+    />
+
+    <span class="terminal-cursor" [class.hide]="step() !== 3">█</span>
+  </div>
+
+</div>
