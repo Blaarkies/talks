@@ -1,7 +1,5 @@
 .layout-main-menu {
-  width: 100vw;
-  height: 100vh;
-
+  height: 100%;
   background: var(--color-back-1);
 
   display: grid;
@@ -14,6 +12,10 @@
     gap: var(--space-5);
     margin: var(--space-5);
   }
+}
+
+.head-footing {
+  padding-left: var(--space-5);
 }
 
 .navigation-list {

@@ -1,0 +1,19 @@
+<div class="wrap-table" (pointerleave)="pointsAt(null)">
+  @for (row of table(); track row?.[0] + row?.[1]; let i = $index) {
+    @if (!row) {
+      <div class="token null-token">
+        <div></div>
+        <div>⋮</div>
+      </div>
+    } @else {
+      <div
+        class="token hover-token"
+        [class.is-lit]="row[1] === litBinary()"
+        (pointerenter)="pointsAt(row[1])"
+      >
+        <div>{{ row[0] }}</div>
+        <div>{{ row[1] }}</div>
+      </div>
+    }
+  }
+</div>

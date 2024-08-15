@@ -1,0 +1,9 @@
+.token {
+  cursor: pointer;
+  word-break: break-all;
+
+  &:hover,
+  &.is-lit {
+    background: var(--base-color-8);
+  }
+}

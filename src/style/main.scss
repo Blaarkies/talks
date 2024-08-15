@@ -22,14 +22,14 @@
 
   // Color
   --base-color-0:  rgb(0 0 0);
-  --base-color-1:  rgb(168 0 0);
+  --base-color-1:  rgb(170 0 0);
   --base-color-2:  rgb(0 144 0);
-  --base-color-3:  rgb(168 168 0);
-  --base-color-4:  rgb(0 0 168);
-  --base-color-5:  rgb(168 0 168);
-  --base-color-6:  rgb(0 168 168);
-  --base-color-7:  rgb(168 168 168);
-  --base-color-8:  rgb(128 128 128);
+  --base-color-3:  rgb(170 170 0);
+  --base-color-4:  rgb(0 0 170);
+  --base-color-5:  rgb(170 0 170);
+  --base-color-6:  rgb(0 170 170);
+  --base-color-7:  rgb(170 170 170);
+  --base-color-8:  rgb(130 130 130);
   --base-color-9:  rgb(255 0 0);
   --base-color-10: rgb(0 255 0);
   --base-color-11: rgb(255 255 0);
@@ -41,9 +41,11 @@
   --color-text-danger: var(--base-color-1);
   --color-text-highlight-danger: var(--base-color-9);
 
-  --color-back-1: rgb(128 128 213);
+  --color-back-1: rgb(130 130 213);
   --color-back-2: rgb(0 170 170);
   --color-back-3: rgb(0 0 0);
+  --color-back-4: var(--base-color-4);
+  --color-back-5: rgb(130 213 130);
 
   --color-pane-1: var(--base-color-7);
   --color-text-1: var(--base-color-1);

@@ -8,9 +8,9 @@ export const slideRouteNames = {
 export const routes: Route[] = [
   {
     path: slideRouteNames.compression,
-    loadComponent: () => import( '../talk/compress/slide/slideshow.component')
-      .then(c => c.SlideshowComponent),
-    loadChildren: () => import( '../talk/compress/slide/route')
+    loadComponent: () => import( '../talk/compress/slideshow-compression/slideshow-compression.component')
+      .then(c => c.SlideshowCompressionComponent),
+    loadChildren: () => import( '../talk/compress/slideshow-compression/route')
       .then(c => c.routes),
   },
   // {

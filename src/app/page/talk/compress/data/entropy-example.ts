@@ -9,7 +9,8 @@ made it to fly up in space boats and stay inside it People and things
 inside it stay in the air instead of falling to the floor Inside the house
 things like water and people fly around when kicking off the walls. People
 inside the house work and play and take pictures of Earth
-`.trim().toLowerCase().replaceAll('\n', ' ')
+`.trim().toLowerCase()
+  .replaceAll('\n', ' ')
   .substring(0, 300);
 
 export const entropyTextMid = `
@@ -19,7 +20,9 @@ agencies and their contractors: NASA (United States), Roscosmos (Russia),
 ESA (Europe), JAXA (Japan), and CSA (Canada). The ISS is the largest
 space station ever built. Its primary purpose is to perform microgravity
 and space environment experiments.[12]
-`.replaceAll('\n', ' ').substring(0, 299) + '.';
+`.trim()
+  .replaceAll('\n', ' ')
+  .substring(0, 299) + '.';
 
 export const entropyTextHigh = makeLoremIpsum(150, {
   punctuationDensity: .8,
@@ -42,4 +45,5 @@ export const entropyTextHigh = makeLoremIpsum(150, {
   })
   .filter(t => t)
   .join(' ')
+  .replace(/\s+/g, ' ')
   .substring(0, 299) + '.';

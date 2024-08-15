@@ -1,0 +1,62 @@
+<div [@lineRevealOnStep]="step()" class="s-a-i-b-layout">
+
+  @switch (step()) {
+    @case (0) {
+      <div class="step-0">
+        <div class="tile half-ascii-table">
+          <div>ASCII Table (0-63)</div>
+          <div class="tile-contents">
+            <app-ascii-table [filterTemplate]="asciiHalf1()"/>
+          </div>
+        </div>
+      </div>
+    }
+    @case (1) {
+      <div class="step-1">
+        <div class="tile half-ascii-table">
+          <div>ASCII Table (64-127)</div>
+          <div class="tile-contents">
+            <app-ascii-table [filterTemplate]="asciiHalf2()"/>
+          </div>
+        </div>
+      </div>
+    }
+    @case (2) {
+      <div class="step-2">
+        <div class="tile text-characters">
+          <div>Text in Characters</div>
+          <div class="tile-contents">
+            <app-text-character-lighter
+              [characters]="exampleText()"
+              [litCharacter]="litChar()"
+              (userPointsAt)="updateLitCharacter($event, true)"
+            />
+          </div>
+        </div>
+
+        <div class="tile ascii-table">
+          <div>ASCII Table (Truncated)</div>
+          <div class="tile-contents">
+            <app-ascii-table
+              [filterTemplate]="exampleAscii()"
+              [litBinary]="litBinary()"
+              (userPointsAt)="updateLitCharacter($event)"
+            />
+          </div>
+        </div>
+
+        <div class="tile text-in-binary">
+          <div>Text in Binary</div>
+          <div class="tile-contents">
+            <app-text-character-lighter
+              [characters]="exampleBinary()"
+              [litCharacter]="litBinary()"
+              (userPointsAt)="updateLitCharacter($event)"
+            />
+          </div>
+        </div>
+      </div>
+    }
+  }
+
+</div>

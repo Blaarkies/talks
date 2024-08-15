@@ -4,6 +4,9 @@ export const compressionSlideRouteNames = {
   teaser: 'compression-should-be-impossible',
   entropy: 'data-vs-information',
   runLengthEncoding: 'run-length-encoding',
+  asciiInBinary: 'ascii-in-binary',
+  huffmanCodingDictionary: 'huffman-coding-dictionary',
+  huffmanCodingTree: 'huffman-coding-tree',
 };
 
 export const routes: Route[] = [
@@ -21,6 +24,11 @@ export const routes: Route[] = [
     path: compressionSlideRouteNames.runLengthEncoding,
     loadComponent: () => import( '../slide/slide-run-length-encoding/slide-run-length-encoding.component')
       .then(c => c.SlideRunLengthEncodingComponent),
+  },
+  {
+    path: compressionSlideRouteNames.asciiInBinary,
+    loadComponent: () => import( '../slide/slide-ascii-in-binary/slide-ascii-in-binary.component')
+      .then(c => c.SlideAsciiInBinaryComponent),
   },
 
   {

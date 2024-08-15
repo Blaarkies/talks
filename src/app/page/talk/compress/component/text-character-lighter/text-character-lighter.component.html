@@ -1,0 +1,9 @@
+<div (pointerleave)="pointsAt(null)">
+  @for (char of characters(); track i + char; let i = $index) {
+    <span
+      class="token"
+      [class.is-lit]="char === this.litCharacter()"
+      (pointerenter)="pointsAt(char)"
+    >{{ char }}</span>
+  }
+</div>

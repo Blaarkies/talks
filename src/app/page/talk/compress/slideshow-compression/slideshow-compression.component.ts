@@ -1,13 +1,4 @@
 import {
-  animate,
-  animateChild,
-  group,
-  query,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
-import {
   ChangeDetectionStrategy,
   Component,
   computed,
@@ -45,12 +36,12 @@ import { compressionSlideRouteNames } from './route';
     RouterOutlet,
     RimComponent,
   ],
-  templateUrl: './slideshow.component.html',
-  styleUrl: './slideshow.component.scss',
+  templateUrl: './slideshow-compression.component.html',
+  styleUrl: './slideshow-compression.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [routeAnimations],
 })
-export class SlideshowComponent {
+export class SlideshowCompressionComponent {
 
   protected currentRouteIndex: WritableSignal<number>;
 
@@ -65,7 +56,7 @@ export class SlideshowComponent {
     filter(event => event instanceof NavigationEnd),
     startWith(0),
     map(() => this.activatedRoute.firstChild.snapshot.url.at(-1).path),
-    map(path => pathToHeadingFootingMap.get(path) ?? path),
+    map(path => pathToHeadingFootingMap.get(path) ?? [path, path]),
   ));
 
   protected header = computed(() => this.headingFooting()[0]);

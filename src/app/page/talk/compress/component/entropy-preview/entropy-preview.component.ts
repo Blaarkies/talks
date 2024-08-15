@@ -65,7 +65,7 @@ export class EntropyPreviewComponent {
   });
   protected totalBytes = computed(() =>
     this.previewDataElement().nativeElement.textContent.length
-    + this.encodedTokens().map(r => r.label)
+    + this.encodedTokens().map(r => r.label.substring(1))
       .join('').replaceAll(' ', '').length);
 
   private tokensElementsMap = new Map<string, HTMLElement[]>();

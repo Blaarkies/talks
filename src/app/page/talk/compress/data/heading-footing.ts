@@ -1,9 +1,9 @@
-import { compressionSlideRouteNames } from '../slide/route';
+import { compressionSlideRouteNames } from '../slideshow-compression/route';
 
 export const pathToHeadingFootingMap = new Map<string, string[]>([
   [compressionSlideRouteNames.teaser, [
     'WELCOME, DATA COMPRESSION!',
-    'USE ARROW KEYS ← → TO PROGRESS THE COMPRESSION'
+    'USE ARROW KEYS ← → TO SEND THE DISK FROM ALICE TO BOB'
   ]],
   [compressionSlideRouteNames.entropy, [
     'DEFINING INFORMATION',
@@ -12,5 +12,9 @@ export const pathToHeadingFootingMap = new Map<string, string[]>([
   [compressionSlideRouteNames.runLengthEncoding, [
     'RUN-LENGTH ENCODING',
     'USE MOUSE HOVER TO HIGHLIGHT ENCODING RUNS',
+  ]],
+  [compressionSlideRouteNames.asciiInBinary, [
+    'ASCII, BINARY, CHARACTER',
+    'USE ARROW KEYS ← → TO PAGE AND MOUSE HOVER TO HIGHLIGHT',
   ]],
 ]);

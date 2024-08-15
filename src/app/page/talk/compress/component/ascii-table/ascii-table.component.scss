@@ -1,0 +1,29 @@
+.wrap-table {
+  max-height: 100%;
+  display: flex;
+  gap: 0 6ch;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.token {
+  display: flex;
+  gap: 0 1ch;
+
+  & >*:last-child {
+    margin-left: auto;
+  }
+
+  &.hover-token {
+    cursor: pointer;
+
+    &:hover,
+    &.is-lit {
+      background: var(--base-color-8);
+    }
+  }
+
+  &.null-token {
+    text-align: center;
+  }
+}
