@@ -1,69 +1,47 @@
+@use '../../../../style/setup/mixin';
+
+%outline-defaults {
+  position: relative;
+  padding: var(--space-5);
+
+  &:before {
+    content: '';
+    position: absolute;
+    pointer-events: none;
+
+    inset: var(--outside-padding);
+    width: calc(100% - var(--outside-padding) * 2);
+    height: calc(100% - var(--outside-padding) * 2);
+    outline-color: var(--outline-color);
+  }
+}
+
 .pane-main {
   --outer-padding: var(--space-4);
   padding: var(--outer-padding);
 
   &.outline-double {
-    position: relative;
-    padding: var(--space-5);
+    @extend %outline-defaults;
 
     &:before {
-      content: '';
-      position: absolute;
-      --outside-padding: 1ch;
-      inset: var(--outside-padding);
-      width: calc(100% - var(--outside-padding) * 2);
-      height: calc(100% - var(--outside-padding) * 2);
-      outline: var(--border-width-5) double var(--outline-color);
+      --outside-padding: .8ch;
+      outline-width: var(--border-width-5);
+      outline-style: double;
     }
   }
 
-  &.type-1 {
-    background: var(--color-pane-1);
-    color: var(--color-text-1);
-    --outline-color: var(--color-border-1);
+  &.outline-single {
+    @extend %outline-defaults;
+
+    &:before {
+      --outside-padding: .7ch;
+      outline-width: var(--border-width-2);
+      outline-style: solid;
+    }
   }
 
-  &.type-2 {
-    background: var(--color-pane-2);
-    color: var(--color-text-2);
-    --outline-color: var(--color-border-2);
-  }
-
-  &.type-3 {
-    background: var(--color-pane-3);
-    color: var(--color-text-3);
-    --outline-color: var(--color-border-3);
-  }
-
-  &.type-4 {
-    background: var(--color-pane-4);
-    color: var(--color-text-4);
-    --outline-color: var(--color-border-4);
-  }
-
-  &.type-swap-1 {
-    background: var(--color-swap-pane-1);
-    color: var(--color-swap-text-1);
-    --outline-color: var(--color-swap-border-1);
-  }
-
-  &.type-swap-2 {
-    background: var(--color-swap-pane-2);
-    color: var(--color-swap-text-2);
-    --outline-color: var(--color-swap-border-2);
-  }
-
-  &.type-swap-3 {
-    background: var(--color-swap-pane-3);
-    color: var(--color-swap-text-3);
-    --outline-color: var(--color-swap-border-3);
-  }
-
-  &.type-swap-4 {
-    background: var(--color-swap-pane-4);
-    color: var(--color-swap-text-4);
-    --outline-color: var(--color-swap-border-4);
-  }
+  @include mixin.make-colored-pane-class('', --color, 4);
+  @include mixin.make-colored-pane-class(swap-, --color-swap, 4);
 
   &.shadow {
     box-shadow: -1ch 1ch 0 0 var(--color-shadow-1);

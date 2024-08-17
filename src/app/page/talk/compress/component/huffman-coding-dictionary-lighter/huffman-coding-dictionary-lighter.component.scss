@@ -1,0 +1,18 @@
+.list-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 2ch;
+
+  .tile {
+    text-align: center;
+    background: var(--base-color-8);
+    padding: .5ch 1ch;
+    color: var(--base-color-15);
+    cursor: pointer;
+
+    &:hover,
+    &.is-lit {
+      background: var(--base-color-2);
+    }
+  }
+}

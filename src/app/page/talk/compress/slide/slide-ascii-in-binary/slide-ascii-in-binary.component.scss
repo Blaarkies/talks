@@ -6,29 +6,22 @@
   --color: var(--base-color-11);
   color: var(--color);
 
+  padding-inline: 5vw;
+
+  // aligns items on top of each other for animations
   display: grid;
   grid-template-areas: 'stack';
 
-  padding-inline: 5vw;
-
-  .step-0, .step-1 {
+  & > * {
     grid-area: stack;
-
     height: 100%;
     display: grid;
     align-content: center;
     align-items: center;
+    gap: 5vw;
   }
 
   .step-2 {
-    grid-area: stack;
-
-    height: 100%;
-    display: grid;
-    gap: 5vw;
-    align-content: center;
-    align-items: center;
-    justify-items: center;
     grid-template: 1fr / max-content 1fr 1fr;
   }
 
@@ -49,10 +42,6 @@
   }
 }
 
-.text-characters {
-
-}
-
 .half-ascii-table {
   .tile-contents {
     max-height: 400px;
@@ -69,8 +58,4 @@
     scrollbar-color: var(--color) transparent;
     scrollbar-width: auto;
   }
-}
-
-.text-in-binary {
-
 }

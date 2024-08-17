@@ -30,6 +30,11 @@ export const routes: Route[] = [
     loadComponent: () => import( '../slide/slide-ascii-in-binary/slide-ascii-in-binary.component')
       .then(c => c.SlideAsciiInBinaryComponent),
   },
+  {
+    path: compressionSlideRouteNames.huffmanCodingDictionary,
+    loadComponent: () => import( '../slide/slide-huffman-coding-dictionary/slide-huffman-coding-dictionary.component')
+      .then(c => c.SlideHuffmanCodingDictionaryComponent),
+  },
 
   {
     path: '**',

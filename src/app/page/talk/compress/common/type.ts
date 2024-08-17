@@ -9,9 +9,11 @@ export interface AnimationJob {
   options?: KeyframeAnimationOptions;
 }
 
-export type Data = string;
+export type Data = string | number[] | BinaryData;
 
 export type TokenElementGroup = {
   eventTarget: EventTarget,
   parentElement: HTMLDivElement,
 }
+
+export type CharOrBin = string | null;

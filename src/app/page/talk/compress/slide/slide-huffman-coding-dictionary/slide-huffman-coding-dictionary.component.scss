@@ -1,0 +1,23 @@
+.s-h-c-d-container {
+  overflow: hidden;
+  height: 100%;
+  background: var(--color-back-5);
+
+  //--color: var(--base-color-11);
+  //color: var(--color);
+
+  padding-inline: 5vw;
+
+  display: grid;
+  place-content: center;
+
+  .s-h-c-d-layout {
+    display: grid;
+    grid-template: 1fr 1fr / auto auto auto;
+    gap: 4ch;
+
+    & > *:last-child {
+      grid-column: 1 / -1;
+    }
+  }
+}

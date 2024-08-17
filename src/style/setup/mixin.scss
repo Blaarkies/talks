@@ -36,3 +36,13 @@
     --#{$name}-#{$i}: calc(#{$base} + #{($step * ($i - 3))});
   }
 }
+
+@mixin make-colored-pane-class($className, $varName, $count) {
+  @for $i from 1 through $count {
+    &.type-#{$className}#{$i} {
+      background: var(#{$varName}-pane-#{$i});
+      color: var(#{$varName}-text-#{$i});
+      --outline-color: var(#{$varName}-border-#{$i});
+    }
+  }
+}

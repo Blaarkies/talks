@@ -2,7 +2,7 @@
 
   @switch (step()) {
     @case (0) {
-      <div class="step-0">
+      <div>
         <div class="tile half-ascii-table">
           <div>ASCII Table (0-63)</div>
           <div class="tile-contents">
@@ -12,7 +12,7 @@
       </div>
     }
     @case (1) {
-      <div class="step-1">
+      <div>
         <div class="tile half-ascii-table">
           <div>ASCII Table (64-127)</div>
           <div class="tile-contents">
@@ -21,9 +21,9 @@
         </div>
       </div>
     }
-    @case (2) {
+    @default {
       <div class="step-2">
-        <div class="tile text-characters">
+        <div class="tile">
           <div>Text in Characters</div>
           <div class="tile-contents">
             <app-text-character-lighter
@@ -34,6 +34,7 @@
           </div>
         </div>
 
+        @if (step() >= 3) {
         <div class="tile ascii-table">
           <div>ASCII Table (Truncated)</div>
           <div class="tile-contents">
@@ -44,8 +45,10 @@
             />
           </div>
         </div>
+        }
 
-        <div class="tile text-in-binary">
+        @if (step() >= 4) {
+        <div class="tile">
           <div>Text in Binary</div>
           <div class="tile-contents">
             <app-text-character-lighter
@@ -55,6 +58,7 @@
             />
           </div>
         </div>
+        }
       </div>
     }
   }

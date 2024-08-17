@@ -12,12 +12,14 @@ import {
   unique,
 } from '../../../../../common';
 import { ClickerService } from '../../../../mode-presentation/service/clicker.service';
+import { CharOrBin } from '../../common';
+import { toBinary } from '../../common/encode';
 import { lineRevealOnStep } from './animations';
 import { AsciiTableComponent } from '../../component/ascii-table/ascii-table.component';
 import { TextCharacterLighterComponent } from '../../component/text-character-lighter/text-character-lighter.component';
 
 const exampleText = 'Example Text';
-const bitLength = 7;
+const asciiBitLength = 7;
 const exampleAsciiFromText = [
   ...' !"'.split(''),
   null,
@@ -26,16 +28,7 @@ const exampleAsciiFromText = [
   ...'}~\u007f'.split(''),
 ];
 
-function toBinary(value: string): string {
-  return value
-    .charCodeAt(0)
-    .toString(2)
-    .padStart(bitLength, '0');
-}
-
-type CharOrBin = string | null;
-
-const stepsMax = 2;
+const stepsMax = 4;
 
 @Component({
   selector: 'app-slide-ascii-in-binary',
@@ -59,7 +52,8 @@ export class SlideAsciiInBinaryComponent {
     .map(n => String.fromCharCode(n)));
 
   protected exampleText = signal(exampleText.split(''));
-  protected exampleBinary = signal(this.exampleText().map(c => toBinary(c)));
+  protected exampleBinary = signal(this.exampleText()
+    .map(c => toBinary(c, asciiBitLength)));
   protected exampleAscii = signal(exampleAsciiFromText);
 
   protected litChar = signal<CharOrBin>(null);
@@ -81,7 +75,8 @@ export class SlideAsciiInBinaryComponent {
 
   updateLitCharacter(data: string, isChar = false) {
     if (isChar) {
-      let binary = data ? toBinary(data) : null;
+      let binary = data ? toBinary(data, asciiBitLength) : null;
+      this.litChar.set(data);
       this.litBinary.set(binary);
 
       return;
