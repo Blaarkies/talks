@@ -1,9 +1,17 @@
+.lit-color-1 {
+  --lit-color: var(--base-color-8)
+}
+
+.lit-color-2 {
+  --lit-color: var(--base-color-2)
+}
+
 .token {
   cursor: pointer;
   word-break: break-all;
 
   &:hover,
   &.is-lit {
-    background: var(--base-color-2);
+    background: var(--lit-color);
   }
 }

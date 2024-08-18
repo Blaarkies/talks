@@ -6,7 +6,7 @@
   @for (run of runs(); track run; let i = $index) {
     <span
       class="line"
-      [class.is-lighted]="i === highlightIndex()"
+      [class.is-lit]="i === litIndex()"
       (pointerenter)="pointsAt(i)"
     >{{ run }}</span>
   }

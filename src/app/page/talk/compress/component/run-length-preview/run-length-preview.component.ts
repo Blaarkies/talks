@@ -19,7 +19,7 @@ import { splitStringToRunLengthEncoding } from '../../common/encode';
 export class RunLengthPreviewComponent {
 
   data = input.required<string>();
-  highlightIndex = input<number | null>(null);
+  litIndex = input<number | null>(null);
 
   userPointsAt = output<number>();
 

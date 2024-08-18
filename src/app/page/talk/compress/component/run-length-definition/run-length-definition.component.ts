@@ -17,7 +17,7 @@ export class RunLengthDefinitionComponent {
 
   defs = input.required<(number | string)[][]>();
   stride = input.required<number>();
-  highlightIndex = input<number | null>(null);
+  litIndex = input<number | null>(null);
 
   userPointsAt = output<number>();
 

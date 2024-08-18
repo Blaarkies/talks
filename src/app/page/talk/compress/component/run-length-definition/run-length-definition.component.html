@@ -7,7 +7,7 @@
   @for (def of defs(); track i + def.join(''); let i = $index) {
     <span
       class="definition"
-      [class.is-lighted]="i === highlightIndex()"
+      [class.is-lit]="i === litIndex()"
       (pointerenter)="pointsAt(i)"
     >{{ def.join('') }}</span>
   }

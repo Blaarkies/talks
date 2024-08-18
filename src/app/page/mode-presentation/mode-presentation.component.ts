@@ -30,14 +30,20 @@ export class ModePresentationComponent {
   private router = inject(Router);
   private clickerService = inject(ClickerService);
 
-  private keydownActionMap = new Map<string, () => void>([
-    ['ArrowRight', () => this.clickerService.right()],
-    ['ArrowLeft', () => this.clickerService.left()],
+  private keydownActionMap = new Map<string, (event?: KeyboardEvent) => void>([
+    ['ArrowRight', e => e.ctrlKey
+                        ? this.clickerService.forward()
+                        : this.clickerService.right()],
+    ['ArrowLeft', e => e.ctrlKey
+                       ? this.clickerService.backward()
+                       : this.clickerService.left()],
   ]);
 
   @HostListener('window:keydown', ['$event'])
   handleKeydown(event: KeyboardEvent) {
-    this.keydownActionMap.get(event.key)?.();
+    this.keydownActionMap.get(event.key)?.(event);
+
+
   }
 
   forward() {

@@ -1,4 +1,5 @@
 <div class="wrap-table" (pointerleave)="pointsAt(null)">
+
   @for (row of table(); track row?.[0] + row?.[1]; let i = $index) {
     @if (!row) {
       <div class="token null-token">
@@ -16,4 +17,5 @@
       </div>
     }
   }
+
 </div>

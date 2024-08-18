@@ -1,8 +1,8 @@
-<div (pointerleave)="pointsAt(null)">
+<div [ngClass]="litColorClass()" (pointerleave)="pointsAt(null)">
   @for (char of characters(); track i + char; let i = $index) {
     <span
       class="token"
-      [class.is-lit]="char === this.litCharacter()"
+      [class.is-lit]="char === litCharacter()"
       (pointerenter)="pointsAt(char)"
     >{{ char }}</span>
   }

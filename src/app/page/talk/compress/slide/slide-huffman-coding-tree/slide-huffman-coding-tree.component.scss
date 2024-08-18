@@ -1,0 +1,45 @@
+.s-h-c-t-container {
+  overflow: hidden;
+  height: 100%;
+  background: var(--color-back-6);
+
+  padding-inline: 5vw;
+  padding-block: 5vw;
+
+  display: grid;
+  place-content: center;
+  grid-template: 1fr / auto;
+
+  box-sizing: border-box;
+
+  .s-h-c-t-layout {
+    display: grid;
+    grid-template: 1fr auto / auto auto;
+    grid-template-areas:
+      'tree tree'
+      'text table';
+
+    .tree {
+      grid-area: tree;
+
+      outline: 1px dashed black;
+    }
+
+    .text {
+      grid-area: text;
+      outline: 1px dashed black;
+    }
+
+    .table {
+      grid-area: table;
+      outline: 1px dashed black;
+    }
+
+    //gap: 4ch;
+    //
+    //& > *:last-child {
+    //  grid-column: 1 / -1;
+    //}
+
+  }
+}

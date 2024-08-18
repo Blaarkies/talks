@@ -35,6 +35,11 @@ export const routes: Route[] = [
     loadComponent: () => import( '../slide/slide-huffman-coding-dictionary/slide-huffman-coding-dictionary.component')
       .then(c => c.SlideHuffmanCodingDictionaryComponent),
   },
+  {
+    path: compressionSlideRouteNames.huffmanCodingTree,
+    loadComponent: () => import( '../slide/slide-huffman-coding-tree/slide-huffman-coding-tree.component')
+      .then(c => c.SlideHuffmanCodingTreeComponent),
+  },
 
   {
     path: '**',

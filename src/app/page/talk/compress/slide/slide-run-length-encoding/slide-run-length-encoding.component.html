@@ -4,7 +4,7 @@
       #previewData
       [class.conceal]="step() < 1"
       [data]="imageString()"
-      [highlightIndex]="lightedPreview()"
+      [litIndex]="litPreview()"
       (userPointsAt)="previewPointing($event)"
     />
     <app-entropy-measure
@@ -22,7 +22,7 @@
       [class.conceal]="step() < 4"
       [defs]="encodings()"
       [stride]="imageWidth()"
-      [highlightIndex]="lightedDef()"
+      [litIndex]="litDef()"
       (userPointsAt)="definitionsPointing($event)"
     />
     <app-entropy-measure

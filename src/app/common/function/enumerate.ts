@@ -57,3 +57,14 @@ export function findNumberGaps(list: number[]): number[] {
     Array(max - min),
     (_, i) => i + min).filter(i => !list.includes(i));
 }
+
+export function chunked<T>(list: T[], chunkSize = 2): T[][] {
+  let chunks: T[][] = [];
+
+  for (let i = 0; i < list.length; i += chunkSize) {
+    const chunk = list.slice(i, i + chunkSize);
+    chunks.push(chunk);
+  }
+
+  return chunks;
+}

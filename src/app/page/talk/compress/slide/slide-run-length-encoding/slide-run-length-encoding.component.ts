@@ -74,8 +74,8 @@ export class SlideRunLengthEncodingComponent {
     // stride info prepended to header. it should also be measured
     + this.imageWidth() + 'W');
 
-  protected lightedDef = signal<number | null>(null);
-  protected lightedPreview = signal<number | null>(null);
+  protected litDef = signal<number | null>(null);
+  protected litPreview = signal<number | null>(null);
 
   constructor() {
     effect(() => {
@@ -112,11 +112,11 @@ export class SlideRunLengthEncodingComponent {
   }
 
   previewPointing(index: number) {
-    this.lightedDef.set(index);
+    this.litDef.set(index);
   }
 
   definitionsPointing(index: number) {
-    this.lightedPreview.set(index);
+    this.litPreview.set(index);
   }
 
   private animateFeed(element: HTMLElement,

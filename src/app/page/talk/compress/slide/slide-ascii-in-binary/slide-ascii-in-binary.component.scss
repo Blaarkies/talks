@@ -44,11 +44,10 @@
 
 .half-ascii-table {
   .tile-contents {
-    max-height: 400px;
   }
 }
 
-.ascii-table {
+.truncated-ascii-table {
   .tile-contents {
     overflow: auto;
     max-height: 600px;

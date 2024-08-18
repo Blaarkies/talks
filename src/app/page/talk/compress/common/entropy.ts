@@ -6,18 +6,25 @@ import {
 
 type FrequencyRecord = Record<string, number>;
 
-export function dataToList(input: string | number[]): (string | number)[] {
+export type Data = string | number[] | BinaryData;
+
+export function dataToList(input: Data): (string | number)[] {
   let data = [];
+
   if (isString(input)) {
     data = input.split('');
   } else if (isArray(input)) {
     data = input;
+  } else if (ArrayBuffer.isView(input)) {
+    data = Array.from(new Uint8Array(input.buffer));
+  } else {
+    throw new Error(`Could not determine data type for "input": ${input}`);
   }
 
   return data;
 }
 
-export function toFrequencies(input: string | number[]): FrequencyRecord {
+export function toFrequencies(input: Data): FrequencyRecord {
   let data = dataToList(input);
 
   let allFrequencies: FrequencyRecord = {};
@@ -28,8 +35,7 @@ export function toFrequencies(input: string | number[]): FrequencyRecord {
   return allFrequencies;
 }
 
-export function toEntropyInBytes(input: string | number[] | BinaryData)
-  : number {
+export function toEntropyInBytes(input: Data): number {
   let data: string | number[];
 
   if (typeof input === 'string' || isArray(input)) {

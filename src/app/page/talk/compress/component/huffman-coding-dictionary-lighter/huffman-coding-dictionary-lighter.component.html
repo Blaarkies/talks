@@ -1,6 +1,6 @@
 <div class="list-container" (pointerleave)="pointsAt(null)">
   @for (p of encodings(); track p.char) {
-    <div class="tile" [class.is-lit]="p.char === this.litCharacter()"
+    <div class="tile" [class.is-lit]="p.char === litCharacter()"
          (pointerenter)="pointsAt(p.char)">
       <div>{{ p.label }}</div>
       <div>{{ p.path }}</div>

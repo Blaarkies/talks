@@ -29,13 +29,14 @@
             <app-text-character-lighter
               [characters]="exampleText()"
               [litCharacter]="litChar()"
+              [litColor]="1"
               (userPointsAt)="updateLitCharacter($event, true)"
             />
           </div>
         </div>
 
         @if (step() >= 3) {
-        <div class="tile ascii-table">
+        <div class="tile truncated-ascii-table">
           <div>ASCII Table (Truncated)</div>
           <div class="tile-contents">
             <app-ascii-table
@@ -54,6 +55,7 @@
             <app-text-character-lighter
               [characters]="exampleBinary()"
               [litCharacter]="litBinary()"
+              [litColor]="1"
               (userPointsAt)="updateLitCharacter($event)"
             />
           </div>

@@ -44,7 +44,7 @@ const stepsMax = 3;
 })
 export class SlideHuffmanCodingDictionaryComponent {
 
-  protected step = signal(3);
+  protected step = signal(0);
 
   protected text = signal(exampleText.split(''));
   protected binary = signal(this.text().map(c => toBinary(c)));

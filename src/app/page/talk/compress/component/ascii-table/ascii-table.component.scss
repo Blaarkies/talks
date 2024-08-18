@@ -1,16 +1,19 @@
 .wrap-table {
   max-height: 100%;
-  display: flex;
+
+  display: grid;
   gap: 0 6ch;
-  flex-direction: column;
-  flex-wrap: wrap;
+  grid-template-columns: repeat(auto-fit, max-content);
+  grid-template-rows: repeat(18, max-content);
+  grid-auto-flow: column;
+  justify-content: center;
 }
 
 .token {
   display: flex;
-  gap: 0 1ch;
+  gap: 0 2ch;
 
-  & >*:last-child {
+  & > *:last-child {
     margin-left: auto;
   }
 
@@ -25,5 +28,13 @@
 
   &.null-token {
     text-align: center;
+  }
+
+  &:nth-child(n + 19):before {
+    content: '';
+    position: absolute;
+    translate: -2ch .3ch;
+    height: calc(1cap);
+    border-left: var(--border-width-2) solid var(--base-color-8);
   }
 }

@@ -1,6 +1,7 @@
 import { sep } from '../../../../common';
 import { unprintableCharLabelMap } from '../data/ascii-table';
 import {
+  Data,
   dataToList,
   toFrequencies,
 } from './entropy';
@@ -32,11 +33,15 @@ export function toBinary(value: string, bitLength = 8): string {
     .padStart(bitLength, '0');
 }
 
-interface HcTreeNode {
+export interface Nested<T> {
+  children: T[];
+}
+
+interface HcTreeNode extends Partial<Nested<HcTreeNode>> {
   char?: string;
-  children?: HcTreeNode[];
   usage: number;
   path?: string;
+  parent?: HcTreeNode;
 }
 
 interface HcDictionaryItem {
@@ -47,10 +52,9 @@ interface HcDictionaryItem {
 }
 
 type HcDictionary = Map<string, HcDictionaryItem>;
-type HcTreeRoot = HcTreeNode[];
 
-export function toHuffmanTree(text: string | number[]): HcTreeRoot {
-  let frequencies = toFrequencies(text);
+export function toHuffmanTree(data: Data): HcTreeNode {
+  let frequencies = toFrequencies(data);
 
   let frequencyList = Object.entries(frequencies)
     .sort(([, freqA], [, freqB]) => freqA - freqB);
@@ -75,12 +79,53 @@ export function toHuffmanTree(text: string | number[]): HcTreeRoot {
     list.splice(sortedIndex, 0, node);
   }
 
-  let huffmanCodingTree: HcTreeRoot = list;
-  return huffmanCodingTree;
+  let tree = {children: list, usage: 0} as HcTreeNode;
+  setBitPathsGetNodes(tree, true);
+
+  return tree;
 }
 
-export function toHuffmanDictionary(root: HcTreeRoot): HcDictionary {
-  let endNodes = setBitPaths({children: root, usage: 0});
+export function toHuffmanTreeList(root: HcTreeNode): HcTreeNode[] {
+  let nodes = setBitPathsGetNodes(root); // TODO: used end node finder
+
+  let defs = nodes
+    .map(node =>
+      node.char === undefined
+      ? node
+      : ({
+        ...node,
+        label: unprintableCharLabelMap.get(node.char.charCodeAt(0)) ?? node.char,
+      }),
+    );
+
+  return defs;
+}
+
+function setBitPathsGetNodes(
+  node: HcTreeNode,
+  onlyEndNodes = false,
+  path: string = ''): HcTreeNode[] {
+  node.path = path;
+
+  if (!node.children) {
+    return [node];
+  }
+
+  let a = node.children[0];
+  let b = node.children[1];
+  a.parent = node;
+  b.parent = node;
+
+  let childNodes = [
+    ...setBitPathsGetNodes(a, onlyEndNodes, path + '0'),
+    ...setBitPathsGetNodes(b, onlyEndNodes, path + '1'),
+  ];
+
+  return onlyEndNodes ? childNodes : childNodes.concat([node]);
+}
+
+export function toHuffmanDictionary(root: HcTreeNode): HcDictionary {
+  let endNodes = setBitPathsGetNodes(root, true);
 
   let defs = endNodes
     .sort((a, b) => b.usage - a.usage)
@@ -93,24 +138,9 @@ export function toHuffmanDictionary(root: HcTreeRoot): HcDictionary {
   return new Map(defs.map(n => [n.char, n]));
 }
 
-function setBitPaths(node: HcTreeNode, path: string = ''): HcTreeNode[] {
-  node.path = path;
-
-  if (!node.children) {
-    return [node];
-  }
-
-  let a = node.children[0];
-  let b = node.children[1];
-
-  return [
-    ...setBitPaths(a, path + '0'),
-    ...setBitPaths(b, path + '1'),
-  ];
-}
-
-export function encodeToHuffmanCoding(data: string | number[],
-                                      dictionary?: HcDictionary) {
+export function encodeToHuffmanCoding(
+  data: Data,
+  dictionary?: HcDictionary): string[] {
   if (!dictionary) {
     dictionary = toHuffmanDictionary(toHuffmanTree(data));
   }
