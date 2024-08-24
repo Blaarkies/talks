@@ -85,22 +85,6 @@ export function toHuffmanTree(data: Data): HcTreeNode {
   return tree;
 }
 
-export function toHuffmanTreeList(root: HcTreeNode): HcTreeNode[] {
-  let nodes = setBitPathsGetNodes(root); // TODO: used end node finder
-
-  let defs = nodes
-    .map(node =>
-      node.char === undefined
-      ? node
-      : ({
-        ...node,
-        label: unprintableCharLabelMap.get(node.char.charCodeAt(0)) ?? node.char,
-      }),
-    );
-
-  return defs;
-}
-
 function setBitPathsGetNodes(
   node: HcTreeNode,
   onlyEndNodes = false,

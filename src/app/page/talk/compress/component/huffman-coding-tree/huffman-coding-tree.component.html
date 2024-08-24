@@ -1,1 +1,14 @@
-<p>huffman-coding-tree works!</p>
+<div
+  class="tree-container"
+  [style.--w]="grid().w"
+  [style.--h]="grid().h"
+  (pointerleave)="endHover()"
+>
+
+  @for (tile of grid().tiles; track $index) {
+    <div class="tile" [style.--x]="tile.xy[0]" [style.--y]="tile.xy[1]">
+      <app-huffman-coding-tree-node [tile]="tile"/>
+    </div>
+  }
+
+</div>

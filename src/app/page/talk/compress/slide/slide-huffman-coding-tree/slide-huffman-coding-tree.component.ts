@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { HuffmanCodingTreeComponent } from '../../component/huffman-coding-tree/huffman-coding-tree.component';
 
-const exampleText = 'Example Text';
+const exampleText = 'Example_Text';
 
 @Component({
   selector: 'app-slide-huffman-coding-tree',

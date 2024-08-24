@@ -1,0 +1,30 @@
+<div class="node"
+     [class.is-lit]="isLit()"
+     (pointerenter)="startHover()"
+>
+  @if (tile(); as t) {
+    @if (t.char; ) {
+      @if (isLit()) {
+        <div class="end-node">
+          {{ t.path.slice(-1) }}<br/>{{ t.char }}
+          <div class="full-path-display">{{ t.path }}</div>
+        </div>
+      } @else {
+        <div class="end-node">{{ t.char }}</div>
+      }
+    } @else if (t.path) {
+      <div class="mid-node">{{ t.path.slice(-1) }}</div>
+    } @else {
+      <div class="start-node">▼</div>
+    }
+  }
+</div>
+
+@if (parentRelativeLocation(); as locations) {
+  <svg xmlns="http://www.w3.org/2000/svg"
+       class="node-connector-container"
+       [class.is-lit]="isLit()"
+       height="0" width="0">
+    <polyline class="connector" [attr.points]="locations"/>
+  </svg>
+}

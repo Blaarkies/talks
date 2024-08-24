@@ -1,3 +1,5 @@
+import { isArray } from './type-check';
+
 export function makeNumberList(count: number, offset: number = 0): number[] {
   let safeCount = Math.round(count);
   let list = Array.from(Array(safeCount).keys());
@@ -67,4 +69,28 @@ export function chunked<T>(list: T[], chunkSize = 2): T[][] {
   }
 
   return chunks;
+}
+
+export function flattenNestedValues<T>(root: T, selector: (item: T) => T | T[])
+  : T[] {
+  let results = [];
+
+  let queue = [root];
+  while (queue.length) {
+    let item = queue.shift();
+    results.push(item);
+
+    let nested = selector(item);
+    if (!nested) {
+      continue;
+    }
+
+    if (isArray(nested)) {
+      queue.push(...nested);
+    } else {
+      queue.push(nested);
+    }
+  }
+
+  return results;
 }

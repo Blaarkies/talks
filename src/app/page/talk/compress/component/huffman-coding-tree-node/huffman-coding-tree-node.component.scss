@@ -1,0 +1,66 @@
+:host {
+  position: relative;
+}
+
+.node-connector-container {
+  overflow: visible;
+  position: absolute;
+  inset: 0;
+
+  .connector {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+
+  &.is-lit {
+    color: white;
+
+    z-index: 1;
+    position: absolute;
+
+    > .connector {
+      stroke-width: 4;
+    }
+  }
+}
+
+.node {
+  height: 100%;
+
+  > * {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .start-node {
+  }
+
+  .end-node {
+    color: var(--color-swap-text-2);
+    background: var(--color-swap-pane-2);
+    text-align: center;
+
+    > .full-path-display {
+      position: absolute;
+      z-index: 1;
+      bottom: 0;
+      padding: 1ch .5ch;
+      translate: 0 100%;
+      color: var(--base-color-4);
+      background: var(--base-color-7);
+      min-width: 100%;
+    }
+  }
+
+  .mid-node {
+    background: color(from currentColor srgb r g b / .1);
+  }
+
+  &.is-lit {
+    outline: 4px solid white;
+  }
+
+}
