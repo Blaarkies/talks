@@ -15,6 +15,14 @@ export const pathToHeadingFootingMap = new Map<string, string[]>([
   ]],
   [compressionSlideRouteNames.asciiInBinary, [
     'ASCII, BINARY, CHARACTER',
-    'USE ARROW KEYS ← → TO PAGE AND MOUSE HOVER TO HIGHLIGHT',
+    'USE ARROW KEYS ← → TO PAGE AND MOUSE OVER TO HIGHLIGHT',
+  ]],
+  [compressionSlideRouteNames.huffmanCodingDictionary, [
+    'HUFFMAN CODING',
+    'USE ARROW KEYS ← → TO OPEN AND MOUSE OVER TO HIGHLIGHT',
+  ]],
+  [compressionSlideRouteNames.huffmanCodingTree, [
+    'BUILDING THE DICTIONARY',
+    'ENTER OR MOUSE CLICK BOTTOM ROW TO SUM PAIR',
   ]],
 ]);

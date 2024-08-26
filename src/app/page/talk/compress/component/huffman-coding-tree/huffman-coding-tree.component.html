@@ -6,8 +6,17 @@
 >
 
   @for (tile of grid().tiles; track $index) {
-    <div class="tile" [style.--x]="tile.xy[0]" [style.--y]="tile.xy[1]">
-      <app-huffman-coding-tree-node [tile]="tile"/>
+    <div
+      class="tile"
+      [style.--x]="tile.xy[0]"
+      [style.--y]="tile.xy[1]"
+    >
+      <app-huffman-coding-tree-node
+        [tile]="tile"
+        [disabled]="!enabledNodes().includes(tile)
+                      && !litNodes().includes(tile)"
+        [isPointedAt]="litNodes().includes(tile)"
+      />
     </div>
   }
 

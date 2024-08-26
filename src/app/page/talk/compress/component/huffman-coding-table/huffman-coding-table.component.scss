@@ -1,0 +1,39 @@
+.frequency-table {
+  tbody {
+    td:first-child {
+      text-align: end;
+    }
+
+    td:last-child {
+      text-align: start;
+    }
+
+    > tr {
+      background: color(from var(--base-color-4) srgb r g b / .05);
+      opacity: .5;
+    }
+  }
+
+  th, td {
+    border: 1px solid #0007;
+    padding-inline: 2ch;
+  }
+
+  border-collapse: collapse;
+
+  .pair-row {
+    display: contents;
+
+    &:not(.disabled) {
+      cursor: pointer;
+
+      &:hover > tr {
+        background: color(from var(--base-color-15) srgb r g b / .2);
+      }
+    }
+
+    &.disabled {
+      color: var(--base-color-4);
+    }
+  }
+}

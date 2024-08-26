@@ -4,42 +4,48 @@
   background: var(--color-back-6);
 
   padding-inline: 5vw;
-  padding-block: 5vw;
+  padding-block: 1ch;
 
   display: grid;
   place-content: center;
-  grid-template: 1fr / auto;
+  grid-template: auto / auto;
 
   box-sizing: border-box;
 
   .s-h-c-t-layout {
     display: grid;
-    grid-template: 1fr auto / auto auto;
+    grid-template: auto auto / auto auto auto;
     grid-template-areas:
-      'tree tree'
-      'text table';
+      'dictionary table tree'
+      'dictionary table tree';
+    gap: 2ch;
 
     .tree {
       grid-area: tree;
+      display: grid;
+      grid-template-rows: 1fr auto;
 
-      outline: 1px dashed black;
+      .button-spacing {
+        text-align: end;
+      }
     }
 
     .text {
-      grid-area: text;
-      outline: 1px dashed black;
+      //grid-area: text;
+      grid-row: 1 / 2;
+      grid-column: 1 / 2;
     }
 
     .table {
       grid-area: table;
-      outline: 1px dashed black;
+      align-self: end;
     }
 
-    //gap: 4ch;
-    //
-    //& > *:last-child {
-    //  grid-column: 1 / -1;
-    //}
+    .dictionary {
+      grid-area: dictionary;
+      align-self: end;
+      margin-top: 12ch;
+    }
 
   }
 }

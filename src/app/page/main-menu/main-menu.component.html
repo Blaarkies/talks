@@ -1,7 +1,10 @@
 <app-rim
   (keydown.arrowDown)="selectNext(1)"
+  (keydown.arrowRight)="selectNext(1)"
   (keydown.arrowUp)="selectNext(-1)"
+  (keydown.arrowLeft)="selectNext(-1)"
   (keydown.enter)="launchSelected()"
+  (keydown.control.arrowRight)="launchSelected()"
 
   tabindex="0"
   autofocus

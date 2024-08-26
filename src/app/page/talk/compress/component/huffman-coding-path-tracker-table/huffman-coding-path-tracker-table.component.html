@@ -1,0 +1,14 @@
+<table class="paths-table">
+  <tbody>
+
+    @for (row of charPaths(); track row) {
+      <tr>
+        <td>{{ row[0] }}</td>
+        <td>{{ row[1] }}</td>
+      </tr>
+    } @empty {
+      <div class="empty">Empty</div>
+    }
+
+  </tbody>
+</table>

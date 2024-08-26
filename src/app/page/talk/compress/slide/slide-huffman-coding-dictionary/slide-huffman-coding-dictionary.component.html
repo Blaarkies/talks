@@ -3,7 +3,7 @@
 
     @if (step() >= 0) {
       <app-pane
-        header="Characters"
+        header="Data"
         [shadow]="true"
         [type]="2"
         [swap]="true"
@@ -19,7 +19,7 @@
 
     @if (step() >= 1) {
       <app-pane
-        header="Characters in Binary"
+        header="Data in Binary"
         outline="single"
         [shadow]="true"
         [type]="2"
@@ -32,6 +32,11 @@
         />
         <app-data-measure [value]="binary().length"/>
       </app-pane>
+
+      @if (step() === 1) {
+        <div></div>
+        <div></div>
+      }
     }
 
     @if (step() >= 3) {

@@ -1,0 +1,35 @@
+<table class="frequency-table" (pointerleave)="userPointAt([])">
+  <thead>
+  <tr>
+    <td>Character</td>
+    <td>Frequency</td>
+  </tr>
+  </thead>
+
+  <tbody>
+    @if (filteredTable(); as tableInfo) {
+      @for (node of tableInfo.precludedRows; track node.path) {
+        <tr>
+          <td>{{ node.label }}</td>
+          <td>{{ node.frequency }}</td>
+        </tr>
+      }
+
+      @if (tableInfo.interactablePair; as pair) {
+        <div
+          class="pair-row"
+          [class.disabled]="pair.length !== 2"
+          (click)="pair.length === 2 && sumPair(pair)"
+          (pointerenter)="userPointAt(pair)"
+        >
+          @for (node of pair; track node.path) {
+            <tr>
+              <td>{{ node.label }}</td>
+              <td>{{ node.frequency }}</td>
+            </tr>
+          }
+        </div>
+      }
+    }
+  </tbody>
+</table>

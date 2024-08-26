@@ -10,7 +10,7 @@ import { toHuffmanTree } from '../../common/encode';
 import { Data } from '../../common/entropy';
 import { HuffmanCodingTreeNodeComponent } from '../huffman-coding-tree-node/huffman-coding-tree-node.component';
 import { HierarchyService } from './hierarchy.service';
-import { runTree } from './tree';
+import { addGridPositionsToTree } from './tree';
 
 type HctNode = ReturnType<typeof toHuffmanTree>;
 
@@ -33,15 +33,15 @@ interface HctTile extends HctNode {
 })
 export class HuffmanCodingTreeComponent {
 
-  data = input<Data>();
+  tree = input<HctNode>();
+  enabledNodes = input<HctNode[]>();
+  litNodes = input<HctNode[]>();
 
   private hierarchyService = inject(HierarchyService);
-  private nodes = viewChildren(HuffmanCodingTreeNodeComponent);
+  private nodeElements = viewChildren(HuffmanCodingTreeNodeComponent);
 
   protected grid = computed(() => {
-    let tree = toHuffmanTree(this.data());
-
-    let xyTree = runTree(tree);
+    let xyTree = addGridPositionsToTree(this.tree());
 
     let minX = Math.min(...xyTree.map(({xy: [x]}) => x));
     xyTree.forEach(n => n.xy[0] -= minX);
@@ -57,14 +57,11 @@ export class HuffmanCodingTreeComponent {
   });
 
   constructor() {
-
     effect(() => {
-      let map = new Map(
-        this.nodes().map(n => [n.tile(), n]),
-      );
+      let map = new Map(this.nodeElements()
+        .map(element => [element.tile(), element]));
       this.hierarchyService.setComponentTileMap(map);
     }, {allowSignalWrites: true});
-
   }
 
   endHover() {

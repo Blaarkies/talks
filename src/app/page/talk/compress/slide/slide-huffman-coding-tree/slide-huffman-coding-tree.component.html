@@ -1,15 +1,45 @@
 <div class="s-h-c-t-container">
   <div class="s-h-c-t-layout">
 
-    <div class="tree">
-      <app-huffman-coding-tree
-        [data]="text()"
-      />
-    </div>
+    @if (!isResetting()) {
+      <div class="tree">
+        <div class="button-spacing">
+          <app-button [type]="1" (click1)="resetTree()">RESET</app-button>
+        </div>
+        <app-huffman-coding-tree
+          [tree]="tree()"
+          [enabledNodes]="treeEnabledNodes()"
+          [litNodes]="treeLitNodes()"
+        />
+      </div>
 
-    <div class="text">text</div>
+      <div class="text">
+        <app-pane outline="single" header="Data to Encode">
+          {{ text() }}
+        </app-pane>
+      </div>
 
-    <div class="table">table</div>
+      <div class="table">
+        <app-pane [type]="4" [swap]="true" header="Frequency Table">
+          <app-huffman-coding-table
+            #table
+            [tree]="tree()"
+            (parentNodeOfClickedRow)="dictionary.newSummedPair($event)"
+            (activeNodesUpdate)="activeNodesUpdate($event)"
+            (userPointsAt)="tablePointsAt($event)"
+          />
+        </app-pane>
+      </div>
+
+      <div class="dictionary">
+        <app-pane [type]="4" outline="single" header="Dictionary">
+          <app-huffman-coding-path-tracker-table
+            #dictionary
+            (pathsUpdated)="pathTrackUpdate($event)"
+          />
+        </app-pane>
+      </div>
+    }
 
   </div>
 </div>

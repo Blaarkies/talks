@@ -16,7 +16,10 @@ import {
   take,
 } from 'rxjs';
 import { flattenNestedValues } from '../../../../../common';
+import { toHuffmanTree } from '../../common/encode';
 import { HuffmanCodingTreeNodeComponent } from '../huffman-coding-tree-node/huffman-coding-tree-node.component';
+
+type HctNode = ReturnType<typeof toHuffmanTree>;
 
 @Injectable()
 export class HierarchyService {
@@ -39,8 +42,9 @@ export class HierarchyService {
     this.tileComponentMap$.next(tileComponentMap);
   }
 
-  getParent(parent: unknown): Observable<HuffmanCodingTreeNodeComponent> {
-    return this.tileComponentMap$.pipe(map(m => m.get(parent)));
+  getChildren(children: HctNode[]): Observable<HuffmanCodingTreeNodeComponent[]> {
+    return this.tileComponentMap$.pipe(
+      map(m => children.map(c => m.get(c))));
   }
 
   setHoverTile(component: HuffmanCodingTreeNodeComponent | null) {

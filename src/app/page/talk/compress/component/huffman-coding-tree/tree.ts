@@ -3,7 +3,7 @@ import {
   makeNumberList,
 } from '../../../../../common';
 
-export function runTree(tree) {
+export function addGridPositionsToTree(tree) {
 
   let depthIndexed = setNodeDepth(tree);
 

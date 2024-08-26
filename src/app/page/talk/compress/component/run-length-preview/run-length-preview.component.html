@@ -3,7 +3,7 @@
   [style.width.ch]="strideWidth()"
   (pointerleave)="pointsAt(null)"
 >
-  @for (run of runs(); track run; let i = $index) {
+  @for (run of runs(); track run + i; let i = $index) {
     <span
       class="line"
       [class.is-lit]="i === litIndex()"

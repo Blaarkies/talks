@@ -1,9 +1,11 @@
 import {
   Component,
   computed,
+  effect,
   ElementRef,
   inject,
   input,
+  signal,
 } from '@angular/core';
 import {
   toObservable,
@@ -15,7 +17,10 @@ import {
   switchMap,
 } from 'rxjs';
 import { lerp } from '../../../../../common';
+import { toHuffmanTree } from '../../common/encode';
 import { HierarchyService } from '../huffman-coding-tree/hierarchy.service';
+
+type HctNode = ReturnType<typeof toHuffmanTree>;
 
 @Component({
   selector: 'app-huffman-coding-tree-node',
@@ -26,37 +31,39 @@ import { HierarchyService } from '../huffman-coding-tree/hierarchy.service';
 })
 export class HuffmanCodingTreeNodeComponent {
 
-  tile = input<{
-    parent;
-    char;
-    path;
-  }>();
+  tile = input<HctNode>();
+  disabled = input<boolean>();
+  isPointedAt = input<boolean>();
 
-  protected parentRelativeLocation = toSignal(
+  protected svgPoints = toSignal(
     toObservable(this.tile).pipe(
-      filter(tile => !!tile.parent),
-      switchMap(tile => this.hierarchyService.getParent(tile.parent)),
-      map(parentComponent => {
-        let rect = this.self.nativeElement.getBoundingClientRect();
-        let centerX = rect.width / 2;
+      filter(tile => !!tile.children),
+      switchMap(tile => this.hierarchyService.getChildren(tile.children)),
+      map(childrenComponents => childrenComponents
+        .map((child, i) => {
+          let rect = this.self.nativeElement.getBoundingClientRect();
+          let centerX = rect.width / 2;
 
-        let parentLocation = parentComponent.getLocation(true);
-        let location = this.getLocation();
+          let parentLocation = this.getLocation(true);
+          let childLocation = child.getLocation();
 
-        let x4 = parentLocation[0] - location[0] + centerX;
-        let y4 = parentLocation[1] - location[1];
-        let yLerp = lerp(0, y4);
+          let xEnd = childLocation[0] - parentLocation[0] + centerX;
+          let yEnd = childLocation[1] - parentLocation[1];
+          let yLerp = lerp(0, yEnd);
 
-        let locations = [
-          [centerX, 0],
-          [centerX, yLerp],
-          [x4, yLerp],
-          [x4, y4],
-        ];
+          let locations = [
+            [centerX, 0],
+            [centerX, yLerp],
+            [xEnd, yLerp],
+            [xEnd, yEnd],
+          ];
 
-        let results = locations.map(p => p.join(',')).join(' ');
-        return results;
-      }),
+          return {
+            component: child,
+            points: locations.map(p => p.join(',')).join(' '),
+            isLit: i === 0 ? this.childALit : this.childBLit,
+          };
+        })),
     ),
   );
 
@@ -65,15 +72,41 @@ export class HuffmanCodingTreeNodeComponent {
     return set ? set.has(this) : false;
   });
 
+  protected thisLit = signal(false);
+  protected childALit = signal(false);
+  protected childBLit = signal(false);
+
   private hierarchyService = inject(HierarchyService);
   private self = inject(ElementRef<HTMLElement>);
 
-  getLocation(ofParent = false) {
+  constructor() {
+    effect(() => {
+      let set = this.hierarchyService.hoveredSet();
+      if (!set) {
+        return;
+      }
+      this.thisLit.set(set.has(this));
+      let entries = [...set].map(n => [n, n.tile()]);
+
+      let children = this.tile().children;
+      if (!children) {
+        return;
+      }
+
+      let [a, b] = children
+        .map(c => entries.find(([, t]) => c === t)
+          ?.[0] as HuffmanCodingTreeNodeComponent);
+
+      this.childALit.set(set.has(a));
+      this.childBLit.set(set.has(b));
+    }, {allowSignalWrites: true});
+  }
+
+  private getLocation(bottomReference = false): [number, number] {
     let rect = this.self.nativeElement.getBoundingClientRect();
     let centerX = rect.left + rect.width / 2;
-    return ofParent
-           ? [centerX, rect.bottom]
-           : [centerX, rect.top];
+
+    return [centerX, bottomReference ? rect.bottom : rect.top];
   }
 
   protected startHover() {

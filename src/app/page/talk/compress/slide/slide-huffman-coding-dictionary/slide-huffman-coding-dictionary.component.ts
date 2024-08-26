@@ -24,7 +24,7 @@ import { HuffmanCodingDictionaryLighterComponent } from '../../component/huffman
 import { TextCharacterLighterComponent } from '../../component/text-character-lighter/text-character-lighter.component';
 import { DataMeasureComponent } from './data-measure/data-measure.component';
 
-const exampleText = 'Example Text';
+const exampleText = 'EXAMPLE TEXT';
 const stepsMax = 3;
 
 @Component({
@@ -60,7 +60,8 @@ export class SlideHuffmanCodingDictionaryComponent {
   private reversedDictionary = new Map(Array.from(this.dictionary.values())
     .map(p => [p.path, p]));
 
-  protected dictionaryList = signal(Array.from(this.dictionary.values()));
+  protected dictionaryList = signal(Array.from(this.dictionary.values())
+    .sort((a, b) => a.path.length - b.path.length));
   protected dictionaryListSize = computed(() => Math.ceil(
     sum(this.dictionaryList().map(p => 8 + p.path.length))
     / 8));

@@ -1,34 +1,28 @@
 :host {
-  position: relative;
+  --border-size: var(--border-width-4);
 }
 
-.node-connector-container {
-  overflow: visible;
-  position: absolute;
-  inset: 0;
+%is-lit {
+  border: var(--border-size) solid var(--base-color-15);
+}
 
-  .connector {
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 2;
-  }
+.disabled {
+  opacity: .05;
+  pointer-events: none;
+}
 
-  &.is-lit {
-    color: white;
-
-    z-index: 1;
-    position: absolute;
-
-    > .connector {
-      stroke-width: 4;
-    }
-  }
+.is-pointed-at {
+  outline: var(--border-size) solid var(--base-color-12);
 }
 
 .node {
   height: 100%;
+  cursor: default;
+  position: relative;
 
-  > * {
+  border: var(--border-size) solid transparent;
+
+  > div {
     height: 100%;
     display: flex;
     align-items: center;
@@ -43,24 +37,72 @@
     background: var(--color-swap-pane-2);
     text-align: center;
 
+    display: grid;
+    align-content: end;
+
+    .char {
+      align-self: end;
+      padding-bottom: 4px;
+    }
+
+    .path-digit {
+      align-self: start;
+      color: var(--base-color-11);
+    }
+
+    .char, .path-digit {
+      line-height: 1em;
+    }
+
     > .full-path-display {
       position: absolute;
-      z-index: 1;
       bottom: 0;
+      left: 50%;
+      translate: -50% calc(100% - var(--border-width-4));
+      z-index: 1;
+
+      min-width: 100%;
+
       padding: 1ch .5ch;
-      translate: 0 100%;
       color: var(--base-color-4);
       background: var(--base-color-7);
-      min-width: 100%;
+
+      @extend %is-lit;
     }
+
   }
 
   .mid-node {
-    background: color(from currentColor srgb r g b / .1);
+    background: var(--base-color-14);
   }
 
   &.is-lit {
-    outline: 4px solid white;
+    @extend %is-lit;
   }
 
+}
+
+.node-connector-container {
+  height: 100%;
+  translate: calc(-.5 * var(--border-size)) 100%;
+  overflow: visible;
+  position: absolute;
+  inset: 0;
+
+  .connector {
+    fill: transparent;
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+
+  &.is-lit {
+    color: white;
+
+    z-index: 1;
+    position: absolute;
+
+    > .connector {
+      stroke-width: 4;
+    }
+  }
 }

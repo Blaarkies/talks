@@ -10,7 +10,7 @@
 
   .s-h-c-d-layout {
     display: grid;
-    grid-template: 1fr 1fr / auto auto auto;
+    grid-template: 1fr 1fr / auto auto minmax(25ch, 20%);
     gap: 4ch;
 
     & > *:last-child {

@@ -1,0 +1,30 @@
+.title {
+  margin-bottom: 1em;
+}
+
+.paths-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  td {
+    padding-block: var(--space-2);
+  }
+
+  td:first-child {
+    padding-inline: 1ch;
+  }
+
+  td:last-child {
+    text-align: end;
+    padding-right: 1ch;
+  }
+
+  tr:not(:last-child) td {
+    border-bottom: 1px solid #0007;
+  }
+
+  .empty {
+    text-align: end;
+    font-size: var(--font-size-2);
+  }
+}

@@ -29,8 +29,7 @@ import {
 })
 export class MainMenuComponent {
 
-  routeNames = routeNames;
-
+  protected routeNames = routeNames;
   protected navigations = signal(navigationOptions);
   protected navigationsList = computed(() => Object.values(this.navigations()));
   protected selectedOption = signal<NavigationOption>(null);
@@ -51,7 +50,10 @@ export class MainMenuComponent {
   }
 
   async launchSelected() {
-    let url = this.selectedOption().url;
+    let url = this.selectedOption()?.url;
+    if (!url) {
+      return;
+    }
     await this.router.navigate(['../', routeNames.present, url]);
   }
 

@@ -57,8 +57,8 @@ export class SlideshowCompressionComponent {
     map(path => pathToHeadingFootingMap.get(path) ?? [path, path]),
   ));
 
-  protected header = computed(() => this.headingFooting()[0]);
-  protected footer = computed(() => this.headingFooting()[1]);
+  protected header = computed(() => this.headingFooting()[0] || ' ');
+  protected footer = computed(() => this.headingFooting()[1] || ' ');
 
   constructor() {
     let firstPath = this.activatedRoute.firstChild.snapshot.url.at(-1).path;
