@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   HostListener,
   inject,
@@ -23,7 +22,6 @@ import { ClickerService } from './service/clicker.service';
   providers: [ClickerService],
   templateUrl: './mode-presentation.component.html',
   styleUrl: './mode-presentation.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModePresentationComponent {
 

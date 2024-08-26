@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   input,
   output,
@@ -14,7 +13,6 @@ type Encoding = ReturnType<ReturnType<typeof toHuffmanDictionary>['get']>;
   imports: [],
   templateUrl: './huffman-coding-dictionary-lighter.component.html',
   styleUrl: './huffman-coding-dictionary-lighter.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HuffmanCodingDictionaryLighterComponent {
 

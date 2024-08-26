@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
@@ -12,7 +11,6 @@ import { RouterOutlet } from '@angular/router';
   ],
   templateUrl: './mode-interactive.component.html',
   styleUrl: './mode-interactive.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ModeInteractiveComponent {
 }

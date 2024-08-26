@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   computed,
   effect,
@@ -37,7 +36,6 @@ const stepTimings = [0, 3e3, 2.5e3, 1e3, 2e3, 2e3];
   ],
   templateUrl: './slide-run-length-encoding.component.html',
   styleUrl: './slide-run-length-encoding.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SlideRunLengthEncodingComponent {
 

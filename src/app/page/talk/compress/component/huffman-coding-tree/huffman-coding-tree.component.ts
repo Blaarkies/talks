@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   computed,
   effect,
@@ -31,7 +30,6 @@ interface HctTile extends HctNode {
   providers: [HierarchyService],
   templateUrl: './huffman-coding-tree.component.html',
   styleUrl: './huffman-coding-tree.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HuffmanCodingTreeComponent {
 

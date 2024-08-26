@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   DestroyRef,
   ElementRef,
@@ -27,7 +26,6 @@ import {
   ],
   templateUrl: './slide-explain-entropy.component.html',
   styleUrl: './slide-explain-entropy.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SlideExplainEntropyComponent {
 

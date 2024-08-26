@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   computed,
   DestroyRef,
@@ -33,7 +32,6 @@ import { EntropyMeasureComponent } from '../entropy-measure/entropy-measure.comp
   ],
   templateUrl: './entropy-preview.component.html',
   styleUrl: './entropy-preview.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EntropyPreviewComponent {
 

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-rim',
@@ -6,7 +6,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   imports: [],
   templateUrl: './rim.component.html',
   styleUrl: './rim.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RimComponent {
 

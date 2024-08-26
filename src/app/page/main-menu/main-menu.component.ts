@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   computed,
   inject,
@@ -27,7 +26,6 @@ import {
   ],
   templateUrl: './main-menu.component.html',
   styleUrl: './main-menu.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainMenuComponent {
 

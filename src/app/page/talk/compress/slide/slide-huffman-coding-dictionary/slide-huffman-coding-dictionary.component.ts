@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   computed,
   DestroyRef,
@@ -40,7 +39,6 @@ const stepsMax = 3;
   ],
   templateUrl: './slide-huffman-coding-dictionary.component.html',
   styleUrl: './slide-huffman-coding-dictionary.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SlideHuffmanCodingDictionaryComponent {
 

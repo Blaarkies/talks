@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   computed,
   input,
@@ -14,7 +13,6 @@ import { unprintableCharLabelMap } from '../../data/ascii-table';
   imports: [],
   templateUrl: './ascii-table.component.html',
   styleUrl: './ascii-table.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AsciiTableComponent {
 

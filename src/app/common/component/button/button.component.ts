@@ -1,6 +1,5 @@
 import { NgClass } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
   Component,
   computed,
   HostBinding,
@@ -17,7 +16,6 @@ import {
   ],
   templateUrl: './button.component.html',
   styleUrl: './button.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonComponent {
 

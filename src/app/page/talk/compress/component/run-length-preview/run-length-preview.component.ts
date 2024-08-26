@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   computed,
   input,
@@ -14,7 +13,6 @@ import { splitStringToRunLengthEncoding } from '../../common/encode';
   imports: [],
   templateUrl: './run-length-preview.component.html',
   styleUrl: './run-length-preview.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RunLengthPreviewComponent {
 

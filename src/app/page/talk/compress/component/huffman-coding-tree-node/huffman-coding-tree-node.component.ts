@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   computed,
   ElementRef,
@@ -24,7 +23,6 @@ import { HierarchyService } from '../huffman-coding-tree/hierarchy.service';
   imports: [],
   templateUrl: './huffman-coding-tree-node.component.html',
   styleUrl: './huffman-coding-tree-node.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HuffmanCodingTreeNodeComponent {
 

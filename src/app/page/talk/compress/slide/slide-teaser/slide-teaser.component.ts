@@ -1,6 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
   Component,
   computed,
   DestroyRef,
@@ -43,7 +42,6 @@ const lineModulus = 3;
   ],
   templateUrl: './slide-teaser.component.html',
   styleUrl: './slide-teaser.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SlideTeaserComponent {
 

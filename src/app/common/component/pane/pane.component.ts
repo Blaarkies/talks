@@ -1,6 +1,5 @@
 import { NgClass } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
   Component,
   computed,
   ElementRef,
@@ -18,7 +17,6 @@ import { WA_WINDOW } from '@ng-web-apis/common';
   ],
   templateUrl: './pane.component.html',
   styleUrl: './pane.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaneComponent {
 

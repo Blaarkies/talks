@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   signal,
 } from '@angular/core';
@@ -15,7 +14,6 @@ const exampleText = 'Example_Text';
   ],
   templateUrl: './slide-huffman-coding-tree.component.html',
   styleUrl: './slide-huffman-coding-tree.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SlideHuffmanCodingTreeComponent {
 

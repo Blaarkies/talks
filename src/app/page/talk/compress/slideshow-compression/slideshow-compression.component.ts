@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   computed,
   DestroyRef,
@@ -38,7 +37,6 @@ import { compressionSlideRouteNames } from './route';
   ],
   templateUrl: './slideshow-compression.component.html',
   styleUrl: './slideshow-compression.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [routeAnimations],
 })
 export class SlideshowCompressionComponent {

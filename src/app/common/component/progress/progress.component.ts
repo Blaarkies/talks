@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   computed,
   ElementRef,
@@ -18,7 +17,6 @@ import { SHARED_RESIZE_OBSERVER } from '../../token';
   standalone: true,
   templateUrl: './progress.component.html',
   styleUrl: './progress.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProgressComponent {
 

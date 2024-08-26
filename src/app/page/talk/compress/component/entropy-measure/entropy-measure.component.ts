@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   computed,
   input,
@@ -17,7 +16,6 @@ import { toEntropyInBytes } from '../../common/entropy';
   ],
   templateUrl: './entropy-measure.component.html',
   styleUrl: './entropy-measure.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EntropyMeasureComponent {
 

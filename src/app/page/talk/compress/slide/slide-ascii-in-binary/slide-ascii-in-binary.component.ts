@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   DestroyRef,
   inject,
@@ -39,7 +38,6 @@ const stepsMax = 4;
   ],
   templateUrl: './slide-ascii-in-binary.component.html',
   styleUrl: './slide-ascii-in-binary.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [lineRevealOnStep],
 })
 export class SlideAsciiInBinaryComponent {

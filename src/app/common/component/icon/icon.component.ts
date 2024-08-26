@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   effect,
   ElementRef,
@@ -31,7 +30,6 @@ import { IconComponentConfig } from './type';
   selector: 'app-icon',
   standalone: true,
   template: '',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IconComponent {
 

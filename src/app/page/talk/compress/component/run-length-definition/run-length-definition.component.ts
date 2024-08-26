@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   input,
   output,
@@ -11,7 +10,6 @@ import {
   imports: [],
   templateUrl: './run-length-definition.component.html',
   styleUrl: './run-length-definition.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RunLengthDefinitionComponent {
 

@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   input,
 } from '@angular/core';
@@ -10,7 +9,6 @@ import {
   imports: [],
   templateUrl: './data-measure.component.html',
   styleUrl: './data-measure.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DataMeasureComponent {
 

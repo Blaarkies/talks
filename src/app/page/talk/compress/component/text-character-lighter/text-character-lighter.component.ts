@@ -1,6 +1,5 @@
 import { NgClass } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
   Component,
   computed,
   input,
@@ -15,7 +14,6 @@ import {
   ],
   templateUrl: './text-character-lighter.component.html',
   styleUrl: './text-character-lighter.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TextCharacterLighterComponent {
 
