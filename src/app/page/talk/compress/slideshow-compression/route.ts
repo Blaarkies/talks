@@ -45,4 +45,4 @@ export const routes: Route[] = [
     path: '**',
     redirectTo: compressionSlideRouteNames.teaser,
   },
-];
+].map((r, i, self) => ({...r, data: {siblings: self}}));
