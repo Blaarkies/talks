@@ -1,7 +1,6 @@
 import {
   Component,
   computed,
-  DestroyRef,
   inject,
   signal,
   WritableSignal,
@@ -25,7 +24,7 @@ import { coerceBetween } from '../../../../common';
 import { RimComponent } from '../../../../common/component/rim/rim.component';
 import { ClickerService } from '../../../mode-presentation/service/clicker.service';
 import { routeAnimations } from '../common/route-animations';
-import { pathToHeadingFootingMap } from '../data/heading-footing';
+import { pathToHeadingFootingMap } from './heading-footing';
 import { compressionSlideRouteNames } from './route';
 
 @Component({
@@ -43,8 +42,6 @@ export class SlideshowCompressionComponent {
 
   protected currentRouteIndex: WritableSignal<number>;
 
-  private clickerService = inject(ClickerService);
-  private destroyRef = inject(DestroyRef);
   private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
 
@@ -70,19 +67,18 @@ export class SlideshowCompressionComponent {
     let getSafeValue =
       (value: number) => coerceBetween(value, 0, routesMaxIndex);
 
-    this.clickerService.navigateAction$.pipe(
-      takeUntilDestroyed(this.destroyRef),
-    ).subscribe(newAction => {
-      if (newAction === 'forward') {
-        this.currentRouteIndex.update(v => getSafeValue(v + 1));
-        this.goToRouteIndex(this.currentRouteIndex());
-      }
+    inject(ClickerService).navigateAction$.pipe(takeUntilDestroyed())
+      .subscribe(newAction => {
+        if (newAction === 'forward') {
+          this.currentRouteIndex.update(v => getSafeValue(v + 1));
+          this.goToRouteIndex(this.currentRouteIndex());
+        }
 
-      if (newAction === 'backward') {
-        this.currentRouteIndex.update(v => getSafeValue(v - 1));
-        this.goToRouteIndex(this.currentRouteIndex());
-      }
-    });
+        if (newAction === 'backward') {
+          this.currentRouteIndex.update(v => getSafeValue(v - 1));
+          this.goToRouteIndex(this.currentRouteIndex());
+        }
+      });
   }
 
   private goToRouteIndex(index: number) {

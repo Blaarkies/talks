@@ -18,8 +18,7 @@
       @if (tableInfo.interactablePair; as pair) {
         <div
           class="pair-row"
-          [class.disabled]="pair.length !== 2"
-          (click)="pair.length === 2 && sumPair(pair)"
+          (click)="sumPairFromClick(pair)"
           (pointerenter)="userPointAt(pair)"
         >
           @for (node of pair; track node.path) {

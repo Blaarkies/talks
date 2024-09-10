@@ -36,6 +36,9 @@
     --#{$name}-#{$i}: calc(#{$base} + #{($step * ($i - 3))});
   }
 }
+/* END */
+
+/* Mixins for generating pane type classes given preset variables */
 
 @mixin make-colored-pane-class($className, $varName, $count) {
   @for $i from 1 through $count {
@@ -46,3 +49,14 @@
     }
   }
 }
+/* END */
+
+/* Mixins for generating key-frames */
+
+@mixin make-key-frames($kFName, $property, $valueA, $valueB) {
+  @keyframes #{$kFName} {
+    from {#{$property}: $valueA}
+    to {#{$property}: $valueB}
+  }
+}
+/* END */

@@ -1,6 +1,5 @@
 import {
   Component,
-  DestroyRef,
   inject,
   signal,
 } from '@angular/core';
@@ -13,9 +12,9 @@ import {
 import { ClickerService } from '../../../../mode-presentation/service/clicker.service';
 import { CharOrBin } from '../../common';
 import { toBinary } from '../../common/encode';
-import { lineRevealOnStep } from './animations';
 import { AsciiTableComponent } from '../../component/ascii-table/ascii-table.component';
 import { TextCharacterLighterComponent } from '../../component/text-character-lighter/text-character-lighter.component';
+import { lineRevealOnStep } from './animations';
 
 const exampleText = 'Example Text';
 const asciiBitLength = 7;
@@ -57,18 +56,14 @@ export class SlideAsciiInBinaryComponent {
   protected litChar = signal<CharOrBin>(null);
   protected litBinary = signal<CharOrBin>(null);
 
-  private clickerService = inject(ClickerService);
-  private destroyRef = inject(DestroyRef);
-
   constructor() {
     let actionAnimationMap = new Map<string, () => void>([
       ['right', () => this.step.update(v => coerceBetween(v + 1, 0, stepsMax))],
       ['left', () => this.step.update(v => coerceBetween(v - 1, 0, stepsMax))],
     ]);
 
-    this.clickerService.stepAction$.pipe(
-      takeUntilDestroyed(this.destroyRef),
-    ).subscribe(newAction => actionAnimationMap.get(newAction)?.());
+    inject(ClickerService).stepAction$.pipe(takeUntilDestroyed())
+      .subscribe(newAction => actionAnimationMap.get(newAction)?.());
   }
 
   updateLitCharacter(data: string, isChar = false) {

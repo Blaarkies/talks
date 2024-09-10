@@ -66,18 +66,14 @@ export class SlideHuffmanCodingDictionaryComponent {
     sum(this.dictionaryList().map(p => 8 + p.path.length))
     / 8));
 
-  private clickerService = inject(ClickerService);
-  private destroyRef = inject(DestroyRef);
-
   constructor() {
     let actionAnimationMap = new Map<string, () => void>([
       ['right', () => this.step.update(v => coerceBetween(v + 1, 0, stepsMax))],
       ['left', () => this.step.update(v => coerceBetween(v - 1, 0, stepsMax))],
     ]);
 
-    this.clickerService.stepAction$.pipe(
-      takeUntilDestroyed(this.destroyRef),
-    ).subscribe(newAction => actionAnimationMap.get(newAction)?.());
+    inject(ClickerService).stepAction$.pipe(takeUntilDestroyed())
+      .subscribe(newAction => actionAnimationMap.get(newAction)?.());
   }
 
   updateLitCharacter(data: string, type: 'char' | 'binary' | 'encoded') {

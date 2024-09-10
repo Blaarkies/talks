@@ -2,7 +2,6 @@ import { NgTemplateOutlet } from '@angular/common';
 import {
   Component,
   computed,
-  DestroyRef,
   ElementRef,
   inject,
   signal,
@@ -116,12 +115,14 @@ export class SlideTeaserComponent {
     ),
   );
 
+  protected stiffyCompressedGhost = computed(() => this.stiffyText()
+    .split(sep)
+    .filter((_, i) => i % lineModulus === 0)
+    .join(sep));
+
   protected stiffyDecompressed = computed(() => this.stiffyText()
     .split(sep)
     .filter((_, i) => i % lineModulus === 0));
-
-  private clickerService = inject(ClickerService);
-  private destroyRef = inject(DestroyRef);
 
   constructor() {
     let actionAnimationMap = new Map<string, () => void>([
@@ -129,9 +130,8 @@ export class SlideTeaserComponent {
       ['left', () => this.animationController.backward()],
     ]);
 
-    this.clickerService.stepAction$.pipe(
-      takeUntilDestroyed(this.destroyRef),
-    ).subscribe(newAction => actionAnimationMap.get(newAction)?.());
+    inject(ClickerService).stepAction$.pipe(takeUntilDestroyed())
+      .subscribe(newAction => actionAnimationMap.get(newAction)?.());
   }
 
   private makeProgressSteps(count: number): Observable<number> {

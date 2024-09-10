@@ -76,10 +76,9 @@ export class EntropyPreviewComponent {
   private activeAnimations: Animation[] = [];
 
   private wordHover$ = new Subject<TokenElementGroup>();
-  private destroyRef = inject(DestroyRef);
 
   constructor() {
-    this.destroyRef.onDestroy(() => this.wordHover$.complete());
+    inject(DestroyRef).onDestroy(() => this.wordHover$.complete());
 
     this.wordHover$.subscribe(() =>
       this.activeAnimations.forEach(a => a.cancel()));

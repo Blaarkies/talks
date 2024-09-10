@@ -14,13 +14,6 @@ import { addGridPositionsToTree } from './tree';
 
 type HctNode = ReturnType<typeof toHuffmanTree>;
 
-type HctRow = HctTile[];
-
-interface HctTile extends HctNode {
-  x: number;
-  y: number;
-}
-
 @Component({
   selector: 'app-huffman-coding-tree',
   standalone: true,
@@ -33,7 +26,7 @@ interface HctTile extends HctNode {
 })
 export class HuffmanCodingTreeComponent {
 
-  tree = input<HctNode>();
+  tree = input.required<HctNode>();
   enabledNodes = input<HctNode[]>();
   litNodes = input<HctNode[]>();
 

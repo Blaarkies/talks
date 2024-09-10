@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "update-css-vars": "node src/style/setup/variable-sets-generator.js variable-sets.scss",
-    "rip-change-detection": "node scripts/file-cleaner.js"
+    "rip-change-detection": "node scripts/file-cleaner.js",
+    "serve-prod": "ng serve --configuration production"
   },
   "private": true,
   "dependencies": {

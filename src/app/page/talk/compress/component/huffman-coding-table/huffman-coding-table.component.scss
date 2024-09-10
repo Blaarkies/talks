@@ -23,17 +23,10 @@
 
   .pair-row {
     display: contents;
+    cursor: pointer;
 
-    &:not(.disabled) {
-      cursor: pointer;
-
-      &:hover > tr {
-        background: color(from var(--base-color-15) srgb r g b / .2);
-      }
-    }
-
-    &.disabled {
-      color: var(--base-color-4);
+    &:hover > tr {
+      background: color(from var(--base-color-15) srgb r g b / .2);
     }
   }
 }

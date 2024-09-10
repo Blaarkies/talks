@@ -13,9 +13,9 @@
     >
       <app-huffman-coding-tree-node
         [tile]="tile"
-        [disabled]="!enabledNodes().includes(tile)
-                      && !litNodes().includes(tile)"
-        [isPointedAt]="litNodes().includes(tile)"
+        [disabled]="!enabledNodes()?.includes(tile)
+                      && !litNodes()?.includes(tile)"
+        [isPointedAt]="litNodes()?.includes(tile)"
       />
     </div>
   }

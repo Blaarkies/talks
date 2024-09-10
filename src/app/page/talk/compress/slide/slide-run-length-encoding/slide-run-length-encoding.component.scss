@@ -1,3 +1,5 @@
+@use 'mixin';
+
 .s-r-l-e-layout {
   overflow: hidden;
   height: 100%;
@@ -52,14 +54,8 @@
 
 .terminal-cursor {
   font-size: var(--font-size-4);
-  animation: kf-flicker-slow 1s infinite steps(2, jump-none);
-}
 
-@keyframes kf-flicker-slow {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  @include mixin.make-key-frames(kf-opacity-toggle, opacity, 0, 1);
+
+  animation: kf-opacity-toggle 1s infinite steps(2, jump-none);
 }

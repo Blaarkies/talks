@@ -47,13 +47,13 @@ export class SlideHuffmanCodingTreeComponent {
   private table = viewChild(HuffmanCodingTableComponent);
 
   constructor() {
-    let window = inject(WA_WINDOW);
-    let clickerService = inject(ClickerService);
-
-    fromEvent(window, 'keydown', (e: KeyboardEvent) => e.key)
+    fromEvent(
+      inject(WA_WINDOW),
+      'keydown',
+      (e: KeyboardEvent) => e.key)
       .pipe(
         filter(key => key === 'Enter'),
-        mergeWith(clickerService.stepAction$.pipe(filter(s => s === 'right'))),
+        mergeWith(inject(ClickerService).stepAction$.pipe(filter(s => s === 'right'))),
         takeUntilDestroyed())
       .subscribe(() => this.table().sumNextPair());
   }
@@ -73,6 +73,9 @@ export class SlideHuffmanCodingTreeComponent {
   }
 
   protected resetTree() {
+    this.treeEnabledNodes.set([]);
+    this.treeLitNodes.set([]);
+
     this.isResetting.set(true);
     setTimeout(() => this.isResetting.set(false));
   }

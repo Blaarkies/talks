@@ -28,6 +28,9 @@
             "polyfills": [],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/style/setup"]
+            },
             "assets": [
               {
                 "glob": "**/*",

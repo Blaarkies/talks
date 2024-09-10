@@ -29,10 +29,8 @@ export class HierarchyService {
 
   hoveredSet = toSignal(this.hoveredSet$);
 
-  private destroyRef = inject(DestroyRef);
-
   constructor() {
-    this.destroyRef.onDestroy(() => {
+    inject(DestroyRef).onDestroy(() => {
       this.tileComponentMap$.complete();
       this.hoveredSet$.complete();
     });

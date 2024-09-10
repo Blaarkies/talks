@@ -1,6 +1,5 @@
 import {
   Component,
-  DestroyRef,
   ElementRef,
   inject,
   signal,
@@ -39,7 +38,15 @@ export class SlideExplainEntropyComponent {
 
   private animationController = new AnimationController([
     [
-      {ref: this.pane2, job: {translate: [0], scale: [1], width: '100%', overflow: ['hidden', 'unset']}},
+      {
+        ref: this.pane2,
+        job: {
+          translate: [0],
+          scale: [1],
+          width: '100%',
+          overflow: ['hidden', 'unset'],
+        },
+      },
     ],
     [
       {ref: this.pane1, job: {translate: ['-50vw']}},
@@ -47,18 +54,21 @@ export class SlideExplainEntropyComponent {
     ],
     [
       {ref: this.pane1, job: {translate: ['12vw'], scale: [1]}},
-      {ref: this.pane2, job: {translate: ['18vw'], scale: [1], width: '100%', overflow: 'unset'}},
+      {
+        ref: this.pane2,
+        job: {translate: ['18vw'], scale: [1], width: '100%', overflow: 'unset'},
+      },
       {ref: this.pane3, job: {translate: ['50vw'], scale: [1]}},
     ],
     [
       {ref: this.pane1, job: {translate: ['5vw'], scale: [1.5]}},
-      {ref: this.pane2, job: {translate: ['10vw'], width: '0%', overflow: 'hidden'}},
+      {
+        ref: this.pane2,
+        job: {translate: ['10vw'], width: '0%', overflow: 'hidden'},
+      },
       {ref: this.pane3, job: {translate: ['-5vw'], scale: [1.5]}},
     ],
   ]);
-
-  private clickerService = inject(ClickerService);
-  private destroyRef = inject(DestroyRef);
 
   constructor() {
     let actionAnimationMap = new Map<string, () => void>([
@@ -66,9 +76,8 @@ export class SlideExplainEntropyComponent {
       ['left', () => this.animationController.backward()],
     ]);
 
-    this.clickerService.stepAction$.pipe(
-      takeUntilDestroyed(this.destroyRef),
-    ).subscribe(newAction => actionAnimationMap.get(newAction)?.());
+    inject(ClickerService).stepAction$.pipe(takeUntilDestroyed())
+      .subscribe(newAction => actionAnimationMap.get(newAction)?.());
   }
 
 }

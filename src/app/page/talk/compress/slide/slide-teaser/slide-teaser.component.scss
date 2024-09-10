@@ -1,3 +1,5 @@
+@use 'mixin';
+
 .s-t-layout {
   overflow: hidden;
   height: 100%;
@@ -102,7 +104,12 @@
       padding: calc(-1 * var(--size));
       inset: var(--size) var(--size);
 
-      animation: kf-add-border 0s 1s forwards;
+      @include mixin.make-key-frames(kf-add-border, border, none,
+        var(--border-width-5) double var(--color-text-highlight-danger));
+      @include mixin.make-key-frames(kf-opacity-toggle, opacity, 0, 1);
+
+      animation: kf-add-border 0s 1s forwards,
+      kf-opacity-toggle 1s 3s alternate infinite steps(2);
     }
   }
 }
@@ -115,13 +122,4 @@
   syntax: '<integer>';
   initial-value: 0;
   inherits: false;
-}
-
-@keyframes kf-add-border {
-  from {
-    border: none
-  }
-  to {
-    border: var(--border-width-5) double var(--color-text-highlight-danger)
-  }
 }

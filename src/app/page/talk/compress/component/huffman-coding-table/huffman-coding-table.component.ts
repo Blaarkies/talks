@@ -20,7 +20,7 @@ type HctNode = ReturnType<typeof toHuffmanTree>;
 })
 export class HuffmanCodingTableComponent {
 
-  tree = input<HctNode>();
+  tree = input.required<HctNode>();
 
   activeNodesUpdate = output<HctNode[]>();
   parentNodeOfClickedRow = output<HctNode>();
@@ -72,6 +72,31 @@ export class HuffmanCodingTableComponent {
     }, {allowSignalWrites: true});
   }
 
+  sumNextPair() {
+    this.sumPair(this.filteredTable().interactablePair);
+  }
+
+  protected sumPair(pair: HctNode[]) {
+    if (pair.length !== 2) {
+      return;
+    }
+    this.activeNodes.add(pair);
+    this.parentNodeOfClickedRow.emit(pair[0].parent);
+    this.activeNodesUpdate.emit([...this.activeNodes].flat());
+
+    this.frequenciesState
+      .update(list => list.filter(n => !this.activeNodes.has(n)));
+  }
+
+  protected sumPairFromClick(pair: HctNode[]) {
+    this.sumPair(pair);
+    this.userPointAt(this.filteredTable().interactablePair);
+  }
+
+  protected userPointAt(pair: HctNode[]) {
+    this.userPointsAt.emit(pair);
+  }
+
   private getNodes(tree: HctNode) {
     let results: HctNode[][] = [];
     let nodes: HctNode[] = [tree];
@@ -98,22 +123,6 @@ export class HuffmanCodingTableComponent {
     return results;
   }
 
-  protected sumPair(pair: HctNode[]) {
-    this.activeNodes.add(pair);
-    this.parentNodeOfClickedRow.emit(pair[0].parent);
-    this.activeNodesUpdate.emit([...this.activeNodes].flat());
-
-    this.frequenciesState
-      .update(list => list.filter(n => !this.activeNodes.has(n)));
-
-    // When mouse cursor does not move, pointAt is not updated
-    this.userPointAt(this.filteredTable().interactablePair);
-  }
-
-  protected userPointAt(pair: HctNode[]) {
-    this.userPointsAt.emit(pair);
-  }
-
   private addLabelsToNodes(nodes: HctNode[]) {
     let leafNodes = nodes.filter(n => !n.children);
 
@@ -137,7 +146,4 @@ export class HuffmanCodingTableComponent {
 
   }
 
-  sumNextPair() {
-    this.sumPair(this.filteredTable().interactablePair);
-  }
 }
