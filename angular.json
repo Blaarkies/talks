@@ -12,7 +12,7 @@
           "skipTests": true
         },
         "@schematics/angular:service": {
-          "skipTests": true,
+          "skipTests": true
         }
       },
       "root": "",
@@ -25,9 +25,7 @@
             "outputPath": "dist/blaarkies-talks",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": [],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
