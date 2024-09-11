@@ -7,6 +7,8 @@ export const compressionSlideRouteNames = {
   asciiInBinary: 'ascii-in-binary',
   huffmanCodingDictionary: 'huffman-coding-dictionary',
   huffmanCodingTree: 'huffman-coding-tree',
+  aiAndCompression: 'ai-and-compression',
+  lzw: 'lzw',
 };
 
 export const routes: Route[] = [
@@ -39,6 +41,16 @@ export const routes: Route[] = [
     path: compressionSlideRouteNames.huffmanCodingTree,
     loadComponent: () => import( '../slide/slide-huffman-coding-tree/slide-huffman-coding-tree.component')
       .then(c => c.SlideHuffmanCodingTreeComponent),
+  },
+  {
+    path: compressionSlideRouteNames.aiAndCompression,
+    loadComponent: () => import( '../slide/slide-ai-and-compression/slide-ai-and-compression.component')
+      .then(c => c.SlideAiAndCompressionComponent),
+  },
+  {
+    path: compressionSlideRouteNames.lzw,
+    loadComponent: () => import( '../slide/slide-lzw/slide-lzw.component')
+      .then(c => c.SlideLzwComponent),
   },
 
   {

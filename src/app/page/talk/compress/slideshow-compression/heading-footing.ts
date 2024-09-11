@@ -25,4 +25,12 @@ export const pathToHeadingFootingMap = new Map<string, string[]>([
     'BUILDING THE DICTIONARY',
     'ENTER OR MOUSE CLICK BOTTOM ROW TO SUM PAIR',
   ]],
+  [compressionSlideRouteNames.aiAndCompression, [
+    'AI COMPRESSION',
+    'USE ARROW KEYS ← → TO PROGRESS',
+  ]],
+  [compressionSlideRouteNames.lzw, [
+    'LZW',
+    ' ← → ',
+  ]],
 ]);

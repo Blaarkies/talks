@@ -1,0 +1,43 @@
+<app-pane header="Predictive Text Generators" [shadow]="true">
+  <div class="pane-placeholder">
+    @switch (step()) {
+      @case (1) {
+        <span>Sweet Caroli</span>
+      }
+      @case (2) {
+        <span>Sweet Caroli</span><span class="underlined">ne</span>
+      }
+      @case (3) {
+        <span>Sweet Caroli</span>
+        <span class="underlined">ne</span>
+        <span>,&nbsp;</span><span>bam bam bammmmm!</span>
+      }
+      @case (4) {
+        <div>Given &nbsp; &nbsp; &nbsp; : "Sweet ca"</div>
+        <div>AI predicted: "Sweet candy, bam bam bammmmm!"</div>
+      }
+      @case (5) {
+        <ng-container *ngTemplateOutlet="predictionContent"/>
+      }
+      @case (6) {
+        <ng-container *ngTemplateOutlet="predictionContent"/>
+        <br/>
+        <div>
+          <span>Result &nbsp; &nbsp; &nbsp;: "Sweet ca</span>
+          <span class="highlight">roline</span>
+          <span>, bam bam bammmmm!"</span>
+        </div>
+      }
+    }
+  </div>
+</app-pane>
+
+<ng-template #predictionContent>
+  <div>Given &nbsp; &nbsp; &nbsp; : "Sweet ca"</div>
+  <div>
+    <span>AI predicted: "Sweet ca</span>
+    <span class="highlight">ndy</span>
+    <span>, bam bam bammmmm!"</span>
+  </div>
+  <div>Correction &nbsp;: "8-3-roline"</div>
+</ng-template>

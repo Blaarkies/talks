@@ -1,0 +1,18 @@
+<div class="s-a-a-c-layout">
+
+  @switch (sectionToShow()) {
+    @case (1) {
+      <app-predictive-text-generator-pane
+        class="scale-up"
+        [step]="step()"
+      />
+    }
+    @case (2) {
+      <app-deep-learning-compression
+        class="scale-up"
+        [step]="step() - sectionOffsets[1]"
+      />
+    }
+  }
+
+</div>

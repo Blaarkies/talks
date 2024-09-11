@@ -1,0 +1,14 @@
+.s-a-a-c-layout {
+  overflow: hidden;
+  height: 100%;
+  background: var(--color-back-7);
+
+  padding-inline: 5vw;
+
+  display: grid;
+  place-content: center;
+}
+
+.scale-up {
+  scale: 1.5;
+}

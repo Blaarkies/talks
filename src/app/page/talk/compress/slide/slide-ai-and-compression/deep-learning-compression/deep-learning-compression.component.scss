@@ -1,0 +1,13 @@
+.pane-placeholder {
+  margin-top: 2em;
+  min-height: 10em;
+}
+
+.list-steps {
+  max-width: 40ch;
+  text-indent: -2ch;
+
+  > li {
+    padding-left: 2ch;
+  }
+}

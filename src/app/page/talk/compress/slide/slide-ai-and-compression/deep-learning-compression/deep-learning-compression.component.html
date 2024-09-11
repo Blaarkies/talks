@@ -1,0 +1,33 @@
+<app-pane header="Deep Learning Compression" [shadow]="true">
+  <div class="pane-placeholder">
+    <ol class="list-steps">
+      @if (step() > 0) {
+        <li>Train neural network on input data</li>
+      }
+      @if (step() > 1) {
+        <li>Neural network finds compact representation of data</li>
+      }
+      @if (step() > 2) {
+        <li>Encode and send data, with config to prime neural network</li>
+      }
+      @if (step() > 3) {
+        <li>Primed neural network decodes data into original string</li>
+      }
+    </ol>
+
+    @if (step() > 4) {
+      <div>Input data &nbsp; &nbsp; : "Hello world!"</div>
+      <br/>
+    }
+
+    @if (step() > 5) {
+      <div>Compressed data: <strong>[Encoded Representation]</strong></div>
+      <br/>
+    }
+
+    @if (step() > 6) {
+      <div>Output &nbsp; &nbsp; &nbsp; &nbsp; : "Hello world!"</div>
+      <br/>
+    }
+  </div>
+</app-pane>
