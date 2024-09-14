@@ -1,0 +1,17 @@
+.token-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2ch;
+}
+
+.token {
+  cursor: pointer;
+  word-break: break-all;
+  --lit-background-color: var(--base-color-11);
+
+  &:hover,
+  &.is-lit {
+    background: var(--lit-background-color);
+    color: black;
+  }
+}

@@ -1,8 +1,47 @@
 .s-l-layout {
   overflow: hidden;
   height: 100%;
-  background: var(--base-color-13);
+  background: var(--color-back-8);
 
   padding-inline: 5vw;
 
+  display: grid;
+  place-content: center;
+
+  .s-l-inner-grid {
+    display: grid;
+    grid-template:
+'input  dictionary'
+'output dictionary';
+    grid-template-columns: 1fr 1fr;
+    align-content: center;
+    grid-gap: 2ch;
+
+    .input {
+      grid-area: input;
+    }
+
+    .output {
+      grid-area: output;
+    }
+
+    .dictionary {
+      grid-area: dictionary;
+    }
+  }
+}
+
+.text-list {
+  margin-top: 1em;
+  display: flex;
+  gap: 1ch;
+
+  .is-lit {
+    color: var(--base-color-4);
+    background: var(--base-color-11)
+  }
+
+  .token-code {
+    cursor: pointer;
+  }
 }

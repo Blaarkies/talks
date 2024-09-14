@@ -7,7 +7,7 @@ export const pathToHeadingFootingMap = new Map<string, string[]>([
   ]],
   [compressionSlideRouteNames.entropy, [
     'DEFINING INFORMATION',
-    'USE ARROW KEYS ← → TO VIEW THE NEXT ENTROPY EXAMPLE',
+    'USE ARROW KEYS ← → TO VIEW NEXT ENTROPY EXAMPLE',
   ]],
   [compressionSlideRouteNames.runLengthEncoding, [
     'RUN-LENGTH ENCODING',
@@ -30,7 +30,11 @@ export const pathToHeadingFootingMap = new Map<string, string[]>([
     'USE ARROW KEYS ← → TO PROGRESS',
   ]],
   [compressionSlideRouteNames.lzw, [
-    'LZW',
+    'LZW - PATTERN SUBSTITUTION',
+    'USE ARROW KEYS ← → TO ENCODE OR RESET',
+  ]],
+  [compressionSlideRouteNames.otherAlgorithms, [
+    'OTHER ALGORITHMS',
     ' ← → ',
   ]],
 ]);

@@ -17,3 +17,12 @@ export type TokenElementGroup = {
 }
 
 export type CharOrBin = string | null;
+
+export interface LzwStep {
+  current: string;
+  next?: string;
+  output?: string;
+  dictionaryCode?: number;
+  code?: number;
+  indexes: number[];
+}

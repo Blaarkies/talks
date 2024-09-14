@@ -1,0 +1,39 @@
+.controller-layout {
+  display: flex;
+  gap: 1ch;
+
+  .headings {
+    font-weight: var(--font-weight-5);
+  }
+
+  .content {
+    color: var(--base-color-0);
+
+    > div {
+      min-height: 1em;
+    }
+  }
+
+  .done {
+    color: var(--base-color-4);
+    font-weight: var(--font-weight-5);
+  }
+}
+
+.carousel {
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  width: 8ch;
+
+  > div > div {
+    width: max-content;
+  }
+}
+
+.buttons-layout {
+  margin-left: 4ch;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

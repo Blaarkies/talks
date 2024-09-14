@@ -1,0 +1,34 @@
+<div class="controller-layout">
+  <div class="headings">
+    <div>Current:</div>
+    <div>Next &nbsp; :</div>
+    <div>Output :</div>
+    <div>Add &nbsp; &nbsp;:</div>
+  </div>
+
+  <div class="carousel">
+    <!--    @if() does not re-render the animation element.
+    Use single element in @for instead -->
+    @for (code of currentCodes(); track code) {
+      <div @animateSlideOut class="content">
+        <div>{{ code.current }}</div>
+        <div>{{ code.next }}</div>
+        <div>{{ code.output }}</div>
+        <div>{{ code.add }}
+        </div>
+      </div>
+    } @empty {
+      <div @animateSlideOut class="done">&lt;DONE&gt;</div>
+    }
+  </div>
+
+  <div class="buttons-layout">
+    <app-button [type]="1" [swap]="true" (click1)="reset()">
+      RESET
+    </app-button>
+
+    <app-button [type]="4" [swap]="true" (click1)="continue()">
+      CONTINUE
+    </app-button>
+  </div>
+</div>

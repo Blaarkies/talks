@@ -9,6 +9,7 @@ export const compressionSlideRouteNames = {
   huffmanCodingTree: 'huffman-coding-tree',
   aiAndCompression: 'ai-and-compression',
   lzw: 'lzw',
+  otherAlgorithms: 'other-algorithms',
 };
 
 export const routes: Route[] = [

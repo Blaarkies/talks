@@ -1,0 +1,13 @@
+<div class="token-list" (pointerleave)="pointsAt(activeStep())">
+  @for (step of dictionary(); track step.output) {
+    <div
+      class="token"
+      [class.is-lit]="step === activeStep()
+        || step.dictionaryCode === litStep()?.code"
+      (pointerenter)="pointsAt(step)"
+    >
+      <div>{{ step.current + step.next }}</div>
+      <div>{{ step.dictionaryCode }}</div>
+    </div>
+  }
+</div>

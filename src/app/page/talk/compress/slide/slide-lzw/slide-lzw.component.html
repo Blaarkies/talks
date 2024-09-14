@@ -1,3 +1,73 @@
 <div class="s-l-layout">
-  <p>slide-lzw works!</p>
+  <div class="s-l-inner-grid">
+    <app-pane
+      class="input"
+      header="Input Data"
+      [shadow]="true"
+      [type]="2"
+      [swap]="true"
+    >
+      <app-text-character-lighter
+        [characters]="text()"
+        [litIndexes]="litIndexes()"
+        [litColor]="3"
+        (userPointsAtIndex)="updateLitIndex($event)"
+      />
+      <div
+        class="text-list"
+        (pointerleave)="userPointAtDictionary(controller.activeStep())"
+      >
+        @for (c of testInAscii(); track c.toString() + $index) {
+          <span
+            class="token-code"
+            [class.is-lit]="litIndexes()?.includes($index)"
+            (pointerenter)="updateLitIndex($index)"
+          >
+          {{ c }}
+        </span>
+        }
+      </div>
+    </app-pane>
+
+    <app-pane
+      class="output"
+      header="Output Data"
+      [shadow]="true"
+      [type]="2"
+      [swap]="true"
+      outline="single"
+    >
+      <app-lzw-code-lighter
+        [dictionary]="dictionary()"
+        [activeStep]="controller.activeStep()"
+        [litStep]="litStep()"
+        (userPointsAt)="userPointAtDictionary($event)"
+      />
+    </app-pane>
+
+    <div class="dictionary">
+      <app-pane [shadow]="true" [type]="4">
+        <app-lzw-controller
+          #controller
+          [dictionary]="dictionary()"
+          (updateActiveStep)="litIndexes.set($event?.indexes)"
+        />
+      </app-pane>
+
+      <app-pane
+        header="Dictionary"
+        [shadow]="true"
+        [type]="4"
+        outline="double"
+      >
+        <app-lzw-dictionary
+          [dictionary]="controller.activeDictionary()"
+          [activeStep]="controller.activeStep()"
+          [litStep]="litStep()"
+          (userPointsAt)="userPointAtDictionary($event)"
+        />
+      </app-pane>
+    </div>
+
+  </div>
 </div>

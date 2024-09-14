@@ -20,8 +20,11 @@ export class TextCharacterLighterComponent {
   characters = input.required<string[]>();
   litCharacter = input<string | null>(null);
   litColor = input<1 | 2 | 3>(2);
+  litIndex = input<number | null>(null);
+  litIndexes = input<number[] | null>(null);
 
-  userPointsAt = output<string>();
+  userPointsAt = output<string | null>();
+  userPointsAtIndex = output<number | null>();
 
   protected litColorClass = computed(() => {
     let litColor = this.litColor();
@@ -32,8 +35,9 @@ export class TextCharacterLighterComponent {
     return 'lit-color-' + litColor;
   });
 
-  pointsAt(char: string | null) {
+  pointsAt(char: string | null, index?: number) {
     this.userPointsAt.emit(char);
+    this.userPointsAtIndex.emit(index);
   }
 
 }

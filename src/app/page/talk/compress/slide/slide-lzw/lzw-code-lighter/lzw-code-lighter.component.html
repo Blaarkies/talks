@@ -1,0 +1,12 @@
+<div class="steps-list" (pointerleave)="pointsAt(activeStep())">
+  @for (step of display(); track step) {
+    <div
+      class="code-token"
+      [class.is-lit]="step === activeStep() || step === litStep()"
+      (pointerenter)="pointsAt(step)"
+    >
+      <div>{{ step.output }}</div>
+      <div>{{ step.code }}</div>
+    </div>
+  }
+</div>

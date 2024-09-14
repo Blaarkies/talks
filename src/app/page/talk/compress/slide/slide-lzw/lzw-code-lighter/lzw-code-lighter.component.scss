@@ -1,0 +1,19 @@
+.steps-list {
+  min-height: 3em;
+  display: flex;
+  gap: 1ch;
+
+  > div {
+    display: grid;
+    gap: 1ch;
+  }
+}
+
+.code-token {
+  cursor: pointer;
+
+  &:hover, &.is-lit {
+    color: var(--base-color-4);
+    background: var(--base-color-11)
+  }
+}

@@ -2,8 +2,10 @@
   @for (char of characters(); track i + char; let i = $index) {
     <span
       class="token"
-      [class.is-lit]="char === litCharacter()"
-      (pointerenter)="pointsAt(char)"
+      [class.is-lit]="char === litCharacter()
+                      || i === litIndex()
+                      || litIndexes()?.includes(i)"
+      (pointerenter)="pointsAt(char, i)"
     >{{ char }}</span>
   }
 </div>

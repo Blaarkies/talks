@@ -25,15 +25,13 @@
       outline: var(--border-width-2) solid var(--outline-color);
     }
 
-    @include mixin.make-colored-pane-class('', --color, 4);
-    @include mixin.make-colored-pane-class(swap-, --color-swap, 4);
+    @include mixin.make-colored-pane-class(
+        '', --color, 4, true);
+    @include mixin.make-colored-pane-class(
+        swap-, --color-swap, 4, true);
 
     &.shadow {
       box-shadow: -1ch 1ch 0 0 var(--color-shadow-1);
-    }
-
-    &:hover {
-      mix-blend-mode: plus-lighter;
     }
   }
 

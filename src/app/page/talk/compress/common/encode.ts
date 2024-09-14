@@ -1,10 +1,14 @@
-import { sep } from '../../../../common';
+import {
+  makeNumberList,
+  sep,
+} from '../../../../common';
 import { unprintableCharLabelMap } from '../data/ascii-table';
 import {
   Data,
   dataToList,
   toFrequencies,
 } from './entropy';
+import { LzwStep } from './type';
 
 export function splitStringToRunLengthEncoding(data: string): string[] {
   let imageString = data.split('');
@@ -132,4 +136,62 @@ export function encodeToHuffmanCoding(
   let list = dataToList(data);
 
   return list.map(c => dictionary.get(c.toString()).path);
+}
+
+export function encodeToLzw(text: string): LzwStep[] {
+  let dictionary = [];
+  let lastCode = 255;
+  let nowString = '';
+
+  return text.split('')
+    .map((char, i, a) => {
+      nowString += char;
+      let encodedWord = dictionary.find(e => e.string === nowString);
+
+      let next = a.slice(i + 1)[0];
+      if (next === undefined) {
+        let size = nowString.length;
+        return {
+          current: nowString,
+          output: nowString,
+          code: encodedWord ? encodedWord.code : nowString.charCodeAt(0),
+          indexes: makeNumberList(size, i - size + 1),
+        };
+      }
+
+      let forward = nowString + next;
+      let entry = dictionary.find(e => e.string === forward);
+      if (entry) {
+        let size = nowString.length;
+        return {
+          current: nowString,
+          next,
+          indexes: makeNumberList(size, i - size + 1),
+        };
+      }
+
+      let output = encodedWord ? encodedWord.string : nowString;
+      let nowStringClone = nowString;
+      if (output) {
+        nowString = '';
+      }
+
+      lastCode++;
+      let charToAdd = `${output}${next}`;
+      dictionary.push({
+        string: charToAdd,
+        code: lastCode
+      });
+
+      let size = nowStringClone.length;
+
+      return {
+        current: nowStringClone,
+        next,
+        output,
+        dictionaryCode: lastCode,
+        code: encodedWord ? encodedWord.code : output.charCodeAt(0),
+        indexes: makeNumberList(size, i - size + 1),
+      };
+    });
 }

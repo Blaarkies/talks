@@ -1,9 +1,14 @@
 .lit-color-1 {
-  --lit-color: var(--base-color-8)
+  --lit-background-color: var(--base-color-8)
 }
 
 .lit-color-2 {
-  --lit-color: var(--base-color-2)
+  --lit-background-color: var(--base-color-2)
+}
+
+.lit-color-3 {
+  --lit-color: var(--base-color-4);
+  --lit-background-color: var(--base-color-11)
 }
 
 .token {
@@ -12,6 +17,7 @@
 
   &:hover,
   &.is-lit {
-    background: var(--lit-color);
+    background: var(--lit-background-color);
+    color: var(--lit-color);
   }
 }

@@ -40,12 +40,18 @@
 
 /* Mixins for generating pane type classes given preset variables */
 
-@mixin make-colored-pane-class($className, $varName, $count) {
+@mixin make-colored-pane-class($className, $varName, $count, $withHover: '') {
   @for $i from 1 through $count {
     &.type-#{$className}#{$i} {
       background: var(#{$varName}-pane-#{$i});
       color: var(#{$varName}-text-#{$i});
       --outline-color: var(#{$varName}-border-#{$i});
+
+      @if $withHover == true {
+        &:hover {
+          background: var(#{$varName}-hover-#{$i});;
+        }
+      }
     }
   }
 }
