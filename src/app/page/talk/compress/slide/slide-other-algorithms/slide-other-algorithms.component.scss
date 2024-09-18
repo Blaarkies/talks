@@ -1,0 +1,41 @@
+.s-o-a-layout {
+  overflow: hidden;
+  height: 100%;
+  background: var(--color-back-9);
+
+  padding-inline: 5vw;
+
+  display: grid;
+  place-content: center;
+
+  .s-o-a-inner-grid {
+    display: grid;
+    grid-template:
+'1 2'
+'3 4';
+    align-content: center;
+
+    .text {
+      translate: 2ch -1ch;
+    }
+
+    .audio {
+      translate: 1ch 5ch;
+    }
+
+    .image {
+      translate: 0 0;
+    }
+
+    .video {
+      translate: -1ch -7ch;
+    }
+
+  }
+
+}
+
+.pixelate-image {
+  image-rendering: pixelated;
+  margin: 1ch;
+}

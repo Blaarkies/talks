@@ -1,0 +1,23 @@
+<div
+  class="window"
+  cdkDrag
+  [cdkDragBoundary]="boundaryElement()"
+>
+  <div class="inner-border">
+    <div class="heading">
+      <div class="button-close">
+        <div>-</div>
+      </div>
+      <div class="title" cdkDragHandle>{{ heading() }}</div>
+      <div class="button-minimize">
+        <div>▼</div>
+      </div>
+      <div class="button-maximize">
+        <div>▲</div>
+      </div>
+    </div>
+    <div class="content">
+      <ng-content/>
+    </div>
+  </div>
+</div>

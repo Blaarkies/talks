@@ -55,6 +55,8 @@ export class SlideRunLengthEncodingComponent {
   ));
 
   protected imageString = signal(hexagonImage).asReadonly();
+  protected imageStringPixelsOnly = computed(() =>
+    this.imageString().replaceAll('\n', ''));
   protected imageWidth = signal(hexagonImage.indexOf(sep)).asReadonly();
 
   protected encodings = computed(() => {

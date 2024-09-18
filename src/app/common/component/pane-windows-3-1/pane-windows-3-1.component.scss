@@ -1,0 +1,74 @@
+.window {
+
+  --win-gray: #c3c7cb;
+  --win-grayer: #939699;
+  --win-blue: #0000aa;
+
+  width: max-content;
+  border: 4px solid var(--win-gray);
+  outline: 1.5px solid black;
+
+  .inner-border {
+    outline: 1.5px solid black;
+
+    background: white;
+  }
+
+  .heading {
+    display: flex;
+    width: 100%;
+
+    background-color: var(--win-blue);
+    color: white;
+    font-size: var(--font-size-2);
+
+    --line-height: calc(var(--font-size-3) * 1.25);
+
+    .title {
+      flex-grow: 1;
+      text-align: center;
+      padding-inline: 4ch;
+      line-height: var(--line-height);
+      user-select: none;
+      font-size: var(--font-size-3);
+    }
+
+    .button-close,
+    .button-minimize,
+    .button-maximize {
+      background: var(--win-gray);
+      color: black;
+
+      aspect-ratio: 1;
+      height: var(--line-height);
+
+      display: grid;
+      place-items: center;
+
+      > div {
+        scale: 1.2 0.7;
+      }
+
+      box-shadow:
+        inset -2px -2px 2px 0px black,
+        inset 2px 2px 2px 0px white;
+
+      cursor: pointer;
+      user-select: none;
+
+      &:active {
+        box-shadow: none;
+        background: var(--win-grayer);
+      }
+    }
+
+    .button-close > div {
+      scale: 1.5 2.5;
+      // outline text
+      -webkit-text-fill-color: white;
+      -webkit-text-stroke: .5px;
+    }
+
+  }
+
+}

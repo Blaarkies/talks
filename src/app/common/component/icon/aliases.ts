@@ -2,7 +2,7 @@ import { filledIconAliases } from './filled-icons';
 import { outlinedIconAliases } from './outlined-icons';
 import { IconAlias } from './type';
 
-let iconsPath = `assets/icons`;
+let iconsPath = `asset/icons`;
 let filledIcons = Object.entries(filledIconAliases)
   .map(([k, v]) => [k, `${iconsPath}/filled/${v}.svg`]);
 

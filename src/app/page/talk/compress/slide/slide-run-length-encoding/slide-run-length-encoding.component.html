@@ -10,7 +10,7 @@
     <app-entropy-measure
       #previewMeasure
       [class.conceal]="step() < 2"
-      [data]="imageString()"
+      [data]="imageStringPixelsOnly()"
     />
 
     <span class="terminal-cursor" [class.hide]="step() > 0">█</span>

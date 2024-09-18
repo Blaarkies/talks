@@ -1,0 +1,59 @@
+<div class="s-o-a-layout">
+  <div class="s-o-a-inner-grid">
+
+    @let f = pixelateFactor();
+
+    <app-pane-windows-3-1
+      class="text"
+      heading="Text"
+      [dragBoundaryParent]="dragBoundaryElement()"
+    >
+      <img
+        class="pixelate-image"
+        src="asset/talks/compress/gzip.webp"
+        [width]="f*48"
+        [height]="f*32"
+      />
+    </app-pane-windows-3-1>
+
+    <app-pane-windows-3-1
+      class="audio"
+      heading="Audio"
+      [dragBoundaryParent]="dragBoundaryElement()"
+    >
+      <img
+        class="pixelate-image"
+        src="asset/talks/compress/mp3.webp"
+        [width]="f*64"
+        [height]="f*32"
+      />
+    </app-pane-windows-3-1>
+
+    <app-pane-windows-3-1
+      class="image"
+      heading="Image"
+      [dragBoundaryParent]="dragBoundaryElement()"
+    >
+      <img
+        class="pixelate-image"
+        src="asset/talks/compress/jpeg.webp"
+        [width]="f*38"
+        [height]="f*38"
+      />
+    </app-pane-windows-3-1>
+
+    <app-pane-windows-3-1
+      class="video"
+      heading="Video"
+      [dragBoundaryParent]="dragBoundaryElement()"
+    >
+      <img
+        class="pixelate-image"
+        src="asset/talks/compress/mpeg.webp"
+        [width]="f*64"
+        [height]="f*15"
+      />
+    </app-pane-windows-3-1>
+
+  </div>
+</div>
