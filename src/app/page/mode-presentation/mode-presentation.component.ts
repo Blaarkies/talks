@@ -2,15 +2,17 @@ import {
   Component,
   HostListener,
   inject,
-  signal,
 } from '@angular/core';
 import {
-  ActivatedRoute,
   Router,
   RouterOutlet,
 } from '@angular/router';
 import { ButtonComponent } from '../../common/component/button/button.component';
 import { ClickerService } from './service/clicker.service';
+import {
+  FontSizeService,
+  SlideMode,
+} from './service/font-size.service';
 
 @Component({
   selector: 'app-mode-presentation',
@@ -36,6 +38,10 @@ export class ModePresentationComponent {
                        ? this.clickerService.backward()
                        : this.clickerService.left()],
   ]);
+
+  constructor() {
+    inject(FontSizeService).setSlideMode(SlideMode.presentation);
+  }
 
   @HostListener('window:keydown', ['$event'])
   handleKeydown(event: KeyboardEvent) {

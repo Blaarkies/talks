@@ -5,14 +5,15 @@
 
   .tile {
     text-align: center;
-    background: var(--base-color-8);
+    background: var(--base-color-4);
     padding: .5ch 1ch;
     color: var(--base-color-15);
     cursor: pointer;
 
     &:hover,
     &.is-lit {
-      background: var(--base-color-2);
+      background: var(--base-color-11);
+      color: var(--base-color-4);
     }
   }
 }

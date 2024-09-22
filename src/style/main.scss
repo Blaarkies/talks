@@ -1,6 +1,7 @@
 @use 'mixin';
 @use 'variable-sets';
 
+@import '@angular/cdk/overlay-prebuilt.css';
 @import './fix';
 
 // @formatter:off

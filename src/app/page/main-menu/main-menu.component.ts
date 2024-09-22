@@ -1,6 +1,14 @@
 import {
+  CdkMenu,
+  CdkMenuBar,
+  CdkMenuItem,
+  CdkMenuTrigger,
+} from '@angular/cdk/menu';
+import { DOCUMENT } from '@angular/common';
+import {
   Component,
   computed,
+  effect,
   inject,
   signal,
 } from '@angular/core';
@@ -8,9 +16,14 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { WA_LOCAL_STORAGE } from '@ng-web-apis/common';
 import { routeNames } from '../../../bootstrap/app.routes';
 import { PaneComponent } from '../../common/component/pane/pane.component';
 import { RimComponent } from '../../common/component/rim/rim.component';
+import {
+  FontSizeService,
+  SlideMode,
+} from '../mode-presentation/service/font-size.service';
 import {
   NavigationOption,
   navigationOptions,
@@ -23,6 +36,10 @@ import {
     RouterLink,
     PaneComponent,
     RimComponent,
+    CdkMenuTrigger,
+    CdkMenuBar,
+    CdkMenuItem,
+    CdkMenu,
   ],
   templateUrl: './main-menu.component.html',
   styleUrl: './main-menu.component.scss',
@@ -30,9 +47,12 @@ import {
 export class MainMenuComponent {
 
   protected routeNames = routeNames;
+  protected slideMode = SlideMode;
   protected navigations = signal(navigationOptions);
   protected navigationsList = computed(() => Object.values(this.navigations()));
   protected selectedOption = signal<NavigationOption>(null);
+  private fontSizeService = inject(FontSizeService);
+  protected mode = this.fontSizeService.slideMode;
 
   private router = inject(Router);
 
@@ -57,4 +77,7 @@ export class MainMenuComponent {
     await this.router.navigate(['../', routeNames.present, url]);
   }
 
+  setSlideMode(mode: SlideMode) {
+    this.fontSizeService.setSlideMode(mode);
+  }
 }

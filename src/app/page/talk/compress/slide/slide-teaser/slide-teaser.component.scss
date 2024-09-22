@@ -27,6 +27,7 @@
 }
 
 .stiffy-holder {
+  font-size: var(--font-size-2);
   width: max-content;
   height: max-content;
   color: var(--stiffy-color);
@@ -57,7 +58,7 @@
   height: 100%;
   padding-inline: var(--space-4);
   display: grid;
-  grid-template-rows: 240px max-content;
+  grid-template-rows: 9em max-content;
   place-items: center;
 
   color: var(--color-text-5);
@@ -70,7 +71,6 @@
 
 .alice-desk {
   grid-area: alice;
-  perspective: 20vw;
 
   > .stiffy-holder {
     width: 0%;
@@ -112,6 +112,10 @@
       kf-opacity-toggle 1s 3s alternate infinite steps(2);
     }
   }
+}
+
+.above-outline {
+  z-index: 1;
 }
 
 .extra-bytes {

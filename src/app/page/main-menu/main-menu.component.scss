@@ -1,3 +1,5 @@
+@use '../../../style/fix';
+
 .layout-main-menu {
   height: 100%;
   background: var(--color-back-1);
@@ -14,8 +16,51 @@
   }
 }
 
+.menu-option {
+  cursor: pointer;
+  padding: 0 1ch;
+
+  &:hover {
+    background-color: var(--base-color-8);
+    outline: 2px solid var(--base-color-8);
+  }
+}
+
+.dropdown-item {
+  @extend .menu-option;
+  @extend .anti-button;
+
+  text-align: left;
+
+  .hotkey {
+    text-decoration: underline;
+    color: var(--color-text-danger);
+  }
+}
+
+.menu-bar .dropdown-item {
+  width: max-content;
+}
+
+.dropdown-menu {
+  display: grid;
+  padding-block: 3px;
+  gap: 4px;
+  width: max-content;
+  background: var(--color-pane-1);
+}
+
 .head-footing {
   padding-left: var(--space-5);
+  position: relative;
+
+  .title {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    text-align: center;
+  }
 }
 
 .navigation-list {

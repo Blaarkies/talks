@@ -53,10 +53,10 @@ export class SlideExplainEntropyComponent {
       {ref: this.pane2, job: {translate: [0], scale: [2]}},
     ],
     [
-      {ref: this.pane1, job: {translate: ['12vw'], scale: [1]}},
+      {ref: this.pane1, job: {translate: ['6vw'], scale: [1.5]}},
       {
         ref: this.pane2,
-        job: {translate: ['18vw'], scale: [1], width: '100%', overflow: 'unset'},
+        job: {translate: ['24vw'], scale: [1.5], width: '100%', overflow: 'unset'},
       },
       {ref: this.pane3, job: {translate: ['50vw'], scale: [1]}},
     ],

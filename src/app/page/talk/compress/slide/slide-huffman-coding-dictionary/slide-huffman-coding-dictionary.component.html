@@ -9,6 +9,7 @@
         [swap]="true"
       >
         <app-text-character-lighter
+          [litColor]="3"
           [characters]="text()"
           [litCharacter]="litChar()"
           (userPointsAt)="updateLitCharacter($event, 'char')"
@@ -26,6 +27,7 @@
         [swap]="true"
       >
         <app-text-character-lighter
+          [litColor]="3"
           [characters]="binary()"
           [litCharacter]="litBinary()"
           (userPointsAt)="updateLitCharacter($event, 'binary')"
@@ -48,6 +50,7 @@
         [swap]="true"
       >
         <app-text-character-lighter
+          [litColor]="3"
           [characters]="encoded()"
           [litCharacter]="litEncoded()"
           (userPointsAt)="updateLitCharacter($event, 'encoded')"

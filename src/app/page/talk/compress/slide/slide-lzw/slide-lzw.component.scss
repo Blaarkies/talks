@@ -3,18 +3,16 @@
   height: 100%;
   background: var(--color-back-8);
 
-  padding-inline: 5vw;
-
   display: grid;
   place-content: center;
 
   .s-l-inner-grid {
+    max-width: 90vw;
+    translate: -1ch;
     display: grid;
     grid-template:
 'input  dictionary'
 'output dictionary';
-    grid-template-columns: 1fr 1fr;
-    align-content: center;
     grid-gap: 2ch;
 
     .input {
