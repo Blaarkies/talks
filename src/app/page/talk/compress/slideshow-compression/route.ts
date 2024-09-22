@@ -10,6 +10,7 @@ export const compressionSlideRouteNames = {
   aiAndCompression: 'ai-and-compression',
   lzw: 'lzw',
   otherAlgorithms: 'other-algorithms',
+  end: 'end-and-questions',
 };
 
 export const routes: Route[] = [
@@ -57,6 +58,11 @@ export const routes: Route[] = [
     path: compressionSlideRouteNames.otherAlgorithms,
     loadComponent: () => import( '../slide/slide-other-algorithms/slide-other-algorithms.component')
       .then(c => c.SlideOtherAlgorithmsComponent),
+  },
+  {
+    path: compressionSlideRouteNames.end,
+    loadComponent: () => import( '../slide/slide-end/slide-end.component')
+      .then(c => c.SlideEndComponent),
   },
 
   {

@@ -37,4 +37,8 @@ export const pathToHeadingFootingMap = new Map<string, string[]>([
     'OTHER ALGORITHMS',
     'PRACTICE LOOKING AT WINDOWS',
   ]],
+  [compressionSlideRouteNames.end, [
+    'THANK YOU',
+    'USE ↰ TO GO BACK TO MAIN MENU',
+  ]],
 ]);
