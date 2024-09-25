@@ -71,6 +71,16 @@ export function chunked<T>(list: T[], chunkSize = 2): T[][] {
   return chunks;
 }
 
+export function pairItems<T>(...lists: unknown[][]): T[] {
+  let maxLength = Math.max(...lists.map(l => l.length));
+  let results = [];
+  for (let i = 0; i < maxLength; i++) {
+    results.push(lists.map(list => list[i]));
+  }
+
+  return results;
+}
+
 export function flattenNestedValues<T>(root: T, selector: (item: T) => T | T[])
   : T[] {
   let results = [];

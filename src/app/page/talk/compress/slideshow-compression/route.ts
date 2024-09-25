@@ -11,6 +11,7 @@ export const compressionSlideRouteNames = {
   lzw: 'lzw',
   otherAlgorithms: 'other-algorithms',
   end: 'end-and-questions',
+  calculatingEntropy: 'calculating-entropy',
 };
 
 export const routes: Route[] = [
@@ -63,6 +64,11 @@ export const routes: Route[] = [
     path: compressionSlideRouteNames.end,
     loadComponent: () => import( '../slide/slide-end/slide-end.component')
       .then(c => c.SlideEndComponent),
+  },
+  {
+    path: compressionSlideRouteNames.calculatingEntropy,
+    loadComponent: () => import( '../slide/slide-calculating-entropy/slide-calculating-entropy.component')
+      .then(c => c.SlideCalculatingEntropyComponent),
   },
 
   {

@@ -1,0 +1,40 @@
+.world-container {
+  position: relative;
+  scale: .25;
+  background: navy;
+
+  > * {
+    position: absolute;
+  }
+
+  .hammer {
+    image-rendering: pixelated;
+    left: -580px;
+    top: 200px;
+    transform-origin: 50% 80%;
+    cursor: grab;
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+
+  .walls {
+    background: darkslategray;
+  }
+
+  .coin {
+    overflow: visible;
+    translate: 250px;
+
+    polyline {
+      transform-origin: left -15px;
+
+      fill: none;
+      stroke: orange;
+      filter: drop-shadow(0 25px 0 #0054f0);
+    }
+  }
+
+
+}

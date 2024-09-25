@@ -1,0 +1,21 @@
+<div class="world-container" (click)="flipCoin()">
+
+  <img
+    #hammer
+    src="asset/talks/compress/hammer.webp"
+    class="hammer"
+    draggable="false"
+    [width]="16*2e1"
+    (click)="slamHammer(); $event.stopPropagation()"
+  />
+
+  <div #walls class="walls"></div>
+  <div #walls class="walls"></div>
+  <div #walls class="walls"></div>
+  <div #walls class="walls"></div>
+
+  <svg #coin class="coin">
+    <polyline/>
+  </svg>
+
+</div>

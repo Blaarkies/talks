@@ -1,0 +1,18 @@
+.s-c-e-layout {
+  overflow: hidden;
+  height: 100%;
+  background: var(--color-back-2);
+
+  //padding-inline: 5vw;
+
+  display: grid;
+  place-content: center;
+
+  .s-c-e-inner-grid {
+    display: grid;
+    gap: 6ch;
+    grid-auto-flow: column;
+    align-items: center;
+  }
+
+}

@@ -41,4 +41,8 @@ export const pathToHeadingFootingMap = new Map<string, string[]>([
     'THANK YOU',
     'USE ↰ TO GO BACK TO MAIN MENU',
   ]],
+  [compressionSlideRouteNames.calculatingEntropy, [
+    'CALCULATING ENTROPY',
+    'CLICK THE COIN TO FLIP',
+  ]],
 ]);
