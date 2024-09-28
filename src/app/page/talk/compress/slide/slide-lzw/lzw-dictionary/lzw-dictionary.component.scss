@@ -7,11 +7,16 @@
 .token {
   cursor: pointer;
   word-break: break-all;
-  --lit-background-color: var(--base-color-11);
+  --lit-background-color: var(--base-color-4);
+  --lit-text-color: var(--base-color-11);
 
   &:hover,
   &.is-lit {
     background: var(--lit-background-color);
-    color: black;
+    color: var(--lit-text-color);
   }
+}
+
+.will-add {
+  display: none;
 }

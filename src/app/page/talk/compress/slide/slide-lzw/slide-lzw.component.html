@@ -3,9 +3,9 @@
     <app-pane
       class="input"
       header="Input Data"
-      [shadow]="true"
       [type]="2"
       [swap]="true"
+      outline="single"
     >
       <app-text-character-lighter
         [characters]="text()"
@@ -15,7 +15,7 @@
       />
       <div
         class="text-list"
-        (pointerleave)="userPointAtDictionary(controller.activeStep())"
+        (pointerleave)="userPointAtDictionary(controller.activeDictionary().at(-1))"
       >
         @for (c of testInAscii(); track c.toString() + $index) {
           <span
@@ -32,10 +32,9 @@
     <app-pane
       class="output"
       header="Output Data"
-      [shadow]="true"
       [type]="2"
       [swap]="true"
-      outline="single"
+      outline="double"
     >
       <app-lzw-code-lighter
         [dictionary]="dictionary()"
@@ -46,17 +45,17 @@
     </app-pane>
 
     <div class="dictionary">
-      <app-pane [shadow]="true" [type]="4">
+      <app-pane [type]="4">
         <app-lzw-controller
           #controller
           [dictionary]="dictionary()"
-          (updateActiveStep)="litIndexes.set($event?.indexes)"
+          (updateActiveStep)="litIndexes.set($event?.indexes);
+          userPointAtDictionary($event)"
         />
       </app-pane>
 
       <app-pane
         header="Dictionary"
-        [shadow]="true"
         [type]="4"
         outline="double"
       >

@@ -23,7 +23,7 @@ export class PaneComponent {
   header = input<string>();
   type = input<1 | 2 | 3 | 4>(1);
   swap = input<boolean>();
-  shadow = input<boolean>(false);
+  shadow = input<boolean>(true);
   outline = input<'single' | 'double'>();
 
   protected typeClass = computed(() =>

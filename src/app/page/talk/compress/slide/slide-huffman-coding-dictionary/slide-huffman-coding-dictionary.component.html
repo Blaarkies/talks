@@ -3,8 +3,7 @@
 
     @if (step() >= 0) {
       <app-pane
-        header="Data"
-        [shadow]="true"
+        header="Input Data"
         [type]="2"
         [swap]="true"
       >
@@ -22,7 +21,6 @@
       <app-pane
         header="Data in Binary"
         outline="single"
-        [shadow]="true"
         [type]="2"
         [swap]="true"
       >
@@ -45,7 +43,6 @@
       <app-pane
         header="Compressed Binary"
         outline="double"
-        [shadow]="true"
         [type]="2"
         [swap]="true"
       >
@@ -62,7 +59,6 @@
     @if (step() >= 2) {
       <app-pane
         header="Huffman Coding Dictionary"
-        [shadow]="true"
         [type]="2"
       >
         <app-huffman-coding-dictionary-lighter

@@ -15,7 +15,8 @@ import { LzwCodeLighterComponent } from './lzw-code-lighter/lzw-code-lighter.com
 import { LzwControllerComponent } from './lzw-controller/lzw-controller.component';
 import { LzwDictionaryComponent } from './lzw-dictionary/lzw-dictionary.component';
 
-let exampleText = 'FLEX_NEXT_TEXT';
+// let exampleText = 'FLEX_NEXT_TEXT';
+let exampleText = 'AIR_FAIR_CHAIRS';
 
 @Component({
   selector: 'app-slide-lzw',
@@ -56,7 +57,10 @@ export class SlideLzwComponent {
     this.litStep.set(step);
   }
 
-  protected updateLitIndex(index: number) {
+  protected updateLitIndex(index: number | null) {
+    if (index === null) {
+      return this.litStep.set(null);
+    }
     let step = this.dictionary().at(index);
     this.litIndexes.set([step?.indexes?.at(-1)]);
     this.litStep.set(step);

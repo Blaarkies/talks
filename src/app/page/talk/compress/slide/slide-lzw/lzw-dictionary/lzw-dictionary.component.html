@@ -2,8 +2,8 @@
   @for (step of dictionary(); track step.output) {
     <div
       class="token"
-      [class.is-lit]="step === activeStep()
-        || step.dictionaryCode === litStep()?.code"
+      [class.is-lit]="step.dictionaryCode === litStep()?.code"
+      [class.will-add]="step === activeStep()"
       (pointerenter)="pointsAt(step)"
     >
       <div>{{ step.current + step.next }}</div>
