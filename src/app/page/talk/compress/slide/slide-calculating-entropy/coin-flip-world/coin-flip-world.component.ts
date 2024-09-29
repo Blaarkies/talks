@@ -1,23 +1,40 @@
 import {
   Component,
   computed,
+  DestroyRef,
   effect,
   ElementRef,
+  inject,
   viewChild,
   viewChildren,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   b2Body,
   b2BodyDef,
   b2BodyType,
   b2CircleShape,
+  b2ContactListener,
   b2Fixture,
   b2PolygonShape,
   b2StepConfig,
   b2Vec2,
   b2World,
+  XY,
 } from '@box2d/core';
+import { b2Contact } from '@box2d/core/dist/dynamics/b2_contact';
 import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+  scan,
+  Subject,
+} from 'rxjs';
+import {
+  average,
+  coerceBetween,
+  lerp,
   makeNumberList,
   pairItems,
 } from '../../../../../../common';
@@ -30,6 +47,36 @@ function waitABit(time = 7) {
 
 let deg90InRad = Math.PI / 2;
 
+function fixturesFromList(fixture: b2Fixture): b2Fixture[] {
+  let results = new Set<b2Fixture>();
+  let queue = [fixture];
+  while (queue.length) {
+    let item = queue.pop();
+    if (!item || results.has(item)) {
+      break;
+    }
+
+    results.add(item);
+    queue.push(item.GetNext?.());
+  }
+
+  return Array.from(results);
+}
+
+function polarToCardinal(angle: number, radius: number) {
+  let x = Math.cos(angle) * radius;
+  let y = Math.sin(angle) * radius;
+
+  return {x, y};
+}
+
+interface ConfigInputAddFixtures {
+  angle: number;
+  thickness: number;
+  length: number;
+  vertexCount: number;
+}
+
 @Component({
   selector: 'app-coin-flip-world',
   standalone: true,
@@ -39,11 +86,24 @@ let deg90InRad = Math.PI / 2;
 })
 export class CoinFlipWorldComponent {
 
+  protected tau = 2 * Math.PI;
+
   private hammer = viewChild('hammer', {read: ElementRef<HTMLElement>});
+  private wallGroup = viewChild('wallGroup', {read: ElementRef<HTMLElement>});
   private wallsElements = viewChildren('walls', {read: ElementRef<HTMLElement>});
   private coinElement = viewChild('coin', {read: ElementRef<SVGElement>});
-  private polylineElement = computed(() =>
-    this.coinElement().nativeElement.querySelector('polyline'));
+  private groupElement = computed(() =>
+    <SVGGElement>this.coinElement()
+      .nativeElement
+      .querySelector('g'));
+  private polylineAElement = computed(() =>
+    <SVGPolylineElement>this.coinElement()
+      .nativeElement
+      .querySelector('polyline:first-child'));
+  private polylineBElement = computed(() =>
+    <SVGPolylineElement>this.coinElement()
+      .nativeElement
+      .querySelector('polyline:last-child'));
 
   private coinBody: b2Body;
   private wallsBody: b2Body;
@@ -54,6 +114,7 @@ export class CoinFlipWorldComponent {
   private scale = 1e3;
 
   constructor() {
+    let destroyRef = inject(DestroyRef);
     effect(() => {
       if (!this.wallsElements() || !this.coinElement()) {
         return;
@@ -64,7 +125,7 @@ export class CoinFlipWorldComponent {
       this.wallsBody = this.createWalls();
       this.drawWalls(this.wallsBody);
 
-      this.coinBody = this.createCoin({});
+      this.coinBody = this.createCoin();
       this.drawCoin(this.coinBody);
 
       this.stepConfig = {
@@ -72,6 +133,20 @@ export class CoinFlipWorldComponent {
         positionIterations: 2,
       };
       this.timeStep = 1 / 60;
+
+      let changes$ = new Subject<void>();
+      changes$.pipe(
+        debounceTime(150),
+        map(() => this.coinBody.GetLinearVelocity().Length()
+          + Math.abs(this.coinBody.GetAngularVelocity())),
+        filter(v => v < 1e-2),
+        takeUntilDestroyed(destroyRef),
+      )
+        .subscribe(() => this.isFlipping = false);
+
+      let listener = new b2ContactListener();
+      listener.BeginContact = (contact: b2Contact) => changes$.next();
+      this.world.SetContactListener(listener);
 
       this.renderFlip();
     });
@@ -86,6 +161,9 @@ export class CoinFlipWorldComponent {
     let foldyCoinElement = this.coinElement().nativeElement;
 
     for (let i = 0; i < 5000; ++i) {
+      if (!this.isFlipping) {
+        break;
+      }
       this.world.Step(this.timeStep, this.stepConfig);
 
       this.drawCoinBody(this.coinBody, foldyCoinElement);
@@ -96,10 +174,10 @@ export class CoinFlipWorldComponent {
     this.isFlipping = false;
   }
 
-
-  protected flipCoin() {
+  private flipCoin() {
     let sign = Math.random() > .5 ? -1 : 1;
-    this.coinBody.ApplyAngularImpulse(sign * 20e-2);
+    this.coinBody.SetLinearVelocity({x: 0, y: 5});
+    setTimeout(() => this.coinBody.SetAngularVelocity(sign * 5), 50);
 
     this.renderFlip();
   }
@@ -116,7 +194,14 @@ export class CoinFlipWorldComponent {
       {offset: .9, rotate: '0deg'},
     ], {duration: 500, easing: 'ease-in'});
 
-    setTimeout(() => this.flipCoin(), 500 * .25);
+    setTimeout(() => {
+      this.flipCoin();
+      this.wallGroup().nativeElement.animate({rotate: '5deg'},
+        {
+          duration: 100, easing: 'ease-out',
+          iterations: 2, direction: 'alternate',
+        });
+    }, 500 * .25);
   }
 
   private createWalls(): b2Body {
@@ -139,7 +224,7 @@ export class CoinFlipWorldComponent {
 
   private drawWalls(wallsBody: b2Body) {
     let wallElements = this.wallsElements().map(r => r.nativeElement as HTMLElement);
-    let fixtures = this.fixturesFromList(wallsBody.GetFixtureList());
+    let fixtures = fixturesFromList(wallsBody.GetFixtureList());
 
     let boxPosition = fixtures[0].GetBody().GetPosition();
     let pairs = pairItems<[HTMLDivElement, b2Fixture]>(wallElements, fixtures);
@@ -167,54 +252,112 @@ export class CoinFlipWorldComponent {
     }
   }
 
-  private fixturesFromList(fixture: b2Fixture): b2Fixture[] {
-    let results = new Set<b2Fixture>();
-    let queue = [fixture];
-    while (queue.length) {
-      let item = queue.pop();
-      if (!item || results.has(item)) {
-        break;
-      }
-
-      results.add(item);
-      queue.push(item.GetNext?.());
-    }
-
-    return Array.from(results);
-  }
-
-  private createCoin({curl = 0, thickness = .06, length = .5}): b2Body {
+  private createCoin(): b2Body {
     const coinBodyDef: b2BodyDef = {
       type: b2BodyType.b2_dynamicBody,
       position: {x: 1, y: 1},
       angle: .5,
       angularVelocity: 2,
-      linearVelocity: {x: 0, y: -.05},
+      linearVelocity: {x: 0, y: -3},
     };
     let body = this.world.CreateBody(coinBodyDef);
+    this.addFixtures(body);
 
-    let radius = thickness / 2;
-    let vertexCount = 10;
-    let vertexFactor = length / vertexCount;
-    let shapes = makeNumberList(vertexCount).map(n =>
-      new b2CircleShape(radius).Set({x: n * vertexFactor, y: radius}));
-    shapes.forEach(shape => {
+    return body;
+  }
+
+  private addFixtures(body: b2Body,
+                      configInput?: Partial<ConfigInputAddFixtures>) {
+    let defaults: ConfigInputAddFixtures
+      = {angle: 0, thickness: .06, length: .5, vertexCount: 15};
+    let config: ConfigInputAddFixtures
+      = Object.assign(defaults, configInput ?? {});
+
+    let groupCoordinates = config.angle > 0
+                           ? this.getFoldedCoordinates(
+        config.angle, config.vertexCount, config.length, config.thickness)
+                           : this.getFlatCoordinates(
+        config.vertexCount, config.length, config.thickness);
+
+
+    let collisionPointsRadius = config.thickness / 2;
+    let shapesInfo = groupCoordinates
+      .map(([a, perfect, b], i) => {
+        let midPoint = config.vertexCount / 2;
+        let isCenter = coerceBetween(i, midPoint - 2, midPoint + 2) === i;
+        return {
+          shape: new b2CircleShape((isCenter && i & 1)
+                                   ? collisionPointsRadius / 4
+                                   : collisionPointsRadius)
+            .Set({x: perfect.x, y: collisionPointsRadius + perfect.y}),
+          lines: [a, b],
+          isCenter,
+        };
+      });
+    shapesInfo.forEach(({shape, lines, isCenter}) => {
       let def = {
         shape,
-        density: 10,
+        density: isCenter ? 80 : config.vertexCount / 2,
         friction: 0.7,
         restitution: .7,
       };
       let fixture = body.CreateFixture(def);
-
       fixture.SetUserData({
         ...fixture.GetUserData(),
-        radius: shape.m_radius,
         centroid: shape.m_p,
+        drawCoordinates: lines,
       });
     });
+  }
 
-    return body;
+  private getFlatCoordinates(count: number,
+                             length: number,
+                             thickness: number): XY[][] {
+    let drawOffset = thickness / 4;
+
+    return makeNumberList(count)
+      .map(n => (length * n / count) - (length / 2) + (thickness / 3))
+      .map(y => [
+        {x: -drawOffset, y},
+        {x: 0, y},
+        {x: drawOffset, y},
+      ]);
+  }
+
+  private getFoldedCoordinates(angle: number,
+                               count: number,
+                               length: number,
+                               thickness: number): XY[][] {
+    let tau = 2 * Math.PI;
+    let circumference = (tau / angle) * length;
+    let curlRadius = circumference / tau;
+    let drawOffset = thickness / 4;
+
+    let groupCoordinates = makeNumberList(count)
+      .map(n => angle * n / count)
+      .map(t => [
+        polarToCardinal(t - angle / 2, curlRadius - drawOffset),
+        polarToCardinal(t - angle / 2, curlRadius),
+        polarToCardinal(t - angle / 2, curlRadius + drawOffset),
+      ]);
+    // Coordinates are generated on edge of circle. The is centered on 0,0
+    // offsetting the groupCoordinates away from center
+    let sumOfLocations = groupCoordinates.reduce((sum, [, {x, y}]) => {
+      sum.x += x;
+      sum.y += y;
+      return sum;
+    }, {x: 0, y: 0});
+    let center = {
+      x: sumOfLocations.x / count,
+      y: sumOfLocations.y / count,
+    };
+
+    // Move groupCoordinates towards center
+    return groupCoordinates.map(([a, perfect, b]) => [
+      {x: a.x - center.x, y: a.y - center.y},
+      {x: perfect.x - center.x, y: perfect.y - center.y},
+      {x: b.x - center.x, y: b.y - center.y},
+    ]);
   }
 
   private drawCoin(body: b2Body) {
@@ -224,21 +367,25 @@ export class CoinFlipWorldComponent {
     }
 
     this.drawCoinBody(body, element);
-    let fixtures = this.fixturesFromList(body.GetFixtureList());
+    let fixtures = fixturesFromList(body.GetFixtureList());
 
-    let centroids = fixtures.map(f => {
-      let {centroid} = f.GetUserData() as { radius: number, centroid: b2Vec2 };
-      return centroid;
+    let lines = fixtures.map(f => {
+      let {drawCoordinates} = f.GetUserData() as { drawCoordinates: XY[] };
+      return drawCoordinates;
     });
     let s = this.scale;
 
     let thickness = fixtures[0].GetShape().m_radius;
-    let points = centroids.map(({x, y}) =>
-      `${x * s},${(y - thickness) * s}`).join(' ');
+    let pointsA = lines.map(([{x, y}]) => `${x * s},${y * s}`).join(' ');
+    let pointsB = lines.map(([, {x, y}]) => `${x * s},${y * s}`).join(' ');
 
-    let polyline = element.querySelector('polyline') as SVGPolylineElement;
-    polyline.setAttribute('points', points);
-    polyline.style.setProperty('stroke-width', thickness * s + '');
+    let a = this.polylineAElement();
+    a.setAttribute('points', pointsA);
+    a.style.setProperty('stroke-width', (thickness * s).toString());
+
+    let b = this.polylineBElement();
+    b.setAttribute('points', pointsB);
+    b.style.setProperty('stroke-width', (thickness * s).toString());
   }
 
   private drawCoinBody(body: b2Body, element: SVGElement) {
@@ -248,7 +395,23 @@ export class CoinFlipWorldComponent {
     element.style.setProperty('top', (y + .03) * s + 'px');
 
     let angle = body.GetAngle();
-    this.polylineElement().style.setProperty('rotate', angle + 'rad');
+    this.groupElement().style.setProperty('rotate', angle + 'rad');
+  }
+
+  protected foldCoin(target: EventTarget) {
+    if (!(target instanceof HTMLInputElement)) {
+      return;
+    }
+
+    let angle = parseFloat(target.value);
+
+    let body = this.coinBody;
+    fixturesFromList(body.GetFixtureList())
+      .forEach(f => body.DestroyFixture(f));
+
+    this.addFixtures(body, {angle});
+    this.coinBody.SetTransformVec({x: 1, y: 1}, 0);
+    this.drawCoin(body);
   }
 
 }

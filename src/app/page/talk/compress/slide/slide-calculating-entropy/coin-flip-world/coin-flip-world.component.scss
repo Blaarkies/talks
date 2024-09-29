@@ -1,25 +1,44 @@
 .world-container {
+  width: 680px;
+  height: 500px;
   position: relative;
+}
+
+.hammer {
+  position: absolute;
+  image-rendering: pixelated;
+  left: 70px;
+  top: 20px;
+  transform-origin: 50% 80%;
+  cursor: grab;
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+.slider {
+  position: absolute;
+  top: 200px;
+  left: 20px;
+}
+
+.world {
+  position: relative;
+  translate: -70px;
   scale: .25;
-  background: navy;
 
   > * {
     position: absolute;
   }
 
-  .hammer {
-    image-rendering: pixelated;
-    left: -580px;
-    top: 200px;
-    transform-origin: 50% 80%;
-    cursor: grab;
-
-    &:active {
-      cursor: grabbing;
-    }
+  .wall-group {
+    position: relative;
+    transform-origin: 500px 1500px;
   }
 
-  .walls {
+  .wall {
+    position: absolute;
     background: darkslategray;
   }
 
@@ -27,13 +46,22 @@
     overflow: visible;
     translate: 250px;
 
-    polyline {
-      transform-origin: left -15px;
-
-      fill: none;
-      stroke: orange;
-      filter: drop-shadow(0 25px 0 #0054f0);
+    g {
+      transform-origin: left -30px;
     }
+
+    polyline {
+      fill: none;
+
+      &:first-child {
+        stroke: orange;
+      }
+
+      &:last-child {
+        stroke: #0054f0;
+      }
+    }
+
   }
 
 

@@ -1,21 +1,37 @@
-<div class="world-container" (click)="flipCoin()">
-
+<div class="world-container">
   <img
     #hammer
     src="asset/talks/compress/hammer.webp"
     class="hammer"
     draggable="false"
-    [width]="16*2e1"
+    [width]="16*4"
     (click)="slamHammer(); $event.stopPropagation()"
   />
 
-  <div #walls class="walls"></div>
-  <div #walls class="walls"></div>
-  <div #walls class="walls"></div>
-  <div #walls class="walls"></div>
+  <input
+    type="range"
+    min="0"
+    [attr.max]="tau"
+    value="0"
+    step=".2"
+    class="slider"
+    (input)="foldCoin($event.target)"
+  />
 
-  <svg #coin class="coin">
-    <polyline/>
-  </svg>
+  <div class="world">
+    <div #wallGroup class="wall-group">
+      <div #walls class="wall"></div>
+      <div #walls class="wall"></div>
+      <div #walls class="wall"></div>
+      <div #walls class="wall"></div>
+    </div>
 
+    <svg #coin class="coin">
+      <g>
+        <polyline points=""/>
+        <polyline points=""/>
+      </g>
+    </svg>
+
+  </div>
 </div>
