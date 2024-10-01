@@ -8,30 +8,69 @@
     (click)="slamHammer(); $event.stopPropagation()"
   />
 
-  <input
-    type="range"
-    min="0"
-    [attr.max]="tau"
-    value="0"
-    step=".2"
-    class="slider"
-    (input)="foldCoin($event.target)"
-  />
+  <div class="slider">
+    <label for="slider-fold">Fold</label><br/>
+    <input
+      type="range"
+      min="0"
+      [max]="tau"
+      value="0"
+      [step]="tau/8"
+      (input)="foldCoin($event.target)"
+      id="slider-fold" list="labels-fold"
+    />
 
-  <div class="world">
-    <div #wallGroup class="wall-group">
-      <div #walls class="wall"></div>
-      <div #walls class="wall"></div>
-      <div #walls class="wall"></div>
-      <div #walls class="wall"></div>
+    <datalist id="labels-fold">
+      <option value="0" label="0°"></option>
+      <option [value]="tau" label="360°"></option>
+    </datalist>
+  </div>
+
+    <div class="box">
+      <div #wallGroup class="wall-group">
+        <div #walls class="wall"></div>
+        <div #walls class="wall"></div>
+        <div #walls class="wall"></div>
+        <div #walls class="wall"></div>
+      </div>
+
+      <svg #coin class="coin">
+        <g>
+          <polyline points=""/>
+          <polyline points=""/>
+        </g>
+      </svg>
     </div>
 
-    <svg #coin class="coin">
-      <g>
-        <polyline points=""/>
-        <polyline points=""/>
-      </g>
-    </svg>
+  <div class="score">
+    <app-button
+      class="button"
+      [type]="3"
+      (click1)="resetScore()"
+    >
+      RESET
+    </app-button>
+    <div class="title">Results</div>
+    <progress
+      class="meter"
+      [value]="scoreRatio()"
+      [class.is-null]="scoreRatio() === null"
+    ></progress>
 
+    @for (result of scoreList(); track $index) {
+      <div
+        class="result"
+        [class.heads]="coinFlipResult.heads === result"
+        [class.tails]="coinFlipResult.tails === result"
+      >
+        @if (coinFlipResult.heads === result) {
+          Heads
+        } @else {
+          Tails
+        }
+      </div>
+    } @empty {
+      <div class="result">None</div>
+    }
   </div>
 </div>

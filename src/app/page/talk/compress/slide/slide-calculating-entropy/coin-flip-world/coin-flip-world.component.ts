@@ -1,10 +1,12 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   computed,
   DestroyRef,
   effect,
   ElementRef,
   inject,
+  signal,
   viewChild,
   viewChildren,
 } from '@angular/core';
@@ -25,19 +27,18 @@ import {
 import { b2Contact } from '@box2d/core/dist/dynamics/b2_contact';
 import {
   debounceTime,
-  distinctUntilChanged,
   filter,
   map,
-  scan,
+  shareReplay,
   Subject,
 } from 'rxjs';
 import {
   average,
-  coerceBetween,
-  lerp,
   makeNumberList,
   pairItems,
 } from '../../../../../../common';
+import { ButtonComponent } from '../../../../../../common/component/button/button.component';
+import { ProgressComponent } from '../../../../../../common/component/progress/progress.component';
 
 function waitABit(time = 7) {
   return new Promise(r =>
@@ -77,16 +78,31 @@ interface ConfigInputAddFixtures {
   vertexCount: number;
 }
 
+enum CoinFlipResult {
+  heads,
+  tails,
+}
+
 @Component({
   selector: 'app-coin-flip-world',
   standalone: true,
-  imports: [],
+  imports: [
+    ButtonComponent,
+    ProgressComponent,
+  ],
   templateUrl: './coin-flip-world.component.html',
   styleUrl: './coin-flip-world.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoinFlipWorldComponent {
 
   protected tau = 2 * Math.PI;
+  protected coinFlipResult = CoinFlipResult;
+  protected scoreList = signal<CoinFlipResult[]>([]);
+  protected scoreRatio = computed(() => {
+    let list = this.scoreList();
+    return list.length ? average(list) : null;
+  });
 
   private hammer = viewChild('hammer', {read: ElementRef<HTMLElement>});
   private wallGroup = viewChild('wallGroup', {read: ElementRef<HTMLElement>});
@@ -115,6 +131,33 @@ export class CoinFlipWorldComponent {
 
   constructor() {
     let destroyRef = inject(DestroyRef);
+
+    let changes$ = new Subject<void>();
+    let coinSleep$ = changes$.pipe(
+      debounceTime(150),
+      map(() => this.coinBody.GetLinearVelocity().Length()
+        + Math.abs(this.coinBody.GetAngularVelocity())),
+      filter(v => v < 1e-2),
+      shareReplay(1),
+      takeUntilDestroyed(destroyRef),
+    );
+
+    coinSleep$.subscribe(() => this.isFlipping = false);
+
+    coinSleep$.pipe(
+      map(() => {
+        let tau = this.tau;
+        let angle = this.coinBody.GetAngle() % tau;
+        let safeAngle = angle < 0
+                        ? angle + tau * Math.ceil(-angle / tau)
+                        : angle;
+        return safeAngle > .5 * tau
+               ? CoinFlipResult.tails
+               : CoinFlipResult.heads;
+      }),
+    )
+      .subscribe(result => this.scoreList.update(l => [result, ...l]));
+
     effect(() => {
       if (!this.wallsElements() || !this.coinElement()) {
         return;
@@ -134,16 +177,6 @@ export class CoinFlipWorldComponent {
       };
       this.timeStep = 1 / 60;
 
-      let changes$ = new Subject<void>();
-      changes$.pipe(
-        debounceTime(150),
-        map(() => this.coinBody.GetLinearVelocity().Length()
-          + Math.abs(this.coinBody.GetAngularVelocity())),
-        filter(v => v < 1e-2),
-        takeUntilDestroyed(destroyRef),
-      )
-        .subscribe(() => this.isFlipping = false);
-
       let listener = new b2ContactListener();
       listener.BeginContact = (contact: b2Contact) => changes$.next();
       this.world.SetContactListener(listener);
@@ -151,6 +184,51 @@ export class CoinFlipWorldComponent {
       this.renderFlip();
     });
   }
+
+  protected resetScore() {
+    this.scoreList.set([]);
+  }
+
+  protected slamHammer() {
+    let element = this.hammer()?.nativeElement;
+    if (!element) {
+      return;
+    }
+
+    element.animate([
+      {rotate: '0deg'},
+      {offset: .1, rotate: '50deg'},
+      {offset: .9, rotate: '0deg'},
+    ], {duration: 500, easing: 'ease-in'});
+
+    setTimeout(() => {
+      this.flipCoin();
+      this.wallGroup().nativeElement.animate({rotate: '5deg'},
+        {
+          duration: 100, easing: 'ease-out',
+          iterations: 2, direction: 'alternate',
+        });
+    }, 500 * .25);
+  }
+
+  protected foldCoin(target: EventTarget) {
+    if (!(target instanceof HTMLInputElement)) {
+      return;
+    }
+
+    let angle = parseFloat(target.value);
+
+    let body = this.coinBody;
+    fixturesFromList(body.GetFixtureList())
+      .forEach(f => body.DestroyFixture(f));
+
+    this.addFixtures(body, {angle});
+    this.coinBody.SetTransformVec({x: 1, y: 1}, 0);
+    this.drawCoin(body);
+
+    this.resetScore();
+  }
+
 
   private async renderFlip() {
     if (this.isFlipping) {
@@ -175,33 +253,12 @@ export class CoinFlipWorldComponent {
   }
 
   private flipCoin() {
-    let sign = Math.random() > .5 ? -1 : 1;
-    this.coinBody.SetLinearVelocity({x: 0, y: 5});
-    setTimeout(() => this.coinBody.SetAngularVelocity(sign * 5), 50);
+    let random = Math.random();
+    let modify = random > .5 ? random : -random - .5;
+    this.coinBody.SetLinearVelocity({x: modify * 4, y: modify * 6});
+    setTimeout(() => this.coinBody.SetAngularVelocity(modify * 5), 50);
 
     this.renderFlip();
-  }
-
-  protected slamHammer() {
-    let element = this.hammer()?.nativeElement;
-    if (!element) {
-      return;
-    }
-
-    element.animate([
-      {rotate: '0deg'},
-      {offset: .1, rotate: '50deg'},
-      {offset: .9, rotate: '0deg'},
-    ], {duration: 500, easing: 'ease-in'});
-
-    setTimeout(() => {
-      this.flipCoin();
-      this.wallGroup().nativeElement.animate({rotate: '5deg'},
-        {
-          duration: 100, easing: 'ease-out',
-          iterations: 2, direction: 'alternate',
-        });
-    }, 500 * .25);
   }
 
   private createWalls(): b2Body {
@@ -284,20 +341,21 @@ export class CoinFlipWorldComponent {
     let shapesInfo = groupCoordinates
       .map(([a, perfect, b], i) => {
         let midPoint = config.vertexCount / 2;
-        let isCenter = coerceBetween(i, midPoint - 2, midPoint + 2) === i;
+        let distanceToCenter = Math.abs(i - midPoint) / midPoint;
+        let proportion = .9;
+        let r = ((1 - proportion) + distanceToCenter ** 2 * proportion)
+          * collisionPointsRadius;
         return {
-          shape: new b2CircleShape((isCenter && i & 1)
-                                   ? collisionPointsRadius / 4
-                                   : collisionPointsRadius)
+          shape: new b2CircleShape(r)
             .Set({x: perfect.x, y: collisionPointsRadius + perfect.y}),
           lines: [a, b],
-          isCenter,
+          distanceToCenter,
         };
       });
-    shapesInfo.forEach(({shape, lines, isCenter}) => {
+    shapesInfo.forEach(({shape, lines, distanceToCenter}) => {
       let def = {
         shape,
-        density: isCenter ? 80 : config.vertexCount / 2,
+        density: (1 - distanceToCenter) ** 5,
         friction: 0.7,
         restitution: .7,
       };
@@ -396,22 +454,6 @@ export class CoinFlipWorldComponent {
 
     let angle = body.GetAngle();
     this.groupElement().style.setProperty('rotate', angle + 'rad');
-  }
-
-  protected foldCoin(target: EventTarget) {
-    if (!(target instanceof HTMLInputElement)) {
-      return;
-    }
-
-    let angle = parseFloat(target.value);
-
-    let body = this.coinBody;
-    fixturesFromList(body.GetFixtureList())
-      .forEach(f => body.DestroyFixture(f));
-
-    this.addFixtures(body, {angle});
-    this.coinBody.SetTransformVec({x: 1, y: 1}, 0);
-    this.drawCoin(body);
   }
 
 }

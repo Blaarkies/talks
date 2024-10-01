@@ -28,13 +28,13 @@ import {
 })
 export class SlideExplainEntropyComponent {
 
-  entropyTextLow = signal(entropyTextLow);
-  entropyTextMid = signal(entropyTextMid);
-  entropyTextHigh = signal(entropyTextHigh);
+  protected entropyTextLow = signal(entropyTextLow);
+  protected entropyTextMid = signal(entropyTextMid);
+  protected entropyTextHigh = signal(entropyTextHigh);
 
-  pane1 = viewChild('pane1', {read: ElementRef});
-  pane2 = viewChild('pane2', {read: ElementRef});
-  pane3 = viewChild('pane3', {read: ElementRef});
+  private pane1 = viewChild('pane1', {read: ElementRef});
+  private pane2 = viewChild('pane2', {read: ElementRef});
+  private pane3 = viewChild('pane3', {read: ElementRef});
 
   private animationController = new AnimationController([
     [

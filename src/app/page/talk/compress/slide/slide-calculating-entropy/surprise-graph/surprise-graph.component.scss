@@ -1,0 +1,29 @@
+.graph {
+  overflow: visible;
+}
+
+text {
+  font-size: var(--font-size-1);
+  font-weight: var(--font-weight-5);
+  fill: white;
+
+  &.vertical{
+    writing-mode: vertical-lr;
+  }
+
+  &.label {
+    font-size: var(--font-size-2);
+    font-weight: var(--font-weight-3);
+  }
+}
+
+.plotting {
+  fill: none;
+  stroke-width: 4;
+  stroke: white;
+}
+
+.axis {
+  stroke: white;
+  stroke-width: 2
+}

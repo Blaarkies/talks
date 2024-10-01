@@ -46,15 +46,15 @@ export class SlideTeaserComponent {
 
   protected stiffyText = signal(stiffyAsset);
 
-  alicesStiffy = viewChild('alicesStiffy', {read: ElementRef});
-  compressorsStiffy = viewChild('compressorsStiffy', {read: ElementRef});
-  bobsStiffy = viewChild('bobsStiffy', {read: ElementRef});
+  private alicesStiffy = viewChild('alicesStiffy', {read: ElementRef});
+  private compressorsStiffy = viewChild('compressorsStiffy', {read: ElementRef});
+  private bobsStiffy = viewChild('bobsStiffy', {read: ElementRef});
 
-  compressorDesk = viewChild('compressorDesk', {read: ElementRef});
-  bobDesk = viewChild('bobDesk', {read: ElementRef});
+  private compressorDesk = viewChild('compressorDesk', {read: ElementRef});
+  private bobDesk = viewChild('bobDesk', {read: ElementRef});
 
-  aliceGhost = viewChild('aliceGhost', {read: ElementRef});
-  compressorGhost = viewChild('compressorGhost', {read: ElementRef});
+  private aliceGhost = viewChild('aliceGhost', {read: ElementRef});
+  private compressorGhost = viewChild('compressorGhost', {read: ElementRef});
 
   private animationController = new AnimationController([
     [

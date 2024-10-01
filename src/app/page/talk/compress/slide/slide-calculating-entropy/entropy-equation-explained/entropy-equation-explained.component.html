@@ -1,0 +1,74 @@
+<app-pane
+  header="Shannon Entropy"
+  [type]="2"
+>
+  <div
+    class="equation"
+    [ngClass]="'show-' + step()"
+  >
+    H(<em>Χ</em> ) = −
+    <span class="sigma">∑<sub>𝑥∈X</sub></span>
+    p(𝑥) ∙ log<sub>2</sub> p(𝑥)
+  </div>
+
+  @if (step() > 0) {
+    <div class="divider"></div>
+  }
+
+  <div class="dos-columns">
+    <div>
+      @if (step() > 0) {
+        <br/>
+        <div>p({{ step() > 2 ? 'heads' : '𝑥' }}) = @if (step() < 2) {
+          probability(heads)<br>&nbsp; &nbsp; &nbsp;=
+        }
+          <strong>0.1</strong></div>
+      }
+
+      @if (step() > 1) {
+        <br/>
+        <div>
+          log<sub>2</sub>p({{ step() > 3 ? 'heads' : '𝑥' }})
+          = @if (step() < 3) {
+          base2 logarithm(0.1)<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+        }
+          <strong>-3.32</strong>
+        </div>
+      }
+
+      @if (step() > 2) {
+        <br/>
+        <div>
+          p({{
+            step() > 3 ? 'heads' : '𝑥'
+          }})log<sub>2</sub>p({{
+            step() > 3 ? 'heads' : '𝑥'
+          }})
+          = @if (step() < 4) {
+          0.1 ⨉ -3.32<br/> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+        }
+          <strong>-0.33</strong>
+        </div>
+      }
+    </div>
+
+    @if (step() > 3) {
+      <div class="left-border">
+        <br/>
+        <div>p(tails) = <strong>0.9</strong></div>
+        <br/>
+        <div>log<sub>2</sub>p(tails) = <strong>-0.15</strong></div>
+        <br/>
+        <div>p(tails)log<sub>2</sub>p(tails) = <strong>-0.14</strong></div>
+      </div>
+    }
+  </div>
+
+  @if (step() > 4) {
+    <br/>
+    <div class="center">
+      <div>H(<em>Χ</em>) = -(-0.33 + -0.14)</div>
+      <div><strong> &nbsp; &nbsp; &nbsp;= 0.47 bits</strong></div>
+    </div>
+  }
+</app-pane>

@@ -1,0 +1,61 @@
+.equation {
+  font-family: math;
+  font-size: var(--font-size-5);
+  margin-bottom: 1em;
+
+  .sigma {
+    font-size: calc(var(--font-size-5) * 2);
+    vertical-align: middle;
+    position: relative;
+
+    sub {
+      position: absolute;
+      font-size: var(--font-size-4);
+      left: 0;
+      bottom: 0;
+      translate: 0 100%;
+    }
+  }
+}
+
+.divider {
+  width: 100%;
+  border-bottom: 4px solid currentColor;
+}
+
+.dos-columns {
+  display: flex;
+
+  .left-border {
+    padding-left: 1ch;
+    margin-left: 1ch;
+    border-left: 4px solid currentColor;
+  }
+}
+
+.center {
+  display: grid;
+  justify-content: center;
+}
+
+[class*="show-"] {
+  --x1: 0ch;
+  --x2: 100%;
+  clip-path: polygon(var(--x1) 0, var(--x2) 0, var(--x2) 4em, var(--x1) 4em);
+  transition: 1s steps(4);
+}
+
+.show-1 {
+  --x1: 11ch;
+  --x2: 15ch;
+}
+
+.show-2 {
+  --x1: 15.5ch;
+  --x2: 23ch;
+}
+
+.show-3 {
+  --x1: 11ch;
+  --x2: 23ch;
+}

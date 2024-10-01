@@ -13,9 +13,27 @@
     gap: 6ch;
     grid-auto-flow: column;
     align-items: center;
+
+    > * {
+      grid-column: 1 / -1;
+      grid-row: 1 / -1;
+    }
   }
 
   .coin-controller {
+  }
+
+  .surprise-graph {
+
+  }
+
+  .equation {
+
+  }
+
+  .example {
+    width: max-content;
+    justify-self: center;
   }
 
 }

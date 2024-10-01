@@ -1,11 +1,35 @@
 <div class="s-c-e-layout">
   <div class="s-c-e-inner-grid">
 
-    @defer (on immediate) {
-      <div class="coin-controller">
+    <div #coin class="coin-controller">
+      @defer (on immediate) {
         <app-coin-flip-world/>
-      </div>
-    }
+      }
+    </div>
+
+    <div #graph class="surprise-graph">
+      <app-surprise-graph [step]="animationIndex() - 1"/>
+    </div>
+
+    <div #equation class="equation">
+      <app-entropy-equation-explained [step]="animationIndex() - 3"/>
+    </div>
+
+    <div #example class="example">
+      <app-pane
+        header="Example"
+        [type]="2"
+      >
+        <div>Input data</div>
+        <pre>    aaaaaaaaab</pre>
+        <br/>
+
+        <div>information = H(<em>Χ</em>) ⨉ length</div>
+        <div> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 0.468 ⨉ 10</div>
+        <div> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 4.689 bits</div>
+        <div> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 5 bits</div>
+      </app-pane>
+    </div>
 
   </div>
 </div>
