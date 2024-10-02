@@ -1,3 +1,4 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
 import {
   CdkMenu,
   CdkMenuBar,
@@ -12,14 +13,17 @@ import {
   inject,
   signal,
 } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import {
   Router,
   RouterLink,
 } from '@angular/router';
 import { WA_LOCAL_STORAGE } from '@ng-web-apis/common';
+import { map } from 'rxjs';
 import { routeNames } from '../../../bootstrap/app.routes';
 import { PaneComponent } from '../../common/component/pane/pane.component';
 import { RimComponent } from '../../common/component/rim/rim.component';
+import { makeScreenSelectorSignal } from '../../common/function/screen-size';
 import {
   FontSizeService,
   SlideMode,
@@ -51,10 +55,16 @@ export class MainMenuComponent {
   protected navigations = signal(navigationOptions);
   protected navigationsList = computed(() => Object.values(this.navigations()));
   protected selectedOption = signal<NavigationOption>(null);
+  protected isMobile = makeScreenSelectorSignal();
+
   private fontSizeService = inject(FontSizeService);
   protected mode = this.fontSizeService.slideMode;
 
   private router = inject(Router);
+
+  constructor() {
+    this.fontSizeService.updateFontSize();
+  }
 
   selectNext(step: number) {
     let list = this.navigationsList();
@@ -79,5 +89,6 @@ export class MainMenuComponent {
 
   setSlideMode(mode: SlideMode) {
     this.fontSizeService.setSlideMode(mode);
+    this.fontSizeService.updateFontSize();
   }
 }

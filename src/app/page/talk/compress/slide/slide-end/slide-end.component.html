@@ -18,3 +18,12 @@
   </div>
 
 </div>
+
+@if (isEnded()) {
+  <div
+    class="shutdown-screen"
+    [routerLink]="['../../', routeMainMenu]"
+  >
+    <span>It's now safe to turn off<br> your computer.</span>
+  </div>
+}

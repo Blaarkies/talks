@@ -21,27 +21,28 @@ export class FontSizeService {
 
   slideMode = this.currentMode.asReadonly();
 
+  private storageKey = 'mode';
+  private storage = inject(WA_LOCAL_STORAGE);
+  private document = inject(DOCUMENT);
+
   constructor() {
-    let storage = inject(WA_LOCAL_STORAGE);
-    let storageKey = 'mode';
-    let stringMode = storage.getItem(storageKey);
+    let stringMode = this.storage.getItem(this.storageKey);
     let result = stringMode === SlideMode.interactive.toString()
                  ? SlideMode.interactive
                  : SlideMode.presentation;
-    this.currentMode.set(result);
+    this.setSlideMode(result);
+  }
 
-    let document = inject(DOCUMENT);
+  updateFontSize() {
+    this.storage.setItem(this.storageKey, this.currentMode().toString());
 
-    effect(() => {
-      let slideMode = this.currentMode();
-      storage.setItem(storageKey, slideMode.toString());
-
-      let fontSizeResult = slideMode === SlideMode.presentation
-                           ? '1.45rem'
-                           : '1.2rem';
-      document.documentElement.style
-        .setProperty('--font-size', fontSizeResult);
-    });
+    let fontSizeResult = this.currentMode() === SlideMode.presentation
+                         ? '1.45rem'
+                         : '1.2rem';
+    this.document
+      .documentElement
+      .style
+      .setProperty('--font-size', fontSizeResult);
   }
 
   setSlideMode(mode: SlideMode) {

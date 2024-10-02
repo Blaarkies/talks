@@ -5,14 +5,19 @@
   background: var(--color-back-1);
 
   display: grid;
-  grid-template: 1fr / 1fr;
 
   .content-menus {
     display: grid;
-    grid-template: 1fr / 1fr 1fr;
-    place-items: center;
+
     gap: var(--space-5);
     margin: var(--space-5);
+
+    grid-template: max-content max-content / auto;
+
+    @media (width > 1000px) {
+      grid-template: 1fr / 1fr 1fr;
+      place-items: center;
+    }
   }
 }
 
@@ -31,6 +36,10 @@
   @extend .anti-button;
 
   text-align: left;
+
+  .highlight {
+    color: var(--color-text-danger);
+  }
 
   .hotkey {
     text-decoration: underline;
@@ -54,11 +63,10 @@
   padding-left: var(--space-5);
   position: relative;
 
-  .title {
+  .heading {
     pointer-events: none;
     position: absolute;
     inset: 0;
-    width: 100%;
     text-align: center;
   }
 }

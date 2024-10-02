@@ -371,7 +371,7 @@ export class CoinFlipWorldComponent {
   private getFlatCoordinates(count: number,
                              length: number,
                              thickness: number): XY[][] {
-    let drawOffset = thickness / 4;
+    let drawOffset = thickness / 5;
 
     return makeNumberList(count)
       .map(n => (length * n / count) - (length / 2) + (thickness / 3))
@@ -389,7 +389,7 @@ export class CoinFlipWorldComponent {
     let tau = 2 * Math.PI;
     let circumference = (tau / angle) * length;
     let curlRadius = circumference / tau;
-    let drawOffset = thickness / 4;
+    let drawOffset = thickness / 5;
 
     let groupCoordinates = makeNumberList(count)
       .map(n => angle * n / count)

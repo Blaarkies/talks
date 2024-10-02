@@ -11,3 +11,30 @@
 </div>
 
 <router-outlet (activate)="setHeaderHeight($event)"/>
+
+@if (isMobile() && !warningAccepted()) {
+  <div class="is-mobile-warning" (click)="warningAccepted.set(true)">
+    <div class="name">Windows</div>
+    <div class="message">
+      <p>An error has occurred.</p>
+
+      <p>
+        Insufficient screen size: Presentation mode is designed for
+        large desktop monitor presentations.
+      </p>
+
+      <p>Mobile devices are not supported.</p>
+
+      <p>Click here or press BACKSPACE to
+        <a
+          class="anti-a bsod-a"
+          [routerLink]="['../', routeMainMenu]"
+          (click)="$event.stopPropagation()"
+        >go back to main menu</a></p>
+
+    </div>
+    <div class="action">
+      <p>Press any key to continue <span class="blinking">_</span></p>
+    </div>
+  </div>
+}

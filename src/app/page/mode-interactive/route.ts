@@ -8,7 +8,7 @@ export const sandboxRouteNames = {
 export const routes: Route[] = [
   {
     path: sandboxRouteNames.compression,
-    loadComponent: () => import( '../talk/compress/component/entropy-preview/entropy-preview.component')
-      .then(c => c.EntropyPreviewComponent),
+    loadComponent: () => import( '../talk/compress/sandbox-compression/sandbox-compression.component')
+      .then(c => c.SandboxCompressionComponent),
   },
 ];

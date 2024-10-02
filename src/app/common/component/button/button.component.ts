@@ -7,6 +7,7 @@ import {
   input,
   output,
 } from '@angular/core';
+import { ThemeNumberAny } from '../pane/pane.component';
 
 @Component({
   selector: 'app-button',
@@ -19,7 +20,7 @@ import {
 })
 export class ButtonComponent {
 
-  type = input<1 | 2 | 3 | 4>();
+  type = input<ThemeNumberAny>();
   swap = input<boolean>();
   shadow = input<boolean>(false);
   outline = input<'single' | 'double'>();

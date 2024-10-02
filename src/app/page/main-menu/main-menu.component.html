@@ -12,7 +12,11 @@
   <div class="head-footing" head>
     <div class="menu-bar" cdkMenuBar>
       <button class="dropdown-item" cdkMenuItem [cdkMenuTriggerFor]="options">
-        <span class="hotkey">O</span>ptions
+        @if (isMobile()) {
+          <span class="highlight">≡</span>
+        } @else {
+          <span class="hotkey">O</span>ptions
+        }
       </button>
     </div>
     <ng-template #options>
@@ -37,7 +41,7 @@
       </div>
     </ng-template>
 
-    <div class="title">BLAARKIES TALKS</div>
+    <div class="heading">BLAARKIES TALKS</div>
   </div>
 
   <div class="layout-main-menu">
@@ -53,7 +57,7 @@
           [style.--panel-padding]="navPane.outerPadding()"
           role="menu"
         >
-          @for (option of navigationsList(); track option) {
+          @for (option of navigationsList(); track option.url) {
             <a class="anti-a list-option"
                [routerLink]="[
                   '../',
@@ -73,8 +77,8 @@
       <app-pane
         [header]="selectedOption()?.title
         || 'Select an item from the MAIN MENU to learn more'"
-        [type]="2"
-        [swap]="true"
+        type="2"
+        swap="true"
         outline="double"
       >
         <ul class="description-list">

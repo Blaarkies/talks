@@ -1,23 +1,24 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Platform } from '@angular/cdk/platform';
 import {
   Component,
   DestroyRef,
-  effect,
   HostListener,
   inject,
   Injector,
   signal,
-  viewChild,
 } from '@angular/core';
 import {
   takeUntilDestroyed,
   toObservable,
+  toSignal,
 } from '@angular/core/rxjs-interop';
 import {
   Router,
+  RouterLink,
   RouterOutlet,
 } from '@angular/router';
+import { map } from 'rxjs';
+import { routeNames } from '../../../bootstrap/app.routes';
 import { ButtonComponent } from '../../common/component/button/button.component';
 import { HasRimHeader } from './index';
 import { ClickerService } from './service/clicker.service';
@@ -32,6 +33,7 @@ import {
   imports: [
     RouterOutlet,
     ButtonComponent,
+    RouterLink,
   ],
   providers: [ClickerService],
   templateUrl: './mode-presentation.component.html',
@@ -40,6 +42,12 @@ import {
 export class ModePresentationComponent {
 
   protected headerHeight = signal<number | null>(null);
+  protected isMobile = toSignal(
+    inject(BreakpointObserver)
+      .observe('(width < 1500px)')
+      .pipe(map(({matches}) => matches)));
+  protected warningAccepted = signal(false);
+  protected routeMainMenu = routeNames.mainMenu;
 
   private router = inject(Router);
   private clickerService = inject(ClickerService);
@@ -56,16 +64,20 @@ export class ModePresentationComponent {
   ]);
 
   constructor() {
-    inject(FontSizeService).setSlideMode(SlideMode.presentation);
+    let fontSizeService = inject(FontSizeService);
 
-    inject(BreakpointObserver)
-      .observe('(width < 1500px)')
-      .pipe(takeUntilDestroyed())
-      .subscribe(({matches}) => console.log(matches ? '❌Why are you MOBILE?' : '✅good desktop'))
+    fontSizeService.setSlideMode(SlideMode.presentation);
+    fontSizeService.updateFontSize();
   }
 
   @HostListener('window:keydown', ['$event'])
-  handleKeydown(event: KeyboardEvent) {
+  private handleKeydown(event: KeyboardEvent) {
+    if (this.isMobile() && !this.warningAccepted()) {
+      return event.key === 'backspace'
+             ? this.router.navigate(['../', this.routeMainMenu])
+             : this.warningAccepted.set(true);
+    }
+
     this.keydownActionMap.get(event.key)?.(event);
   }
 
@@ -89,9 +101,10 @@ export class ModePresentationComponent {
     this.router.navigate(['../']);
   }
 
-  setHeaderHeight(component: HasRimHeader) {
+  protected setHeaderHeight(component: HasRimHeader) {
     toObservable(component.rimHeaderHeight, {injector: this.injector})
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(height => this.headerHeight.set(height));
   }
+
 }

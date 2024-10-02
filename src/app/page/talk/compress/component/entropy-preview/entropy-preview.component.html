@@ -1,24 +1,35 @@
-<app-pane
-  [type]="type()"
-  [swap]="true"
->
+<app-pane [type]="type()" swap="true">
   <div class="layout-entropy-measure">
-
+    @if (canEdit()) {
+      <div class="edit-button">
+        <app-button type="2" (click1)="toggleEditMode()">
+          {{editMode() ? 'DONE' : 'EDIT'}}
+        </app-button>
+      </div>
+    }
     <div class="title">{{ header() }}</div>
 
-    <div
-      #previewData
-      class="preview-data"
-      (click)="wordClick($event.target, previewData)"
-      (pointerover)="triggerWordHover($event.target, previewData)"
-      (pointerleave)="triggerWordHover()"
-    >
-      @for (token of text(); track $index) {
-        <span [attr.data-token]="token">{{ token }}</span>
-      }
-    </div>
+    @if (editMode()) {
+      <textarea
+        class="user-input-textarea"
+        [(ngModel)]="userInputValue"
+        maxlength="500000"
+      ></textarea>
+    } @else {
+      <div
+        #previewData
+        class="preview-data"
+        (click)="wordClick($event.target, previewData)"
+        (pointerover)="triggerWordHover($event.target, previewData)"
+        (pointerleave)="triggerWordHover()"
+      >
+        @for (token of text(); track $index) {
+          <span [attr.data-token]="token">{{ token }}</span>
+        }
+      </div>
+    }
 
-    @if (encodedTokens().length) {
+    @if (encodedTokens().length && !editMode()) {
       <div class="encoding-layout">
         <div class="token-label-list">
           @for (encoding of encodedTokens(); track encoding.refEntry) {
@@ -42,7 +53,7 @@
         </div>
       </div>
     } @else {
-      <app-entropy-measure [data]="data()"/>
+      <app-entropy-measure [data]="userInputValue() || data()"/>
     }
 
   </div>

@@ -6,7 +6,8 @@
     class="alice-desk"
   >
     <div class="desk alice-desk">
-      <pre #alicesStiffy class="stiffy-holder">{{ stiffyText() }}</pre>
+      <div #alicesStiffy class="stiffy-holder">
+        <div>{{ stiffyText() }}</div></div>
       <div>10 MB</div>
       <div #aliceGhost class="ghost">
         <ng-container [ngTemplateOutlet]="ghostlyStiffy"/>
@@ -16,7 +17,7 @@
 
   <app-pane
     header="Destination"
-    [type]="1"
+    [type]="animationIndex() < 3 ? 2 : 1"
     #bobDesk
     class="bob-desk"
   >
@@ -27,7 +28,7 @@
         [class.highlight]="animationIndex()===3"
       >
         @for (line of stiffyDecompressed(); track line) {
-          <pre class="stiffy-line">{{ line }}</pre>
+          <div class="stiffy-line">{{ line }}</div>
         }
       </div>
       @if (animationIndex() === 3) {
@@ -47,10 +48,10 @@
     class="compressor-desk"
   >
     <div class="desk">
-      <pre #compressorsStiffy class="stiffy-holder">{{ stiffyCompress() }}</pre>
+      <div #compressorsStiffy class="stiffy-holder">{{ stiffyCompress() }}</div>
       <div>4 MB</div>
       <div #compressorGhost class="ghost">
-        <pre class="stiffy-holder">{{ stiffyCompressedGhost() }}</pre>
+        <div class="stiffy-holder">{{ stiffyCompressedGhost() }}</div>
       </div>
     </div>
   </app-pane>
@@ -58,5 +59,5 @@
 </div>
 
 <ng-template #ghostlyStiffy>
-  <pre class="stiffy-holder">{{ stiffyText() }}</pre>
+  <div class="stiffy-holder">{{ stiffyText() }}</div>
 </ng-template>

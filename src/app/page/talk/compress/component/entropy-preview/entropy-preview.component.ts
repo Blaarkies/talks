@@ -5,9 +5,11 @@ import {
   ElementRef,
   inject,
   input,
+  model,
   signal,
   viewChild,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import {
   debounceTime,
   filter,
@@ -15,7 +17,11 @@ import {
 } from 'rxjs';
 import { findNumberGaps } from '../../../../../common';
 import { ButtonComponent } from '../../../../../common/component/button/button.component';
-import { PaneComponent } from '../../../../../common/component/pane/pane.component';
+import {
+  BooleanAny,
+  PaneComponent,
+  ThemeNumberAny,
+} from '../../../../../common/component/pane/pane.component';
 import {
   Data,
   TokenElementGroup,
@@ -29,6 +35,7 @@ import { EntropyMeasureComponent } from '../entropy-measure/entropy-measure.comp
     PaneComponent,
     EntropyMeasureComponent,
     ButtonComponent,
+    FormsModule,
   ],
   templateUrl: './entropy-preview.component.html',
   styleUrl: './entropy-preview.component.scss',
@@ -37,13 +44,18 @@ export class EntropyPreviewComponent {
 
   header = input<string>();
   data = input.required<Data>();
+  type = input<ThemeNumberAny>(1);
+  canEdit = input<boolean, BooleanAny>(false, {
+    transform: (v: BooleanAny) => typeof v === 'boolean' ? v : v === 'true',
+  });
 
-  type = input<1 | 2 | 3 | 4>(1);
+  protected editMode = signal(false);
+  protected userInputValue = model<string>();
 
   private previewDataElement = viewChild('previewData', {read: ElementRef<HTMLElement>});
 
   protected text = computed(() => {
-    let data = this.data();
+    let data = this.userInputValue() || this.data();
     if (!data) {
       return [];
     }
@@ -62,7 +74,7 @@ export class EntropyPreviewComponent {
     });
   });
   protected totalBytes = computed(() =>
-    this.previewDataElement().nativeElement.textContent.length
+    this.previewDataElement()?.nativeElement.textContent.length
     + this.encodedTokens().map(r => r.label.substring(1))
       .join('').replaceAll(' ', '').length);
 
@@ -89,7 +101,7 @@ export class EntropyPreviewComponent {
       .subscribe(v => this.wordHover(v.eventTarget, v.parentElement));
   }
 
-  triggerWordHover(eventTarget?: EventTarget, parentElement?: HTMLDivElement) {
+  protected triggerWordHover(eventTarget?: EventTarget, parentElement?: HTMLDivElement) {
     if (!eventTarget || !parentElement) {
       this.wordHover$.next(null);
       return;
@@ -141,7 +153,7 @@ export class EntropyPreviewComponent {
     }
   }
 
-  wordClick(eventTarget: EventTarget, parentElement: HTMLDivElement) {
+  protected wordClick(eventTarget: EventTarget, parentElement: HTMLDivElement) {
     if (!(eventTarget instanceof HTMLElement)) {
       return;
     }
@@ -179,12 +191,12 @@ export class EntropyPreviewComponent {
     this.activeAnimations.forEach(a => a.cancel());
   }
 
-  removeEncoding(refEntry: (string | number)[]) {
+  protected removeEncoding(refEntry: (string | number)[]) {
     let token = refEntry[0] as string;
     this.toggleToken(token);
   }
 
-  clearTokens() {
+  protected clearTokens() {
     this.tokensElementsMap.forEach((v, k) =>
       v.forEach(e => {
         e.classList.remove(this.isSelectedClassName);
@@ -207,4 +219,7 @@ export class EntropyPreviewComponent {
            : Math.max(...allNumbers) + 1;
   }
 
+  protected toggleEditMode() {
+    this.editMode.update(v => !v);
+  }
 }

@@ -1,3 +1,5 @@
+@use 'mixin';
+
 .s-e-layout {
   overflow: hidden;
   height: 100%;
@@ -15,4 +17,54 @@
     align-items: center;
   }
 
+}
+
+.shutdown-screen {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  --color: #f38b1d;
+  color: var(--color);
+  background: black;
+
+  display: grid;
+  place-content: center;
+
+  > span {
+    text-align: center;
+    font-family: sans-serif;
+    font-size: var(--font-size-5);
+
+    max-width: max-content;
+    scale: 1.23 1;
+    text-shadow: 0 0 4px var(--color);
+
+    --tf: cubic-bezier(.8, 0, 1, -1);
+    @include mixin.make-key-frames(kf-flicker-opacity,
+      opacity, 1, .5);
+    @include mixin.make-key-frames(kf-flicker-shadow,
+      text-shadow, 0 0 4px var(--color), 0 0 4px white);
+    @include mixin.make-key-frames(kf-flicker-color,
+      color, var(--color), color(from var(--color) srgb r g b / .8));
+    @include mixin.make-key-frames(kf-flicker-background,
+      background, transparent, rgba(0 0 0 / .7));
+
+    animation: kf-flicker-opacity 1.1s infinite alternate var(--tf),
+    make-key-frames 2.3s infinite alternate var(--tf),
+    kf-flicker-color 1.3s infinite alternate var(--tf);
+
+    &:after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      width: calc(100% + 1ch);
+      height: calc(100% + 1ch);
+      animation: kf-flicker-background 1.7s infinite alternate var(--tf),
+    }
+  }
+
+  @include mixin.make-key-frames(kf-slide-in, top, -100%, 0);
+  animation: kf-slide-in 2s cubic-bezier(0, 0, 0.1, 1);
 }
