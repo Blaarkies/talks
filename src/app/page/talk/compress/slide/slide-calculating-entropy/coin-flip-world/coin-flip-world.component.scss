@@ -27,15 +27,13 @@
 
   datalist {
     display: flex;
-    //flex-direction: column;
     justify-content: space-between;
-    //writing-mode: vertical-lr;
     width: 100%;
 
     font-size: var(--font-size-1);
   }
 
-  $track-color: var(--base-color-12);
+  $track-color: var(--base-color-0);
   $thumb-color: var(--base-color-15);
   $thumb-height: 24px;
   $thumb-width: 16px;
@@ -172,6 +170,7 @@
   top: 20px;
   max-height: 500px;
   overflow-y: auto;
+  overflow-x: hidden;
 
   .button {
     font-size: var(--font-size-2);

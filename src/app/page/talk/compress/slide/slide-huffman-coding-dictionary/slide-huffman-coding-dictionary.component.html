@@ -1,74 +1,67 @@
 <div class="s-h-c-d-container">
   <div class="s-h-c-d-layout">
 
-    @if (step() >= 0) {
-      <app-pane
-        header="Input Data"
-        [type]="2"
-        [swap]="true"
-      >
-        <app-text-character-lighter
-          [litColor]="3"
-          [characters]="text()"
-          [litCharacter]="litChar()"
-          (userPointsAt)="updateLitCharacter($event, 'char')"
-        />
-        <app-data-measure [value]="text().length"/>
-      </app-pane>
-    }
+    <app-pane
+      class="input-data"
+      [class.show]="step() >= 0"
+      header="Input Data"
+      [type]="2"
+      [swap]="true"
+    >
+      <app-text-character-lighter
+        [litColor]="3"
+        [characters]="text()"
+        [litCharacter]="litChar()"
+        (userPointsAt)="updateLitCharacter($event, 'char')"
+      />
+      <app-data-measure [value]="text().length"/>
+    </app-pane>
 
-    @if (step() >= 1) {
-      <app-pane
-        header="Data in Binary"
-        outline="single"
-        [type]="2"
-        [swap]="true"
-      >
-        <app-text-character-lighter
-          [litColor]="3"
-          [characters]="binary()"
-          [litCharacter]="litBinary()"
-          (userPointsAt)="updateLitCharacter($event, 'binary')"
-        />
-        <app-data-measure [value]="binary().length"/>
-      </app-pane>
+    <app-pane
+      [class.show]="step() >= 1"
+      header="Data in Binary"
+      outline="single"
+      [type]="2"
+      [swap]="true"
+    >
+      <app-text-character-lighter
+        [litColor]="3"
+        [characters]="binary()"
+        [litCharacter]="litBinary()"
+        (userPointsAt)="updateLitCharacter($event, 'binary')"
+      />
+      <app-data-measure [value]="binary().length"/>
+    </app-pane>
 
-      @if (step() === 1) {
-        <div></div>
-        <div></div>
-      }
-    }
+    <app-pane
+      [class.show]="step() >= 2"
+      header="Huffman Coding Dictionary"
+      [type]="2"
+    >
+      <app-huffman-coding-dictionary-lighter
+        [encodings]="dictionaryList()"
+        [litCharacter]="litChar()"
+        (userPointsAt)="updateLitCharacter($event, 'char')"
+      />
+      <app-data-measure [value]="dictionaryListSize()"/>
+    </app-pane>
 
-    @if (step() >= 3) {
-      <app-pane
-        header="Compressed Binary"
-        outline="double"
-        [type]="2"
-        [swap]="true"
-      >
-        <app-text-character-lighter
-          [litColor]="3"
-          [characters]="encoded()"
-          [litCharacter]="litEncoded()"
-          (userPointsAt)="updateLitCharacter($event, 'encoded')"
-        />
-        <app-data-measure [value]="encodedAsBinary().length"/>
-      </app-pane>
-    }
+    <app-pane
+      [class.show]="step() >= 3"
+      header="Compressed Binary"
+      outline="double"
+      [type]="2"
+      [swap]="true"
+    >
+      <app-text-character-lighter
+        [litColor]="3"
+        [characters]="encoded()"
+        [litCharacter]="litEncoded()"
+        (userPointsAt)="updateLitCharacter($event, 'encoded')"
+      />
+      <app-data-measure [value]="encodedAsBinary().length"/>
+    </app-pane>
 
-    @if (step() >= 2) {
-      <app-pane
-        header="Huffman Coding Dictionary"
-        [type]="2"
-      >
-        <app-huffman-coding-dictionary-lighter
-          [encodings]="dictionaryList()"
-          [litCharacter]="litChar()"
-          (userPointsAt)="updateLitCharacter($event, 'char')"
-        />
-        <app-data-measure [value]="dictionaryListSize()"/>
-      </app-pane>
-    }
 
   </div>
 </div>

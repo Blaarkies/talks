@@ -92,7 +92,6 @@ enum CoinFlipResult {
   ],
   templateUrl: './coin-flip-world.component.html',
   styleUrl: './coin-flip-world.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoinFlipWorldComponent {
 
@@ -254,9 +253,10 @@ export class CoinFlipWorldComponent {
 
   private flipCoin() {
     let random = Math.random();
-    let modify = random > .5 ? random : -random - .5;
-    this.coinBody.SetLinearVelocity({x: modify * 4, y: modify * 6});
-    setTimeout(() => this.coinBody.SetAngularVelocity(modify * 5), 50);
+    let deadZone = .5;
+    let modify = random > deadZone ? random : -random - deadZone;
+    this.coinBody.SetLinearVelocity({x: modify * 3, y: modify * 6});
+    setTimeout(() => this.coinBody.SetAngularVelocity(modify * 7), 50);
 
     this.renderFlip();
   }
@@ -314,8 +314,8 @@ export class CoinFlipWorldComponent {
       type: b2BodyType.b2_dynamicBody,
       position: {x: 1, y: 1},
       angle: .5,
-      angularVelocity: 2,
-      linearVelocity: {x: 0, y: -3},
+      angularVelocity: Math.random() * 5 - 2,
+      linearVelocity: {x: 0, y: -2},
     };
     let body = this.world.CreateBody(coinBodyDef);
     this.addFixtures(body);

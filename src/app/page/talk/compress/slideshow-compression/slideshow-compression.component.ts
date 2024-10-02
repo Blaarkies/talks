@@ -1,12 +1,15 @@
 import {
   Component,
   computed,
+  ElementRef,
   inject,
   signal,
+  viewChild,
   WritableSignal,
 } from '@angular/core';
 import {
   takeUntilDestroyed,
+  toObservable,
   toSignal,
 } from '@angular/core/rxjs-interop';
 import {
@@ -19,9 +22,14 @@ import {
   filter,
   map,
   startWith,
+  switchMap,
 } from 'rxjs';
-import { coerceBetween } from '../../../../common';
+import {
+  coerceBetween,
+  SHARED_RESIZE_OBSERVER,
+} from '../../../../common';
 import { RimComponent } from '../../../../common/component/rim/rim.component';
+import { HasRimHeader } from '../../../mode-presentation';
 import { ClickerService } from '../../../mode-presentation/service/clicker.service';
 import { routeAnimations } from '../common/route-animations';
 import { pathToHeadingFootingMap } from './heading-footing';
@@ -38,13 +46,22 @@ import { compressionSlideRouteNames } from './route';
   styleUrl: './slideshow-compression.component.scss',
   animations: [routeAnimations],
 })
-export class SlideshowCompressionComponent {
+export class SlideshowCompressionComponent implements HasRimHeader {
+
+  private sharedResizeObserver = inject(SHARED_RESIZE_OBSERVER);
+  private headerElement = viewChild('headingElement',
+    {read: ElementRef<HTMLDivElement>});
+  rimHeaderHeight = toSignal(
+    toObservable(this.headerElement).pipe(
+      switchMap(e => this.sharedResizeObserver
+        .observe(e.nativeElement.parentElement)),
+      map(([e]) => e.target.clientHeight),
+      startWith(34)));
 
   protected currentRouteIndex: WritableSignal<number>;
 
   private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
-
   private routes = Object.values(compressionSlideRouteNames);
 
   private headingFooting = toSignal(this.router.events.pipe(

@@ -34,7 +34,7 @@ export const pathToHeadingFootingMap = new Map<string, string[]>([
     'USE ARROW KEYS ← → TO ENCODE OR RESET',
   ]],
   [compressionSlideRouteNames.otherAlgorithms, [
-    'OTHER ALGORITHMS',
+    'COMMON ALGORITHMS',
     'PRACTICE LOOKING AT WINDOWS',
   ]],
   [compressionSlideRouteNames.end, [
@@ -43,6 +43,6 @@ export const pathToHeadingFootingMap = new Map<string, string[]>([
   ]],
   [compressionSlideRouteNames.calculatingEntropy, [
     'CALCULATING ENTROPY',
-    'CLICK THE COIN TO FLIP',
+    'HAMMER THE COIN TO FLIP',
   ]],
 ]);

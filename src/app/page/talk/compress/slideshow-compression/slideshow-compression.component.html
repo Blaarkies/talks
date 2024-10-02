@@ -1,5 +1,5 @@
 <app-rim>
-  <div head class="heading">{{ header() }}</div>
+  <div #headingElement head class="heading">{{ header() }}</div>
 
   <div [@routeAnimations]="currentRouteIndex()">
     <router-outlet/>

@@ -47,10 +47,16 @@
     box-shadow: -1ch 1ch 0 0 var(--color-shadow-1);
   }
 
-  .title {
+  .header {
     text-align: center;
     font-weight: var(--font-weight-5);
     margin-bottom: var(--space-4);
+  }
+
+  &.header-position-left {
+    display: flex;
+    gap: 2ch;
+    align-items: center;
   }
 
 }

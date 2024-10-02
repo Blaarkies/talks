@@ -1,13 +1,25 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { Platform } from '@angular/cdk/platform';
 import {
   Component,
+  DestroyRef,
+  effect,
   HostListener,
   inject,
+  Injector,
+  signal,
+  viewChild,
 } from '@angular/core';
+import {
+  takeUntilDestroyed,
+  toObservable,
+} from '@angular/core/rxjs-interop';
 import {
   Router,
   RouterOutlet,
 } from '@angular/router';
 import { ButtonComponent } from '../../common/component/button/button.component';
+import { HasRimHeader } from './index';
 import { ClickerService } from './service/clicker.service';
 import {
   FontSizeService,
@@ -27,8 +39,12 @@ import {
 })
 export class ModePresentationComponent {
 
+  protected headerHeight = signal<number | null>(null);
+
   private router = inject(Router);
   private clickerService = inject(ClickerService);
+  private injector = inject(Injector);
+  private destroyRef = inject(DestroyRef);
 
   private keydownActionMap = new Map<string, (event?: KeyboardEvent) => void>([
     ['ArrowRight', e => e.ctrlKey
@@ -41,13 +57,16 @@ export class ModePresentationComponent {
 
   constructor() {
     inject(FontSizeService).setSlideMode(SlideMode.presentation);
+
+    inject(BreakpointObserver)
+      .observe('(width < 1500px)')
+      .pipe(takeUntilDestroyed())
+      .subscribe(({matches}) => console.log(matches ? '❌Why are you MOBILE?' : '✅good desktop'))
   }
 
   @HostListener('window:keydown', ['$event'])
   handleKeydown(event: KeyboardEvent) {
     this.keydownActionMap.get(event.key)?.(event);
-
-
   }
 
   forward() {
@@ -58,8 +77,21 @@ export class ModePresentationComponent {
     this.clickerService.backward();
   }
 
+  right() {
+    this.clickerService.right();
+  }
+
+  left() {
+    this.clickerService.left();
+  }
+
   quit() {
     this.router.navigate(['../']);
   }
 
+  setHeaderHeight(component: HasRimHeader) {
+    toObservable(component.rimHeaderHeight, {injector: this.injector})
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(height => this.headerHeight.set(height));
+  }
 }

@@ -1,31 +1,40 @@
-<svg class="graph" width="400" height="400">
-  <path
-    class="plotting"
-    d="M 0 400 q 200 -750 400 0"
-  ></path>
-  <line
-    class="axis"
-    x1="0" y1="0"
-    x2="0" y2="400"
-  ></line>
-  <line
-    class="axis"
-    x1="0" y1="399"
-    x2="400" y2="399"
-  ></line>
+<app-pane
+  header="Entropy of a Folded Coin"
+  [swap]="true"
+  [type]="2"
+>
+  <div class="plot-container">
 
-  <text x="-3ch" y="1em">1 -</text>
-<!--  <text x="-5ch" y="200">0.5 -</text>-->
-  <text x="-3ch" y="405">0 -</text>
+    <svg class="plot" width="400" height="400">
+      <path
+        class="plotting"
+        d="M 0 400 q 200 -750 400 0"
+      ></path>
+      <line
+        class="axis"
+        x1="0" y1="0"
+        x2="0" y2="400"
+      ></line>
+      <line
+        class="axis"
+        x1="0" y1="399"
+        x2="400" y2="399"
+      ></line>
 
-  <text x="0"   y="399" class="vertical">- 0</text>
-<!--  <text x="200" y="399" class="vertical">- 0.5</text>-->
-  <text x="400" y="399" class="vertical">- 1</text>
+      <text x="-3ch" y="1em">1 -</text>
+      <!--  <text x="-5ch" y="200">0.5 -</text>-->
+      <text x="-3ch" y="405">0 -</text>
 
-  <text x="-2ch" y="160" class="label vertical">
-    {{ step() === 0 ? ' &nbsp; Η(X)' : 'Surprise'}}
-  </text>
-  <text x="130" y="440"  class="label"         >
-    {{ step() === 0 ? 'Pr(X = 1)' : '&nbsp; Bias'}}
-  </text>
-</svg>
+      <text x="0" y="399" class="vertical">- 0%</text>
+      <!--  <text x="200" y="399" class="vertical">- 0.5</text>-->
+      <text x="400" y="399" class="vertical">- 100%</text>
+
+      <text x="-2ch" y="160" class="label vertical">
+        {{ step() === 0 ? ' &nbsp; Η(X)' : 'Surprise' }}
+      </text>
+      <text x="130" y="440" class="label">
+        {{ step() === 0 ? 'Pr(X = 1)' : '&nbsp; Bias' }}
+      </text>
+    </svg>
+  </div>
+</app-pane>

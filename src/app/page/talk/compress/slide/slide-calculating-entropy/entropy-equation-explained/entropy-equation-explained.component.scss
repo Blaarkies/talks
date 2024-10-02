@@ -41,7 +41,7 @@
 [class*="show-"] {
   --x1: 0ch;
   --x2: 100%;
-  clip-path: polygon(var(--x1) 0, var(--x2) 0, var(--x2) 4em, var(--x1) 4em);
+  clip-path: rect(0 var(--x2) 4em var(--x1));
   transition: 1s steps(4);
 }
 
@@ -57,5 +57,10 @@
 
 .show-3 {
   --x1: 11ch;
+  --x2: 23ch;
+}
+
+.show-4 {
+  --x1: 8ch;
   --x2: 23ch;
 }

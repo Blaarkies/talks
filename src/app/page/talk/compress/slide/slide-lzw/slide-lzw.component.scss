@@ -10,9 +10,14 @@
     max-width: 90vw;
     translate: -1ch;
     display: grid;
+//    grid-template:
+//'input  dictionary'
+//'output dictionary';
     grid-template:
-'input  dictionary'
-'output dictionary';
+'input  '
+'dictionary'
+'output '
+  ;
     grid-gap: 2ch;
 
     .input {

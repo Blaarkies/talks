@@ -16,7 +16,8 @@ import { LzwControllerComponent } from './lzw-controller/lzw-controller.componen
 import { LzwDictionaryComponent } from './lzw-dictionary/lzw-dictionary.component';
 
 // let exampleText = 'FLEX_NEXT_TEXT';
-let exampleText = 'AIR_FAIR_CHAIRS';
+// let exampleText = 'AIR_FAIR_CHAIRS';
+let exampleText = 'EAR_BEAR_EARNS';
 
 @Component({
   selector: 'app-slide-lzw',

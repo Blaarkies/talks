@@ -14,3 +14,19 @@
   right: 0;
   bottom: 0;
 }
+
+.steps {
+  padding-top: 1em;
+  background: var(--color-pane-1);
+
+  transition: .5s steps(3);
+  transition-delay: 1s;
+
+  clip-path: rect(0 100% 100% 80%);
+  opacity: .5;
+  &:hover {
+    transition-delay: 0s;
+    clip-path: rect(0 100% 100% 0);
+    opacity: 1;
+  }
+}

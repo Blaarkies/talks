@@ -10,12 +10,20 @@
 
   .s-h-c-d-layout {
     display: grid;
-    grid-template: 1fr 1fr / auto auto minmax(25ch, 20%);
-    gap: 4ch;
+    grid-template: auto auto / 5.6fr 4.4fr;
+    gap: 2ch;
 
-    & > *:last-child {
-      grid-column: 1 / -1;
-      justify-self: center;
+    > * {
+      opacity: 0;
     }
+
+    .show {
+      opacity: 1;
+    }
+
+    .input-data {
+      place-self: end end;
+    }
+
   }
 }

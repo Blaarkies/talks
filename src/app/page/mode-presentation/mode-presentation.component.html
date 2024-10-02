@@ -2,4 +2,12 @@
 <app-button class="top-right" (click1)="forward()">&gt;</app-button>
 <app-button class="bottom-right" (click1)="quit()">↰</app-button>
 
-<router-outlet/>
+<div
+  class="top-right steps"
+  [style.top.px]="headerHeight() - 2"
+>
+  <app-button [type]="1" (click1)="left()">&lt;</app-button>
+  <app-button [type]="1" (click1)="right()">&gt;</app-button>
+</div>
+
+<router-outlet (activate)="setHeaderHeight($event)"/>

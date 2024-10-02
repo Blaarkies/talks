@@ -9,7 +9,7 @@ export const compressionSlideRouteNames = {
   huffmanCodingTree: 'huffman-coding-tree',
   aiAndCompression: 'ai-and-compression',
   lzw: 'lzw',
-  otherAlgorithms: 'other-algorithms',
+  otherAlgorithms: 'common-algorithms', // ! name updated here
   end: 'end-and-questions',
   calculatingEntropy: 'calculating-entropy',
 };

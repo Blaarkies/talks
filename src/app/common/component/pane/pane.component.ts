@@ -25,6 +25,7 @@ export class PaneComponent {
   swap = input<boolean>();
   shadow = input<boolean>(true);
   outline = input<'single' | 'double'>();
+  headerPosition = input<'left'>();
 
   protected typeClass = computed(() =>
     'type-' + (this.swap() ? 'swap-' : '') + this.type());

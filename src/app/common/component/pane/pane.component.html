@@ -2,13 +2,16 @@
   #main
   class="pane-main"
   [class.shadow]="shadow()"
+  [class.header-position-left]="headerPosition() === 'left'"
   [ngClass]="[typeClass(), outlineClass()]"
 >
 
   @if (header()) {
-    <div class="title">{{ header() }}</div>
+    <div class="header">{{ header() }}</div>
   }
 
-  <ng-content/>
+  <div>
+    <ng-content/>
+  </div>
 
 </div>
