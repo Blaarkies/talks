@@ -1,5 +1,7 @@
 .sandbox-c-layout {
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+
   height: 100%;
   background: var(--color-back-8);
 
@@ -7,8 +9,11 @@
   place-content: center;
 
   .sandbox-c-inner-grid {
+    margin-inline: 2ch;
+    margin-top: 2ch;
+    margin-bottom: 4ch;
     display: grid;
-    gap: 2ch;
+    gap: 4ch;
 
     //grid-auto-flow: column;
     //align-items: center;

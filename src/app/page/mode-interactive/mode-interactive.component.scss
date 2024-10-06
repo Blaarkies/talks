@@ -2,3 +2,22 @@
   display: block;
   height: 100vh;
 }
+
+.heading {
+
+  .text {
+    text-align: center;
+  }
+
+  .main-menu-button {
+    position: absolute;
+    left: 0;
+    padding-inline: 2ch;
+    cursor: pointer;
+  }
+
+  .highlight {
+    text-decoration: underline;
+    color: var(--color-text-danger);
+  }
+}

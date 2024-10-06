@@ -21,11 +21,15 @@ export class RunLengthPreviewComponent {
 
   userPointsAt = output<number>();
 
-  protected strideWidth = computed(() => this.data().indexOf(sep));
-
+  protected strideWidth = computed(() => {
+    let lengths = this.data().split(sep)
+      .map(l => l.length);
+    return Math.max(...lengths);
+  });
   protected runs = computed(() => splitStringToRunLengthEncoding(this.data()));
 
-  pointsAt(index: number | null) {
+  protected pointsAt(index: number | null) {
     this.userPointsAt.emit(index);
   }
+
 }

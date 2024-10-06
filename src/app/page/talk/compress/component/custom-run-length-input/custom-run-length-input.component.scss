@@ -1,0 +1,51 @@
+.rle-layout {
+  display: grid;
+  gap: 1ch;
+  justify-items: center;
+
+  hr {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+.image-preview {
+  max-width: 90vw;
+  overflow: hidden;
+  display: grid;
+}
+
+.edit-buttons {
+  display: flex;
+  gap: 2ch;
+}
+
+.user-input-textarea {
+  min-height: 3em;
+  min-width: 10ch;
+  max-width: inherit;
+  font-size: var(--font-size-5);
+  padding-inline: 2ch;
+  box-sizing: border-box;
+}
+
+.char-selector {
+  padding-inline: 2ch;
+  display: flex;
+  flex-wrap: wrap;
+
+  .char-option {
+    cursor: pointer;
+    padding: var(--font-size-1);
+
+    &:hover {
+      color: white;
+      outline: 1px solid yellow;
+    }
+  }
+}
+
+.definitions {
+  padding-inline: 2ch;
+  max-width: 30ch;
+}

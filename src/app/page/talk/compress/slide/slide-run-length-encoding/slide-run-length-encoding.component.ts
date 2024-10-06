@@ -64,7 +64,7 @@ export class SlideRunLengthEncodingComponent {
     if (!imageString) {
       return;
     }
-    let runLines = splitStringToRunLengthEncoding(this.imageString());
+    let runLines = splitStringToRunLengthEncoding(imageString);
     return runLines.map(l => [l.length, l[0]]);
   });
 

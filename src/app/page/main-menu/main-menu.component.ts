@@ -1,25 +1,19 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
 import {
   CdkMenu,
   CdkMenuBar,
   CdkMenuItem,
   CdkMenuTrigger,
 } from '@angular/cdk/menu';
-import { DOCUMENT } from '@angular/common';
 import {
   Component,
   computed,
-  effect,
   inject,
   signal,
 } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
 import {
   Router,
   RouterLink,
 } from '@angular/router';
-import { WA_LOCAL_STORAGE } from '@ng-web-apis/common';
-import { map } from 'rxjs';
 import { routeNames } from '../../../bootstrap/app.routes';
 import { PaneComponent } from '../../common/component/pane/pane.component';
 import { RimComponent } from '../../common/component/rim/rim.component';

@@ -1,7 +1,15 @@
 <app-rim>
 
   <div head class="heading">
-    heading
+    <div
+      class="main-menu-button"
+      [routerLink]="['../', routeMainMenu]"
+    >
+      <span>GO <span class="highlight"
+      >B</span>ACK</span>
+    </div>
+
+    <div class="text">INTERACTIVE MODE</div>
   </div>
 
   <div>
@@ -9,7 +17,7 @@
   </div>
 
   <div foot class="footing">
-    footing
+    INPUT CUSTOM DATA INTO TOOLS
   </div>
 
 </app-rim>
