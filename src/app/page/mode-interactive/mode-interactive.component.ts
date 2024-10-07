@@ -40,8 +40,8 @@ export class ModeInteractiveComponent {
     fontSizeService.updateFontSize();
   }
 
-  @HostListener('window:keydown.b')
-  onClick() {
+  @HostListener('window:keydown.alt.b')
+  private goBackShortcut() {
     this.router.navigate(['../', this.routeMainMenu]);
   }
 

@@ -2,10 +2,46 @@
   display: grid;
   gap: 1ch;
   justify-items: center;
+  grid-template-areas:
+'decoded'
+'edit'
+'encoded';
+
+  .decoded {
+    grid-area: decoded;
+  }
+
+  .edit {
+    grid-area: edit;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .edit-buttons {
+      display: flex;
+      gap: 2ch;
+    }
+  }
+
+  .encoded {
+    grid-area: encoded;
+
+    .definitions {
+      max-width: 30ch;
+    }
+  }
 
   hr {
     width: 100%;
     margin: 0;
+  }
+
+  &.decoding-mode {
+    grid-template-areas:
+'encoded'
+'edit'
+'decoded';
   }
 }
 
@@ -13,11 +49,6 @@
   max-width: 90vw;
   overflow: hidden;
   display: grid;
-}
-
-.edit-buttons {
-  display: flex;
-  gap: 2ch;
 }
 
 .user-input-textarea {
@@ -29,10 +60,20 @@
   box-sizing: border-box;
 }
 
-.char-selector {
-  padding-inline: 2ch;
+.char-selector-header {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
+}
+
+.char-selector {
+  overflow: hidden;
+
+  .height-animator {
+    margin-block: 1px;
+    padding-inline: 2ch;
+    display: flex;
+    flex-wrap: wrap;
+  }
 
   .char-option {
     cursor: pointer;
@@ -43,9 +84,17 @@
       outline: 1px solid yellow;
     }
   }
-}
 
-.definitions {
-  padding-inline: 2ch;
-  max-width: 30ch;
+  .empty-option {
+    width: 1ch;
+    position: relative;
+
+    &:after {
+      content: '';
+      position: absolute;
+      width: 1ch;
+      height: 1em;
+      outline: 1px solid gray;
+    }
+  }
 }

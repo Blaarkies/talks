@@ -25,8 +25,12 @@
 
       <p>Mobile devices are not supported.</p>
 
-      <p>Click here or press BACKSPACE to
+      <p
+        class="back-to-main-menu"
+        (click)="linkToBack.click()"
+      >Click here or press BACKSPACE to
         <a
+          #linkToBack
           class="anti-a bsod-a"
           [routerLink]="['../', routeMainMenu]"
           (click)="$event.stopPropagation()"

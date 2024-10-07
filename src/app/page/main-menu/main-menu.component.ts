@@ -7,8 +7,11 @@ import {
 import {
   Component,
   computed,
+  ElementRef,
+  HostListener,
   inject,
   signal,
+  viewChild,
 } from '@angular/core';
 import {
   Router,
@@ -54,13 +57,15 @@ export class MainMenuComponent {
   private fontSizeService = inject(FontSizeService);
   protected mode = this.fontSizeService.slideMode;
 
+  private menuButton = viewChild('menuButton',
+    {read: ElementRef<HTMLButtonElement>});
   private router = inject(Router);
 
   constructor() {
     this.fontSizeService.updateFontSize();
   }
 
-  selectNext(step: number) {
+  protected selectNext(step: number) {
     let list = this.navigationsList();
     let index = list.indexOf(this.selectedOption());
     if (index === -1) {
@@ -81,8 +86,27 @@ export class MainMenuComponent {
     await this.router.navigate(['../', routeNames.present, url]);
   }
 
-  setSlideMode(mode: SlideMode) {
+  protected setSlideMode(mode: SlideMode) {
     this.fontSizeService.setSlideMode(mode);
     this.fontSizeService.updateFontSize();
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  private menuShortcut(event: KeyboardEvent) {
+    if (!event.altKey) {
+      return;
+    }
+
+    if (event.key === 'o') {
+      this.menuButton().nativeElement.click();
+    }
+
+    if (event.key === 'i') {
+      this.setSlideMode(SlideMode.interactive);
+    }
+
+    if (event.key === 'p') {
+      this.setSlideMode(SlideMode.presentation);
+    }
   }
 }

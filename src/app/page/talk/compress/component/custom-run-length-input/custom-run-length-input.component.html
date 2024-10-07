@@ -1,51 +1,65 @@
 <app-pane
-  header="Run-length Encoder"
+  [header]="'Run-length '
+    +(decodeMode()?'De':'En')+'coder'"
   type="2"
   swap="true"
 >
-  <div class="rle-layout">
-    <div class="image-preview">
-      <app-run-length-preview [data]="userInputValue()"/>
+  <div class="rle-layout" [class.decoding-mode]="decodeMode()">
+    <div class="decoded image-preview">
+      <app-run-length-preview [data]="previewData()"/>
     </div>
 
-    <div class="edit-buttons">
-      <app-button type="2" (click1)="toggleEditMode()">
-        {{ editMode() ? 'DONE' : 'EDIT' }}
-      </app-button>
-      <app-button type="2" (click1)="toggleEncoderMode()">
-        SWAP
-      </app-button>
-    </div>
+    <div class="edit">
 
-    @if (editMode()) {
-      <textarea
-        #inputTextArea
-        class="user-input-textarea"
-        [(ngModel)]="userInputValue"
-        maxlength="5000"
-      ></textarea>
-      <hr/>
-      Quick Character Selection
-      <div class="char-selector">
-        @for (char of chars; track char[0] + $index) {
-          <span
-            class="char-option"
-            (click)="inputChar(char[0])"
-          >{{ char[1] }}</span>
-        }
+      <div class="edit-buttons">
+        <app-button type="2" (click1)="toggleEditMode()">
+          {{ editMode() ? 'DONE' : 'EDIT' }}
+        </app-button>
+        <app-button type="2" (click1)="toggleDecodeMode()">
+          ⇅
+        </app-button>
       </div>
-      <hr/>
-    }
 
-    @if (encodings() || editMode()) {
-      <app-run-length-definition
-        class="definitions"
-        [defs]="encodings()"
-        [stride]="imageWidth()"
-      />
-    } @else {
-      Click edit to input a custom image
-    }
+      @if (editMode()) {
+        <textarea
+          #inputTextArea
+          class="user-input-textarea"
+          maxlength="5000"
+          [(ngModel)]="userInputValue"
+        ></textarea>
+        <hr/>
+        <div class="char-selector-header">
+          <div>Quick Character Selection</div>
+          <app-button (click1)="toggleCharSelector($event, charAnimator)">
+            ▼
+          </app-button>
+        </div>
+        <div class="char-selector">
+          <div #charAnimator class="height-animator">
+            @for (char of chars; track char[0] + $index) {
+              <span
+                class="char-option"
+                [class.empty-option]="char[0] === ' '"
+                (click)="inputChar(char[0])"
+              >{{ char[1] }}</span>
+            }
+          </div>
+        </div>
+        <hr/>
+      }
+    </div>
+
+    <div class="encoded">
+      @if (encodings() || editMode()) {
+        <app-run-length-definition
+          class="definitions"
+          [defs]="encodings()"
+          [stride]="imageWidth()"
+        />
+      } @else {
+        Click edit to input a custom image
+      }
+    </div>
   </div>
 
 </app-pane>

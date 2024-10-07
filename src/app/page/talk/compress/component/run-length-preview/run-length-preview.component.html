@@ -8,6 +8,7 @@
       class="line"
       [class.is-lit]="i === litIndex()"
       (pointerenter)="pointsAt(i)"
-    >{{ run }}</span>
+      [innerHTML]="run"
+    ></span>
   }
 </div>

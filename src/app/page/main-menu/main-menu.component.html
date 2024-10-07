@@ -11,7 +11,12 @@
 >
   <div class="head-footing" head>
     <div class="menu-bar" cdkMenuBar>
-      <button class="dropdown-item" cdkMenuItem [cdkMenuTriggerFor]="options">
+      <button
+        #menuButton
+        class="dropdown-item"
+        cdkMenuItem
+        [cdkMenuTriggerFor]="options"
+      >
         @if (isMobile()) {
           <span class="highlight">≡</span>
         } @else {

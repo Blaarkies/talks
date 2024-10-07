@@ -26,7 +26,9 @@ export class RunLengthPreviewComponent {
       .map(l => l.length);
     return Math.max(...lengths);
   });
-  protected runs = computed(() => splitStringToRunLengthEncoding(this.data()));
+  protected runs = computed(() =>
+    splitStringToRunLengthEncoding(this.data())
+      .map(r => r.replaceAll(' ', '&nbsp;')));
 
   protected pointsAt(index: number | null) {
     this.userPointsAt.emit(index);
