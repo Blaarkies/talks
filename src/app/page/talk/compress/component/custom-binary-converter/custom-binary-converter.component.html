@@ -1,0 +1,11 @@
+<app-pane>
+
+  <app-custom-input-encoder-decoder
+    example="Text here converted to binary there"
+    headerDecoded="Plain text"
+    headerEncoded="Binary"
+    [encodeFn]="encodeStringToBinaryFn"
+    [decodeFn]="decodeBinaryToStringFn"
+  />
+
+</app-pane>

@@ -1,0 +1,37 @@
+<div class="layout">
+
+  <app-pane
+    [header]="headerForInput()"
+    type="2"
+    [shadow]="false"
+  >
+    <textarea
+      class="input-textarea"
+      [(ngModel)]="inputValue"
+      maxlength="50000"
+      rows="5"
+    ></textarea>
+  </app-pane>
+
+  @if (decodeFn()) {
+    <app-button
+      type="2"
+      outline="single"
+      (click1)="toggleDecodeMode()"
+    >
+      ⇄
+    </app-button>
+  } @else {
+    <div></div>
+  }
+
+  <app-pane
+    [header]="headerForOutput()"
+    type="2"
+    [shadow]="false"
+    class="output"
+  >
+    {{ this.outputValue() }}
+  </app-pane>
+
+</div>
