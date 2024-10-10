@@ -1,7 +1,7 @@
 import { sep } from '../../../../common';
 
 export function getRunLengthEncodings(data: string)
-  : {encodings: [number, string][], width: number} {
+  : { encodings: [number, string][], width: number } {
   if (data.includes(sep)) {
     throw new Error(
       'Bad input data. Data contained an end-of-line character');
@@ -30,7 +30,7 @@ export function getRunLengthEncodings(data: string)
 
     let count = parseInt(digits);
     if (!Number.isInteger(count)) {
-      throw new Error(`Bad input data. [${char}] is not a valid run count`)
+      throw new Error(`Bad input data. [${char}] is not a valid run count`);
     }
     encodings.push([count, char]);
     digits = '';
@@ -64,4 +64,35 @@ export function decodeRunLength(data: string): string {
   }
 
   return flatRun.join('');
+}
+
+export function decodeLZW(encoded: string): string {
+  let output = encoded.split('')
+    .reduce((state, c) => {
+      let code = c.charCodeAt(0);
+      let decodedValue = state.dictionary[code];
+
+      state.run += decodedValue ?? c;
+      let run = state.run;
+
+      if (decodedValue) {
+        state.output += decodedValue;
+        state.run = '';
+      } else if (run.length > 1) {
+        state.dictionary[state.nextCode++] = run;
+        state.output += c;
+        state.run = c;
+      } else {
+        state.output += c;
+      }
+
+      return state;
+    }, {
+      run: '',
+      output: '',
+      dictionary: {},
+      nextCode: 256,
+    });
+
+  return output.output;
 }

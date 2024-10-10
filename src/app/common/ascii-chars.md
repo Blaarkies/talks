@@ -1,5 +1,4 @@
-
-s   ASCII control character
+ASCII control character
 00NULL(Null character)
 01SOH(Start of Header)
 02STX(Start of Text)

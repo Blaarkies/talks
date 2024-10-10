@@ -1,0 +1,11 @@
+<app-pane>
+
+  <app-custom-input-encoder-decoder
+    example="Text here converted to LZW there"
+    headerDecoded="Plain text"
+    headerEncoded="LZW encoded"
+    [encodeFn]="encodeStringToLzwFn"
+    [decodeFn]="decodeLzwToStringFn"
+  />
+
+</app-pane>

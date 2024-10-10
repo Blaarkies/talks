@@ -1,0 +1,11 @@
+<app-pane>
+
+  <app-custom-input-encoder-decoder
+    example="Text here converted to huffman coding there"
+    headerDecoded="Plain text"
+    headerEncoded="Huffman coded"
+    [encodeFn]="encodeStringToHuffmanFn"
+    [decodeFn]="decodeHuffmanToStringFn"
+  />
+
+</app-pane>
