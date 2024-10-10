@@ -1,4 +1,13 @@
 import {
+  CdkMenu,
+  CdkMenuTrigger,
+} from '@angular/cdk/menu';
+import {
+  CdkConnectedOverlay,
+  CdkOverlayOrigin,
+  ConnectionPositionPair,
+} from '@angular/cdk/overlay';
+import {
   Component,
   computed,
   effect,
@@ -23,6 +32,10 @@ type EncodingFn = (input: string) => string;
     FormsModule,
     ButtonComponent,
     PaneComponent,
+    CdkMenuTrigger,
+    CdkMenu,
+    CdkOverlayOrigin,
+    CdkConnectedOverlay,
   ],
   templateUrl: './custom-input-encoder-decoder.component.html',
   styleUrl: './custom-input-encoder-decoder.component.scss',
@@ -30,6 +43,7 @@ type EncodingFn = (input: string) => string;
 export class CustomInputEncoderDecoderComponent {
 
   example = input('Example text');
+  information = input<string | null>(null);
   headerDecoded = input('Decoded Data');
   headerEncoded = input('Encoded Data');
   encodeFn = input.required<EncodingFn>();
@@ -50,6 +64,13 @@ export class CustomInputEncoderDecoderComponent {
     this.decodeMode() ? this.headerEncoded() : this.headerDecoded());
   protected headerForOutput = computed(() =>
     this.decodeMode() ? this.headerDecoded() : this.headerEncoded());
+
+  protected isInfoOpen = signal(false);
+  protected positions = [
+    new ConnectionPositionPair(
+      {originX: 'end', originY: 'top'},
+      {overlayX: 'end', overlayY: 'top'}),
+  ];
 
   private decodeMode = signal(false);
 

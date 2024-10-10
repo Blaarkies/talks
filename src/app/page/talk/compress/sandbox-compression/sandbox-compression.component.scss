@@ -25,3 +25,32 @@
   font-size: var(--font-size-3);
   text-align: center;
 }
+
+
+.placeholder {
+  height: 500px;
+
+  &:after {
+    margin-left: 1ch;
+    animation: kf-loading-spin .5s linear infinite;
+    content: "";
+  }
+
+  @keyframes kf-loading-spin {
+    0% {
+      content: '/';
+    }
+    35% {
+      content: '−';
+    }
+    70% {
+      content: '\\';
+    }
+    85% {
+      content: '|';
+    }
+    100% {
+      content: '/';
+    }
+  }
+}

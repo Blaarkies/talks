@@ -3,17 +3,45 @@
 
     <div class="heading">Compression Tools</div>
 
-    <app-entropy-preview
-      type="2"
-      header="Entropy Measure"
-      data="Fill in example text by clicking edit..."
-      canEdit="true"
-    />
+    @defer (on viewport) {
+      <app-entropy-preview
+        type="2"
+        header="Entropy Measure"
+        data="Fill in example text by clicking edit..."
+        canEdit="true"
+      />
+    } @placeholder {
+      <div class="placeholder">Loading Entropy meter</div>
+    }
 
-    <app-custom-run-length-input/>
+    @defer (on viewport) {
+      <app-custom-run-length-input/>
+    } @placeholder {
+      <div class="placeholder">Loading Run-length encoding</div>
+    }
 
-    <app-custom-binary-converter/>
+    @defer (on viewport) {
+      <app-custom-binary-converter/>
+    } @placeholder {
+      <div class="placeholder">Loading Binary converter</div>
+    }
 
+    @defer (on viewport) {
+      <app-custom-huffman-converter/>
+    } @placeholder {
+      <div class="placeholder">Loading Huffman converter</div>
+    }
 
+    @defer (on viewport) {
+      <app-custom-lzw-converter/>
+    } @placeholder {
+      <div class="placeholder">Loading LZW converter</div>
+    }
+
+    @defer (on viewport) {
+      <app-coin-flip-world/>
+    } @placeholder {
+      <div class="placeholder">Loading Coin world</div>
+    }
   </div>
 </div>

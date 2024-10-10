@@ -23,8 +23,8 @@ export class CustomBinaryConverterComponent {
       .join('');
   };
 
-  protected decodeBinaryToStringFn = (binaryText: string) => {
-    return chunked(binaryText.split(''), 8)
+  protected decodeBinaryToStringFn = (text: string) => {
+    return chunked(text.split(''), 8)
       .map(bitsArray => {
         let byte = bitsArray.join('');
         let code = parseInt(byte, 2);
@@ -32,5 +32,7 @@ export class CustomBinaryConverterComponent {
       })
       .join('');
   };
+
+  protected info = 'Encoded into 8-bit length binary.';
 
 }

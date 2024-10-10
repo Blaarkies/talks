@@ -1,4 +1,9 @@
-<div class="layout">
+<div
+  class="layout"
+  cdkOverlayOrigin
+  #origin="cdkOverlayOrigin"
+  (click)="isInfoOpen.set(false)"
+>
 
   <app-pane
     [header]="headerForInput()"
@@ -33,5 +38,35 @@
   >
     {{ this.outputValue() }}
   </app-pane>
+
+  @if (information()) {
+    <div class="info">
+      <app-button
+        type="4"
+        [swap]="true"
+        (click1)="isInfoOpen.set(true); $event.stopPropagation()"
+      >
+        ?
+      </app-button>
+
+      <ng-template
+        cdkConnectedOverlay
+        [cdkConnectedOverlayOrigin]="origin"
+        [cdkConnectedOverlayOpen]="isInfoOpen()"
+        [cdkConnectedOverlayPositions]="positions"
+        (overlayOutsideClick)="isInfoOpen.set(false)"
+      >
+        <app-pane
+          type="4"
+          swap="true"
+          class="info-popup"
+          [style.max-width.px]="origin.elementRef.nativeElement.clientWidth"
+          (click)="isInfoOpen.set(false)"
+        >
+          <span [innerHTML]="information()"></span>
+        </app-pane>
+      </ng-template>
+    </div>
+  }
 
 </div>

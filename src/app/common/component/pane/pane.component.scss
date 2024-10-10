@@ -20,6 +20,11 @@
   --outer-padding: var(--space-4);
   padding: var(--outer-padding);
 
+  height: 100%;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: max-content 1fr;
+
   &.outline-double {
     @extend %outline-defaults;
 

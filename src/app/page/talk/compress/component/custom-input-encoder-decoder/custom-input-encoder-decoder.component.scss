@@ -6,17 +6,29 @@
   app-button {
     align-self: center;
   }
+
+  .input-textarea {
+    background: none;
+    width: 100%;
+    resize: none;
+    font-size: var(--font-size-3);
+    color: currentColor;
+  }
+
+  .output {
+    word-break: break-all;
+    height: 100%;
+  }
+
+  position: relative;
+
+  .info {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
 }
 
-.input-textarea {
-  background: none;
-  width: 100%;
-  resize: none;
-  font-size: var(--font-size-3);
-  color: currentColor;
-}
-
-.output {
-  word-break: break-all;
-  height: 100%;
+.info-popup {
+  font-size: var(--font-size-2);
 }
