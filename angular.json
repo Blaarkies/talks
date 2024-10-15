@@ -38,11 +38,6 @@
               },
               {
                 "glob": "**/*",
-                "input": "node_modules/@tabler/icons/icons/",
-                "output": "./assets/icons/"
-              },
-              {
-                "glob": "**/*",
                 "input": "src/asset",
                 "output": "./asset"
               }

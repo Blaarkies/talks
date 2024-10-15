@@ -96,6 +96,7 @@
   .back-to-main-menu {
     cursor: pointer;
     width: max-content;
+    word-break: break-all;
 
     &:hover {
       background: #aaaaaa;

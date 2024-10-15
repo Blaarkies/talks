@@ -14,9 +14,6 @@
     margin-bottom: 4ch;
     display: grid;
     gap: 4ch;
-
-    //grid-auto-flow: column;
-    //align-items: center;
   }
 
 }
@@ -29,11 +26,12 @@
 
 .placeholder {
   height: 500px;
+  width: 1ch;
 
   &:after {
     margin-left: 1ch;
     animation: kf-loading-spin .5s linear infinite;
-    content: "";
+    content: '';
   }
 
   @keyframes kf-loading-spin {

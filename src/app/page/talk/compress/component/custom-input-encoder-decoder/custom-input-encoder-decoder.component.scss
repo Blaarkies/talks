@@ -1,10 +1,10 @@
 .layout {
   display: grid;
-  grid-template-columns: 1fr max-content 1fr;
+  grid-template-rows: max-content max-content 1fr;
   gap: 1ch;
 
-  app-button {
-    align-self: center;
+  .toggle-direction {
+    justify-self: center;
   }
 
   .input-textarea {
@@ -26,6 +26,16 @@
     position: absolute;
     top: 0;
     right: 0;
+  }
+
+  @media (width > 1000px) {
+    grid-template-columns: 1fr max-content 1fr;
+    grid-template-rows: unset;
+
+    .toggle-direction {
+      align-self: center;
+      rotate: 90deg;
+    }
   }
 }
 

@@ -1,10 +1,57 @@
 .world-container {
-  width: 680px;
-  height: 500px;
+  --width: 680px;
+  --height: 500px;
+  width: var(--width);
+  height: var(--height);
   position: relative;
 
   --heads-color: orange;
   --tails-color: #0054f0;
+
+  @media (width < 1000px) {
+    --scale: .7;
+    scale: var(--scale);
+    --scaled-width: calc(var(--width) * var(--scale));
+    --scaled-height: calc(var(--height) * var(--scale));
+    width: var(--scaled-width);
+    height: var(--scaled-height);
+    translate: calc(var(--scaled-width) * -.05)
+    calc(var(--scaled-height) * -.05);
+
+    .box {
+      translate: 0%;
+    }
+  }
+
+  @media (width < 700px) {
+    --scale: .5;
+    scale: var(--scale);
+    --scaled-width: calc(var(--width) * var(--scale));
+    --scaled-height: calc(var(--height) * var(--scale));
+    width: var(--scaled-width);
+    height: var(--scaled-height);
+    translate: calc(var(--scaled-width) * -.25)
+    calc(var(--scaled-height) * -.25);
+
+    .box {
+      translate: 15%;
+    }
+  }
+
+  @media (width < 500px) {
+    --scale: .4;
+    scale: var(--scale);
+    --scaled-width: calc(var(--width) * var(--scale));
+    --scaled-height: calc(var(--height) * var(--scale));
+    width: var(--scaled-width);
+    height: var(--scaled-height);
+    translate: calc(var(--scaled-width) * -.35)
+    calc(var(--scaled-height) * -.25);
+
+    .box {
+      translate: 30%;
+    }
+  }
 }
 
 .hammer {
@@ -180,7 +227,7 @@
     margin-top: 1em;
   }
 
-  .meter{
+  .meter {
     margin-bottom: 1em;
     width: 100%;
 

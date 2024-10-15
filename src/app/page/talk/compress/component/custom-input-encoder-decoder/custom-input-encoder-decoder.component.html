@@ -20,11 +20,12 @@
 
   @if (decodeFn()) {
     <app-button
+      class="toggle-direction"
       type="2"
       outline="single"
       (click1)="toggleDecodeMode()"
     >
-      ⇄
+      ⇅
     </app-button>
   } @else {
     <div></div>

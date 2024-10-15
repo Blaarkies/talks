@@ -9,7 +9,8 @@
     "test": "ng test",
     "update-css-vars": "node src/style/setup/variable-sets-generator.js variable-sets.scss",
     "rip-change-detection": "node scripts/file-cleaner.js",
-    "serve-prod": "ng serve --configuration production"
+    "serve-prod": "ng serve --configuration production",
+    "host-local": "ng serve --host 0.0.0.0"
   },
   "private": true,
   "dependencies": {
@@ -23,7 +24,6 @@
     "@angular/platform-browser-dynamic": "^18.2.3",
     "@angular/router": "^18.2.3",
     "@box2d/core": "^0.11.0",
-    "@tabler/icons": "^3.11.0",
     "qrcode": "^1.5.4",
     "rxjs": "~7.8.1",
     "tslib": "^2.3.0",

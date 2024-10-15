@@ -49,7 +49,9 @@
 
       @if $withHover == true {
         &:hover {
-          background: var(#{$varName}-hover-#{$i});;
+          background: color-mix(in srgb,
+            var(#{$varName}-pane-#{$i}),
+            20% var(#{$varName}-text-#{$i}));
         }
       }
     }
