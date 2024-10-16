@@ -6,19 +6,14 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import {
-  takeUntilDestroyed,
-  toSignal,
-} from '@angular/core/rxjs-interop';
-import {
-  Router,
-  RouterLink,
-} from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { RouterLink } from '@angular/router';
+import { toString as QrCodeToString } from 'qrcode';
 import { map } from 'rxjs';
 import { routeNames } from '../../../../../../bootstrap/app.routes';
 import { PaneComponent } from '../../../../../common/component/pane/pane.component';
-import { toString as QrCodeToString } from 'qrcode';
 import { ClickerService } from '../../../../mode-presentation/service/clicker.service';
+import { PresenterNotesService } from '../../../../presenter-notes';
 
 @Component({
   selector: 'app-slide-end',
@@ -62,6 +57,7 @@ export class SlideEndComponent {
       this.qrElement().nativeElement.outerHTML = svgHtml();
     });
 
+    inject(PresenterNotesService).setSlide(10, 0);
   }
 
 }

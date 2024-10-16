@@ -1,5 +1,6 @@
 import {
   Component,
+  effect,
   inject,
   signal,
   viewChild,
@@ -11,9 +12,11 @@ import {
   fromEvent,
   mergeWith,
 } from 'rxjs';
+import { coerceBetween } from '../../../../../common';
 import { ButtonComponent } from '../../../../../common/component/button/button.component';
 import { PaneComponent } from '../../../../../common/component/pane/pane.component';
 import { ClickerService } from '../../../../mode-presentation/service/clicker.service';
+import { PresenterNotesService } from '../../../../presenter-notes';
 import { toHuffmanTree } from '../../common/encode';
 import { HuffmanCodingPathTrackerTableComponent } from '../../component/huffman-coding-path-tracker-table/huffman-coding-path-tracker-table.component';
 import { HuffmanCodingTableComponent } from '../../component/huffman-coding-table/huffman-coding-table.component';
@@ -53,9 +56,24 @@ export class SlideHuffmanCodingTreeComponent {
       (e: KeyboardEvent) => e.key)
       .pipe(
         filter(key => key === 'Enter'),
-        mergeWith(inject(ClickerService).stepAction$.pipe(filter(s => s === 'right'))),
+        mergeWith(inject(ClickerService)
+          .stepAction$.pipe(filter(s => s === 'right'))),
         takeUntilDestroyed())
       .subscribe(() => this.table().sumNextPair());
+
+    let presenterStep = signal(0);
+    let presenterNotesService = inject(PresenterNotesService);
+    effect(() => {
+      if (this.isResetting()) {
+        presenterStep.set(0);
+      }
+      presenterNotesService.setSlide(6, presenterStep());
+    }, {allowSignalWrites: true});
+    inject(ClickerService).stepAction$.pipe(takeUntilDestroyed())
+      .subscribe(a => presenterStep.update(n => {
+        let difference = a === 'right' ? 1 : -1;
+        return coerceBetween(n + difference, 0, 7);
+      }));
   }
 
   protected tablePointsAt(pair: HctNode[]) {

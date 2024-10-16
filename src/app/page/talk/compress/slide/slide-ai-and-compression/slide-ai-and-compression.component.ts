@@ -2,13 +2,18 @@ import { NgTemplateOutlet } from '@angular/common';
 import {
   Component,
   computed,
+  effect,
   inject,
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { sum } from '../../../../../common';
+import {
+  coerceBetween,
+  sum,
+} from '../../../../../common';
 import { PaneComponent } from '../../../../../common/component/pane/pane.component';
 import { ClickerService } from '../../../../mode-presentation/service/clicker.service';
+import { PresenterNotesService } from '../../../../presenter-notes';
 import { DeepLearningCompressionComponent } from './deep-learning-compression/deep-learning-compression.component';
 import { PredictiveTextGeneratorPaneComponent } from './predictive-text-generator-pane/predictive-text-generator-pane.component';
 
@@ -42,6 +47,9 @@ export class SlideAiAndCompressionComponent {
 
     inject(ClickerService).stepAction$.pipe(takeUntilDestroyed())
       .subscribe(newAction => actionStepMap.get(newAction)?.());
+
+    let presenterNotesService = inject(PresenterNotesService);
+    effect(() => presenterNotesService.setSlide(7, this.step()));
   }
 
 }

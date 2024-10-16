@@ -3,10 +3,14 @@ import {
   computed,
   effect,
   ElementRef,
+  inject,
   signal,
   viewChild,
 } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import {
+  takeUntilDestroyed,
+  toSignal,
+} from '@angular/core/rxjs-interop';
 import {
   concatMap,
   map,
@@ -15,9 +19,12 @@ import {
   timer,
 } from 'rxjs';
 import {
+  coerceBetween,
   makeNumberList,
   sep,
 } from '../../../../../common';
+import { ClickerService } from '../../../../mode-presentation/service/clicker.service';
+import { PresenterNotesService } from '../../../../presenter-notes';
 import { splitStringToRunLengthEncoding } from '../../common/encode';
 import { EntropyMeasureComponent } from '../../component/entropy-measure/entropy-measure.component';
 import { RunLengthDefinitionComponent } from '../../component/run-length-definition/run-length-definition.component';
@@ -78,6 +85,15 @@ export class SlideRunLengthEncodingComponent {
   protected litPreview = signal<number | null>(null);
 
   constructor() {
+    let presenterStep = signal(0);
+    let presenterNotesService = inject(PresenterNotesService);
+    effect(() => presenterNotesService.setSlide(3, presenterStep()));
+    inject(ClickerService).stepAction$.pipe(takeUntilDestroyed())
+      .subscribe(a => presenterStep.update(n => {
+        let difference = a === 'right' ? 1 : -1;
+        return coerceBetween(n + difference, 0, 2);
+      }));
+
     effect(() => {
       let imageString = this.imageString();
       if (!imageString || this.step() !== 1) {
@@ -111,11 +127,11 @@ export class SlideRunLengthEncodingComponent {
     });
   }
 
-  previewPointing(index: number) {
+  protected previewPointing(index: number) {
     this.litDef.set(index);
   }
 
-  definitionsPointing(index: number) {
+  protected definitionsPointing(index: number) {
     this.litPreview.set(index);
   }
 

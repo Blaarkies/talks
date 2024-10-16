@@ -2,6 +2,7 @@ import {
   Component,
   computed,
   DestroyRef,
+  effect,
   inject,
   signal,
 } from '@angular/core';
@@ -12,6 +13,7 @@ import {
 } from '../../../../../common';
 import { PaneComponent } from '../../../../../common/component/pane/pane.component';
 import { ClickerService } from '../../../../mode-presentation/service/clicker.service';
+import { PresenterNotesService } from '../../../../presenter-notes';
 import { CharOrBin } from '../../common';
 import {
   encodeToHuffmanCoding,
@@ -74,6 +76,8 @@ export class SlideHuffmanCodingDictionaryComponent {
 
     inject(ClickerService).stepAction$.pipe(takeUntilDestroyed())
       .subscribe(newAction => actionAnimationMap.get(newAction)?.());
+    let presenterNotesService = inject(PresenterNotesService);
+    effect(() => presenterNotesService.setSlide(5, this.step()));
   }
 
   updateLitCharacter(data: string, type: 'char' | 'binary' | 'encoded') {

@@ -1,5 +1,6 @@
 import {
   Component,
+  effect,
   ElementRef,
   inject,
   signal,
@@ -8,6 +9,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ProgressComponent } from '../../../../../common/component/progress/progress.component';
 import { ClickerService } from '../../../../mode-presentation/service/clicker.service';
+import { PresenterNotesService } from '../../../../presenter-notes';
 import { AnimationController } from '../../common/animation-controller';
 import { EntropyPreviewComponent } from '../../component/entropy-preview/entropy-preview.component';
 import {
@@ -78,6 +80,9 @@ export class SlideExplainEntropyComponent {
 
     inject(ClickerService).stepAction$.pipe(takeUntilDestroyed())
       .subscribe(newAction => actionAnimationMap.get(newAction)?.());
+
+    let presenterNotesService = inject(PresenterNotesService);
+    effect(() => presenterNotesService.setSlide(2, this.animationController.animationIndex()));
   }
 
 }

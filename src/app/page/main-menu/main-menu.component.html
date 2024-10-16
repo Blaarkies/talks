@@ -32,7 +32,9 @@
           (click)="setSlideMode(slideMode.presentation)"
         >
           <span class="hotkey">P</span>resentation Mode
-          @if (mode() === slideMode.presentation) {<span>(selected)</span>}
+          @if (mode() === slideMode.presentation) {
+            <span>(selected)</span>
+          }
         </button>
 
         <button
@@ -41,7 +43,9 @@
           (click)="setSlideMode(slideMode.interactive)"
         >
           <span class="hotkey">I</span>nteractive Mode
-          @if (mode() === slideMode.interactive) {<span>(selected)</span>}
+          @if (mode() === slideMode.interactive) {
+            <span>(selected)</span>
+          }
         </button>
       </div>
     </ng-template>
@@ -86,6 +90,11 @@
         swap="true"
         outline="double"
       >
+        @if (mode() === slideMode.presentation) {
+          <a #notes [href]="routeNames.presenterNotes" target="_blank"></a>
+          <app-button type="4" (click1)="notes.click()">OPEN NOTES</app-button>
+        }
+
         <ul class="description-list">
           @let navs = navigations();
 
@@ -114,8 +123,12 @@
   </div>
 
   <div class="head-footing" foot>
-    TO SELECT AN OPTION, USE ARROW KEYS ↑ ↓ AND ↵ OR MOUSE CLICK
+    SELECT AN OPTION WITH ↑ ↓ AND ↵ OR CLICK; CTRL+Q TO QUIT
   </div>
-  <!--  Ctrl+Q TO QUIT-->
-  <!--  (keydown.control.q)="quit()"-->
 </app-rim>
+@if (isQuit()) {
+  <div
+    class="quit-crt-effect"
+    (click)="isQuit.set(false)"
+  ></div>
+}

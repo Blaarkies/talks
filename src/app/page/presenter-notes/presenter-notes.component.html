@@ -1,0 +1,70 @@
+<div class="layout">
+  @if (inputNotesScript()) {
+    <div class="heading">{{ heading() }}</div>
+
+    @for (note of currentNotes(); track note) {
+      <p
+        class="notes"
+        [innerHTML]="note"
+        [class.not-active-yet]="note !== currentStep()"
+        [class.cut-off-top]="$count > 1
+          && note !== currentStep()
+          && $first"
+      ></p>
+    }
+
+    <app-button
+      class="unload-button"
+      type="1"
+      [swap]="true"
+      (click1)="inputNotesScript.set(null)"
+    >UNLOAD
+    </app-button>
+  } @else {
+    <app-pane
+      class="load-notes-pane"
+      header="Load notes script"
+      type="4"
+    >
+      <div class="load-notes-layout">
+        <div class="dos-row">
+          <div>
+            Last used
+            <app-button
+              type="4"
+              [swap]="true"
+              (click1)="inputNotesScript.set(lastUsedScript())"
+            >
+              LOAD
+            </app-button>
+          </div>
+          <div class="last-used-script">{{ lastUsedScript() || 'None' }}</div>
+        </div>
+
+        <div class="dos-row">
+          <div>Copy&Paste script</div>
+          <textarea
+            class="input-textarea"
+            [(ngModel)]="inputNotesScript"
+            maxlength="500000"
+            rows="5"
+          ></textarea>
+        </div>
+
+        <div class="dos-row">
+          <div>Upload .txt file</div>
+          <input type="file"/>
+        </div>
+
+        <div class="dos-row">
+          <div>Record script</div>
+          <app-button>
+            <div class="fake-record-button">●</div>
+          </app-button>
+        </div>
+      </div>
+    </app-pane>
+  }
+
+
+</div>

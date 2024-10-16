@@ -1,13 +1,16 @@
 import {
   Component,
   computed,
+  effect,
   inject,
   signal,
   viewChild,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { coerceBetween } from '../../../../../common';
 import { PaneComponent } from '../../../../../common/component/pane/pane.component';
 import { ClickerService } from '../../../../mode-presentation/service/clicker.service';
+import { PresenterNotesService } from '../../../../presenter-notes';
 import { LzwStep } from '../../common';
 import { encodeToLzw } from '../../common/encode';
 import { TextCharacterLighterComponent } from '../../component/text-character-lighter/text-character-lighter.component';
@@ -15,8 +18,6 @@ import { LzwCodeLighterComponent } from './lzw-code-lighter/lzw-code-lighter.com
 import { LzwControllerComponent } from './lzw-controller/lzw-controller.component';
 import { LzwDictionaryComponent } from './lzw-dictionary/lzw-dictionary.component';
 
-// let exampleText = 'FLEX_NEXT_TEXT';
-// let exampleText = 'AIR_FAIR_CHAIRS';
 let exampleText = 'EAR_BEAR_EARNS';
 
 @Component({
@@ -51,6 +52,15 @@ export class SlideLzwComponent {
                       : a === 'left'
                         ? this.controller().reset()
                         : 0);
+
+    let presenterStep = signal(0);
+    let presenterNotesService = inject(PresenterNotesService);
+    effect(() => presenterNotesService.setSlide(8, presenterStep()));
+    inject(ClickerService).stepAction$.pipe(takeUntilDestroyed())
+      .subscribe(a => presenterStep.update(n => {
+        let difference = a === 'right' ? 1 : -1;
+        return coerceBetween(n + difference, 0, 14);
+      }));
   }
 
   protected userPointAtDictionary(step: LzwStep) {

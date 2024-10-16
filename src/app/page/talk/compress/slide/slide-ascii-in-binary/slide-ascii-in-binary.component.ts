@@ -1,5 +1,6 @@
 import {
   Component,
+  effect,
   inject,
   signal,
 } from '@angular/core';
@@ -10,6 +11,7 @@ import {
   unique,
 } from '../../../../../common';
 import { ClickerService } from '../../../../mode-presentation/service/clicker.service';
+import { PresenterNotesService } from '../../../../presenter-notes';
 import { CharOrBin } from '../../common';
 import { toBinary } from '../../common/encode';
 import { AsciiTableComponent } from '../../component/ascii-table/ascii-table.component';
@@ -64,6 +66,8 @@ export class SlideAsciiInBinaryComponent {
 
     inject(ClickerService).stepAction$.pipe(takeUntilDestroyed())
       .subscribe(newAction => actionAnimationMap.get(newAction)?.());
+    let presenterNotesService = inject(PresenterNotesService);
+    effect(() => presenterNotesService.setSlide(4, this.step()));
   }
 
   updateLitCharacter(data: string, isChar = false) {

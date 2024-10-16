@@ -1,6 +1,6 @@
 import {
-  ChangeDetectionStrategy,
   Component,
+  effect,
   ElementRef,
   inject,
   viewChild,
@@ -9,6 +9,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { makeNumberList } from '../../../../../common';
 import { PaneComponent } from '../../../../../common/component/pane/pane.component';
 import { ClickerService } from '../../../../mode-presentation/service/clicker.service';
+import { PresenterNotesService } from '../../../../presenter-notes';
 import { AnimationController } from '../../common/animation-controller';
 import { CoinFlipWorldComponent } from './coin-flip-world/coin-flip-world.component';
 import { EntropyEquationExplainedComponent } from './entropy-equation-explained/entropy-equation-explained.component';
@@ -91,6 +92,9 @@ export class SlideCalculatingEntropyComponent {
 
     inject(ClickerService).stepAction$.pipe(takeUntilDestroyed())
       .subscribe(newAction => actionAnimationMap.get(newAction)?.());
+
+    let presenterNotesService = inject(PresenterNotesService);
+    effect(() => presenterNotesService.setSlide(11, this.animationIndex()));
   }
 
 }

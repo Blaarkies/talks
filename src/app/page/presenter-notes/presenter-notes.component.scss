@@ -1,0 +1,63 @@
+.layout {
+  padding: var(--space-5);
+  font-family: sans-serif;
+  background: whitesmoke;
+  height: calc(100vh - var(--space-5) * 2);
+
+  .load-notes-pane {
+    display: block;
+  }
+
+  .unload-button {
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-3);
+  }
+}
+
+.heading {
+  font-size: var(--font-size-4);
+}
+
+.notes {
+  font-size: var(--font-size-4);
+  line-height: 1.5em;
+
+  &.not-active-yet {
+    color: gray;
+  }
+
+  &.cut-off-top {
+    max-height: 3em;
+    overflow: hidden;
+  }
+}
+
+.input-textarea {
+
+}
+
+.last-used-script {
+  max-height: 10em;
+  overflow-y: scroll;
+  font-size: var(--font-size-1);
+}
+
+.load-notes-layout {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) auto;
+  gap: 2ch;
+  justify-content: center;
+}
+
+.dos-row {
+  display: grid;
+  gap: .5em;
+  background: #d6ffea;
+  padding: .5em 1ch;
+}
+
+.fake-record-button {
+  font-size: var(--font-size-5);
+  color: var(--color-text-1)
+}

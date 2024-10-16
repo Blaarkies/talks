@@ -1,4 +1,5 @@
 @use '../../../style/fix';
+@use 'mixin';
 
 .layout-main-menu {
   height: 100%;
@@ -92,3 +93,15 @@
 .description-list {
   list-style: square;
 }
+
+.quit-crt-effect {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(#0007 45%, #111c 55%),
+    linear-gradient(70deg, #000d, #555d, #000d);
+  background-size: 100% 6px, 16px 100%;
+
+}
+

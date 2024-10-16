@@ -2,6 +2,7 @@ import { NgTemplateOutlet } from '@angular/common';
 import {
   Component,
   computed,
+  effect,
   ElementRef,
   inject,
   signal,
@@ -25,6 +26,7 @@ import {
 } from 'rxjs';
 import { PaneComponent } from '../../../../../common/component/pane/pane.component';
 import { ClickerService } from '../../../../mode-presentation/service/clicker.service';
+import { PresenterNotesService } from '../../../../presenter-notes';
 import { AnimationController } from '../../common/animation-controller';
 import { stiffyAsset } from '../../data/stiffy';
 
@@ -132,6 +134,9 @@ export class SlideTeaserComponent {
 
     inject(ClickerService).stepAction$.pipe(takeUntilDestroyed())
       .subscribe(newAction => actionAnimationMap.get(newAction)?.());
+
+    let presenterNotesService = inject(PresenterNotesService);
+    effect(() => presenterNotesService.setSlide(1, this.animationIndex()));
   }
 
   private makeProgressSteps(count: number): Observable<number> {

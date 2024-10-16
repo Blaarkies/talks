@@ -7,6 +7,7 @@ import {
 import {
   Component,
   computed,
+  effect,
   ElementRef,
   HostListener,
   inject,
@@ -18,6 +19,7 @@ import {
   RouterLink,
 } from '@angular/router';
 import { routeNames } from '../../../bootstrap/app.routes';
+import { ButtonComponent } from '../../common/component/button/button.component';
 import { PaneComponent } from '../../common/component/pane/pane.component';
 import { RimComponent } from '../../common/component/rim/rim.component';
 import { makeScreenSelectorSignal } from '../../common/function/screen-size';
@@ -25,6 +27,7 @@ import {
   FontSizeService,
   SlideMode,
 } from '../mode-presentation/service/font-size.service';
+import { PresenterNotesService } from '../presenter-notes';
 import {
   NavigationOption,
   navigationOptions,
@@ -41,6 +44,7 @@ import {
     CdkMenuBar,
     CdkMenuItem,
     CdkMenu,
+    ButtonComponent,
   ],
   templateUrl: './main-menu.component.html',
   styleUrl: './main-menu.component.scss',
@@ -53,16 +57,18 @@ export class MainMenuComponent {
   protected navigationsList = computed(() => Object.values(this.navigations()));
   protected selectedOption = signal<NavigationOption>(null);
   protected isMobile = makeScreenSelectorSignal();
+  protected isQuit = signal(false);
 
   private fontSizeService = inject(FontSizeService);
   protected mode = this.fontSizeService.slideMode;
 
-  private menuButton = viewChild('menuButton',
-    {read: ElementRef<HTMLButtonElement>});
+  private menuButton = viewChild<ElementRef<HTMLButtonElement>>('menuButton');
   private router = inject(Router);
 
   constructor() {
     this.fontSizeService.updateFontSize();
+    let presenterNotesService = inject(PresenterNotesService);
+    presenterNotesService.setSlide(null, 0);
   }
 
   protected selectNext(step: number) {
@@ -94,6 +100,9 @@ export class MainMenuComponent {
   @HostListener('window:keydown', ['$event'])
   private menuShortcut(event: KeyboardEvent) {
     if (!event.altKey) {
+      if (event.ctrlKey && event.key === 'q') {
+        this.isQuit.update(v => !v);
+      }
       return;
     }
 
