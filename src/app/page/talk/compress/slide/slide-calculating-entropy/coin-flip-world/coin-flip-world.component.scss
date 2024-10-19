@@ -30,7 +30,7 @@
     --scaled-height: calc(var(--height) * var(--scale));
     width: var(--scaled-width);
     height: var(--scaled-height);
-    translate: calc(var(--scaled-width) * -.25)
+    translate: calc(var(--scaled-width) * -.15)
     calc(var(--scaled-height) * -.25);
 
     .box {
@@ -45,7 +45,7 @@
     --scaled-height: calc(var(--height) * var(--scale));
     width: var(--scaled-width);
     height: var(--scaled-height);
-    translate: calc(var(--scaled-width) * -.35)
+    translate: calc(var(--scaled-width) * -.15)
     calc(var(--scaled-height) * -.25);
 
     .box {
@@ -68,6 +68,11 @@
 }
 
 .slider {
+  @media (width < 700px) {
+    rotate: -90deg;
+    translate: 0 100%;
+  }
+
   position: absolute;
   top: 200px;
   left: 20px;

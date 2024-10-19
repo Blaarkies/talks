@@ -4,14 +4,46 @@
   background: whitesmoke;
   height: calc(100vh - var(--space-5) * 2);
 
-  .load-notes-pane {
-    display: block;
-  }
-
-  .unload-button {
+  .controls {
     position: absolute;
     top: var(--space-3);
     right: var(--space-3);
+
+    display: flex;
+    gap: 1ch;
+
+    .progress-layout {
+      position: relative;
+      width: max(50vw, 30ch);
+      color: var(--color-text-2);
+
+      .progress {
+        cursor: cell;
+        overflow: hidden;
+      }
+
+      .max-time {
+        position: absolute;
+        top: 0;
+        right: 0;
+        translate: 0 100%;
+        pointer-events: none;
+      }
+    }
+
+    .timer {
+      min-width: 10ch;
+      margin: 0;
+      cursor: pointer;
+
+      &:hover {
+        background: #0003;
+      }
+
+      > span {
+        opacity: .5;
+      }
+    }
   }
 }
 
@@ -33,25 +65,51 @@
   }
 }
 
-.input-textarea {
+.drag-drop-here {
 
+  &:after {
+    display: block;
+    content: 'Drop .txt file to load';
+    text-align: center;
+    font-size: var(--font-size-3);
+
+    margin-top: .5em;
+    border: var(--border-width-2) dashed var(--color-border-4);
+    padding: 1ch;
+  }
+
+  &:hover:after {
+    background: #0f03;
+  }
 }
 
 .last-used-script {
-  max-height: 10em;
+  white-space: pre-wrap;
+  max-width: 80ch;
+  max-height: 12em;
   overflow-y: scroll;
   font-size: var(--font-size-1);
 }
 
+.load-notes-pane {
+  display: block;
+}
+
 .load-notes-layout {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr) auto;
+  display: flex;
+  flex-wrap: wrap;
   gap: 2ch;
-  justify-content: center;
+
+  .from-storage {
+    display: flex;
+    gap: 2ch;
+    justify-content: space-between;
+  }
 }
 
 .dos-row {
   display: grid;
+  grid-auto-rows: max-content;
   gap: .5em;
   background: #d6ffea;
   padding: .5em 1ch;
@@ -59,5 +117,5 @@
 
 .fake-record-button {
   font-size: var(--font-size-5);
-  color: var(--color-text-1)
+  color: var(--color-text-1);
 }

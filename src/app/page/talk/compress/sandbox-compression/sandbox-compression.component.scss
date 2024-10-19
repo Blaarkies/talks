@@ -14,15 +14,23 @@
     margin-bottom: 4ch;
     display: grid;
     gap: 4ch;
+
+    @media (width > 1500px) {
+      grid-template-columns: 1fr 1fr;
+    }
   }
 
 }
 
 .heading {
+  display: flex;
+  justify-content: center;
+  gap: 2ch;
+  align-items: center;
   font-size: var(--font-size-3);
   text-align: center;
+  margin-top: .5em;
 }
-
 
 .placeholder {
   height: 500px;

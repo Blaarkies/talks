@@ -52,17 +52,21 @@
 }
 
 .user-input-textarea {
-  min-height: 3em;
-  min-width: 10ch;
-  max-width: inherit;
+  min-height: 5em;
   font-size: var(--font-size-5);
-  padding-inline: 2ch;
-  box-sizing: border-box;
 }
 
 .char-selector-header {
   display: flex;
   align-items: center;
+
+  .quick-selections-toggle {
+    transition: .3s steps(3);
+
+    &.is-open {
+      rotate: 180deg;
+    }
+  }
 }
 
 .char-selector {

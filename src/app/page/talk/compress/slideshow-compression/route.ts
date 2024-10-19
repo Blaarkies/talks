@@ -9,7 +9,7 @@ export const compressionSlideRouteNames = {
   huffmanCodingTree: 'huffman-coding-tree',
   aiAndCompression: 'ai-and-compression',
   lzw: 'lzw',
-  otherAlgorithms: 'common-algorithms', // ! name updated here
+  otherAlgorithms: 'common-algorithms',
   end: 'end-and-questions',
   calculatingEntropy: 'calculating-entropy',
 };
@@ -64,6 +64,7 @@ export const routes: Route[] = [
     path: compressionSlideRouteNames.end,
     loadComponent: () => import( '../slide/slide-end/slide-end.component')
       .then(c => c.SlideEndComponent),
+    data: {qrData: 'blaarkies-talks.pages.dev/interactive/compression'},
   },
   {
     path: compressionSlideRouteNames.calculatingEntropy,
@@ -75,4 +76,7 @@ export const routes: Route[] = [
     path: '**',
     redirectTo: compressionSlideRouteNames.teaser,
   },
-].map((r, i, self) => ({...r, data: {siblings: self}}));
+
+  // NeighborPreloader needs a list of sibling routes for each route.
+  // This allows page route animations to play on first load
+].map((r, i, self) => ({...r, data: {...r.data, siblings: self}}));
