@@ -25,17 +25,22 @@
           #inputTextArea
           class="user-input-textarea"
           maxlength="5000"
+          cols="16"
           [(ngModel)]="userInputValue"
         ></textarea>
         <hr/>
         <div class="char-selector-header">
           <div>Quick Character Selection</div>
-          <app-button (click1)="toggleCharSelector($event, charAnimator)">
+          <app-button
+            class="quick-selections-toggle"
+            [class.is-open]="quickSelectionIsOpen()"
+            (click1)="toggleCharSelector()"
+          >
             ▼
           </app-button>
         </div>
         <div class="char-selector">
-          <div #charAnimator class="height-animator">
+          <div class="height-animator" [@height]="quickSelectionIsOpen()">
             @for (char of chars; track char[0] + $index) {
               <span
                 class="char-option"

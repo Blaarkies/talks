@@ -21,6 +21,15 @@ import {
 import { splitStringToRunLengthEncoding } from '../../common/encode';
 import { RunLengthDefinitionComponent } from '../run-length-definition/run-length-definition.component';
 import { RunLengthPreviewComponent } from '../run-length-preview/run-length-preview.component';
+import { animateHeight } from './animations';
+
+let defaultImage =
+  `
+░░░▓░░░░
+░░▓▓▓░░░
+░▓▓▓▓▓░░
+░░░░░░░░`
+    .slice(1);
 
 @Component({
   selector: 'app-custom-run-length-input',
@@ -34,6 +43,7 @@ import { RunLengthPreviewComponent } from '../run-length-preview/run-length-prev
   ],
   templateUrl: './custom-run-length-input.component.html',
   styleUrl: './custom-run-length-input.component.scss',
+  animations: [animateHeight],
 })
 export class CustomRunLengthInputComponent {
 
@@ -44,8 +54,7 @@ export class CustomRunLengthInputComponent {
 
   protected editMode = signal(false);
   protected decodeMode = signal(false);
-  protected userInputValue = model<string>(
-    `▒▓▒▒${sep}▒▒▓▓`);
+  protected userInputValue = model<string>(defaultImage);
 
   protected encodings = computed(() => {
     let input = this.userInputValue();
@@ -84,8 +93,8 @@ export class CustomRunLengthInputComponent {
   private cleanInputValue = computed(() =>
     this.imageFillGaps(this.userInputValue()));
 
-  private inputTextArea = viewChild('inputTextArea',
-    {read: ElementRef<HTMLTextAreaElement>});
+  private inputTextArea = viewChild<ElementRef<HTMLTextAreaElement>>
+  ('inputTextArea');
 
   private imageFillGaps(text: string): string {
     let runs = text.split(sep);
@@ -135,24 +144,9 @@ export class CustomRunLengthInputComponent {
     this.decodeMode.update(v => !v);
   }
 
-  protected toggleCharSelector(event: MouseEvent, animator: HTMLDivElement) {
-    animator.getAnimations().forEach(a => a.cancel());
+  protected quickSelectionIsOpen = signal(false);
 
-    let isOpen = animator.getAttribute('is-open') === 'true';
-    animator.setAttribute('is-open', (!isOpen).toString());
-
-    let currentHeight = animator.clientHeight + 'px';
-
-    animator.animate(
-      {
-        height: isOpen
-                ? ['0px', currentHeight]
-                : [currentHeight, '0px'],
-      },
-      {duration: 500, easing: 'steps(3)', fill: 'both'});
-
-    (<HTMLElement>event.target).animate(
-      {rotate: isOpen ? '0deg' : '180deg'},
-      {duration: 300, easing: 'steps(3)', fill: 'both'});
+  protected toggleCharSelector() {
+    this.quickSelectionIsOpen.update(v => !v);
   }
 }

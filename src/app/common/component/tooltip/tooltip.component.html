@@ -1,0 +1,27 @@
+<div
+  cdkOverlayOrigin
+  #origin="cdkOverlayOrigin"
+  (click)="isOpen.set(false)"
+>
+
+  <div (click)="isOpen.set(true); $event.stopPropagation()">
+    <ng-content></ng-content>
+  </div>
+
+  <ng-template
+    cdkConnectedOverlay
+    [cdkConnectedOverlayOrigin]="origin"
+    [cdkConnectedOverlayOpen]="isOpen()"
+    [cdkConnectedOverlayPositions]="positions"
+    (overlayOutsideClick)="isOpen.set(false)"
+  >
+    <app-pane
+      type="4"
+      swap="true"
+      class="popup"
+      (click)="isOpen.set(false)"
+    >
+      <span [innerHTML]="text()"></span>
+    </app-pane>
+  </ng-template>
+</div>

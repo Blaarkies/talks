@@ -1,7 +1,13 @@
 <div class="sandbox-c-layout">
-  <div class="sandbox-c-inner-grid">
 
-    <div class="heading">Compression Tools</div>
+  <div class="heading">
+    Compression Tools
+    <app-tooltip [text]="info">
+      <app-button type="4" [swap]="true">?</app-button>
+    </app-tooltip>
+  </div>
+
+  <div class="sandbox-c-inner-grid">
 
     @defer (on viewport) {
       <app-entropy-preview

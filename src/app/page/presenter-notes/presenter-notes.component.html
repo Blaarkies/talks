@@ -13,13 +13,34 @@
       ></p>
     }
 
-    <app-button
-      class="unload-button"
-      type="1"
-      [swap]="true"
-      (click1)="inputNotesScript.set(null)"
-    >UNLOAD
-    </app-button>
+    <div class="controls">
+      <div class="progress-layout">
+        <app-progress
+          class="progress"
+          [value]="elapsedSeconds() / maxSecondsAllowed()"
+          [class.overtime]="elapsedSeconds() > maxSecondsAllowed()"
+          (click)="setNewTimeLimit($event)"
+        />
+        <div class="max-time">max {{ maxMinutesAllowed() }}m</div>
+      </div>
+
+      <app-pane type="2" [shadow]="false">
+        <pre
+          class="timer"
+          title="Reset timer"
+          [innerHTML]="timeElapsed()"
+          (click)="resetTimer()"
+        ></pre>
+      </app-pane>
+
+      <app-button
+        type="1"
+        [swap]="true"
+        (click1)="inputNotesScript.set(null)"
+      >
+        X
+      </app-button>
+    </div>
   } @else {
     <app-pane
       class="load-notes-pane"
@@ -28,8 +49,8 @@
     >
       <div class="load-notes-layout">
         <div class="dos-row">
-          <div>
-            Last used
+          <div class="from-storage">
+            Last used script
             <app-button
               type="4"
               [swap]="true"
@@ -38,13 +59,12 @@
               LOAD
             </app-button>
           </div>
-          <div class="last-used-script">{{ lastUsedScript() || 'None' }}</div>
+          <pre class="last-used-script">{{ lastUsedScript() || 'None' }}</pre>
         </div>
 
         <div class="dos-row">
           <div>Copy&Paste script</div>
           <textarea
-            class="input-textarea"
             [(ngModel)]="inputNotesScript"
             maxlength="500000"
             rows="5"
@@ -53,7 +73,12 @@
 
         <div class="dos-row">
           <div>Upload .txt file</div>
-          <input type="file"/>
+          <input
+            class="drag-drop-here"
+            type="file"
+            accept="text/plain"
+            (change)="loadFile($event.target)"
+          />
         </div>
 
         <div class="dos-row">

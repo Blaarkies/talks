@@ -45,7 +45,11 @@
             "styles": [
               "src/style/main.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "qrcode",
+              "@box2d/core"
+            ]
           },
           "configurations": {
             "production": {

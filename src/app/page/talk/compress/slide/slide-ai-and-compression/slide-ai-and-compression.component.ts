@@ -7,18 +7,15 @@ import {
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import {
-  coerceBetween,
-  sum,
-} from '../../../../../common';
+import { sum } from '../../../../../common';
 import { PaneComponent } from '../../../../../common/component/pane/pane.component';
 import { ClickerService } from '../../../../mode-presentation/service/clicker.service';
 import { PresenterNotesService } from '../../../../presenter-notes';
 import { DeepLearningCompressionComponent } from './deep-learning-compression/deep-learning-compression.component';
 import { PredictiveTextGeneratorPaneComponent } from './predictive-text-generator-pane/predictive-text-generator-pane.component';
 
-let sectionOffsets = [0, 7, 7];
-let maxStep = sum(sectionOffsets);
+let sectionOffsets = [0, 7];//, 7];
+let maxStep = sum(sectionOffsets) - 1;
 
 @Component({
   selector: 'app-slide-ai-and-compression',
