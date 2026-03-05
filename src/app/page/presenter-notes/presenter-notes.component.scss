@@ -104,6 +104,10 @@
     display: flex;
     gap: 2ch;
     justify-content: space-between;
+
+    .tuck-right {
+      margin-left: auto;
+    }
   }
 }
 

@@ -51,6 +51,15 @@
         <div class="dos-row">
           <div class="from-storage">
             Last used script
+            <app-tooltip
+              class="tuck-right"
+              [text]="scriptTutorial()"
+              type="2"
+              swap="false"
+            >
+              <app-button type="4" [swap]="false">EXAMPLE</app-button>
+            </app-tooltip>
+
             <app-button
               type="4"
               [swap]="true"
@@ -63,7 +72,7 @@
         </div>
 
         <div class="dos-row">
-          <div>Copy&Paste script</div>
+          <div>Copy&paste script</div>
           <textarea
             [(ngModel)]="inputNotesScript"
             maxlength="500000"

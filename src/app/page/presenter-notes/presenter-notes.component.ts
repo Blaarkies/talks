@@ -27,7 +27,9 @@ import {
 import { ButtonComponent } from '../../common/component/button/button.component';
 import { PaneComponent } from '../../common/component/pane/pane.component';
 import { ProgressComponent } from '../../common/component/progress/progress.component';
+import { TooltipComponent } from '../../common/component/tooltip/tooltip.component';
 import { PresenterNotesService } from './presenter-notes.service';
+import { scriptExample } from './script-example';
 
 let tagSlide = '#slide-';
 let tagStep = '>';
@@ -41,6 +43,7 @@ let tagStep = '>';
     PaneComponent,
     ButtonComponent,
     ProgressComponent,
+    TooltipComponent,
   ],
   templateUrl: './presenter-notes.component.html',
   styleUrl: './presenter-notes.component.scss',
@@ -76,6 +79,7 @@ export class PresenterNotesComponent {
     return `${f(hours, 'h')}${f(minutes, 'm', true)}`;
   });
 
+  protected scriptTutorial = signal(scriptExample);
   protected lastUsedScript = signal<string | null>(null);
   protected inputNotesScript = model<string>();
   protected heading = computed(() => {
