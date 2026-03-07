@@ -51,8 +51,8 @@ export class ButtonComponent {
 
   @HostListener('keydown.enter', ['$event'])
   @HostListener('keydown.return', ['$event'])
-  onClick(event: MouseEvent) {
-    this.click1.emit(event);
+  onClick(event: Event) {
+    this.click1.emit(event as MouseEvent);
   }
 
 }

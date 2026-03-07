@@ -70,7 +70,7 @@ export class ModePresentationComponent {
   }
 
   @HostListener('window:keydown', ['$event'])
-  private handleKeydown(event: KeyboardEvent) {
+  protected handleKeydown(event: KeyboardEvent) {
     if (this.isMobile() && !this.warningAccepted()) {
       return event.key === 'backspace'
              ? this.router.navigate(['../', this.routeMainMenu])

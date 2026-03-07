@@ -9,7 +9,6 @@ import {
   RouterOutlet,
 } from '@angular/router';
 import { routeNames } from '@app/bootstrap/routes';
-import { ButtonComponent } from '../../common/component/button/button.component';
 import { RimComponent } from '../../common/component/rim/rim.component';
 import {
   FontSizeService,
@@ -21,7 +20,6 @@ import {
     imports: [
         RouterOutlet,
         RimComponent,
-        ButtonComponent,
         RouterLink,
     ],
     templateUrl: './mode-interactive.component.html',
@@ -40,7 +38,7 @@ export class ModeInteractiveComponent {
   }
 
   @HostListener('window:keydown.alt.b')
-  private goBackShortcut() {
+  protected goBackShortcut() {
     this.router.navigate(['../', this.routeMainMenu]);
   }
 

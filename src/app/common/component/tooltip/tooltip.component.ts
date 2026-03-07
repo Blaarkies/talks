@@ -11,8 +11,6 @@ import {
   signal,
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { scriptExample } from '../../../page/presenter-notes/script-example';
-import { ButtonComponent } from '../button/button.component';
 import {
   BooleanAny,
   PaneComponent,
@@ -20,15 +18,14 @@ import {
 } from '../pane/pane.component';
 
 @Component({
-    selector: 'app-tooltip',
-    imports: [
-        ButtonComponent,
-        CdkConnectedOverlay,
-        PaneComponent,
-        CdkOverlayOrigin,
-    ],
-    templateUrl: './tooltip.component.html',
-    styleUrl: './tooltip.component.scss'
+  selector: 'app-tooltip',
+  imports: [
+    CdkConnectedOverlay,
+    PaneComponent,
+    CdkOverlayOrigin,
+  ],
+  templateUrl: './tooltip.component.html',
+  styleUrl: './tooltip.component.scss',
 })
 export class TooltipComponent {
 

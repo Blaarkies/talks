@@ -1,7 +1,6 @@
 import {
   Component,
   computed,
-  DestroyRef,
   effect,
   inject,
   signal,
@@ -21,7 +20,6 @@ import {
   toHuffmanDictionary,
   toHuffmanTree,
 } from '../../common/encode';
-import { EntropyMeasureComponent } from '../../component/entropy-measure/entropy-measure.component';
 import { HuffmanCodingDictionaryLighterComponent } from '../../component/huffman-coding-dictionary-lighter/huffman-coding-dictionary-lighter.component';
 import { TextCharacterLighterComponent } from '../../component/text-character-lighter/text-character-lighter.component';
 import { DataMeasureComponent } from './data-measure/data-measure.component';
@@ -35,7 +33,6 @@ const stepsMax = 3;
         PaneComponent,
         TextCharacterLighterComponent,
         HuffmanCodingDictionaryLighterComponent,
-        EntropyMeasureComponent,
         DataMeasureComponent,
     ],
     templateUrl: './slide-huffman-coding-dictionary.component.html',

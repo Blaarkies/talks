@@ -93,5 +93,16 @@
         }
       }
     }
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "type": ""
+    },
+    "@schematics/angular:service": {
+      "type": ""
+    },
+    "@schematics/angular:directive": {
+      "type": ""
+    }
   }
 }

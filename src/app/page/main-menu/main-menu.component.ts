@@ -97,7 +97,7 @@ export class MainMenuComponent {
   }
 
   @HostListener('window:keydown', ['$event'])
-  private menuShortcut(event: KeyboardEvent) {
+  protected menuShortcut(event: KeyboardEvent) {
     if (!event.altKey) {
       if (event.ctrlKey && event.key === 'q') {
         this.isQuit.update(v => !v);

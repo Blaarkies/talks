@@ -1,8 +1,4 @@
 import {
-  CdkMenu,
-  CdkMenuTrigger,
-} from '@angular/cdk/menu';
-import {
   CdkConnectedOverlay,
   CdkOverlayOrigin,
   ConnectionPositionPair,
@@ -26,18 +22,16 @@ function toggle(value: boolean) {
 type EncodingFn = (input: string) => string;
 
 @Component({
-    selector: 'app-custom-input-encoder-decoder',
-    imports: [
-        FormsModule,
-        ButtonComponent,
-        PaneComponent,
-        CdkMenuTrigger,
-        CdkMenu,
-        CdkOverlayOrigin,
-        CdkConnectedOverlay,
-    ],
-    templateUrl: './custom-input-encoder-decoder.component.html',
-    styleUrl: './custom-input-encoder-decoder.component.scss'
+  selector: 'app-custom-input-encoder-decoder',
+  imports: [
+    FormsModule,
+    ButtonComponent,
+    PaneComponent,
+    CdkOverlayOrigin,
+    CdkConnectedOverlay,
+  ],
+  templateUrl: './custom-input-encoder-decoder.component.html',
+  styleUrl: './custom-input-encoder-decoder.component.scss',
 })
 export class CustomInputEncoderDecoderComponent {
 

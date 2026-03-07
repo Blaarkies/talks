@@ -1,4 +1,3 @@
-import { NgOptimizedImage } from '@angular/common';
 import {
   Component,
   computed,
@@ -17,7 +16,6 @@ import { PresenterNotesService } from '../../../../presenter-notes';
     selector: 'app-slide-other-algorithms',
     imports: [
         PaneWindows31Component,
-        NgOptimizedImage,
     ],
     templateUrl: './slide-other-algorithms.component.html',
     styleUrl: './slide-other-algorithms.component.scss'
