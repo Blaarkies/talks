@@ -17,16 +17,15 @@ import {
 } from '../mode-presentation/service/font-size.service';
 
 @Component({
-  selector: 'app-mode-interactive',
-  standalone: true,
-  imports: [
-    RouterOutlet,
-    RimComponent,
-    ButtonComponent,
-    RouterLink,
-  ],
-  templateUrl: './mode-interactive.component.html',
-  styleUrl: './mode-interactive.component.scss',
+    selector: 'app-mode-interactive',
+    imports: [
+        RouterOutlet,
+        RimComponent,
+        ButtonComponent,
+        RouterLink,
+    ],
+    templateUrl: './mode-interactive.component.html',
+    styleUrl: './mode-interactive.component.scss'
 })
 export class ModeInteractiveComponent {
 

@@ -84,14 +84,13 @@ enum CoinFlipResult {
 }
 
 @Component({
-  selector: 'app-coin-flip-world',
-  standalone: true,
-  imports: [
-    ButtonComponent,
-    ProgressComponent,
-  ],
-  templateUrl: './coin-flip-world.component.html',
-  styleUrl: './coin-flip-world.component.scss',
+    selector: 'app-coin-flip-world',
+    imports: [
+        ButtonComponent,
+        ProgressComponent,
+    ],
+    templateUrl: './coin-flip-world.component.html',
+    styleUrl: './coin-flip-world.component.scss'
 })
 export class CoinFlipWorldComponent {
 

@@ -30,17 +30,16 @@ const exampleText = 'EXAMPLE TEXT';
 const stepsMax = 3;
 
 @Component({
-  selector: 'app-slide-huffman-coding-dictionary',
-  standalone: true,
-  imports: [
-    PaneComponent,
-    TextCharacterLighterComponent,
-    HuffmanCodingDictionaryLighterComponent,
-    EntropyMeasureComponent,
-    DataMeasureComponent,
-  ],
-  templateUrl: './slide-huffman-coding-dictionary.component.html',
-  styleUrl: './slide-huffman-coding-dictionary.component.scss',
+    selector: 'app-slide-huffman-coding-dictionary',
+    imports: [
+        PaneComponent,
+        TextCharacterLighterComponent,
+        HuffmanCodingDictionaryLighterComponent,
+        EntropyMeasureComponent,
+        DataMeasureComponent,
+    ],
+    templateUrl: './slide-huffman-coding-dictionary.component.html',
+    styleUrl: './slide-huffman-coding-dictionary.component.scss'
 })
 export class SlideHuffmanCodingDictionaryComponent {
 

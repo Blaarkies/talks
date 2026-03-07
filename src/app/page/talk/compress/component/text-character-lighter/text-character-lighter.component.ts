@@ -7,13 +7,12 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'app-text-character-lighter',
-  standalone: true,
-  imports: [
-    NgClass,
-  ],
-  templateUrl: './text-character-lighter.component.html',
-  styleUrl: './text-character-lighter.component.scss',
+    selector: 'app-text-character-lighter',
+    imports: [
+        NgClass,
+    ],
+    templateUrl: './text-character-lighter.component.html',
+    styleUrl: './text-character-lighter.component.scss'
 })
 export class TextCharacterLighterComponent {
 

@@ -5,11 +5,10 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'app-run-length-definition',
-  standalone: true,
-  imports: [],
-  templateUrl: './run-length-definition.component.html',
-  styleUrl: './run-length-definition.component.scss',
+    selector: 'app-run-length-definition',
+    imports: [],
+    templateUrl: './run-length-definition.component.html',
+    styleUrl: './run-length-definition.component.scss'
 })
 export class RunLengthDefinitionComponent {
 

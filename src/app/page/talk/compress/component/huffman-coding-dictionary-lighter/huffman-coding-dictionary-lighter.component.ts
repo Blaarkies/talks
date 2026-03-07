@@ -8,11 +8,10 @@ import { toHuffmanDictionary } from '../../common/encode';
 type Encoding = ReturnType<ReturnType<typeof toHuffmanDictionary>['get']>;
 
 @Component({
-  selector: 'app-huffman-coding-dictionary-lighter',
-  standalone: true,
-  imports: [],
-  templateUrl: './huffman-coding-dictionary-lighter.component.html',
-  styleUrl: './huffman-coding-dictionary-lighter.component.scss',
+    selector: 'app-huffman-coding-dictionary-lighter',
+    imports: [],
+    templateUrl: './huffman-coding-dictionary-lighter.component.html',
+    styleUrl: './huffman-coding-dictionary-lighter.component.scss'
 })
 export class HuffmanCodingDictionaryLighterComponent {
 

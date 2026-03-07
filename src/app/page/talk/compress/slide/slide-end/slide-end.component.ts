@@ -20,14 +20,13 @@ import { ClickerService } from '../../../../mode-presentation/service/clicker.se
 import { PresenterNotesService } from '../../../../presenter-notes';
 
 @Component({
-  selector: 'app-slide-end',
-  standalone: true,
-  imports: [
-    PaneComponent,
-    RouterLink,
-  ],
-  templateUrl: './slide-end.component.html',
-  styleUrl: './slide-end.component.scss',
+    selector: 'app-slide-end',
+    imports: [
+        PaneComponent,
+        RouterLink,
+    ],
+    templateUrl: './slide-end.component.html',
+    styleUrl: './slide-end.component.scss'
 })
 export class SlideEndComponent {
 

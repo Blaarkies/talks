@@ -21,17 +21,16 @@ import { LzwDictionaryComponent } from './lzw-dictionary/lzw-dictionary.componen
 let exampleText = 'EAR_BEAR_EARNS';
 
 @Component({
-  selector: 'app-slide-lzw',
-  standalone: true,
-  imports: [
-    PaneComponent,
-    TextCharacterLighterComponent,
-    LzwControllerComponent,
-    LzwDictionaryComponent,
-    LzwCodeLighterComponent,
-  ],
-  templateUrl: './slide-lzw.component.html',
-  styleUrl: './slide-lzw.component.scss',
+    selector: 'app-slide-lzw',
+    imports: [
+        PaneComponent,
+        TextCharacterLighterComponent,
+        LzwControllerComponent,
+        LzwDictionaryComponent,
+        LzwCodeLighterComponent,
+    ],
+    templateUrl: './slide-lzw.component.html',
+    styleUrl: './slide-lzw.component.scss'
 })
 export class SlideLzwComponent {
 

@@ -12,8 +12,8 @@
         "./src/styles/*"
       ]
     },
+    "esModuleInterop": true,
     "declaration": false,
-    "downlevelIteration": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,

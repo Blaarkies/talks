@@ -10,21 +10,20 @@ import { EntropyPreviewComponent } from '../component/entropy-preview/entropy-pr
 import { CoinFlipWorldComponent } from '../slide/slide-calculating-entropy/coin-flip-world/coin-flip-world.component';
 
 @Component({
-  selector: 'app-sandbox-compression',
-  standalone: true,
-  imports: [
-    EntropyPreviewComponent,
-    CustomRunLengthInputComponent,
-    CustomInputEncoderDecoderComponent,
-    CustomBinaryConverterComponent,
-    CustomHuffmanConverterComponent,
-    CustomLzwConverterComponent,
-    CoinFlipWorldComponent,
-    TooltipComponent,
-    ButtonComponent,
-  ],
-  templateUrl: './sandbox-compression.component.html',
-  styleUrl: './sandbox-compression.component.scss',
+    selector: 'app-sandbox-compression',
+    imports: [
+        EntropyPreviewComponent,
+        CustomRunLengthInputComponent,
+        CustomInputEncoderDecoderComponent,
+        CustomBinaryConverterComponent,
+        CustomHuffmanConverterComponent,
+        CustomLzwConverterComponent,
+        CoinFlipWorldComponent,
+        TooltipComponent,
+        ButtonComponent,
+    ],
+    templateUrl: './sandbox-compression.component.html',
+    styleUrl: './sandbox-compression.component.scss'
 })
 export class SandboxCompressionComponent {
 

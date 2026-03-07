@@ -5,11 +5,10 @@ import {
 import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet],
-  templateUrl: './bootstrap.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-root',
+    imports: [RouterOutlet],
+    templateUrl: './bootstrap.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BootstrapCmp {
 }

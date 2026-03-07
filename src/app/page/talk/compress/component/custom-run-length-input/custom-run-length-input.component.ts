@@ -32,18 +32,17 @@ let defaultImage =
     .slice(1);
 
 @Component({
-  selector: 'app-custom-run-length-input',
-  standalone: true,
-  imports: [
-    RunLengthPreviewComponent,
-    ButtonComponent,
-    FormsModule,
-    RunLengthDefinitionComponent,
-    PaneComponent,
-  ],
-  templateUrl: './custom-run-length-input.component.html',
-  styleUrl: './custom-run-length-input.component.scss',
-  animations: [animateHeight],
+    selector: 'app-custom-run-length-input',
+    imports: [
+        RunLengthPreviewComponent,
+        ButtonComponent,
+        FormsModule,
+        RunLengthDefinitionComponent,
+        PaneComponent,
+    ],
+    templateUrl: './custom-run-length-input.component.html',
+    styleUrl: './custom-run-length-input.component.scss',
+    animations: [animateHeight]
 })
 export class CustomRunLengthInputComponent {
 

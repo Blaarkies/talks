@@ -20,16 +20,15 @@ import {
 } from '../pane/pane.component';
 
 @Component({
-  selector: 'app-tooltip',
-  standalone: true,
-  imports: [
-    ButtonComponent,
-    CdkConnectedOverlay,
-    PaneComponent,
-    CdkOverlayOrigin,
-  ],
-  templateUrl: './tooltip.component.html',
-  styleUrl: './tooltip.component.scss',
+    selector: 'app-tooltip',
+    imports: [
+        ButtonComponent,
+        CdkConnectedOverlay,
+        PaneComponent,
+        CdkOverlayOrigin,
+    ],
+    templateUrl: './tooltip.component.html',
+    styleUrl: './tooltip.component.scss'
 })
 export class TooltipComponent {
 

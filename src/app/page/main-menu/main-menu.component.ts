@@ -34,20 +34,19 @@ import {
 } from './data/navigation-options';
 
 @Component({
-  selector: 'app-main-menu',
-  standalone: true,
-  imports: [
-    RouterLink,
-    PaneComponent,
-    RimComponent,
-    CdkMenuTrigger,
-    CdkMenuBar,
-    CdkMenuItem,
-    CdkMenu,
-    ButtonComponent,
-  ],
-  templateUrl: './main-menu.component.html',
-  styleUrl: './main-menu.component.scss',
+    selector: 'app-main-menu',
+    imports: [
+        RouterLink,
+        PaneComponent,
+        RimComponent,
+        CdkMenuTrigger,
+        CdkMenuBar,
+        CdkMenuItem,
+        CdkMenu,
+        ButtonComponent,
+    ],
+    templateUrl: './main-menu.component.html',
+    styleUrl: './main-menu.component.scss'
 })
 export class MainMenuComponent {
 

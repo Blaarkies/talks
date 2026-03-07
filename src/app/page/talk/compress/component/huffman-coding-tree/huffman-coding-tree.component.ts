@@ -15,14 +15,13 @@ import { addGridPositionsToTree } from './tree';
 type HctNode = ReturnType<typeof toHuffmanTree>;
 
 @Component({
-  selector: 'app-huffman-coding-tree',
-  standalone: true,
-  imports: [
-    HuffmanCodingTreeNodeComponent,
-  ],
-  providers: [HierarchyService],
-  templateUrl: './huffman-coding-tree.component.html',
-  styleUrl: './huffman-coding-tree.component.scss',
+    selector: 'app-huffman-coding-tree',
+    imports: [
+        HuffmanCodingTreeNodeComponent,
+    ],
+    providers: [HierarchyService],
+    templateUrl: './huffman-coding-tree.component.html',
+    styleUrl: './huffman-coding-tree.component.scss'
 })
 export class HuffmanCodingTreeComponent {
 
@@ -51,10 +50,13 @@ export class HuffmanCodingTreeComponent {
 
   constructor() {
     effect(() => {
-      let map = new Map(this.nodeElements()
-        .map(element => [element.tile(), element]));
+      let nodes = this.nodeElements();
+      if (!nodes.length) {
+        return;
+      }
+      let map = new Map(nodes.map(element => [element.tile(), element]));
       this.hierarchyService.setComponentTileMap(map);
-    }, {allowSignalWrites: true});
+    });
   }
 
   endHover() {

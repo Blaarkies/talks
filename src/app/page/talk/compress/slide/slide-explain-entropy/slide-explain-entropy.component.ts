@@ -19,14 +19,13 @@ import {
 } from '../../data/entropy-example';
 
 @Component({
-  selector: 'app-slide-explain-entropy',
-  standalone: true,
-  imports: [
-    EntropyPreviewComponent,
-    ProgressComponent,
-  ],
-  templateUrl: './slide-explain-entropy.component.html',
-  styleUrl: './slide-explain-entropy.component.scss',
+    selector: 'app-slide-explain-entropy',
+    imports: [
+        EntropyPreviewComponent,
+        ProgressComponent,
+    ],
+    templateUrl: './slide-explain-entropy.component.html',
+    styleUrl: './slide-explain-entropy.component.scss'
 })
 export class SlideExplainEntropyComponent {
 

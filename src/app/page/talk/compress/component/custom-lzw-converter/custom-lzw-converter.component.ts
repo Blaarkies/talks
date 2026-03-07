@@ -6,14 +6,13 @@ import { encodeToLzw } from '../../common/encode';
 import { CustomInputEncoderDecoderComponent } from '../custom-input-encoder-decoder/custom-input-encoder-decoder.component';
 
 @Component({
-  selector: 'app-custom-lzw-converter',
-  standalone: true,
-  imports: [
-    CustomInputEncoderDecoderComponent,
-    PaneComponent,
-  ],
-  templateUrl: './custom-lzw-converter.component.html',
-  styleUrl: './custom-lzw-converter.component.scss',
+    selector: 'app-custom-lzw-converter',
+    imports: [
+        CustomInputEncoderDecoderComponent,
+        PaneComponent,
+    ],
+    templateUrl: './custom-lzw-converter.component.html',
+    styleUrl: './custom-lzw-converter.component.scss'
 })
 export class CustomLzwConverterComponent {
 

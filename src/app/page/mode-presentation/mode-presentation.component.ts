@@ -28,16 +28,15 @@ import {
 } from './service/font-size.service';
 
 @Component({
-  selector: 'app-mode-presentation',
-  standalone: true,
-  imports: [
-    RouterOutlet,
-    ButtonComponent,
-    RouterLink,
-  ],
-  providers: [ClickerService],
-  templateUrl: './mode-presentation.component.html',
-  styleUrl: './mode-presentation.component.scss',
+    selector: 'app-mode-presentation',
+    imports: [
+        RouterOutlet,
+        ButtonComponent,
+        RouterLink,
+    ],
+    providers: [ClickerService],
+    templateUrl: './mode-presentation.component.html',
+    styleUrl: './mode-presentation.component.scss'
 })
 export class ModePresentationComponent {
 

@@ -19,16 +19,15 @@ let instantOffscreen = ['0 100vh', '0 100vh'];
 let animateOffscreen = '0 -100vh';
 
 @Component({
-  selector: 'app-slide-calculating-entropy',
-  standalone: true,
-  imports: [
-    CoinFlipWorldComponent,
-    SurpriseGraphComponent,
-    EntropyEquationExplainedComponent,
-    PaneComponent,
-  ],
-  templateUrl: './slide-calculating-entropy.component.html',
-  styleUrl: './slide-calculating-entropy.component.scss',
+    selector: 'app-slide-calculating-entropy',
+    imports: [
+        CoinFlipWorldComponent,
+        SurpriseGraphComponent,
+        EntropyEquationExplainedComponent,
+        PaneComponent,
+    ],
+    templateUrl: './slide-calculating-entropy.component.html',
+    styleUrl: './slide-calculating-entropy.component.scss'
 })
 export class SlideCalculatingEntropyComponent {
 

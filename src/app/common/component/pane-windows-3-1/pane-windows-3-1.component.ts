@@ -11,14 +11,13 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'app-pane-windows-3-1',
-  standalone: true,
-  imports: [
-    CdkDrag,
-    CdkDragHandle,
-  ],
-  templateUrl: './pane-windows-3-1.component.html',
-  styleUrl: './pane-windows-3-1.component.scss',
+    selector: 'app-pane-windows-3-1',
+    imports: [
+        CdkDrag,
+        CdkDragHandle,
+    ],
+    templateUrl: './pane-windows-3-1.component.html',
+    styleUrl: './pane-windows-3-1.component.scss'
 })
 export class PaneWindows31Component {
 

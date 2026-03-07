@@ -11,14 +11,13 @@ import { LzwStep } from '../../../common';
 import { animateSlideOut } from './animate-slide-out';
 
 @Component({
-  selector: 'app-lzw-controller',
-  standalone: true,
-  imports: [
-    ButtonComponent,
-  ],
-  templateUrl: './lzw-controller.component.html',
-  styleUrl: './lzw-controller.component.scss',
-  animations: [animateSlideOut],
+    selector: 'app-lzw-controller',
+    imports: [
+        ButtonComponent,
+    ],
+    templateUrl: './lzw-controller.component.html',
+    styleUrl: './lzw-controller.component.scss',
+    animations: [animateSlideOut]
 })
 export class LzwControllerComponent {
 

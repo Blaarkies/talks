@@ -18,16 +18,15 @@ let sectionOffsets = [0, 7];//, 7];
 let maxStep = sum(sectionOffsets) - 1;
 
 @Component({
-  selector: 'app-slide-ai-and-compression',
-  standalone: true,
-  imports: [
-    PaneComponent,
-    NgTemplateOutlet,
-    PredictiveTextGeneratorPaneComponent,
-    DeepLearningCompressionComponent,
-  ],
-  templateUrl: './slide-ai-and-compression.component.html',
-  styleUrl: './slide-ai-and-compression.component.scss',
+    selector: 'app-slide-ai-and-compression',
+    imports: [
+        PaneComponent,
+        NgTemplateOutlet,
+        PredictiveTextGeneratorPaneComponent,
+        DeepLearningCompressionComponent,
+    ],
+    templateUrl: './slide-ai-and-compression.component.html',
+    styleUrl: './slide-ai-and-compression.component.scss'
 })
 export class SlideAiAndCompressionComponent {
 

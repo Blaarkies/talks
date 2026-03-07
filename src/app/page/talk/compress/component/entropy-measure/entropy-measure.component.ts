@@ -9,13 +9,12 @@ import { Data } from '../../common';
 import { toEntropyInBytes } from '../../common/entropy';
 
 @Component({
-  selector: 'app-entropy-measure',
-  standalone: true,
-  imports: [
-    ProgressComponent,
-  ],
-  templateUrl: './entropy-measure.component.html',
-  styleUrl: './entropy-measure.component.scss',
+    selector: 'app-entropy-measure',
+    imports: [
+        ProgressComponent,
+    ],
+    templateUrl: './entropy-measure.component.html',
+    styleUrl: './entropy-measure.component.scss'
 })
 export class EntropyMeasureComponent {
 

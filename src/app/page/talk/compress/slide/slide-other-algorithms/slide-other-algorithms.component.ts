@@ -14,14 +14,13 @@ import { ClickerService } from '../../../../mode-presentation/service/clicker.se
 import { PresenterNotesService } from '../../../../presenter-notes';
 
 @Component({
-  selector: 'app-slide-other-algorithms',
-  standalone: true,
-  imports: [
-    PaneWindows31Component,
-    NgOptimizedImage,
-  ],
-  templateUrl: './slide-other-algorithms.component.html',
-  styleUrl: './slide-other-algorithms.component.scss',
+    selector: 'app-slide-other-algorithms',
+    imports: [
+        PaneWindows31Component,
+        NgOptimizedImage,
+    ],
+    templateUrl: './slide-other-algorithms.component.html',
+    styleUrl: './slide-other-algorithms.component.scss'
 })
 export class SlideOtherAlgorithmsComponent {
 

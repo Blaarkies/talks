@@ -35,18 +35,17 @@ let tagSlide = '#slide-';
 let tagStep = '>';
 
 @Component({
-  selector: 'app-presenter-notes',
-  standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    FormsModule,
-    PaneComponent,
-    ButtonComponent,
-    ProgressComponent,
-    TooltipComponent,
-  ],
-  templateUrl: './presenter-notes.component.html',
-  styleUrl: './presenter-notes.component.scss',
+    selector: 'app-presenter-notes',
+    imports: [
+        ReactiveFormsModule,
+        FormsModule,
+        PaneComponent,
+        ButtonComponent,
+        ProgressComponent,
+        TooltipComponent,
+    ],
+    templateUrl: './presenter-notes.component.html',
+    styleUrl: './presenter-notes.component.scss'
 })
 export class PresenterNotesComponent {
 

@@ -6,14 +6,13 @@ import {
 import { PaneComponent } from '../../../../../../common/component/pane/pane.component';
 
 @Component({
-  selector: 'app-entropy-equation-explained',
-  standalone: true,
-  imports: [
-    PaneComponent,
-    NgClass,
-  ],
-  templateUrl: './entropy-equation-explained.component.html',
-  styleUrl: './entropy-equation-explained.component.scss'
+    selector: 'app-entropy-equation-explained',
+    imports: [
+        PaneComponent,
+        NgClass,
+    ],
+    templateUrl: './entropy-equation-explained.component.html',
+    styleUrl: './entropy-equation-explained.component.scss'
 })
 export class EntropyEquationExplainedComponent {
 

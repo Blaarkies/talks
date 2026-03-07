@@ -36,15 +36,14 @@ import { pathToHeadingFootingMap } from './heading-footing';
 import { compressionSlideRouteNames } from './route';
 
 @Component({
-  selector: 'app-slideshow',
-  standalone: true,
-  imports: [
-    RouterOutlet,
-    RimComponent,
-  ],
-  templateUrl: './slideshow-compression.component.html',
-  styleUrl: './slideshow-compression.component.scss',
-  animations: [routeAnimations],
+    selector: 'app-slideshow',
+    imports: [
+        RouterOutlet,
+        RimComponent,
+    ],
+    templateUrl: './slideshow-compression.component.html',
+    styleUrl: './slideshow-compression.component.scss',
+    animations: [routeAnimations]
 })
 export class SlideshowCompressionComponent implements HasRimHeader {
 

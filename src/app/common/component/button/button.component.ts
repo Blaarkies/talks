@@ -10,13 +10,12 @@ import {
 import { ThemeNumberAny } from '../pane/pane.component';
 
 @Component({
-  selector: 'app-button',
-  standalone: true,
-  imports: [
-    NgClass,
-  ],
-  templateUrl: './button.component.html',
-  styleUrl: './button.component.scss',
+    selector: 'app-button',
+    imports: [
+        NgClass,
+    ],
+    templateUrl: './button.component.html',
+    styleUrl: './button.component.scss'
 })
 export class ButtonComponent {
 
