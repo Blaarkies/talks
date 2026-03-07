@@ -1,0 +1,19 @@
+{
+  "name": "Blaarkies Talks",
+  "short_name": "Blaarkies Talks",
+  "display": "standalone",
+  "scope": "./",
+  "start_url": "./",
+  "icons": [
+    {
+      "src": "pwa-icons/192.webp",
+      "sizes": "192x192",
+      "type": "image/webp"
+    },
+    {
+      "src": "pwa-icons/512.webp",
+      "sizes": "512x512",
+      "type": "image/webp"
+    }
+  ]
+}

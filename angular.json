@@ -8,11 +8,16 @@
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss",
-          "standalone": true,
-          "skipTests": true
+          "skipTests": true,
+          "changeDetection": "OnPush",
+          "skipImport": true
         },
         "@schematics/angular:service": {
           "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true,
+          "skipImport": true
         }
       },
       "root": "",
@@ -65,7 +70,8 @@
                   "maximumError": "4kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "serviceWorker": "ngsw-config.json"
             },
             "development": {
               "optimization": false,
