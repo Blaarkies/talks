@@ -10,26 +10,26 @@ export const routeNames = {
 export const routes: Routes = [
   {
     path: routeNames.mainMenu,
-    loadComponent: () => import('../app/page/main-menu/main-menu.component')
+    loadComponent: () => import('../page/main-menu/main-menu.component')
       .then(m => m.MainMenuComponent),
   },
   {
     path: routeNames.present,
-    loadComponent: () => import('../app/page/mode-presentation')
+    loadComponent: () => import('../page/mode-presentation')
       .then(m => m.ModePresentationComponent),
-    loadChildren: () => import('../app/page/mode-presentation')
+    loadChildren: () => import('../page/mode-presentation')
       .then(m => m.routes),
   },
   {
     path: routeNames.interact,
-    loadComponent: () => import('../app/page/mode-interactive')
+    loadComponent: () => import('../page/mode-interactive')
       .then(m => m.ModeInteractiveComponent),
-    loadChildren: () => import('../app/page/mode-interactive')
+    loadChildren: () => import('../page/mode-interactive')
       .then(m => m.routes),
   },
   {
     path: routeNames.presenterNotes,
-    loadComponent: () => import('../app/page/presenter-notes')
+    loadComponent: () => import('../page/presenter-notes')
       .then(m => m.PresenterNotesComponent),
   },
 

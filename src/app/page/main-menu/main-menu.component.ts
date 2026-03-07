@@ -18,7 +18,7 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
-import { routeNames } from '../../../bootstrap/app.routes';
+import { routeNames } from '@app/bootstrap/routes';
 import { ButtonComponent } from '../../common/component/button/button.component';
 import { PaneComponent } from '../../common/component/pane/pane.component';
 import { RimComponent } from '../../common/component/rim/rim.component';

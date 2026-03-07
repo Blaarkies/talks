@@ -12,9 +12,9 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { routeNames } from '@app/bootstrap/routes';
 import { toString as QrCodeToString } from 'qrcode';
 import { map } from 'rxjs';
-import { routeNames } from '../../../../../../bootstrap/app.routes';
 import { PaneComponent } from '../../../../../common/component/pane/pane.component';
 import { ClickerService } from '../../../../mode-presentation/service/clicker.service';
 import { PresenterNotesService } from '../../../../presenter-notes';

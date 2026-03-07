@@ -10,14 +10,14 @@ import {
   withComponentInputBinding,
   withPreloading,
 } from '@angular/router';
-import { AppComponent } from './app.component';
-import { routes } from './app.routes';
+import { BootstrapCmp } from './bootstrap';
 import { provideServiceWorker } from '@angular/service-worker';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { NeighborPreloader } from './neighbor-preloader';
+import { routes } from './routes';
 
 export async function bootstrapApp(): Promise<ApplicationRef> {
-  return bootstrapApplication(AppComponent, {
+  return bootstrapApplication(BootstrapCmp, {
     providers: [
       // provideBrowserGlobalErrorListeners(),
       provideExperimentalZonelessChangeDetection(),

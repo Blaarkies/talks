@@ -18,7 +18,7 @@ import {
   RouterOutlet,
 } from '@angular/router';
 import { map } from 'rxjs';
-import { routeNames } from '../../../bootstrap/app.routes';
+import { routeNames } from '@app/bootstrap/routes';
 import { ButtonComponent } from '../../common/component/button/button.component';
 import { HasRimHeader } from './index';
 import { ClickerService } from './service/clicker.service';
