@@ -6,7 +6,7 @@ import {
 
 type FrequencyRecord = Record<string, number>;
 
-export type Data = string | number[] | BinaryData;
+export type Data = string | number[] | ArrayBufferLike;
 
 export function dataToList(input: Data): (string | number)[] {
   let data = [];

@@ -1,7 +1,8 @@
 import {
   ApplicationRef,
   isDevMode,
-  provideExperimentalZonelessChangeDetection,
+  provideBrowserGlobalErrorListeners,
+  provideZonelessChangeDetection,
 } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -19,9 +20,8 @@ import { routes } from './routes';
 export async function bootstrapApp(): Promise<ApplicationRef> {
   return bootstrapApplication(BootstrapCmp, {
     providers: [
-      // provideBrowserGlobalErrorListeners(),
-      provideExperimentalZonelessChangeDetection(),
-      // provideZonelessChangeDetection(),
+      provideBrowserGlobalErrorListeners(),
+      provideZonelessChangeDetection(),
       NeighborPreloader,
       provideRouter(
         routes,

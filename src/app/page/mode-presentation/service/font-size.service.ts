@@ -1,9 +1,9 @@
-import { DOCUMENT } from '@angular/common';
+
 import {
-  effect,
   inject,
   Injectable,
   signal,
+  DOCUMENT
 } from '@angular/core';
 import { WA_LOCAL_STORAGE } from '@ng-web-apis/common';
 
