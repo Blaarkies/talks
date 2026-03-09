@@ -1,4 +1,3 @@
-import { NgTemplateOutlet } from '@angular/common';
 import {
   Component,
   computed,
@@ -8,7 +7,6 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { sum } from '../../../../../common';
-import { PaneComponent } from '../../../../../common/component/pane/pane.component';
 import { ClickerService } from '../../../../mode-presentation/service/clicker.service';
 import { PresenterNotesService } from '../../../../presenter-notes';
 import { DeepLearningCompressionComponent } from './deep-learning-compression/deep-learning-compression.component';
@@ -18,16 +16,13 @@ let sectionOffsets = [0, 7];//, 7];
 let maxStep = sum(sectionOffsets) - 1;
 
 @Component({
-  selector: 'app-slide-ai-and-compression',
-  standalone: true,
-  imports: [
-    PaneComponent,
-    NgTemplateOutlet,
-    PredictiveTextGeneratorPaneComponent,
-    DeepLearningCompressionComponent,
-  ],
-  templateUrl: './slide-ai-and-compression.component.html',
-  styleUrl: './slide-ai-and-compression.component.scss',
+    selector: 'app-slide-ai-and-compression',
+    imports: [
+        PredictiveTextGeneratorPaneComponent,
+        DeepLearningCompressionComponent,
+    ],
+    templateUrl: './slide-ai-and-compression.component.html',
+    styleUrl: './slide-ai-and-compression.component.scss'
 })
 export class SlideAiAndCompressionComponent {
 

@@ -1,8 +1,4 @@
 import {
-  CdkMenu,
-  CdkMenuTrigger,
-} from '@angular/cdk/menu';
-import {
   CdkConnectedOverlay,
   CdkOverlayOrigin,
   ConnectionPositionPair,
@@ -27,13 +23,10 @@ type EncodingFn = (input: string) => string;
 
 @Component({
   selector: 'app-custom-input-encoder-decoder',
-  standalone: true,
   imports: [
     FormsModule,
     ButtonComponent,
     PaneComponent,
-    CdkMenuTrigger,
-    CdkMenu,
     CdkOverlayOrigin,
     CdkConnectedOverlay,
   ],

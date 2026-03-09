@@ -15,13 +15,12 @@ export type ThemeNumberAny =
   '1' | '2' | '3' | '4';
 
 @Component({
-  selector: 'app-pane',
-  standalone: true,
-  imports: [
-    NgClass,
-  ],
-  templateUrl: './pane.component.html',
-  styleUrl: './pane.component.scss',
+    selector: 'app-pane',
+    imports: [
+        NgClass,
+    ],
+    templateUrl: './pane.component.html',
+    styleUrl: './pane.component.scss'
 })
 export class PaneComponent {
 

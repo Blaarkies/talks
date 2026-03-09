@@ -1,7 +1,6 @@
 import {
   Component,
   computed,
-  DestroyRef,
   effect,
   inject,
   signal,
@@ -21,7 +20,6 @@ import {
   toHuffmanDictionary,
   toHuffmanTree,
 } from '../../common/encode';
-import { EntropyMeasureComponent } from '../../component/entropy-measure/entropy-measure.component';
 import { HuffmanCodingDictionaryLighterComponent } from '../../component/huffman-coding-dictionary-lighter/huffman-coding-dictionary-lighter.component';
 import { TextCharacterLighterComponent } from '../../component/text-character-lighter/text-character-lighter.component';
 import { DataMeasureComponent } from './data-measure/data-measure.component';
@@ -30,17 +28,15 @@ const exampleText = 'EXAMPLE TEXT';
 const stepsMax = 3;
 
 @Component({
-  selector: 'app-slide-huffman-coding-dictionary',
-  standalone: true,
-  imports: [
-    PaneComponent,
-    TextCharacterLighterComponent,
-    HuffmanCodingDictionaryLighterComponent,
-    EntropyMeasureComponent,
-    DataMeasureComponent,
-  ],
-  templateUrl: './slide-huffman-coding-dictionary.component.html',
-  styleUrl: './slide-huffman-coding-dictionary.component.scss',
+    selector: 'app-slide-huffman-coding-dictionary',
+    imports: [
+        PaneComponent,
+        TextCharacterLighterComponent,
+        HuffmanCodingDictionaryLighterComponent,
+        DataMeasureComponent,
+    ],
+    templateUrl: './slide-huffman-coding-dictionary.component.html',
+    styleUrl: './slide-huffman-coding-dictionary.component.scss'
 })
 export class SlideHuffmanCodingDictionaryComponent {
 

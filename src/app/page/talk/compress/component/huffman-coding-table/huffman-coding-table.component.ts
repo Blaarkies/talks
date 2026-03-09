@@ -12,11 +12,10 @@ import { toHuffmanTree } from '../../common/encode';
 type HctNode = ReturnType<typeof toHuffmanTree>;
 
 @Component({
-  selector: 'app-huffman-coding-table',
-  standalone: true,
-  imports: [],
-  templateUrl: './huffman-coding-table.component.html',
-  styleUrl: './huffman-coding-table.component.scss',
+    selector: 'app-huffman-coding-table',
+    imports: [],
+    templateUrl: './huffman-coding-table.component.html',
+    styleUrl: './huffman-coding-table.component.scss'
 })
 export class HuffmanCodingTableComponent {
 

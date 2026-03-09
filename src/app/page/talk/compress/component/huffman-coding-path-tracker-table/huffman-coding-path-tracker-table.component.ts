@@ -9,11 +9,10 @@ import { toHuffmanTree } from '../../common/encode';
 type HctNode = ReturnType<typeof toHuffmanTree>;
 
 @Component({
-  selector: 'app-huffman-coding-path-tracker-table',
-  standalone: true,
-  imports: [],
-  templateUrl: './huffman-coding-path-tracker-table.component.html',
-  styleUrl: './huffman-coding-path-tracker-table.component.scss',
+    selector: 'app-huffman-coding-path-tracker-table',
+    imports: [],
+    templateUrl: './huffman-coding-path-tracker-table.component.html',
+    styleUrl: './huffman-coding-path-tracker-table.component.scss'
 })
 export class HuffmanCodingPathTrackerTableComponent {
 

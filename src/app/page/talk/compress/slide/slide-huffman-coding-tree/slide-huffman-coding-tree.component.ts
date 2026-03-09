@@ -27,17 +27,16 @@ const exampleText = 'EXAMPLE_TEXT';
 type HctNode = ReturnType<typeof toHuffmanTree>;
 
 @Component({
-  selector: 'app-slide-huffman-coding-tree',
-  standalone: true,
-  imports: [
-    HuffmanCodingTreeComponent,
-    HuffmanCodingTableComponent,
-    HuffmanCodingPathTrackerTableComponent,
-    PaneComponent,
-    ButtonComponent,
-  ],
-  templateUrl: './slide-huffman-coding-tree.component.html',
-  styleUrl: './slide-huffman-coding-tree.component.scss',
+    selector: 'app-slide-huffman-coding-tree',
+    imports: [
+        HuffmanCodingTreeComponent,
+        HuffmanCodingTableComponent,
+        HuffmanCodingPathTrackerTableComponent,
+        PaneComponent,
+        ButtonComponent,
+    ],
+    templateUrl: './slide-huffman-coding-tree.component.html',
+    styleUrl: './slide-huffman-coding-tree.component.scss'
 })
 export class SlideHuffmanCodingTreeComponent {
 
@@ -62,13 +61,15 @@ export class SlideHuffmanCodingTreeComponent {
       .subscribe(() => this.table().sumNextPair());
 
     let presenterStep = signal(0);
+
     let presenterNotesService = inject(PresenterNotesService);
     effect(() => {
       if (this.isResetting()) {
         presenterStep.set(0);
       }
       presenterNotesService.setSlide(6, presenterStep());
-    }, {allowSignalWrites: true});
+    });
+
     inject(ClickerService).stepAction$.pipe(takeUntilDestroyed())
       .subscribe(a => presenterStep.update(n => {
         let difference = a === 'right' ? 1 : -1;

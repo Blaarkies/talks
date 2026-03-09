@@ -31,15 +31,14 @@ const exampleAsciiFromText = [
 const stepsMax = 4;
 
 @Component({
-  selector: 'app-slide-ascii-in-binary',
-  standalone: true,
-  imports: [
-    TextCharacterLighterComponent,
-    AsciiTableComponent,
-  ],
-  templateUrl: './slide-ascii-in-binary.component.html',
-  styleUrl: './slide-ascii-in-binary.component.scss',
-  animations: [lineRevealOnStep],
+    selector: 'app-slide-ascii-in-binary',
+    imports: [
+        TextCharacterLighterComponent,
+        AsciiTableComponent,
+    ],
+    templateUrl: './slide-ascii-in-binary.component.html',
+    styleUrl: './slide-ascii-in-binary.component.scss',
+    animations: [lineRevealOnStep]
 })
 export class SlideAsciiInBinaryComponent {
 

@@ -7,11 +7,10 @@ import {
 import { LzwStep } from '../../../common';
 
 @Component({
-  selector: 'app-lzw-code-lighter',
-  standalone: true,
-  imports: [],
-  templateUrl: './lzw-code-lighter.component.html',
-  styleUrl: './lzw-code-lighter.component.scss',
+    selector: 'app-lzw-code-lighter',
+    imports: [],
+    templateUrl: './lzw-code-lighter.component.html',
+    styleUrl: './lzw-code-lighter.component.scss'
 })
 export class LzwCodeLighterComponent {
 

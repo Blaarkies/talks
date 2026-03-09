@@ -18,7 +18,7 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
-import { routeNames } from '../../../bootstrap/app.routes';
+import { routeNames } from '@app/bootstrap/routes';
 import { ButtonComponent } from '../../common/component/button/button.component';
 import { PaneComponent } from '../../common/component/pane/pane.component';
 import { RimComponent } from '../../common/component/rim/rim.component';
@@ -34,20 +34,19 @@ import {
 } from './data/navigation-options';
 
 @Component({
-  selector: 'app-main-menu',
-  standalone: true,
-  imports: [
-    RouterLink,
-    PaneComponent,
-    RimComponent,
-    CdkMenuTrigger,
-    CdkMenuBar,
-    CdkMenuItem,
-    CdkMenu,
-    ButtonComponent,
-  ],
-  templateUrl: './main-menu.component.html',
-  styleUrl: './main-menu.component.scss',
+    selector: 'app-main-menu',
+    imports: [
+        RouterLink,
+        PaneComponent,
+        RimComponent,
+        CdkMenuTrigger,
+        CdkMenuBar,
+        CdkMenuItem,
+        CdkMenu,
+        ButtonComponent,
+    ],
+    templateUrl: './main-menu.component.html',
+    styleUrl: './main-menu.component.scss'
 })
 export class MainMenuComponent {
 
@@ -98,7 +97,7 @@ export class MainMenuComponent {
   }
 
   @HostListener('window:keydown', ['$event'])
-  private menuShortcut(event: KeyboardEvent) {
+  protected menuShortcut(event: KeyboardEvent) {
     if (!event.altKey) {
       if (event.ctrlKey && event.key === 'q') {
         this.isQuit.update(v => !v);

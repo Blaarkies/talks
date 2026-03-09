@@ -35,14 +35,13 @@ const ghostOpacity = .2;
 const lineModulus = 3;
 
 @Component({
-  selector: 'app-slide-teaser',
-  standalone: true,
-  imports: [
-    NgTemplateOutlet,
-    PaneComponent,
-  ],
-  templateUrl: './slide-teaser.component.html',
-  styleUrl: './slide-teaser.component.scss',
+    selector: 'app-slide-teaser',
+    imports: [
+        NgTemplateOutlet,
+        PaneComponent,
+    ],
+    templateUrl: './slide-teaser.component.html',
+    styleUrl: './slide-teaser.component.scss'
 })
 export class SlideTeaserComponent {
 

@@ -34,15 +34,14 @@ import { hexagonImage } from '../../data/run-length-image';
 const stepTimings = [0, 3e3, 2.5e3, 1e3, 2e3, 2e3];
 
 @Component({
-  selector: 'app-slide-run-length-encoding',
-  standalone: true,
-  imports: [
-    RunLengthPreviewComponent,
-    RunLengthDefinitionComponent,
-    EntropyMeasureComponent,
-  ],
-  templateUrl: './slide-run-length-encoding.component.html',
-  styleUrl: './slide-run-length-encoding.component.scss',
+    selector: 'app-slide-run-length-encoding',
+    imports: [
+        RunLengthPreviewComponent,
+        RunLengthDefinitionComponent,
+        EntropyMeasureComponent,
+    ],
+    templateUrl: './slide-run-length-encoding.component.html',
+    styleUrl: './slide-run-length-encoding.component.scss'
 })
 export class SlideRunLengthEncodingComponent {
 

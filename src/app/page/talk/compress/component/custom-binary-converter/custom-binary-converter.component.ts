@@ -4,14 +4,13 @@ import { PaneComponent } from '../../../../../common/component/pane/pane.compone
 import { CustomInputEncoderDecoderComponent } from '../custom-input-encoder-decoder/custom-input-encoder-decoder.component';
 
 @Component({
-  selector: 'app-custom-binary-converter',
-  standalone: true,
-  imports: [
-    CustomInputEncoderDecoderComponent,
-    PaneComponent,
-  ],
-  templateUrl: './custom-binary-converter.component.html',
-  styleUrl: './custom-binary-converter.component.scss'
+    selector: 'app-custom-binary-converter',
+    imports: [
+        CustomInputEncoderDecoderComponent,
+        PaneComponent,
+    ],
+    templateUrl: './custom-binary-converter.component.html',
+    styleUrl: './custom-binary-converter.component.scss'
 })
 export class CustomBinaryConverterComponent {
 

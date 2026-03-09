@@ -6,11 +6,10 @@ import {
 import { LzwStep } from '../../../common';
 
 @Component({
-  selector: 'app-lzw-dictionary',
-  standalone: true,
-  imports: [],
-  templateUrl: './lzw-dictionary.component.html',
-  styleUrl: './lzw-dictionary.component.scss',
+    selector: 'app-lzw-dictionary',
+    imports: [],
+    templateUrl: './lzw-dictionary.component.html',
+    styleUrl: './lzw-dictionary.component.scss'
 })
 export class LzwDictionaryComponent {
 

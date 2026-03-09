@@ -61,7 +61,6 @@ export class HierarchyService {
         let flat = flattenNestedValues(component,
           item => tileMap.get(item.tile().parent));
         this.hoveredSet$.next(new Set(flat));
-
       });
 
   }

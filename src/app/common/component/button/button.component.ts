@@ -10,13 +10,12 @@ import {
 import { ThemeNumberAny } from '../pane/pane.component';
 
 @Component({
-  selector: 'app-button',
-  standalone: true,
-  imports: [
-    NgClass,
-  ],
-  templateUrl: './button.component.html',
-  styleUrl: './button.component.scss',
+    selector: 'app-button',
+    imports: [
+        NgClass,
+    ],
+    templateUrl: './button.component.html',
+    styleUrl: './button.component.scss'
 })
 export class ButtonComponent {
 
@@ -52,8 +51,8 @@ export class ButtonComponent {
 
   @HostListener('keydown.enter', ['$event'])
   @HostListener('keydown.return', ['$event'])
-  onClick(event: MouseEvent) {
-    this.click1.emit(event);
+  onClick(event: Event) {
+    this.click1.emit(event as MouseEvent);
   }
 
 }

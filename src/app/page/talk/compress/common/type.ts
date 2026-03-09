@@ -9,7 +9,7 @@ export interface AnimationJob {
   options?: KeyframeAnimationOptions;
 }
 
-export type Data = string | number[] | BinaryData;
+export type Data = string | number[] | ArrayBufferLike;
 
 export type TokenElementGroup = {
   eventTarget: EventTarget,

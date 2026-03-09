@@ -10,14 +10,13 @@ let codeDelimiter = String.fromCharCode(8);
 let dictionaryDelimiter = String.fromCharCode(127);
 
 @Component({
-  selector: 'app-custom-huffman-converter',
-  standalone: true,
-  imports: [
-    CustomInputEncoderDecoderComponent,
-    PaneComponent,
-  ],
-  templateUrl: './custom-huffman-converter.component.html',
-  styleUrl: './custom-huffman-converter.component.scss',
+    selector: 'app-custom-huffman-converter',
+    imports: [
+        CustomInputEncoderDecoderComponent,
+        PaneComponent,
+    ],
+    templateUrl: './custom-huffman-converter.component.html',
+    styleUrl: './custom-huffman-converter.component.scss'
 })
 export class CustomHuffmanConverterComponent {
 

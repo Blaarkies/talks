@@ -5,13 +5,12 @@ import {
 import { PaneComponent } from '../../../../../../common/component/pane/pane.component';
 
 @Component({
-  selector: 'app-surprise-graph',
-  standalone: true,
-  imports: [
-    PaneComponent,
-  ],
-  templateUrl: './surprise-graph.component.html',
-  styleUrl: './surprise-graph.component.scss'
+    selector: 'app-surprise-graph',
+    imports: [
+        PaneComponent,
+    ],
+    templateUrl: './surprise-graph.component.html',
+    styleUrl: './surprise-graph.component.scss'
 })
 export class SurpriseGraphComponent {
 

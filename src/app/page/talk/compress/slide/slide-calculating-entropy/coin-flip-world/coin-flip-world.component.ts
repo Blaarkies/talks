@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   computed,
   DestroyRef,
@@ -38,7 +37,6 @@ import {
   pairItems,
 } from '../../../../../../common';
 import { ButtonComponent } from '../../../../../../common/component/button/button.component';
-import { ProgressComponent } from '../../../../../../common/component/progress/progress.component';
 
 function waitABit(time = 7) {
   return new Promise(r =>
@@ -84,14 +82,12 @@ enum CoinFlipResult {
 }
 
 @Component({
-  selector: 'app-coin-flip-world',
-  standalone: true,
-  imports: [
-    ButtonComponent,
-    ProgressComponent,
-  ],
-  templateUrl: './coin-flip-world.component.html',
-  styleUrl: './coin-flip-world.component.scss',
+    selector: 'app-coin-flip-world',
+    imports: [
+        ButtonComponent,
+    ],
+    templateUrl: './coin-flip-world.component.html',
+    styleUrl: './coin-flip-world.component.scss'
 })
 export class CoinFlipWorldComponent {
 

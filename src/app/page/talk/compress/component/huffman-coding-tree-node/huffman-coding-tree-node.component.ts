@@ -23,11 +23,10 @@ import { HierarchyService } from '../huffman-coding-tree/hierarchy.service';
 type HctNode = ReturnType<typeof toHuffmanTree>;
 
 @Component({
-  selector: 'app-huffman-coding-tree-node',
-  standalone: true,
-  imports: [],
-  templateUrl: './huffman-coding-tree-node.component.html',
-  styleUrl: './huffman-coding-tree-node.component.scss',
+    selector: 'app-huffman-coding-tree-node',
+    imports: [],
+    templateUrl: './huffman-coding-tree-node.component.html',
+    styleUrl: './huffman-coding-tree-node.component.scss'
 })
 export class HuffmanCodingTreeNodeComponent {
 

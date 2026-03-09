@@ -8,8 +8,7 @@ import {
   RouterLink,
   RouterOutlet,
 } from '@angular/router';
-import { routeNames } from '../../../bootstrap/app.routes';
-import { ButtonComponent } from '../../common/component/button/button.component';
+import { routeNames } from '@app/bootstrap/routes';
 import { RimComponent } from '../../common/component/rim/rim.component';
 import {
   FontSizeService,
@@ -17,16 +16,14 @@ import {
 } from '../mode-presentation/service/font-size.service';
 
 @Component({
-  selector: 'app-mode-interactive',
-  standalone: true,
-  imports: [
-    RouterOutlet,
-    RimComponent,
-    ButtonComponent,
-    RouterLink,
-  ],
-  templateUrl: './mode-interactive.component.html',
-  styleUrl: './mode-interactive.component.scss',
+    selector: 'app-mode-interactive',
+    imports: [
+        RouterOutlet,
+        RimComponent,
+        RouterLink,
+    ],
+    templateUrl: './mode-interactive.component.html',
+    styleUrl: './mode-interactive.component.scss'
 })
 export class ModeInteractiveComponent {
 
@@ -41,7 +38,7 @@ export class ModeInteractiveComponent {
   }
 
   @HostListener('window:keydown.alt.b')
-  private goBackShortcut() {
+  protected goBackShortcut() {
     this.router.navigate(['../', this.routeMainMenu]);
   }
 

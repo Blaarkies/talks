@@ -16,12 +16,12 @@
     (overlayOutsideClick)="isOpen.set(false)"
   >
     <app-pane
-      type="4"
-      swap="true"
+      [type]="type()"
+      [swap]="swap()"
       class="popup"
       (click)="isOpen.set(false)"
     >
-      <span [innerHTML]="text()"></span>
+      <span [innerHTML]="unsafeHtml()"></span>
     </app-pane>
   </ng-template>
 </div>

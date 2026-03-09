@@ -8,11 +8,10 @@ import { sep } from '../../../../../common';
 import { splitStringToRunLengthEncoding } from '../../common/encode';
 
 @Component({
-  selector: 'app-run-length-preview',
-  standalone: true,
-  imports: [],
-  templateUrl: './run-length-preview.component.html',
-  styleUrl: './run-length-preview.component.scss',
+    selector: 'app-run-length-preview',
+    imports: [],
+    templateUrl: './run-length-preview.component.html',
+    styleUrl: './run-length-preview.component.scss'
 })
 export class RunLengthPreviewComponent {
 

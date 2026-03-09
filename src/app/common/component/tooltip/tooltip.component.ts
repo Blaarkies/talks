@@ -5,17 +5,21 @@ import {
 } from '@angular/cdk/overlay';
 import {
   Component,
+  computed,
+  inject,
   input,
   signal,
 } from '@angular/core';
-import { ButtonComponent } from '../button/button.component';
-import { PaneComponent } from '../pane/pane.component';
+import { DomSanitizer } from '@angular/platform-browser';
+import {
+  BooleanAny,
+  PaneComponent,
+  ThemeNumberAny,
+} from '../pane/pane.component';
 
 @Component({
   selector: 'app-tooltip',
-  standalone: true,
   imports: [
-    ButtonComponent,
     CdkConnectedOverlay,
     PaneComponent,
     CdkOverlayOrigin,
@@ -25,7 +29,13 @@ import { PaneComponent } from '../pane/pane.component';
 })
 export class TooltipComponent {
 
+  private domSanitizer = inject(DomSanitizer);
+
   text = input.required<string>();
+  type = input<ThemeNumberAny>(4);
+  swap = input<BooleanAny>(true);
+
+  protected unsafeHtml = computed(() => this.domSanitizer.bypassSecurityTrustHtml(this.text()));
 
   protected isOpen = signal(false);
   protected positions = [

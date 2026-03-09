@@ -29,16 +29,15 @@ import {
 import { EntropyMeasureComponent } from '../entropy-measure/entropy-measure.component';
 
 @Component({
-  selector: 'app-entropy-preview',
-  standalone: true,
-  imports: [
-    PaneComponent,
-    EntropyMeasureComponent,
-    ButtonComponent,
-    FormsModule,
-  ],
-  templateUrl: './entropy-preview.component.html',
-  styleUrl: './entropy-preview.component.scss',
+    selector: 'app-entropy-preview',
+    imports: [
+        PaneComponent,
+        EntropyMeasureComponent,
+        ButtonComponent,
+        FormsModule,
+    ],
+    templateUrl: './entropy-preview.component.html',
+    styleUrl: './entropy-preview.component.scss'
 })
 export class EntropyPreviewComponent {
 

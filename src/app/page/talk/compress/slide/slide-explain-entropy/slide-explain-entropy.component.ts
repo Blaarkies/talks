@@ -7,7 +7,6 @@ import {
   viewChild,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ProgressComponent } from '../../../../../common/component/progress/progress.component';
 import { ClickerService } from '../../../../mode-presentation/service/clicker.service';
 import { PresenterNotesService } from '../../../../presenter-notes';
 import { AnimationController } from '../../common/animation-controller';
@@ -19,14 +18,12 @@ import {
 } from '../../data/entropy-example';
 
 @Component({
-  selector: 'app-slide-explain-entropy',
-  standalone: true,
-  imports: [
-    EntropyPreviewComponent,
-    ProgressComponent,
-  ],
-  templateUrl: './slide-explain-entropy.component.html',
-  styleUrl: './slide-explain-entropy.component.scss',
+    selector: 'app-slide-explain-entropy',
+    imports: [
+        EntropyPreviewComponent,
+    ],
+    templateUrl: './slide-explain-entropy.component.html',
+    styleUrl: './slide-explain-entropy.component.scss'
 })
 export class SlideExplainEntropyComponent {
 

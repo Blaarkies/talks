@@ -8,11 +8,10 @@ import { makeNumberList } from '../../../../../common';
 import { unprintableCharLabelMap } from '../../data/ascii-table';
 
 @Component({
-  selector: 'app-ascii-table',
-  standalone: true,
-  imports: [],
-  templateUrl: './ascii-table.component.html',
-  styleUrl: './ascii-table.component.scss',
+    selector: 'app-ascii-table',
+    imports: [],
+    templateUrl: './ascii-table.component.html',
+    styleUrl: './ascii-table.component.scss'
 })
 export class AsciiTableComponent {
 

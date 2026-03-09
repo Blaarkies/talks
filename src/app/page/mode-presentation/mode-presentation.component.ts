@@ -18,7 +18,7 @@ import {
   RouterOutlet,
 } from '@angular/router';
 import { map } from 'rxjs';
-import { routeNames } from '../../../bootstrap/app.routes';
+import { routeNames } from '@app/bootstrap/routes';
 import { ButtonComponent } from '../../common/component/button/button.component';
 import { HasRimHeader } from './index';
 import { ClickerService } from './service/clicker.service';
@@ -28,16 +28,15 @@ import {
 } from './service/font-size.service';
 
 @Component({
-  selector: 'app-mode-presentation',
-  standalone: true,
-  imports: [
-    RouterOutlet,
-    ButtonComponent,
-    RouterLink,
-  ],
-  providers: [ClickerService],
-  templateUrl: './mode-presentation.component.html',
-  styleUrl: './mode-presentation.component.scss',
+    selector: 'app-mode-presentation',
+    imports: [
+        RouterOutlet,
+        ButtonComponent,
+        RouterLink,
+    ],
+    providers: [ClickerService],
+    templateUrl: './mode-presentation.component.html',
+    styleUrl: './mode-presentation.component.scss'
 })
 export class ModePresentationComponent {
 
@@ -71,7 +70,7 @@ export class ModePresentationComponent {
   }
 
   @HostListener('window:keydown', ['$event'])
-  private handleKeydown(event: KeyboardEvent) {
+  protected handleKeydown(event: KeyboardEvent) {
     if (this.isMobile() && !this.warningAccepted()) {
       return event.key === 'backspace'
              ? this.router.navigate(['../', this.routeMainMenu])
