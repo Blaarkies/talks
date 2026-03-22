@@ -17,6 +17,11 @@ export const navigationOptions: Record<string, NavigationOption> = {
     url: slideRouteNames.imageProcessing,
     title: 'Learn about image processing',
   },
+  regex: {
+    label: 'Regex matching text patterns',
+    url: slideRouteNames.regex,
+    title: 'Learn about Regex',
+  },
   asdf: {
     label: 'Using a Hard Disk',
     url: 'asdfasdfs',

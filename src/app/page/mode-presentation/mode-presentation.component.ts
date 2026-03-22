@@ -101,7 +101,8 @@ export class ModePresentationComponent {
   }
 
   protected setHeaderHeight(component: HasRimHeader) {
-    toObservable(component.rimHeaderHeight, {injector: this.injector})
+    const injector = this.injector;
+    toObservable(component.rimHeaderHeight, {injector})
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(height => this.headerHeight.set(height));
   }
