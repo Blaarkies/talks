@@ -71,7 +71,8 @@ export function chunked<T>(list: T[], chunkSize = 2): T[][] {
   return chunks;
 }
 
-export function pairItems<T>(...lists: unknown[][]): T[] {
+/** Combines elements at equal indices from all lists into a paired list */
+export function zipLists<T>(...lists: unknown[][]): T[] {
   let maxLength = Math.max(...lists.map(l => l.length));
   let results = [];
   for (let i = 0; i < maxLength; i++) {
@@ -79,6 +80,22 @@ export function pairItems<T>(...lists: unknown[][]): T[] {
   }
 
   return results;
+}
+
+type PositiveNumber<N extends number> =
+  number extends N ? N : `${N}` extends `-${string}` ? never : N;
+
+
+/** Creates lists of adjacent items, similar to moving a window over the list,
+ * and recording a list of snapshots containing those adjacent items */
+export function windowed<T, N extends number>(
+  list: T[], size?: PositiveNumber<N>): T[][] {
+  // TODO: size is not tested, other than 1
+  const offset = size === undefined ? 1 : size - 1;
+  return zipLists(
+    list.slice(0, -offset),
+    list.slice(offset),
+  );
 }
 
 export function flattenNestedValues<T>(root: T, selector: (item: T) => T | T[])

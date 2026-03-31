@@ -45,8 +45,8 @@
     }
   }
 
-  @include mixin.make-colored-pane-class('', --color, 4);
-  @include mixin.make-colored-pane-class(swap-, --color-swap, 4);
+  @include mixin.make-colored-pane-class('', --color, 5);
+  @include mixin.make-colored-pane-class(swap-, --color-swap, 5);
 
   &.shadow {
     box-shadow: -1ch 1ch 0 0 var(--color-shadow-1);

@@ -11,8 +11,8 @@ import { WA_WINDOW } from '@ng-web-apis/common';
 
 export type BooleanAny = 'true' | 'false' | boolean;
 export type ThemeNumberAny =
-  1 | 2 | 3 | 4 |
-  '1' | '2' | '3' | '4';
+  1 | 2 | 3 | 4 | 5 |
+  '1' | '2' | '3' | '4' | '5';
 
 @Component({
     selector: 'app-pane',

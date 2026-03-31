@@ -1,0 +1,120 @@
+.s-t-layout {
+  overflow: hidden;
+  height: 100%;
+  background: var(--color-back-3);
+  padding-top: var(--space-2);
+
+  display: grid;
+  grid-template-rows: max-content auto 1fr;
+  gap: var(--space-3);
+}
+
+.heading {
+  font-family: monospace;
+  font-size: calc(2 * var(--font-size-5));
+  color: var(--base-color-10);
+  text-align: center;
+}
+
+.printer {
+  align-self: start;
+
+  color: var(--base-color-7);
+  font-size: var(--font-size-2);
+  white-space: pre-wrap;
+  padding: var(--space-5);
+  font-family: monospace;
+
+  --width: 80ch;
+  width: var(--width);
+  margin: auto;
+
+  overflow: hidden;
+  position: relative;
+
+  &:after {
+    pointer-events: none;
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 6em;
+    background: linear-gradient(#000f, #0000 4em);
+  }
+
+  .cursor {
+    color: var(--base-color-0);
+    background: var(--base-color-7);
+  }
+
+  .match {
+    color: var(--base-color-0);
+    background: var(--base-color-2);
+    --highlight-padding: var(--space-2);
+    padding-inline: var(--highlight-padding);
+    margin-inline: calc(-1 * var(--highlight-padding));
+  }
+}
+
+.hide {
+  clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%) !important;
+}
+
+%clip-show {
+  transition: 1s steps(7);
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+.ledger-section {
+  align-self: end;
+  width: max-content;
+  justify-self: center;
+
+  @extend %clip-show;
+  transition-duration: 3s;
+  transition-timing-function: steps(15);
+
+  // Fix box shadow overflow onto footer
+  overflow: hidden;
+  max-height: 13em;
+  translate: 0 calc(-1* var(--space-2));
+}
+
+.ledger-book {
+  display: flex;
+  gap: var(--space-5);
+  justify-self: center;
+
+  color: var(--base-color-7);
+
+  .ledger {
+    @extend %clip-show;
+    transition-delay: -.2s;
+
+    &.border-line-right {
+      border-right: var(--border-width-5) double var(--color-border-4);
+      padding-right: var(--space-5);
+    }
+
+    .title {
+      color: var(--base-color-15);
+      font-weight: var(--font-weight-5);
+      font-size: var(--font-size-3);
+    }
+
+    ul {
+      padding-inline-start: 1ch;
+      margin-block: var(--space-1) 0;
+
+      li {
+        list-style-type: none;
+
+        font-size: var(--font-size-2);
+
+        @extend %clip-show;
+        transition-delay: .2s;
+      }
+    }
+  }
+}

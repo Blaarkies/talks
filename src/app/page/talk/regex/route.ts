@@ -7,7 +7,7 @@ export const regexSlideRouteNames = {
 export const routes: Route[] = [
   {
     path: regexSlideRouteNames.teaser,
-    loadComponent: () => import( './slide/slide-teaser/slide-teaser')
+    loadComponent: () => import( '@talk/regex/slide/teaser/slide-teaser')
       .then(c => c.SlideTeaser),
   },
 
