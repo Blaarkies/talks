@@ -13,7 +13,7 @@
 <router-outlet (activate)="setHeaderHeight($event)"/>
 
 @if (isMobile() && !warningAccepted()) {
-  <div class="is-mobile-warning" (click)="warningAccepted.set(true)">
+  <div class="is-mobile-warning" (click)="setTinyScreenWarning()">
     <div class="name">Windows</div>
     <div class="message">
       <p>An error has occurred.</p>

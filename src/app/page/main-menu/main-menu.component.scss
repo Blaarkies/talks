@@ -53,6 +53,9 @@
 }
 
 .dropdown-menu {
+  font-family: IBM;
+  font-size: var(--font-size-3);
+
   display: grid;
   padding-block: 3px;
   gap: 4px;

@@ -14,6 +14,18 @@
   font-size: calc(2 * var(--font-size-5));
   color: var(--base-color-10);
   text-align: center;
+
+  animation: glow 2s infinite alternate;
+  animation-timing-function: cubic-bezier(.96, 2.6, 0.7, 0);
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px #0f0, 0 0 90px #090;
+  }
+  to {
+    text-shadow: 0 0 30px #0c0, 0 0 90px #0b0;
+  }
 }
 
 .printer {
@@ -82,8 +94,9 @@
 }
 
 .ledger-book {
-  display: flex;
-  gap: var(--space-5);
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
   justify-self: center;
 
   color: var(--base-color-7);
@@ -92,9 +105,9 @@
     @extend %clip-show;
     transition-delay: -.2s;
 
-    &.border-line-right {
-      border-right: var(--border-width-5) double var(--color-border-4);
-      padding-right: var(--space-5);
+    &.border-line-left {
+      border-left: var(--border-width-5) double var(--color-border-4);
+      padding-left: var(--space-5);
     }
 
     .title {

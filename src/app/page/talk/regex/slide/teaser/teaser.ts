@@ -26,8 +26,8 @@ import { startWith } from 'rxjs';
   imports: [
     PaneComponent,
   ],
-  templateUrl: './slide-teaser.html',
-  styleUrl: './slide-teaser.scss',
+  templateUrl: './teaser.html',
+  styleUrl: './teaser.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SlideTeaser {
@@ -39,8 +39,8 @@ export class SlideTeaser {
     = Array.from(this.book.matchAll(/\n/g)).map(m => m.index);
 
   private allMatches = [
-    {m: this.book.matchAll(/\b(\w+ing)\b/g), title: 'Word +ing'},
-    {m: this.book.matchAll(/\b(\w+ed)\b/g), title: 'Word +ed'},
+    {m: this.book.matchAll(/\b(\w+ing)\b/g), title: '+ ing'},
+    {m: this.book.matchAll(/\b(\w+ed)\b/g), title: '+ ed'},
     {m: this.book.matchAll(/\b(\w+-\w+)\b/g), title: 'Hyphenated'},
   ].flatMap(it => Array.from(it.m).map(m => ({m, title: it.title})))
     .sort((a, b) => a.m.index - b.m.index);

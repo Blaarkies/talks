@@ -3,6 +3,7 @@
 
 @import '@angular/cdk/overlay-prebuilt.css';
 @import './fix';
+@import './font';
 
 // @formatter:off
 :root {
@@ -110,7 +111,7 @@
 
 html, body {
   margin: 0;
-  font-family: "Lucida Console", system-ui;
+  font-family: Carlito, system-ui;
   font-size: var(--font-size-3);
   font-weight: var(--font-weight-3);
 }

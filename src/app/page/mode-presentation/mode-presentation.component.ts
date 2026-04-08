@@ -17,6 +17,7 @@ import {
   RouterLink,
   RouterOutlet,
 } from '@angular/router';
+import { WA_LOCAL_STORAGE } from '@ng-web-apis/common';
 import { map } from 'rxjs';
 import { routeNames } from '@app/bootstrap/routes';
 import { ButtonComponent } from '../../common/component/button/button.component';
@@ -28,17 +29,20 @@ import {
 } from './service/font-size.service';
 
 @Component({
-    selector: 'app-mode-presentation',
-    imports: [
-        RouterOutlet,
-        ButtonComponent,
-        RouterLink,
-    ],
-    providers: [ClickerService],
-    templateUrl: './mode-presentation.component.html',
-    styleUrl: './mode-presentation.component.scss'
+  selector: 'app-mode-presentation',
+  imports: [
+    RouterOutlet,
+    ButtonComponent,
+    RouterLink,
+  ],
+  providers: [ClickerService],
+  templateUrl: './mode-presentation.component.html',
+  styleUrl: './mode-presentation.component.scss',
 })
 export class ModePresentationComponent {
+
+  private storage = inject(WA_LOCAL_STORAGE);
+  private keyWarning = 'tiny-screen-warning-accepted';
 
   protected headerHeight = signal<number | null>(null);
   protected isMobile = toSignal(
@@ -63,10 +67,18 @@ export class ModePresentationComponent {
   ]);
 
   constructor() {
-    let fontSizeService = inject(FontSizeService);
+    const fontSizeService = inject(FontSizeService);
 
     fontSizeService.setSlideMode(SlideMode.presentation);
     fontSizeService.updateFontSize();
+
+    const storageWarning = Boolean(this.storage.getItem(this.keyWarning));
+    this.warningAccepted.set(storageWarning);
+  }
+
+  protected setTinyScreenWarning() {
+    this.warningAccepted.set(true);
+    this.storage.setItem(this.keyWarning, String(true));
   }
 
   @HostListener('window:keydown', ['$event'])
@@ -74,7 +86,7 @@ export class ModePresentationComponent {
     if (this.isMobile() && !this.warningAccepted()) {
       return event.key === 'backspace'
              ? this.router.navigate(['../', this.routeMainMenu])
-             : this.warningAccepted.set(true);
+             : this.setTinyScreenWarning();
     }
 
     this.keydownActionMap.get(event.key)?.(event);
