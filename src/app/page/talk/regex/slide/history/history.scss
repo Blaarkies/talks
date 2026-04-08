@@ -1,0 +1,7 @@
+.s-h-layout {
+  overflow: hidden;
+  background: var(--color-back-5);
+
+  height: 100%; // limit film-roll height to fit page
+  position: relative; // propagate this height to children
+}

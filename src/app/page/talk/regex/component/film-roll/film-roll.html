@@ -1,0 +1,55 @@
+<div
+  class="film-sprockets roller"
+  #roller
+  [style.--count]="filmShots().length"
+>
+
+  <div class="left"></div>
+
+  <div
+    class="film-content"
+    [style.--content-height.px]="itemHeight()"
+  >
+
+    <div class="film-separator-end-of-reel"></div>
+
+    @for (shot of filmShots(); track shot) {
+      <div class="projection-item" #projectionItem>
+
+        <ng-container
+          [ngComponentOutlet]="shot.component"
+          [ngComponentOutletInputs]="shot.inputs"
+        />
+
+        <div class="overlap">
+          <ng-container [ngTemplateOutlet]="noise"/>
+        </div>
+      </div>
+
+      @if (!$last) {
+        <div class="film-separator"></div>
+      }
+    }
+
+    <div class="film-separator-end-of-reel"></div>
+  </div>
+
+  <div class="right"></div>
+</div>
+
+<ng-template #noise>
+  <svg class="noise">
+    <rect width="100%" height="100%" filter="url(#noiseFilter)"/>
+  </svg>
+  <div class="overlay"></div>
+</ng-template>
+
+<svg viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+  <filter id="noiseFilter">
+    <feTurbulence
+      type="fractalNoise"
+      baseFrequency=".3"
+      numOctaves="3"
+      stitchTiles="stitch"/>
+  </filter>
+</svg>

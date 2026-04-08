@@ -7,4 +7,8 @@ export const regexHeadingFootingMap = new Map<string, string[]>([
     'REGULAR EXPRESSIONS',
     'LOADING...',
   ]],
+  [regexSlideRouteNames.history, [
+    'CREATING A STANDARD',
+    'LOADING...',
+  ]],
 ]);

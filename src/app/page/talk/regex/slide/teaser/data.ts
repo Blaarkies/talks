@@ -1,4 +1,4 @@
-const mockText =
+const orwellA =
   `It was a bright cold day in April, and the clocks were striking thirteen. Winston
 Smith, his chin nuzzled into his breast in an effort to escape the vile wind, slipped
 quickly through the glass doors of Victory Mansions, though not quickly enough
@@ -20,7 +20,7 @@ YOU, the caption beneath it ran.`;
 const EOL = '\n';
 
 /** Wraps long text to fit a `maxWidth` column */
-export function getSizedMockText(maxWidth = 80, content = mockText): string {
+export function getSizedMockText(maxWidth = 80, content = orwellA): string {
   const words = content.split(' ').flatMap(w => w.split(EOL));
   const lines: string[][] = [];
   for (const word of words) {

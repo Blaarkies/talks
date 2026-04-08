@@ -85,17 +85,32 @@ export function zipLists<T>(...lists: unknown[][]): T[] {
 type PositiveNumber<N extends number> =
   number extends N ? N : `${N}` extends `-${string}` ? never : N;
 
-
 /** Creates lists of adjacent items, similar to moving a window over the list,
  * and recording a list of snapshots containing those adjacent items */
 export function windowed<T, N extends number>(
-  list: T[], size?: PositiveNumber<N>): T[][] {
+  list: T[],
+  size?: PositiveNumber<N>,
+  onlyFull = true,
+): T[][] {
   // TODO: size is not tested, other than 1
   const offset = size === undefined ? 1 : size - 1;
-  return zipLists(
-    list.slice(0, -offset),
-    list.slice(offset),
-  );
+  if (offset < 1) {
+    throw new Error(`Cannot make array window of width [${size}]`);
+  }
+
+  const windows = Array.from({length: list.length + offset}, () => <T[]>[]);
+  for (let lI = 0; lI < list.length; lI++){
+    const item = list[lI];
+
+    for (let oI = 0; oI <= offset; oI++) {
+      const index = lI + oI;
+      windows[index].push(item);
+    }
+  }
+
+  return onlyFull
+         ? windows.slice(offset, -offset)
+         : windows;
 }
 
 export function flattenNestedValues<T>(root: T, selector: (item: T) => T | T[])

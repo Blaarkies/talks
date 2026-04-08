@@ -1,0 +1,120 @@
+.film-sprockets {
+  @property --count { // projection items count
+    syntax: '<integer>';
+    inherits: true;
+    initial-value: 2;
+  }
+
+  display: flex;
+  justify-content: center;
+
+  --width: 60px;
+  --height: calc(var(--width) * 1.14);
+  --fg: #081c2a;
+  --h1: calc(var(--width) * .36);
+  --h2: calc(var(--width) * .91);
+  --v1: calc(var(--width) * .23);
+  --v2: calc(var(--width) * .68);
+  --ellipse: ellipse calc(var(--width) * .5) calc(var(--width) * .45) at calc(var(--width) * .64) calc(var(--width) * .45);
+  --center: calc(var(--width) * .32);
+
+  .left, .right {
+    width: var(--width);
+    height: calc((var(--count) + 2) * 100%);
+
+    background-image: linear-gradient(to right,
+      var(--fg) var(--h1), #0000 var(--h1),
+      #0000 var(--h2), var(--fg) var(--h2)),
+    linear-gradient(to bottom,
+        var(--fg) var(--v1), #0000 var(--v1),
+        #0000 var(--v2), var(--fg) var(--v2)),
+    radial-gradient(var(--ellipse),
+        #0000 var(--center), var(--fg) var(--center));
+    background-repeat: repeat-y;
+    background-size: var(--width) var(--height);
+  }
+
+  .right {
+    scale: -1 1;
+  }
+
+  > .film-content {
+    background: var(--fg);
+  }
+}
+
+.film-content {
+
+  @property --content-height {
+    syntax: '<length>';
+    inherits: true;
+    initial-value: 80%;
+  }
+  height: calc((var(--count) + 2) * 100%);
+
+  .film-separator {
+    height: var(--item-gap);
+  }
+
+  .film-separator-end-of-reel {
+    height: var(--content-height);
+  }
+}
+
+.projection-item {
+  overflow: hidden;
+  aspect-ratio: 1;
+  border-radius: 16px;
+
+  position: relative;
+  isolation: isolate;
+}
+
+.overlap {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.noise {
+  height: 100%;
+  width: 100%;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(70vh, #cc9177, #727478);
+  mix-blend-mode: multiply;
+}
+
+.isolate {
+  isolation: isolate;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  filter: sepia(.7);
+}
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+.roller {
+  --item-gap: 20px; // empty space between projection items
+
+  height: 100%;
+
+  .film-content {
+
+    .projection-item {
+      height: calc(var(--content-height) - 2 * var(--item-gap));
+    }
+
+  }
+}

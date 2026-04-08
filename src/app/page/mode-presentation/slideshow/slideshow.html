@@ -1,7 +1,10 @@
 <app-rim>
   <div #headingElement head class="heading">{{ header() }}</div>
 
-  <div [@routeAnimations]="currentRouteIndex()">
+  <div
+    class="slide-contents"
+    [@routeAnimations]="currentRouteIndex()"
+  >
     <router-outlet/>
   </div>
 
