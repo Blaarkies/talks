@@ -9,6 +9,6 @@ export const regexHeadingFootingMap = new Map<string, string[]>([
   ]],
   [regexSlideRouteNames.history, [
     'CREATING A STANDARD',
-    'LOADING...',
+    'USE ARROW KEYS ← → TO ADVANCED FILM REEL',
   ]],
 ]);

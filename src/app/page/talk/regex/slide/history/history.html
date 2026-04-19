@@ -1,9 +1,7 @@
 <div class="s-h-layout">
-  <span style="position: absolute">{{step()}}</span>
-
-    <app-film-roll
-      [filmShots]="filmShots"
-      [index]="step()"
-    />
-
+  <app-film-roll
+    [filmShots]="filmShots"
+    [index]="step()"
+    [beginAnimation]="beginAnimation()"
+  />
 </div>

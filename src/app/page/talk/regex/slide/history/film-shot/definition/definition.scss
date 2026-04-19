@@ -1,0 +1,85 @@
+.layout {
+  padding: 1em 1ch;
+  color: #000;
+  background: #ffe3;
+  height: 100%;
+  position: relative;
+
+  .header {
+    font-family: LiberationSerif;
+    font-weight: var(--font-weight-5);
+    font-size: var(--font-size-5);
+  }
+
+  .title {
+    font-weight: var(--font-weight-5);
+  }
+
+  .green {
+    color: var(--base-color-2);
+  }
+
+  .red {
+    color: var(--base-color-1);
+  }
+}
+
+.word-lapping {
+  font-family: OrangeTypewriter;
+  font-size: var(--font-size-2);
+
+  .hidden {
+    opacity: 0;
+  }
+
+  .overlap-text {
+    translate: 0 -.7em;
+  }
+}
+
+.short-line {
+  background: currentColor;
+  height: .1em;
+  width: 10ch;
+  position: absolute;
+
+  &.offset-line {
+    translate: 9ch;
+  }
+
+  &.offset-line-far {
+    right: 5ch;
+    width: 20ch;
+  }
+
+  &.offset-line-small {
+    translate: 3ch;
+  }
+
+  &.data {
+    height: .05em;
+    width: 14ch;
+  }
+}
+
+.dual-col {
+  display: grid;
+  grid-auto-flow: column;
+  grid: auto / auto 52%;
+  gap: 1ch;
+
+  > div:first-child {
+    justify-self: end;
+  }
+}
+
+.code-snippet {
+  padding-left: 2ch;
+
+  table td:first-child {
+    padding-inline: 1ch;
+    text-align: end;
+    font-family: LiberationSerif;
+  }
+
+}

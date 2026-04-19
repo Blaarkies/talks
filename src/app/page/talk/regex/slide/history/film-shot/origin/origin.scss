@@ -52,7 +52,7 @@
 
 .tri-col {
   display: grid;
-  grid: auto / repeat(3, 1fr);
+  grid: auto / auto auto 1fr;
   text-align: justify;
   gap: var(--space-5);
   white-space: break-spaces;

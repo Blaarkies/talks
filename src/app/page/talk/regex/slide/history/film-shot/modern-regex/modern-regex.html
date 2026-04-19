@@ -1,1 +1,74 @@
-<p>modern-regex works!</p>
+<div class="layers">
+  <div class="radial-glow"></div>
+
+  <ng-container [ngTemplateOutlet]="impure"/>
+
+  <ng-container [ngTemplateOutlet]="noise"/>
+  <div class="scan-lines"></div>
+
+  <ng-container [ngTemplateOutlet]="pure"/>
+</div>
+
+<ng-template #pure>
+  <div class="layout">
+
+    <div class="header">
+      <span class="ph">Where do</span> YOU
+      <span class="ph">find</span> Regex<span class="ph">?</span>
+    </div>
+    <br/>
+    <ul class="description">
+      <li>Excel</li>
+      <li>Notepad++</li>
+      <li>VS Code</li>
+      <li><span class="ph">Browser Extensions</span></li>
+    </ul>
+    <br/><br/>
+    <div class="description">
+      <span class="ph">Look for this </span>icon</div>
+    <div class="regex-logo">
+      (.*)
+    </div>
+
+  </div>
+</ng-template>
+
+<ng-template #impure>
+  <div class="layout impure">
+
+    <div class="header">Where do ___ find Regex?</div>
+    <br/>
+    <ul class="description">
+      <li>Excel</li>
+      <li>Notepad++</li>
+      <li>VS Code</li>
+      <li>Browser Extensions</li>
+    </ul>
+    <br/><br/>
+
+    <div class="description cursor-at-end">
+      Look for this icon<span class="cursor"></span>
+    </div>
+    <div class="regex-logo ph">
+      (.*)
+    </div>
+
+  </div>
+</ng-template>
+
+<ng-template #noise>
+  <div class="noise-pattern">
+    <svg>
+      <filter id="crt-noise">
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency=".1"
+          numOctaves="1"/>
+        <feMorphology
+          operator="erode"
+          radius="1"
+        />
+      </filter>
+    </svg>
+  </div>
+</ng-template>

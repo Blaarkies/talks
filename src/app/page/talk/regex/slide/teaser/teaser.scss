@@ -86,11 +86,6 @@
   @extend %clip-show;
   transition-duration: 3s;
   transition-timing-function: steps(15);
-
-  // Fix box shadow overflow onto footer
-  overflow: hidden;
-  max-height: 13em;
-  translate: 0 calc(-1* var(--space-2));
 }
 
 .ledger-book {

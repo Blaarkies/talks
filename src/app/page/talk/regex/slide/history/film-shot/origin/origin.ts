@@ -15,5 +15,7 @@ export class Origin {
 
   protected mockTextA = this.mockText.slice(0,553)
     .replace(/.{211}.*?\b/, t => t + `\n\n`);
+  protected mockTextB = this.mockText.slice(560, 553 + 247)
+    .replace(/\w/, ss => ss.toUpperCase());
 
 }

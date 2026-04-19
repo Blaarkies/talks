@@ -1,0 +1,37 @@
+.layout {
+  padding: 1em 1ch;
+  color: #000;
+  background: #fff;
+  height: 100%;
+
+  display: grid;
+  gap: .7em;
+  align-content: start;
+
+  .header-year {
+    font-family: DejaVuSerif;
+    font-weight: var(--font-weight-5);
+    font-size: var(--font-size-5);
+
+    display: flex;
+    align-items: center;
+
+    div {
+      margin-left: auto;
+    }
+
+    position: relative;
+    .underline-style {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+    }
+  }
+
+  .short-line {
+    background: currentColor;
+    height: .1em;
+    width: 30%;
+  }
+
+}

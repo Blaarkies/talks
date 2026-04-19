@@ -9,6 +9,7 @@ import {
   effect,
   ElementRef,
   input,
+  signal,
   viewChild,
   viewChildren,
 } from '@angular/core';
@@ -29,11 +30,12 @@ export class FilmRoll {
 
   filmShots = input.required<FilmShot[]>();
   index = input.required<number>();
+  beginAnimation = input(true);
 
   private roller = viewChild<ElementRef<HTMLDivElement>>('roller');
-  private projectionItems = viewChildren
-    < ElementRef < HTMLDivElement >> ('projectionItem');
+  private projectionItems = viewChildren<ElementRef<HTMLDivElement>>('projectionItem');
 
+  // TODO: height check does not update on window resize (or fullscreen)
   protected itemHeight = computed(() =>
     this.roller().nativeElement.offsetHeight);
 
@@ -62,10 +64,20 @@ export class FilmRoll {
     const bounceTimingFn = 'cubic-bezier(0.03, -0.54, 0.48, 1.42)';
     let oldOffset = 0;
     let firstRun = true;
+    const isAnimating = signal(false);
+    let currentIndex = undefined;
 
     effect(async () => {
+      if (!this.beginAnimation() || isAnimating()) {
+        return;
+      }
+
       const rollerElement = this.roller().nativeElement;
       const index = this.index();
+      if (index === currentIndex) {
+        return;
+      }
+
       const items = this.projectionItems();
       const spaceAboveMap = this.spaceAboveMap();
       if (!rollerElement || !items.length) {
@@ -82,13 +94,16 @@ export class FilmRoll {
                              ? 500
                              : lerp(100, 300, detourOffset / nextOffset);
 
+      isAnimating.set(true);
       await this.rollFromTo(rollerElement, oldOffset, detourOffset,
         'ease-in', detourDuration);
       await this.rollFromTo(rollerElement, detourOffset, nextOffset,
         bounceTimingFn);
+      isAnimating.set(false);
 
       oldOffset = nextOffset;
       firstRun = false;
+      currentIndex = index;
     });
   }
 

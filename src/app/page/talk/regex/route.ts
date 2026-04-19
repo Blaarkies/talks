@@ -2,7 +2,11 @@ import { Route } from '@angular/router';
 
 export const regexSlideRouteNames = {
   teaser: 'intro',
+  // add hieroglyphics joke
+
   history: 'history',
+  //
+
   basics: 'my-first-match',
   // ctrl+f example. find integer example. find float
 
@@ -10,6 +14,7 @@ export const regexSlideRouteNames = {
   // detect "n day/month/year ago". use dot*
   // escape char, tell regex to not read it literally
   // OR |
+  // Non-capturing groups (?: )
 
   wildcards: 'wildcard-selectors',
   // \d and \D.
@@ -20,6 +25,16 @@ export const regexSlideRouteNames = {
   flags: 'modifier-flags',
   // Global / Multiline / case-Insensitive
   // lookahead lookbehind + negative
+
+  pitfall: 'pitfalls',
+  // 3	Missing anchors	        /abc/ finds "abc" anywhere	      Add ^ and $ for exact match
+  // 5	Case sensitivity	      /cat/ misses "Cat"	              Add /i flag or use [Cc]at
+  // 6	Wrong character class	  [a-z] doesn't match uppercase	    Use [a-zA-Z] or [a-z]i
+  // 2	Unescaped special chars	.nl matches any char + nl	        Escape: \.
+  // 1	Greedy matching	        .* matches as much as possible    Use .*? for lazy matching
+  // 4	Overusing .*	          .*email.* is too broad	          Be specific: \w+@\w+\.\w+
+  // 8	Overengineering	        One giant pattern for everything	Split into smaller patterns
+  // 7	Engine differences	    Lookbehind fails in old JS	      Test in target environment
 
   cheatSheet: 'cheat-sheet',
   end: 'end-and-questions',
@@ -35,6 +50,12 @@ export const routes: Route[] = [
     path: regexSlideRouteNames.history,
     loadComponent: () => import('@talk/regex/slide/history/history')
       .then(c => c.SlideHistory),
+  },
+  {
+    path: 'test',
+    loadComponent: () => import('@talk/regex/slide/history/film-shot/modern-regex/modern-regex')
+      .then(c => c.ModernRegex),
+    data: {},
   },
 
   {

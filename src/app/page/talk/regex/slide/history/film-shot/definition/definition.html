@@ -1,1 +1,65 @@
-<p>definition works!</p>
+<div class="layout">
+
+  <div class="short-line offset-line"></div>
+  <div class="header">This is Regex</div>
+  <div class="dual-col">
+    <div class="title green">Pattern matcher</div>
+    <div>
+      <div>- Find specific text structures</div>
+      <div>- Test user input</div>
+      <div>- Extract data from text</div>
+    </div>
+  </div>
+
+  <div class="header">This is Not</div>
+  <div class="dual-col">
+    <div class="title red">Programming language</div>
+    <div>- No logic/loops/variables</div>
+  </div>
+  <div class="dual-col">
+    <div class="title red">Parser</div>
+    <div>
+      <div>- Don't parse HTML/XML</div>
+      <div>- Use dedicated parsers</div>
+    </div>
+  </div>
+  <div class="short-line offset-line-far"></div>
+
+  <br/>
+  <div class="word-lapping">
+    <ng-template #exe>There is no <b>Regex.exe</b> to install.</ng-template>
+    <div>
+      <ng-container [ngTemplateOutlet]="exe"/>
+    </div>
+    <div class="overlap-text">
+      <span class="hidden"><ng-container [ngTemplateOutlet]="exe"/></span>
+      Every language<br/> &nbsp; implements its own "dialect" of tool, util, or program
+    </div>
+  </div>
+
+  <br/>
+  <div class="code-snippet">
+    <table>
+      <tr>
+        <td>Java</td>
+        <td>import java.util.regex.*;</td>
+      </tr>
+      <div class="short-line data offset-line"></div>
+      <tr>
+        <td>JavaScript</td>
+        <td>new RegExp('.*');</td>
+      </tr>
+      <div class="short-line data"></div>
+      <tr>
+        <td>C</td>
+        <td>#include &lt;regex.h&gt;</td>
+      </tr>
+      <div class="short-line data offset-line-small"></div>
+      <tr>
+        <td>Python</td>
+        <td>import re</td>
+      </tr>
+    </table>
+  </div>
+
+</div>

@@ -15,14 +15,20 @@
 
     @for (shot of filmShots(); track shot) {
       <div class="projection-item" #projectionItem>
-
         <ng-container
           [ngComponentOutlet]="shot.component"
           [ngComponentOutletInputs]="shot.inputs"
         />
 
         <div class="overlap">
-          <ng-container [ngTemplateOutlet]="noise"/>
+          @switch (shot.theme) {
+            @case ('sepia') {
+              <ng-container [ngTemplateOutlet]="sepia"/>
+            }
+            @case ('paper') {
+              <ng-container [ngTemplateOutlet]="paper"/>
+            }
+          }
         </div>
       </div>
 
@@ -37,19 +43,34 @@
   <div class="right"></div>
 </div>
 
-<ng-template #noise>
+<ng-template #paper>
+  <svg class="noise">
+    <rect width="100%" height="100%" filter="url(#noiseFilterPaper)"/>
+  </svg>
+  <div class="overlay-paper"></div>
+
+  <svg viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+    <filter id="noiseFilterPaper">
+      <feTurbulence
+        type="fractalNoise"
+        baseFrequency=".4"
+        numOctaves="4"/>
+    </filter>
+  </svg>
+</ng-template>
+
+<ng-template #sepia>
   <svg class="noise">
     <rect width="100%" height="100%" filter="url(#noiseFilter)"/>
   </svg>
-  <div class="overlay"></div>
-</ng-template>
+  <div class="overlay-sepia"></div>
 
-<svg viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
-  <filter id="noiseFilter">
-    <feTurbulence
-      type="fractalNoise"
-      baseFrequency=".3"
-      numOctaves="3"
-      stitchTiles="stitch"/>
-  </filter>
-</svg>
+  <svg viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+    <filter id="noiseFilter">
+      <feTurbulence
+        type="fractalNoise"
+        baseFrequency=".3"
+        numOctaves="3"/>
+    </filter>
+  </svg>
+</ng-template>
