@@ -11,4 +11,8 @@ export const regexHeadingFootingMap = new Map<string, string[]>([
     'CREATING A STANDARD',
     'USE ARROW KEYS ← → TO ADVANCED FILM REEL',
   ]],
+  [regexSlideRouteNames.basics, [
+    'MY FIRST MATCH',
+    'USE ARROW KEYS ← → TO SELECT A PATTERN',
+  ]],
 ]);

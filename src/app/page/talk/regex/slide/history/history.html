@@ -1,7 +1,9 @@
 <div class="s-h-layout">
-  <app-film-roll
-    [filmShots]="filmShots"
-    [index]="step()"
-    [beginAnimation]="beginAnimation()"
-  />
+  @if (!isResizing()) {
+    <app-film-roll
+      [filmShots]="filmShots"
+      [index]="step()"
+      [beginAnimation]="beginAnimation()"
+    />
+  }
 </div>

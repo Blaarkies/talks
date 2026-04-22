@@ -19,6 +19,15 @@ YOU, the caption beneath it ran.`;
 
 const EOL = '\n';
 
+export const mockTextA = orwellA;
+export const mockTextIntFloat = orwellA
+  .slice(0, 500)
+  .replaceAll('thirteen', '13')
+  .replaceAll('day in April', '4th of April')
+  .replaceAll('the glass doors', 'the 3.1415 glass doors')
+  .replaceAll('of gritty dust from', 'of gritty dust, with a count of 7, 3 managed')
+;
+
 /** Wraps long text to fit a `maxWidth` column */
 export function getSizedMockText(maxWidth = 80, content = orwellA): string {
   const words = content.split(' ').flatMap(w => w.split(EOL));

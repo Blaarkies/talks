@@ -52,6 +52,10 @@
     box-shadow: -1ch 1ch 0 0 var(--color-shadow-1);
   }
 
+  &.no-background {
+    background: none;
+  }
+
   .header {
     text-align: center;
     font-weight: var(--font-weight-5);

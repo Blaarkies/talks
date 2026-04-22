@@ -2,6 +2,7 @@
   #main
   class="pane-main"
   [class.shadow]="shadow()"
+  [class.no-background]="!background()"
   [class.header-position-left]="headerPosition() === 'left'"
   [ngClass]="[typeClass(), outlineClass()]"
 >

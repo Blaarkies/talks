@@ -32,6 +32,7 @@ export class PaneComponent {
     transform: (v: BooleanAny) => typeof v === 'boolean' ? v : v === 'true',
   });
   shadow = input<boolean>(true);
+  background = input<boolean>(true);
   outline = input<'single' | 'double'>();
   headerPosition = input<'left'>();
 

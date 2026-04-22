@@ -6,6 +6,7 @@ import {
 import { toSignal } from '@angular/core/rxjs-interop';
 import { coerceBetween } from '@app/common';
 import { ClickerService } from '@app/page/mode-presentation/service/clicker.service';
+import { WA_WINDOW } from '@ng-web-apis/common';
 import { FilmRoll } from '@talk/regex/component/film-roll/film-roll';
 import { FilmShot } from '@talk/regex/component/film-roll/type';
 import { Definition } from '@talk/regex/slide/history/film-shot/definition/definition';
@@ -13,27 +14,42 @@ import { Implementation } from '@talk/regex/slide/history/film-shot/implementati
 import { ModernRegex } from '@talk/regex/slide/history/film-shot/modern-regex/modern-regex';
 import { Origin } from '@talk/regex/slide/history/film-shot/origin/origin';
 import {
+  concatMap,
+  distinctUntilChanged,
+  fromEvent,
   map,
+  merge,
+  of,
   scan,
   startWith,
   timer,
 } from 'rxjs';
 
-// who started it.
-// implementations grep sed awk
-// what it is. what it is not.
-// where do YOU find it.
-
 @Component({
   selector: 'app-slide-history',
-  imports: [
-    FilmRoll,
-  ],
+  imports: [FilmRoll],
   templateUrl: './history.html',
   styleUrl: './history.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SlideHistory {
+
+  private window = inject(WA_WINDOW);
+
+  // Going fullscreen breaks app-film-roll, because projection items are forced
+  // to the current viewport height.
+  // Detect resize events, destroy app-film-roll, wait, then render a new one
+  protected isResizing = toSignal(
+    fromEvent(this.window, 'resize').pipe(
+      map(() => this.window.innerHeight),
+      distinctUntilChanged(),
+      concatMap(() => merge(
+        timer(0).pipe(map(() => false)),
+        of(true),
+      )),
+      startWith(false),
+    ),
+  );
 
   protected filmShots: FilmShot[] = [
     {component: Origin, theme: 'sepia'},

@@ -20,7 +20,7 @@ import {
 import { WA_LOCAL_STORAGE } from '@ng-web-apis/common';
 import { map } from 'rxjs';
 import { routeNames } from '@app/bootstrap/routes';
-import { ButtonComponent } from '../../common/component/button/button.component';
+import { ButtonComponent } from '@app/common/component/button/button.component';
 import { HasRimHeader } from './index';
 import { ClickerService } from './service/clicker.service';
 import {
@@ -58,10 +58,10 @@ export class ModePresentationComponent {
   private destroyRef = inject(DestroyRef);
 
   private keydownActionMap = new Map<string, (event?: KeyboardEvent) => void>([
-    ['ArrowRight', e => e.ctrlKey
+    ['ArrowRight', e => (e.ctrlKey || e.metaKey)
                         ? this.clickerService.forward()
                         : this.clickerService.right()],
-    ['ArrowLeft', e => e.ctrlKey
+    ['ArrowLeft', e => (e.ctrlKey || e.metaKey)
                        ? this.clickerService.backward()
                        : this.clickerService.left()],
   ]);

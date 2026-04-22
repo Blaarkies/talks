@@ -52,6 +52,11 @@ export const routes: Route[] = [
       .then(c => c.SlideHistory),
   },
   {
+    path: regexSlideRouteNames.basics,
+    loadComponent: () => import('@talk/regex/slide/basic-matching/basic-matching')
+      .then(c => c.BasicMatching),
+  },
+  {
     path: 'test',
     loadComponent: () => import('@talk/regex/slide/history/film-shot/modern-regex/modern-regex')
       .then(c => c.ModernRegex),
