@@ -14,7 +14,7 @@ export const regexHeadingFootingMap = new Map<string, string[]>([
     'USE ARROW KEYS ← → TO SELECT A PATTERN',
   ]],
   [regexSlideRouteNames.groups, [
-    'READ BETWEEN THE LINES',
+    'READING BETWEEN THE LINES',
     'USE ARROW KEYS ← → TO SELECT A PATTERN',
   ]],
 ]);

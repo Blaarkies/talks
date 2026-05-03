@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -11,29 +12,34 @@ import {
 } from '@angular/forms';
 import { ButtonComponent } from '@app/common/component/button/button.component';
 import { PaneComponent } from '@app/common/component/pane/pane.component';
-import { matchSplitSimple } from '@talk/regex/common/match-split';
-import { mockTextIntFloat } from '@talk/regex/common/mock-text';
+import { matchSplitGroup } from '@talk/regex/common/match-split';
 import { Checkbox } from '@talk/regex/component/checkbox/checkbox';
 
 @Component({
-  selector: 'app-basic-matching',
+  selector: 'app-capture-group',
   imports: [
     ButtonComponent,
+    Checkbox,
     PaneComponent,
     ReactiveFormsModule,
-    Checkbox,
+    NgClass,
   ],
-  templateUrl: './basic-matching.html',
-  styleUrl: './basic-matching.scss',
+  templateUrl: './capture-group.html',
+  styleUrl: './capture-group.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BasicMatching {
+export class CaptureGroup {
 
-  private mockText = mockTextIntFloat.slice(0, 336);
+  private mockText = `
+  249K views • 3 years ago
+  2M views • 11 months ago
+  31K views • 1 month ago
+  931 views • 6 days ago
+  `.trim();
   private patterns = [
-    `Smith`,
-    `\\d+`,
-    `\\d+\\.\\d+`,
+    `(\\d+ \\w+) ago`,
+    `(\\d+) (year|month|day)s? ago`,
+    `(\\d+)(K|M|G)? views • (?:\\d+) (?:year|month|day)s? ago`,
   ];
 
   protected globalFlagControl = new FormControl(false);
@@ -48,14 +54,14 @@ export class BasicMatching {
   protected selectedRegex = computed(() => this.patterns[this.index()]);
 
   protected tabs = [
-    {label: 'Ctrl+F Find'},
-    {label: 'Find Integer'},
-    {label: 'Find Decimal Number'},
+    {label: 'Age'},
+    {label: 'Separate'},
+    {label: 'Non-Capture'},
   ];
 
   protected displayText = computed(() => {
     const regex = new RegExp(this.selectedRegex(), this.regexFlags());
-    return matchSplitSimple(this.mockText, regex, this.index() * 100);
+    return matchSplitGroup(this.mockText, regex, this.index() * 100);
   });
 
   protected setActiveTab(index: number) {

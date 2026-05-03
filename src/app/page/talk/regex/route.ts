@@ -9,10 +9,10 @@ export const regexSlideRouteNames = {
 
   basics: 'my-first-match',
   // ctrl+f example. find integer example. find float
+  // escape char, tell regex to not read it literally
 
   groups: 'groups-and-capturing',
   // detect "n day/month/year ago". use dot*
-  // escape char, tell regex to not read it literally
   // OR |
   // Non-capturing groups (?: )
 
@@ -22,11 +22,11 @@ export const regexSlideRouteNames = {
   // [a-z]
   // Quantifiers ? + * {2,} greedy
 
-  flags: 'modifier-flags',
+  // flags: 'modifier-flags',
   // Global / Multiline / case-Insensitive
   // lookahead lookbehind + negative
 
-  pitfall: 'pitfalls',
+  // pitfall: 'pitfalls',
   // 3	Missing anchors	        /abc/ finds "abc" anywhere	      Add ^ and $ for exact match
   // 5	Case sensitivity	      /cat/ misses "Cat"	              Add /i flag or use [Cc]at
   // 6	Wrong character class	  [a-z] doesn't match uppercase	    Use [a-zA-Z] or [a-z]i
@@ -36,8 +36,8 @@ export const regexSlideRouteNames = {
   // 8	Overengineering	        One giant pattern for everything	Split into smaller patterns
   // 7	Engine differences	    Lookbehind fails in old JS	      Test in target environment
 
-  cheatSheet: 'cheat-sheet',
-  end: 'end-and-questions',
+  // cheatSheet: 'cheat-sheet',
+  // end: 'end-and-questions',
 };
 
 export const routes: Route[] = [
@@ -57,11 +57,16 @@ export const routes: Route[] = [
       .then(c => c.BasicMatching),
   },
   {
-    path: 'test',
-    loadComponent: () => import('@talk/regex/slide/history/film-shot/modern-regex/modern-regex')
-      .then(c => c.ModernRegex),
-    data: {},
+    path: regexSlideRouteNames.groups,
+    loadComponent: () => import('@talk/regex/slide/capture-group/capture-group')
+      .then(c => c.CaptureGroup),
   },
+  // {
+  //   path: 'test',
+  //   loadComponent: () => import('@talk/regex/slide/history/film-shot/modern-regex/modern-regex')
+  //     .then(c => c.ModernRegex),
+  //   data: {},
+  // },
 
   {
     path: '**',
