@@ -9,6 +9,7 @@
     [background]="false"
   >
     <div class="gaps">
+
       <div class="tabs">
         @for (tab of tabs; track $index) {
           <app-button
@@ -21,31 +22,29 @@
         }
       </div>
 
-      <app-pane
-        class="pane-constraint"
-        type="5"
-        swap="true"
-        outline="double"
-        [shadow]="false"
-        [background]="false"
-      >
-        <div class="regex-controls">
-          @if (selectedRegex(); as regex) {
-            <div class="regex-display active">{{ regex }}</div>
-
-            <div>
-              <input
-                [formControl]="globalFlagControl"
-                type="checkbox"
-                id="global-flag"
-              />
-              <label for="global-flag">Global search</label>
+      <div class="regex">
+          <app-pane
+            class="pane-constraint"
+            type="5"
+            swap="true"
+            outline="double"
+            [shadow]="false"
+            [background]="false"
+          >
+            <div class="regex-display-wrap">
+              @if (selectedRegex(); as regex) {
+                <div class="active">{{ regex }}</div>
+              } @else {
+                <div class="empty">Select a method</div>
+              }
             </div>
-          } @else {
-            <div class="regex-display empty">Select a method</div>
-          }
-        </div>
-      </app-pane>
+          </app-pane>
+
+        <app-checkbox
+          [formControl]="globalFlagControl"
+          label="Global search"
+        />
+      </div>
     </div>
   </app-pane>
 

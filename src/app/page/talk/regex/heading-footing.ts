@@ -1,6 +1,4 @@
-import {
-  regexSlideRouteNames,
-} from './route';
+import { regexSlideRouteNames } from './route';
 
 export const regexHeadingFootingMap = new Map<string, string[]>([
   [regexSlideRouteNames.teaser, [
@@ -13,6 +11,10 @@ export const regexHeadingFootingMap = new Map<string, string[]>([
   ]],
   [regexSlideRouteNames.basics, [
     'MY FIRST MATCH',
+    'USE ARROW KEYS ← → TO SELECT A PATTERN',
+  ]],
+  [regexSlideRouteNames.groups, [
+    'READ BETWEEN THE LINES',
     'USE ARROW KEYS ← → TO SELECT A PATTERN',
   ]],
 ]);

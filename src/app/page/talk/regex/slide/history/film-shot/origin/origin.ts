@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { getSizedMockText } from '@talk/regex/slide/teaser/data';
+import { getSizedMockText } from '@talk/regex/common/mock-text';
 
 @Component({
   selector: 'app-origins',

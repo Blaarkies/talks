@@ -12,7 +12,7 @@ import {
   windowed,
 } from '@app/common';
 import { PaneComponent } from '@app/common/component/pane/pane.component';
-import { getSizedMockText } from '@talk/regex/slide/teaser/data';
+import { getSizedMockText } from '@talk/regex/common/mock-text';
 import { TempoGenerator } from '@talk/regex/slide/teaser/tempo-generator';
 import {
   LightableContent,

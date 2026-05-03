@@ -11,7 +11,9 @@ import {
 } from '@angular/forms';
 import { ButtonComponent } from '@app/common/component/button/button.component';
 import { PaneComponent } from '@app/common/component/pane/pane.component';
-import { mockTextIntFloat } from '@talk/regex/slide/teaser/data';
+import { matchSplit } from '@talk/regex/common/match-split';
+import { mockTextIntFloat } from '@talk/regex/common/mock-text';
+import { Checkbox } from '@talk/regex/component/checkbox/checkbox';
 
 @Component({
   selector: 'app-basic-matching',
@@ -19,6 +21,7 @@ import { mockTextIntFloat } from '@talk/regex/slide/teaser/data';
     ButtonComponent,
     PaneComponent,
     ReactiveFormsModule,
+    Checkbox,
   ],
   templateUrl: './basic-matching.html',
   styleUrl: './basic-matching.scss',
@@ -26,56 +29,37 @@ import { mockTextIntFloat } from '@talk/regex/slide/teaser/data';
 })
 export class BasicMatching {
 
-  private mockText = mockTextIntFloat.slice(0, 495);
+  private mockText = mockTextIntFloat.slice(0, 336);
+  private patterns = [
+    `Smith`,
+    `\\d+`,
+    `\\d+\\.\\d+`,
+  ];
 
   protected globalFlagControl = new FormControl(false);
   private globalFlag = toSignal(this.globalFlagControl.valueChanges);
-
-  protected index = signal(-1);
-  protected selectedRegex = computed(() => {
-    const patterns = [
-      `Smith`,
-      `\\d+`,
-      `\\d*\\.\\d+`,
-    ];
-    return patterns[this.index()];
+  private regexFlags = computed(() => {
+    let flags = '';
+    if (this.globalFlag()) flags += 'g';
+    return flags;
   });
 
+  protected index = signal(-1);
+  protected selectedRegex = computed(() => this.patterns[this.index()]);
+
   protected tabs = [
-    {label: 'CRTL+F Find'},
+    {label: 'Ctrl+F Find'},
     {label: 'Find Integer'},
     {label: 'Find Decimal Number'},
   ];
 
+  protected displayText = computed(() => {
+    const regex = new RegExp(this.selectedRegex(), this.regexFlags());
+    return matchSplit(this.mockText, regex, this.index() * 100);
+  });
+
   protected setActiveTab(index: number) {
     this.index.set(index);
   }
-
-  protected displayText = computed(() => {
-    const globalFlag = this.globalFlag();
-    const flags = globalFlag ? 'g' : '';
-
-    const regex = new RegExp(this.selectedRegex(), flags);
-
-    let textSupply = this.mockText;
-    const sections = [];
-    const matches = textSupply.match(regex);
-
-    let id = this.index() * 100;
-    for (const match of matches.filter(Boolean)) {
-      const index = textSupply.indexOf(match);
-      const before = textSupply.slice(0, index);
-
-      sections.push(
-        {id: ++id, content: before},
-        {id: ++id, type: 'match', content: match});
-
-      textSupply = textSupply.slice(index + match.length);
-    }
-
-    sections.push({id: ++id, content: textSupply});
-
-    return sections;
-  });
 
 }
