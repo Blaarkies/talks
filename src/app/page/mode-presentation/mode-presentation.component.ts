@@ -2,7 +2,6 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import {
   Component,
   DestroyRef,
-  HostListener,
   inject,
   Injector,
   signal,
@@ -17,8 +16,14 @@ import {
   RouterLink,
   RouterOutlet,
 } from '@angular/router';
-import { WA_LOCAL_STORAGE } from '@ng-web-apis/common';
-import { map } from 'rxjs';
+import {
+  WA_LOCAL_STORAGE,
+  WA_WINDOW,
+} from '@ng-web-apis/common';
+import {
+  fromEvent,
+  map,
+} from 'rxjs';
 import { routeNames } from '@app/bootstrap/routes';
 import { ButtonComponent } from '@app/common/component/button/button.component';
 import { HasRimHeader } from './index';
@@ -74,6 +79,10 @@ export class ModePresentationComponent {
 
     const storageWarning = Boolean(this.storage.getItem(this.keyWarning));
     this.warningAccepted.set(storageWarning);
+
+    fromEvent<KeyboardEvent>(inject(WA_WINDOW), 'keydown')
+      .pipe(takeUntilDestroyed())
+      .subscribe(event => this.handleKeydown(event));
   }
 
   protected setTinyScreenWarning() {
@@ -81,7 +90,6 @@ export class ModePresentationComponent {
     this.storage.setItem(this.keyWarning, String(true));
   }
 
-  @HostListener('window:keydown', ['$event'])
   protected handleKeydown(event: KeyboardEvent) {
     if (this.isMobile() && !this.warningAccepted()) {
       return event.key === 'backspace'
@@ -90,6 +98,9 @@ export class ModePresentationComponent {
     }
 
     this.keydownActionMap.get(event.key)?.(event);
+    if (event.metaKey) {
+      event.preventDefault();
+    }
   }
 
   forward() {

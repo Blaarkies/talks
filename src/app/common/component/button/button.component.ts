@@ -2,20 +2,28 @@ import { NgClass } from '@angular/common';
 import {
   Component,
   computed,
-  HostBinding,
-  HostListener,
+  ElementRef,
+  inject,
   input,
   output,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {
+  filter,
+  fromEvent,
+} from 'rxjs';
 import { ThemeNumberAny } from '../pane/pane.component';
 
 @Component({
-    selector: 'app-button',
-    imports: [
-        NgClass,
-    ],
-    templateUrl: './button.component.html',
-    styleUrl: './button.component.scss'
+  selector: 'app-button',
+  imports: [
+    NgClass,
+  ],
+  templateUrl: './button.component.html',
+  styleUrl: './button.component.scss',
+  host: {
+    tabindex: 'tabindex',
+  },
 })
 export class ButtonComponent {
 
@@ -23,14 +31,9 @@ export class ButtonComponent {
   swap = input<boolean>();
   shadow = input<boolean>(false);
   outline = input<'single' | 'double'>();
-
   tabindex = input(0);
 
-  @HostBinding('tabindex') get hb1() {
-    return this.tabindex();
-  }
-
-  click1 = output<MouseEvent>();
+  click1 = output<MouseEvent | KeyboardEvent>();
 
   protected typeClass = computed(() => {
     let type = this.type();
@@ -49,10 +52,16 @@ export class ButtonComponent {
     return 'outline-' + outline;
   });
 
-  @HostListener('keydown.enter', ['$event'])
-  @HostListener('keydown.return', ['$event'])
-  onClick(event: Event) {
-    this.click1.emit(event as MouseEvent);
+  constructor() {
+    fromEvent<KeyboardEvent>(inject(ElementRef).nativeElement, 'keydown')
+      .pipe(
+        filter(e => e.key === 'Enter' || e.key === 'Return'),
+        takeUntilDestroyed())
+      .subscribe(event => this.click1.emit(event));
+  }
+
+  protected onClick(event: PointerEvent) {
+    this.click1.emit(event);
   }
 
 }

@@ -7,18 +7,19 @@ import {
 import {
   Component,
   computed,
-  effect,
   ElementRef,
-  HostListener,
   inject,
   signal,
   viewChild,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   Router,
   RouterLink,
 } from '@angular/router';
 import { routeNames } from '@app/bootstrap/routes';
+import { WA_WINDOW } from '@ng-web-apis/common';
+import { fromEvent } from 'rxjs';
 import { ButtonComponent } from '../../common/component/button/button.component';
 import { PaneComponent } from '../../common/component/pane/pane.component';
 import { RimComponent } from '../../common/component/rim/rim.component';
@@ -68,6 +69,10 @@ export class MainMenuComponent {
     this.fontSizeService.updateFontSize();
     let presenterNotesService = inject(PresenterNotesService);
     presenterNotesService.setSlide(null, 0);
+
+    fromEvent<KeyboardEvent>(inject(WA_WINDOW), 'keydown')
+      .pipe(takeUntilDestroyed())
+      .subscribe(event => this.menuShortcut(event));
   }
 
   protected selectNext(step: number) {
@@ -96,7 +101,6 @@ export class MainMenuComponent {
     this.fontSizeService.updateFontSize();
   }
 
-  @HostListener('window:keydown', ['$event'])
   protected menuShortcut(event: KeyboardEvent) {
     if (!event.altKey) {
       if (event.ctrlKey && event.key === 'q') {
