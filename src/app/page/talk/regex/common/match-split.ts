@@ -1,3 +1,5 @@
+import { makeNumberList } from '@app/common';
+
 type SplitSection = {
   id: number
   type?: 'match'
@@ -5,6 +7,7 @@ type SplitSection = {
   group?: string
 }
 
+/** @deprecated Use matchSplitGroup() */
 export function matchSplitSimple(content: string, regex: RegExp, idSeed = 0)
   : SplitSection[] {
   let textSupply = content;
@@ -31,37 +34,53 @@ export function matchSplitSimple(content: string, regex: RegExp, idSeed = 0)
   return sections;
 }
 
-export function matchSplitGroup(content: string, regex: RegExp, idSeed = 0)
+export function matchSplitGroup(
+  content: string, regex: RegExp, idSeed = 0, skipGroupCount = 1)
   : SplitSection[] {
-  let textSupply = content;
   const sections: SplitSection[] = [];
-  const matches = regex.global
-                  ? Array.from(textSupply.matchAll(regex))
-                  : [textSupply.match(regex)];
+  const matchesUnfiltered = regex.global
+                  ? Array.from(content.matchAll(regex))
+                  : [content.match(regex)];
+  const matches = matchesUnfiltered.filter(Boolean);
 
   let id = idSeed;
 
-  if (matches) {
-    matches.filter(Boolean)
-      .flatMap(gs => gs.slice(1).map((g, i) => ({g, i})))
-      .forEach(({g, i}) => {
-        const index = textSupply.indexOf(g);
-        const before = textSupply.slice(0, index);
+  if (matches.some(m => m.slice(skipGroupCount).length)) {
+    const categories = makeNumberList(3).map(n => String.fromCharCode(n + 97));
+    let cursor = 0;
 
-        sections.push(
-          {id: ++id, content: before},
-          {
+    for (const m of matches) {
+      const beforeMatch = content.slice(cursor, m.index);
+      sections.push({id: ++id, content: beforeMatch});
+      cursor = m.index;
+
+      for (const [i, g] of m.slice(skipGroupCount).entries()) {
+        if (!g) {
+          continue;
+        }
+        const index = content.indexOf(g, cursor);
+        const beforeGroup = content.slice(cursor, index);
+        cursor = index + g.length;
+
+        if (beforeGroup) {
+          sections.push({id: ++id, content: beforeGroup});
+        }
+
+        sections.push({
             id: ++id,
             content: g,
             type: 'match',
-            group: String.fromCharCode(i + 97),
+            group: categories[i],
           });
+      }
+    }
 
-        textSupply = textSupply.slice(index + (g?.length ?? 0));
-      });
+    sections.push({id: ++id, content: content.slice(cursor)});
+
+  } else {
+
+    sections.push({id: ++id, content});
   }
 
-  sections.push({id: ++id, content: textSupply});
-
-  return sections;
+  return sections.filter(s => s.content);
 }

@@ -1,0 +1,69 @@
+<!--<div>.* Anything</div>-->
+<!--<div>/d* any digit</div>-->
+<!--<div>/w* any letter</div>-->
+<!--<div>/s* any whitespace or line feed</div>-->
+<!--// \d and \D.-->
+<!--// \w \s \b-->
+<!--// [a-z]-->
+<!--// Quantifiers ? + * {2,} greedy-->
+
+<div class="s-w-layout">
+
+  <app-pane
+    class="pane-constraint tabs-container"
+    type="5"
+    swap="true"
+    outline="single"
+    [shadow]="false"
+    [background]="false"
+  >
+    <div class="gaps">
+
+      <div class="tabs">
+        @for (tab of tabs; track $index) {
+          <app-button
+            type="3"
+            [swap]="index() !== $index"
+            (click1)="setActiveTab($index)"
+          >
+            {{ tab.label }}
+          </app-button>
+        }
+      </div>
+
+      <div class="regex">
+        <app-pane
+          class="pane-constraint"
+          type="5"
+          swap="true"
+          outline="double"
+          [shadow]="false"
+          [background]="false"
+        >
+          <div class="regex-display-wrap">
+            @if (selectedRegex(); as regex) {
+              <div class="active">{{ regex }}</div>
+            } @else {
+              <div class="empty">Select a method</div>
+            }
+          </div>
+        </app-pane>
+
+        <app-checkbox
+          [formControl]="globalFlagControl"
+          label="Global search"
+        />
+      </div>
+    </div>
+  </app-pane>
+
+  <div class="printer">
+    @for (section of displayText(); track section.id) {
+      <span
+        [class.match]="section.type === 'match'"
+        [ngClass]="section.group"
+      >{{ section.content }}</span>
+    }
+  </div>
+
+</div>

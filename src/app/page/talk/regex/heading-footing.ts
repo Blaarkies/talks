@@ -6,15 +6,19 @@ export const regexHeadingFootingMap = new Map<string, string[]>([
     'LOADING...',
   ]],
   [regexSlideRouteNames.history, [
-    'CREATING A STANDARD',
+    'ORIGINS',
     'USE ARROW KEYS ← → TO ADVANCED FILM REEL',
   ]],
   [regexSlideRouteNames.basics, [
-    'MY FIRST MATCH',
+    'BASIC MATCHING',
     'USE ARROW KEYS ← → TO SELECT A PATTERN',
   ]],
   [regexSlideRouteNames.groups, [
-    'READING BETWEEN THE LINES',
+    'CAPTURE GROUP',
+    'USE ARROW KEYS ← → TO SELECT A PATTERN',
+  ]],
+  [regexSlideRouteNames.wildcards, [
+    'WILDCARDS',
     'USE ARROW KEYS ← → TO SELECT A PATTERN',
   ]],
 ]);

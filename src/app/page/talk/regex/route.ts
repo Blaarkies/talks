@@ -61,12 +61,11 @@ export const routes: Route[] = [
     loadComponent: () => import('@talk/regex/slide/capture-group/capture-group')
       .then(c => c.CaptureGroup),
   },
-  // {
-  //   path: 'test',
-  //   loadComponent: () => import('@talk/regex/slide/history/film-shot/modern-regex/modern-regex')
-  //     .then(c => c.ModernRegex),
-  //   data: {},
-  // },
+  {
+    path: regexSlideRouteNames.wildcards,
+    loadComponent: () => import('@talk/regex/slide/wildcard/wildcard')
+      .then(c => c.Wildcard),
+  },
 
   {
     path: '**',
