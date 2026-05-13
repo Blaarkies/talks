@@ -1,0 +1,8 @@
+<div class="printer">
+  @for (section of sections(); track section.id) {
+    <span
+      [class.match]="section.type === 'match'"
+      [ngClass]="section.group"
+    >{{ section.content }}</span>
+  }
+</div>

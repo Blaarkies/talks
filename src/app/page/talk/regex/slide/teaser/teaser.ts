@@ -30,7 +30,7 @@ import { startWith } from 'rxjs';
   styleUrl: './teaser.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SlideTeaser {
+export default class SlideTeaser {
 
   private book = getSizedMockText(80).replaceAll('\n\n', '\n');
   private bufferLines = 3; // total lines on screen at a time

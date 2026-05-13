@@ -1,65 +1,35 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
-  signal,
 } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { ReactiveFormsModule } from '@angular/forms';
 import {
-  FormControl,
-  ReactiveFormsModule,
-} from '@angular/forms';
-import { ButtonComponent } from '@app/common/component/button/button.component';
-import { PaneComponent } from '@app/common/component/pane/pane.component';
-import { matchSplitSimple } from '@talk/regex/common/match-split';
-import { mockTextIntFloat } from '@talk/regex/common/mock-text';
-import { Checkbox } from '@talk/regex/component/checkbox/checkbox';
+  getSizedMockText,
+  mockTextIntFloat,
+} from '@talk/regex/common/mock-text';
+import {
+  RegexChooser,
+  RegexEntry,
+} from '@talk/regex/component/regex-chooser/regex-chooser';
 
 @Component({
   selector: 'app-basic-matching',
   imports: [
-    ButtonComponent,
-    PaneComponent,
     ReactiveFormsModule,
-    Checkbox,
+    RegexChooser,
   ],
   templateUrl: './basic-matching.html',
   styleUrl: './basic-matching.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BasicMatching {
+export default class SlideBasicMatching {
 
-  private mockText = mockTextIntFloat.slice(0, 336);
-  private patterns = [
-    `Smith`,
-    `\\d+`,
-    `\\d+\\.\\d+`,
-  ];
+  protected mockText = getSizedMockText(70, mockTextIntFloat.slice(0, 336));
 
-  protected globalFlagControl = new FormControl(false);
-  private globalFlag = toSignal(this.globalFlagControl.valueChanges);
-  private regexFlags = computed(() => {
-    let flags = '';
-    if (this.globalFlag()) flags += 'g';
-    return flags;
-  });
-
-  protected index = signal(-1);
-  protected selectedRegex = computed(() => this.patterns[this.index()]);
-
-  protected tabs = [
-    {label: 'Ctrl+F Find'},
-    {label: 'Find Integer'},
-    {label: 'Find Decimal Number'},
-  ];
-
-  protected displayText = computed(() => {
-    const regex = new RegExp(this.selectedRegex(), this.regexFlags());
-    return matchSplitSimple(this.mockText, regex, this.index() * 100);
-  });
-
-  protected setActiveTab(index: number) {
-    this.index.set(index);
-  }
+  protected regexList = [
+    [`Smith`, 'Ctrl+F Find'],
+    [`\\d+`, 'Find Integer'],
+    [`\\d+\\.\\d+`, 'Find Decimal Number'],
+  ].map(([regex, label]) => (<RegexEntry>{regex, label}));
 
 }

@@ -21,4 +21,12 @@ export const regexHeadingFootingMap = new Map<string, string[]>([
     'WILDCARDS',
     'USE ARROW KEYS ← → TO SELECT A PATTERN',
   ]],
+  [regexSlideRouteNames.flags, [
+    'CONFIG FLAGS',
+    'USE ARROW KEYS ← → TO SELECT A FLAG',
+  ]],
+  [regexSlideRouteNames.pitfall, [
+    'PITFALL',
+    'USE ARROW KEYS ← → TO DODGE PITFALLS',
+  ]],
 ]);

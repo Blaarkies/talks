@@ -2,31 +2,12 @@ import { Route } from '@angular/router';
 
 export const regexSlideRouteNames = {
   teaser: 'intro',
-  // add hieroglyphics joke
-
   history: 'history',
-  //
-
   basics: 'my-first-match',
-  // ctrl+f example. find integer example. find float
-  // escape char, tell regex to not read it literally
-
   groups: 'groups-and-capturing',
-  // detect "n day/month/year ago". use dot*
-  // OR |
-  // Non-capturing groups (?: )
-
   wildcards: 'wildcard-selectors',
-  // \d and \D.
-  // \w \s \b
-  // [a-z]
-  // Quantifiers ? + * {2,} greedy
-
-  // flags: 'modifier-flags',
-  // Global / Multiline / case-Insensitive
-  // lookahead lookbehind + negative
-
-  // pitfall: 'pitfalls',
+  flags: 'modifier-flags',
+  pitfall: 'pitfalls',
   // 3	Missing anchors	        /abc/ finds "abc" anywhere	      Add ^ and $ for exact match
   // 5	Case sensitivity	      /cat/ misses "Cat"	              Add /i flag or use [Cc]at
   // 6	Wrong character class	  [a-z] doesn't match uppercase	    Use [a-zA-Z] or [a-z]i
@@ -44,27 +25,30 @@ export const routes: Route[] = [
   {
     path: regexSlideRouteNames.teaser,
     loadComponent: () => import('@talk/regex/slide/teaser/teaser')
-      .then(c => c.SlideTeaser),
   },
   {
     path: regexSlideRouteNames.history,
     loadComponent: () => import('@talk/regex/slide/history/history')
-      .then(c => c.SlideHistory),
   },
   {
     path: regexSlideRouteNames.basics,
     loadComponent: () => import('@talk/regex/slide/basic-matching/basic-matching')
-      .then(c => c.BasicMatching),
   },
   {
     path: regexSlideRouteNames.groups,
     loadComponent: () => import('@talk/regex/slide/capture-group/capture-group')
-      .then(c => c.CaptureGroup),
   },
   {
     path: regexSlideRouteNames.wildcards,
     loadComponent: () => import('@talk/regex/slide/wildcard/wildcard')
-      .then(c => c.Wildcard),
+  },
+  {
+    path: regexSlideRouteNames.flags,
+    loadComponent: () => import('@talk/regex/slide/flag/flag')
+  },
+  {
+    path: regexSlideRouteNames.pitfall,
+    loadComponent: () => import('@talk/regex/slide/pitfall/pitfall')
   },
 
   {

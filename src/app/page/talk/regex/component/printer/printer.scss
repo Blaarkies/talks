@@ -1,0 +1,24 @@
+.printer {
+  text-align: center;
+  font-family: PTMono;
+  white-space: pre;
+
+  .match {
+    --pad: .2ch;
+
+    &.a {
+      background: #ff0;
+      color: black;
+    }
+
+    &.b {
+      background: #fb0;
+      color: black;
+    }
+
+    &.c {
+      background: white;
+      color: black;
+    }
+  }
+}

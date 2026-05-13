@@ -1,0 +1,70 @@
+<div class="s-f-layout">
+  <div class="left-panel">
+
+    <div class="grid">
+      @for (tab of tabs; track tab.label) {
+        <button
+          class="anti-button sub-grid list-button"
+          [class.active]="index() === $index"
+          (click)="index.set($index)"
+        >
+          <div>{{ tab.label }}</div>
+          <div>{{ tab.flag }}</div>
+        </button>
+      }
+    </div>
+  </div>
+
+  <ng-template
+    #explainer
+    let-label="label"
+    let-flag="flag"
+    let-description="description"
+    let-test="test"
+    let-sectionsBefore="sectionsBefore"
+    let-sectionsAfter="sectionsAfter"
+  >
+    <div class="heading">
+      <div>{{ label }}</div>
+      <div class="flag">{{ flag }}</div>
+    </div>
+    <div class="description">{{ description }}</div>
+    <div>Pattern: {{test}}</div>
+    <app-printer [sections]="sectionsBefore"/>
+    <app-printer [sections]="sectionsAfter"/>
+  </ng-template>
+
+
+  <app-pixelation-book [activeIndex]="index()">
+
+    <ng-template>
+      <ng-container
+        [ngTemplateOutlet]="explainer"
+        [ngTemplateOutletContext]="tabs[0]"
+      />
+    </ng-template>
+
+    <ng-template>
+      <ng-container
+        [ngTemplateOutlet]="explainer"
+        [ngTemplateOutletContext]="tabs[1]"
+      />
+    </ng-template>
+
+    <ng-template>
+      <ng-container
+        [ngTemplateOutlet]="explainer"
+        [ngTemplateOutletContext]="tabs[2]"
+      />
+    </ng-template>
+
+    <ng-template>
+      <ng-container
+        [ngTemplateOutlet]="explainer"
+        [ngTemplateOutletContext]="tabs[3]"
+      />
+    </ng-template>
+
+  </app-pixelation-book>
+
+</div>

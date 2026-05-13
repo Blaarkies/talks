@@ -1,0 +1,71 @@
+.s-f-layout {
+  overflow: hidden;
+  height: 100%;
+  background: var(--color-back-1);
+  padding-top: var(--space-2);
+
+  display: grid;
+  grid-template-columns: max-content auto;
+  gap: var(--space-3);
+}
+
+.left-panel {
+  display: grid;
+  gap: var(--space-4);
+  align-content: start;
+
+  .grid {
+    display: grid;
+    grid-template-columns: auto max-content;
+    gap: var(--space-3) var(--space-4);
+
+    .sub-grid {
+      display: grid;
+      grid-column: 1/-1;
+      grid-template-columns: subgrid;
+
+      > div {
+        &:nth-child(1) {
+          justify-self: end;
+        }
+
+        &:nth-child(2) {
+          justify-self: center;
+        }
+      }
+
+    }
+  }
+}
+
+.list-button {
+  background: color-mix(in srgb, var(--base-color-12), #fff 40%);
+  padding: var(--space-2) var(--space-4);
+
+  transition: .3s steps(2);
+
+  &.active {
+    background: color-mix(in srgb, var(--base-color-12), #fff 0%);
+    color: var(--base-color-11);
+  }
+}
+
+.heading {
+  display: flex;
+  gap: var(--space-5);
+  font-size: var(--font-size-4);
+  justify-content: center;
+}
+
+.flag {
+  background: var(--base-color-11);
+  color: var(--base-color-4);
+  font-family: DejaVuSerif;
+  font-weight: var(--font-weight-5);
+
+  padding: 0 var(--space-4);
+}
+
+.description {
+
+}

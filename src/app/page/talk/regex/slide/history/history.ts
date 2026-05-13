@@ -32,7 +32,7 @@ import {
   styleUrl: './history.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SlideHistory {
+export default class SlideHistory {
 
   private window = inject(WA_WINDOW);
 
