@@ -25,7 +25,7 @@ import {
 } from '@app/common';
 import { RimComponent } from '@app/common/component/rim/rim.component';
 import { ClickerService } from '@app/page/mode-presentation/service/clicker.service';
-import { routeAnimations } from '@app/page/mode-presentation/slideshow/route-animations';
+import { routeAnimations } from '@app/page/mode-presentation/component/slideshow/route-animations';
 import {
   combineLatest,
   filter,

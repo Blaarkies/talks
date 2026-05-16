@@ -6,18 +6,21 @@
 
   display: grid;
   grid-template-columns: max-content auto;
+  grid-template-rows: max-content max-content;
+  align-content: center;
   gap: var(--space-3);
 }
 
 .left-panel {
   display: grid;
-  gap: var(--space-4);
-  align-content: start;
+  height: 100%;
 
   .grid {
     display: grid;
     grid-template-columns: auto max-content;
     gap: var(--space-3) var(--space-4);
+    grid-row: 1 / -1;
+    align-self: center;
 
     .sub-grid {
       display: grid;
@@ -39,33 +42,64 @@
 }
 
 .list-button {
-  background: color-mix(in srgb, var(--base-color-12), #fff 40%);
   padding: var(--space-2) var(--space-4);
 
   transition: .3s steps(2);
 
   &.active {
-    background: color-mix(in srgb, var(--base-color-12), #fff 0%);
+    background: color-mix(in srgb, var(--base-color-4), #fff 0%);
     color: var(--base-color-11);
   }
 }
 
-.heading {
-  display: flex;
+.explained {
+  padding-inline: var(--space-5);
+  display: grid;
+  align-content: center;
+  height: 100%;
   gap: var(--space-5);
-  font-size: var(--font-size-4);
-  justify-content: center;
-}
 
-.flag {
-  background: var(--base-color-11);
-  color: var(--base-color-4);
-  font-family: DejaVuSerif;
-  font-weight: var(--font-weight-5);
 
-  padding: 0 var(--space-4);
-}
+  .dual-col {
+    display: flex;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
+  }
 
-.description {
+  .background {
+    width: max-content;
+    height: 100%;
+    background: var(--base-color-11);
+    display: grid;
+  }
 
+  .flag {
+    color: var(--base-color-4);
+    font-family: DejaVuSerif;
+    font-size: var(--font-size-4);
+    font-weight: var(--font-weight-5);
+    padding: 0 var(--space-4);
+    align-self: center;
+  }
+
+  .description, .display {
+    max-width: 60ch;
+
+    .regex {
+      background: white;
+      margin-left: 1ch;
+      padding-inline: var(--space-3);
+    }
+  }
+
+  .separator {
+    width: 55ch;
+    height: 2px;
+    margin: auto;
+    background: #fff;
+  }
+
+  .padding {
+    margin-block: var(--space-4);
+  }
 }

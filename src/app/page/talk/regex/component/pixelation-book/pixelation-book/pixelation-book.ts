@@ -29,6 +29,7 @@ import { Pixelator } from '@talk/regex/component/pixelator/pixelator';
 export class PixelationBook {
 
   activeIndex = input(0);
+  skip = input(0);
 
   private pixelatorA = viewChild('pixelatorA', {read: Pixelator});
   private pixelatorB = viewChild('pixelatorB', {read: Pixelator});
@@ -47,7 +48,7 @@ export class PixelationBook {
     return safe;
   });
 
-  protected newPage = computed(() => this.pages()[this.safeIndex()]);
+  protected newPage = computed(() => this.pages()[this.safeIndex() + this.skip()]);
 
   protected pageA = signal<TemplateRef<HTMLElement>>(undefined);
   protected pageB = signal<TemplateRef<HTMLElement>>(undefined);

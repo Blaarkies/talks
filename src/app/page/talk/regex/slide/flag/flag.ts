@@ -2,8 +2,10 @@ import { NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  signal,
+  inject,
 } from '@angular/core';
+import { PaneComponent } from '@app/common/component/pane/pane.component';
+import { ClickerService } from '@app/page/mode-presentation/service/clicker.service';
 import { matchSplitGroup } from '@talk/regex/common/match-split';
 import {
   getSizedMockText,
@@ -18,6 +20,7 @@ import { Printer } from '@talk/regex/component/printer/printer';
     PixelationBook,
     NgTemplateOutlet,
     Printer,
+    PaneComponent,
   ],
   templateUrl: './flag.html',
   styleUrl: './flag.scss',
@@ -25,9 +28,8 @@ import { Printer } from '@talk/regex/component/printer/printer';
 })
 export default class SlideFlag {
 
+  private clickerService = inject(ClickerService);
   private text = getSizedMockText(60, mockTextA.slice(-154));
-
-  protected index = signal(0);
 
   protected tabs = [
     {
@@ -43,7 +45,7 @@ export default class SlideFlag {
       label: 'Case-insensitive', flag: 'i',
       description: 'Matches both uppercase and lowercase occurrences.',
       test: 'big',
-      sectionsBefore: '',
+      sectionsBefore: undefined,
       sectionsAfter: matchSplitGroup(this.text,
         new RegExp('big', 'i'), 0, 0),
     },
@@ -51,7 +53,7 @@ export default class SlideFlag {
       label: 'Dotall', flag: 's',
       description: 'Allows the dot(.) operator to match linefeed characters.',
       test: 'the.*follow',
-      sectionsBefore: '',
+      sectionsBefore: undefined,
       sectionsAfter: matchSplitGroup(this.text,
         new RegExp('the.*follow', 's'), 0, 0),
     },
@@ -59,10 +61,17 @@ export default class SlideFlag {
       label: 'Multiline', flag: 'm',
       description: 'Treats the input text as separate lines, each split between linefeed characters. This changes the behaviour of the line start/end ^ $ operators',
       test: 'the$',
-      sectionsBefore: '',
+      sectionsBefore: undefined,
       sectionsAfter: matchSplitGroup(this.text,
         new RegExp('the$', 'm'), 0, 0),
     },
   ];
+
+  protected step = inject(ClickerService).makeSafeStepperSignal(this.tabs.length - 1);
+
+  protected setActiveTab(index: number) {
+    const difference = index - this.step();
+    this.clickerService.autoStep(difference);
+  }
 
 }

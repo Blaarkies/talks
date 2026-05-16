@@ -4,7 +4,6 @@ import {
   inject,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { coerceBetween } from '@app/common';
 import { ClickerService } from '@app/page/mode-presentation/service/clicker.service';
 import { WA_WINDOW } from '@ng-web-apis/common';
 import { FilmRoll } from '@talk/regex/component/film-roll/film-roll';
@@ -20,7 +19,6 @@ import {
   map,
   merge,
   of,
-  scan,
   startWith,
   timer,
 } from 'rxjs';
@@ -60,17 +58,8 @@ export default class SlideHistory {
 
   protected beginAnimation = toSignal(timer(1500).pipe(map(() => true)));
 
-  protected step = toSignal(inject(ClickerService).stepAction$
-    .pipe(
-      startWith(null),
-      scan((acc, value) => {
-        const asNumber = value === 'left'
-                         ? -1 : value === 'right'
-                                ? 1 : 0;
-        const safeStep = coerceBetween(asNumber + acc,
-          0, this.filmShots.length - 1);
-        return safeStep;
-      }, 0)),
-  );
+  protected step = inject(ClickerService)
+    .makeSafeStepperSignal(this.filmShots.length - 1);
+
 
 }

@@ -21,16 +21,16 @@ import {
 export default class SlideCaptureGroup {
 
   protected mockText = `
-  249K views • 3 years ago
-  2M views • 11 months ago
-  31K views • 1 month ago
-  931 views • 6 days ago
+  249K views, 3 years ago
+  2M views, 11 months ago
+  31K views, 1 month ago
+  931 views, 6 days ago
   `.trim();
 
   protected regexList = [
     [`(\\d+ \\w+) ago`, 'Age'],
     [`(\\d+) (year|month|day)s? ago`, 'Separate'],
-    [`(\\d+)(K|M|G)? views • (?:\\d+)`, 'Non-Capture'],
+    [`(\\d+)(K|M|G)? views, (?:\\d+)`, 'Non-Capture'],
   ].map(([regex, label]) => (<RegexEntry>{regex, label}));
 
 }

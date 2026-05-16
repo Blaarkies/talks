@@ -2,19 +2,27 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  effect,
+  inject,
   input,
+  linkedSignal,
   signal,
 } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import {
+  toObservable,
+  toSignal,
+} from '@angular/core/rxjs-interop';
 import {
   FormControl,
   ReactiveFormsModule,
 } from '@angular/forms';
 import { ButtonComponent } from '@app/common/component/button/button.component';
 import { PaneComponent } from '@app/common/component/pane/pane.component';
+import { ClickerService } from '@app/page/mode-presentation/service/clicker.service';
 import { matchSplitGroup } from '@talk/regex/common/match-split';
 import { Checkbox } from '@talk/regex/component/checkbox/checkbox';
 import { Printer } from '@talk/regex/component/printer/printer';
+import { switchMap } from 'rxjs';
 
 export type RegexEntry = {
   regex: string
@@ -36,11 +44,20 @@ export type RegexEntry = {
 })
 export class RegexChooser {
 
+  private clickerService = inject(ClickerService);
+
   content = input.required<string>();
   regexList = input.required<RegexEntry[]>();
   skipGroupCount = input(0);
 
-  protected activeItem = signal<RegexEntry | undefined>(undefined);
+  private step = toSignal(
+    toObservable(this.regexList).pipe(
+      switchMap(({length}) => this.clickerService
+          .makeSafeStepperObservable(length - 1, -1))),
+  );
+
+  protected activeItem = computed(() =>
+    this.regexList()[this.step()]);
 
   protected globalFlagControl = new FormControl(false);
   private globalFlag = toSignal(this.globalFlagControl.valueChanges);
@@ -62,6 +79,9 @@ export class RegexChooser {
   });
 
   protected setActiveTab(item: RegexEntry) {
-    this.activeItem.set(item);
+    const index = this.regexList().indexOf(item);
+    const difference = index - this.step();
+
+    this.clickerService.autoStep(difference);
   }
 }

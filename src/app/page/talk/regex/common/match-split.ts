@@ -1,6 +1,6 @@
 import { makeNumberList } from '@app/common';
 
-type SplitSection = {
+export type SplitSection = {
   id: number
   type?: 'match'
   content: string

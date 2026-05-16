@@ -1,70 +1,43 @@
 <div class="s-f-layout">
   <div class="left-panel">
 
-    <div class="grid">
-      @for (tab of tabs; track tab.label) {
-        <button
-          class="anti-button sub-grid list-button"
-          [class.active]="index() === $index"
-          (click)="index.set($index)"
-        >
-          <div>{{ tab.label }}</div>
-          <div>{{ tab.flag }}</div>
-        </button>
-      }
-    </div>
+    <app-pane type="2">
+      <div class="grid">
+        @for (tab of tabs; track tab.label) {
+          <button
+            class="anti-button sub-grid list-button"
+            [class.active]="step() === $index"
+            (click)="setActiveTab($index)"
+          >
+            <div>{{ tab.label }}</div>
+            <div>{{ tab.flag }}</div>
+          </button>
+        }
+      </div>
+    </app-pane>
   </div>
 
-  <ng-template
-    #explainer
-    let-label="label"
-    let-flag="flag"
-    let-description="description"
-    let-test="test"
-    let-sectionsBefore="sectionsBefore"
-    let-sectionsAfter="sectionsAfter"
-  >
-    <div class="heading">
-      <div>{{ label }}</div>
-      <div class="flag">{{ flag }}</div>
-    </div>
-    <div class="description">{{ description }}</div>
-    <div>Pattern: {{test}}</div>
-    <app-printer [sections]="sectionsBefore"/>
-    <app-printer [sections]="sectionsAfter"/>
-  </ng-template>
+  @let tab = tabs[step()];
 
+  <div class="explained">
+    <app-pane type="2" [header]="tab.label" >
+      <div class="dual-col">
+        <div class="background"><div class="flag">{{ tab.flag }}</div></div>
+        <div class="description">{{ tab.description }}</div>
+      </div>
 
-  <app-pixelation-book [activeIndex]="index()">
+      <div class="display">Regex <span class="regex">{{ tab.test }}</span>
+      </div>
+    </app-pane>
 
-    <ng-template>
-      <ng-container
-        [ngTemplateOutlet]="explainer"
-        [ngTemplateOutletContext]="tabs[0]"
-      />
-    </ng-template>
+    <app-pane type="2" [swap]="true">
+      @if (tab.sectionsBefore) {
+        <app-printer [sections]="tab.sectionsBefore"/>
+        <div class="separator padding"></div>
+      }
 
-    <ng-template>
-      <ng-container
-        [ngTemplateOutlet]="explainer"
-        [ngTemplateOutletContext]="tabs[1]"
-      />
-    </ng-template>
-
-    <ng-template>
-      <ng-container
-        [ngTemplateOutlet]="explainer"
-        [ngTemplateOutletContext]="tabs[2]"
-      />
-    </ng-template>
-
-    <ng-template>
-      <ng-container
-        [ngTemplateOutlet]="explainer"
-        [ngTemplateOutletContext]="tabs[3]"
-      />
-    </ng-template>
-
-  </app-pixelation-book>
+      <app-printer [sections]="tab.sectionsAfter"/>
+    </app-pane>
+  </div>
 
 </div>

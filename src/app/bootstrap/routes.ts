@@ -16,7 +16,7 @@ export const routes: Routes = [
   {
     path: routeNames.present,
     loadComponent: () => import('../page/mode-presentation')
-      .then(m => m.ModePresentationComponent),
+      .then(m => m.ModePresentation),
     loadChildren: () => import('../page/mode-presentation')
       .then(m => m.routes),
   },

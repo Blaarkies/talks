@@ -26,7 +26,15 @@ export const regexHeadingFootingMap = new Map<string, string[]>([
     'USE ARROW KEYS ← → TO SELECT A FLAG',
   ]],
   [regexSlideRouteNames.pitfall, [
-    'PITFALL',
+    'PITFALLS',
     'USE ARROW KEYS ← → TO DODGE PITFALLS',
+  ]],
+  [regexSlideRouteNames.cheatSheet, [
+    'CHEAT SHEET',
+    'CALL IT SUPPORT TO USE PRINTER',
+  ]],
+  [regexSlideRouteNames.end, [
+    'THANK YOU',
+    'USE ↰ TO GO BACK TO MAIN MENU',
   ]],
 ]);

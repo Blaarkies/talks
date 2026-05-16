@@ -41,10 +41,10 @@ import {
     RouterLink,
   ],
   providers: [ClickerService],
-  templateUrl: './mode-presentation.component.html',
-  styleUrl: './mode-presentation.component.scss',
+  templateUrl: './mode-presentation.html',
+  styleUrl: './mode-presentation.scss',
 })
-export class ModePresentationComponent {
+export class ModePresentation {
 
   private storage = inject(WA_LOCAL_STORAGE);
   private keyWarning = 'tiny-screen-warning-accepted';

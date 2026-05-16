@@ -4,31 +4,27 @@ import {
   ElementRef,
   inject,
   input,
-  signal,
   viewChild,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import {
-  Router,
-  RouterLink,
-} from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { routeNames } from '@app/bootstrap/routes';
+import { PaneComponent } from '@app/common/component/pane/pane.component';
 import { toString as QrCodeToString } from 'qrcode';
 import { map } from 'rxjs';
-import { PaneComponent } from '../../../../../common/component/pane/pane.component';
-import { ClickerService } from '../../../../mode-presentation/service/clicker.service';
-import { PresenterNotesService } from '../../../../presenter-notes';
+import { PresenterNotesService } from '../../../presenter-notes';
+import { ClickerService } from '../../service/clicker.service';
 
 @Component({
-    selector: 'app-slide-end',
-    imports: [
-        PaneComponent,
-        RouterLink,
-    ],
-    templateUrl: './slide-end.component.html',
-    styleUrl: './slide-end.component.scss'
+  selector: 'app-slide-end',
+  imports: [
+    PaneComponent,
+    RouterLink,
+  ],
+  templateUrl: './slide-end.html',
+  styleUrl: './slide-end.scss',
 })
-export class SlideEndComponent {
+export default class SlideEnd {
 
   qrData = input.required<string>();
 

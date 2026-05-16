@@ -62,8 +62,7 @@ export const routes: Route[] = [
   },
   {
     path: compressionSlideRouteNames.end,
-    loadComponent: () => import( './slide/slide-end/slide-end.component')
-      .then(c => c.SlideEndComponent),
+    loadComponent: () => import( '@app/page/mode-presentation/component/slide-end/slide-end'),
     data: {qrData: 'blaarkies-talks.pages.dev/interactive/compression'},
   },
   {

@@ -30,10 +30,10 @@ export class Pixelator {
   protected id = inject(PIXELATOR_ID)();
   private stopAnimation$ = new Subject<void>();
 
-  private stepSize = 1.5;
-  private maxN = 10;
+  private stepSize = 2;
+  private maxN = 6;
   private midN = this.maxN * .45;
-  private interval = 250;
+  private interval = 300;
   private direction: 'out' | 'in' = 'in';
   private delay = 0;
 

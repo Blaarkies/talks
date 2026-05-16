@@ -8,47 +8,49 @@ export const regexSlideRouteNames = {
   wildcards: 'wildcard-selectors',
   flags: 'modifier-flags',
   pitfall: 'pitfalls',
-  // 3	Missing anchors	        /abc/ finds "abc" anywhere	      Add ^ and $ for exact match
-  // 5	Case sensitivity	      /cat/ misses "Cat"	              Add /i flag or use [Cc]at
-  // 6	Wrong character class	  [a-z] doesn't match uppercase	    Use [a-zA-Z] or [a-z]i
-  // 2	Unescaped special chars	.nl matches any char + nl	        Escape: \.
-  // 1	Greedy matching	        .* matches as much as possible    Use .*? for lazy matching
-  // 4	Overusing .*	          .*email.* is too broad	          Be specific: \w+@\w+\.\w+
-  // 8	Overengineering	        One giant pattern for everything	Split into smaller patterns
-  // 7	Engine differences	    Lookbehind fails in old JS	      Test in target environment
-
-  // cheatSheet: 'cheat-sheet',
-  // end: 'end-and-questions',
+  cheatSheet: 'cheat-sheet',
+  end: 'end-and-questions',
 };
 
 export const routes: Route[] = [
   {
     path: regexSlideRouteNames.teaser,
-    loadComponent: () => import('@talk/regex/slide/teaser/teaser')
+    loadComponent: () => import('@talk/regex/slide/teaser/teaser'),
   },
   {
     path: regexSlideRouteNames.history,
-    loadComponent: () => import('@talk/regex/slide/history/history')
+    loadComponent: () => import('@talk/regex/slide/history/history'),
   },
   {
     path: regexSlideRouteNames.basics,
-    loadComponent: () => import('@talk/regex/slide/basic-matching/basic-matching')
+    loadComponent: () => import('@talk/regex/slide/basic-matching/basic-matching'),
   },
   {
     path: regexSlideRouteNames.groups,
-    loadComponent: () => import('@talk/regex/slide/capture-group/capture-group')
+    loadComponent: () => import('@talk/regex/slide/capture-group/capture-group'),
   },
   {
     path: regexSlideRouteNames.wildcards,
-    loadComponent: () => import('@talk/regex/slide/wildcard/wildcard')
+    loadComponent: () => import('@talk/regex/slide/wildcard/wildcard'),
   },
   {
     path: regexSlideRouteNames.flags,
-    loadComponent: () => import('@talk/regex/slide/flag/flag')
+    loadComponent: () => import('@talk/regex/slide/flag/flag'),
   },
   {
     path: regexSlideRouteNames.pitfall,
-    loadComponent: () => import('@talk/regex/slide/pitfall/pitfall')
+    loadComponent: () => import('@talk/regex/slide/pitfall/pitfall'),
+  },
+
+  {
+    path: regexSlideRouteNames.cheatSheet,
+    loadComponent: () => import('@talk/regex/slide/cheat-sheet/cheat-sheet'),
+  },
+
+  {
+    path: regexSlideRouteNames.end,
+    loadComponent: () => import( '@app/page/mode-presentation/component/slide-end/slide-end'),
+    data: {qrData: 'blaarkies-talks.pages.dev/interactive/regex'},
   },
 
   {
