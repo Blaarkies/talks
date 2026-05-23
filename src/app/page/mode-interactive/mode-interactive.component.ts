@@ -14,7 +14,7 @@ import {
   filter,
   fromEvent,
 } from 'rxjs';
-import { RimComponent } from '../../common/component/rim/rim.component';
+import { RimComponent } from '@app/common/component/rim/rim.component';
 import {
   FontSizeService,
   SlideMode,

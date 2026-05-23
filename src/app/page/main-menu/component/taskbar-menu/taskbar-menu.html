@@ -1,0 +1,37 @@
+<div class="menu-bar" cdkMenuBar>
+  <button
+    #menuButton
+    class="dropdown-item"
+    cdkMenuItem
+    [cdkMenuTriggerFor]="options"
+  >
+
+    @for (s of headingSections(); track s.content) {
+      @if (s.highlight) {
+        <span class="hotkey">{{ s.content }}</span>
+      } @else {
+        <span>{{ s.content }}</span>
+      }
+    }
+  </button>
+</div>
+<ng-template #options>
+  <div class="dropdown-menu" cdkMenu>
+    @for (item of itemsSectioned(); track item.sections) {
+      <button
+        class="dropdown-item"
+        cdkMenuItem
+        (click)="itemClick.emit(item.index)"
+      >
+        @for (s of item.sections; track s.content) {
+          @if (s.highlight) {
+            <span class="hotkey">{{ s.content }}</span>
+          } @else {
+            <span>{{ s.content }}</span>
+          }
+        }
+      </button>
+    }
+
+  </div>
+</ng-template>
