@@ -27,7 +27,10 @@
 }
 
 .stiffy-holder {
+  font-family: PTMono;
   font-size: var(--font-size-2);
+  line-height: 1.1;
+  scale: .94;
   width: max-content;
   height: max-content;
   color: var(--stiffy-color);
@@ -77,14 +80,13 @@
 }
 
 %ascii-art {
-  font-family: IBM;
   font-size: var(--font-size-4);
 }
 
 .alice-desk {
   grid-area: alice;
 
-  > .stiffy-holder {
+  .desk > .stiffy-holder {
     width: 0;
     translate: 100%;
 
@@ -107,6 +109,8 @@
 .bobs-lines {
   display: grid;
   gap: calc(var(--gap-factor) * (1cap + 1ex));
+  line-height: 1;
+  font-family: 'PTMono';
 
   &.highlight {
     position: relative;
@@ -116,16 +120,17 @@
       width: 100%;
       height: calc(100% + 1em);
       position: absolute;
-      --size: -1ch;
-      padding: calc(-1 * var(--size));
-      inset: var(--size) var(--size);
+      --size: -32px;
+      padding: calc(-.4 * var(--size));
+      top: var(--size);
+      left: var(--size);
 
       @include mixin.make-key-frames(kf-add-border, border, none,
-        var(--border-width-5) double var(--color-text-highlight-danger));
+        1ch solid var(--color-text-highlight-danger));
       @include mixin.make-key-frames(kf-opacity-toggle, opacity, 0, 1);
 
       animation: kf-add-border 0s 1s forwards,
-      kf-opacity-toggle 1s 3s alternate infinite steps(2);
+      kf-opacity-toggle 1s 1s alternate infinite steps(2, jump-none);
     }
   }
 }

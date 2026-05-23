@@ -33,9 +33,4 @@ export const routes: Route[] = [
       headingFootingMap: regexHeadingFootingMap,
     },
   },
-  // {
-  //   path: routeNames.imageProcessing,
-  //   loadComponent: () => import( '../talk/compress/text-entropy-measure/text-entropy-measure.component')
-  //     .then(c => c.TextEntropyMeasureComponent),
-  // },
 ];

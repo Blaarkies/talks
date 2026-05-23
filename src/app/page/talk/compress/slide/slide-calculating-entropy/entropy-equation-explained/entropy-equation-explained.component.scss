@@ -1,5 +1,5 @@
 .equation {
-  font-family: math;
+  font-family: LiberationSerif;
   font-size: var(--font-size-5);
   margin-bottom: 1em;
 
@@ -46,21 +46,21 @@
 }
 
 .show-1 {
-  --x1: 11ch;
-  --x2: 15ch;
+  --x1: 11.5ch;
+  --x2: 15.5ch;
 }
 
 .show-2 {
-  --x1: 15.5ch;
-  --x2: 23ch;
+  --x1: 16.5ch;
+  --x2: 25ch;
 }
 
 .show-3 {
-  --x1: 11ch;
-  --x2: 23ch;
+  --x1: 11.5ch;
+  --x2: 25ch;
 }
 
 .show-4 {
   --x1: 8ch;
-  --x2: 23ch;
+  --x2: 25ch;
 }

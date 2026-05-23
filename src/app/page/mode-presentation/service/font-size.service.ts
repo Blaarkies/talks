@@ -27,9 +27,9 @@ export class FontSizeService {
 
   constructor() {
     let stringMode = this.storage.getItem(this.storageKey);
-    let result = stringMode === SlideMode.interactive.toString()
-                 ? SlideMode.interactive
-                 : SlideMode.presentation;
+    let result = stringMode === SlideMode.presentation.toString()
+                 ? SlideMode.presentation
+                 : SlideMode.interactive;
     this.setSlideMode(result);
   }
 

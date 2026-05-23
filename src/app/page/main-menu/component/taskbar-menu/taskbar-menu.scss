@@ -1,0 +1,46 @@
+@use '../../style/fix';
+
+.menu-option {
+  cursor: pointer;
+  padding: 0 1ch;
+  white-space: break-spaces;
+
+  &:hover {
+    background-color: var(--base-color-8);
+  }
+}
+
+.dropdown-item {
+  @extend .menu-option;
+  @extend .anti-button;
+
+  text-align: left;
+
+  .highlight {
+    color: var(--color-text-danger);
+  }
+
+  .hotkey {
+    text-decoration: underline;
+    color: var(--color-text-danger);
+  }
+
+  &[aria-expanded='true'] {
+    background-color: var(--base-color-8);
+  }
+}
+
+.menu-bar .dropdown-item {
+  width: max-content;
+}
+
+.dropdown-menu {
+  font-family: IBM;
+  font-size: var(--font-size-3);
+
+  display: grid;
+  padding-block: 3px;
+  gap: 4px;
+  width: max-content;
+  background: var(--color-pane-1);
+}
