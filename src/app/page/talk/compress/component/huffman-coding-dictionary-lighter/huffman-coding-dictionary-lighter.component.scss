@@ -4,6 +4,7 @@
   gap: 1ch 2ch;
 
   .tile {
+    font-family: PTMono;
     text-align: center;
     background: var(--base-color-4);
     padding: .5ch 1ch;
@@ -14,6 +15,10 @@
     &.is-lit {
       background: var(--base-color-11);
       color: var(--base-color-4);
+    }
+
+    >:first-child {
+      border-bottom: 2px solid #fff7;
     }
   }
 }
