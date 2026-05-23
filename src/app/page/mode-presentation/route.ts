@@ -14,8 +14,7 @@ export const routes: Route[] = [
   {
     path: slideRouteNames.compression,
     loadComponent:
-      () => import('@app/page/mode-presentation/component/slideshow/slideshow')
-        .then(c => c.Slideshow),
+      () => import('@app/page/mode-presentation/component/slideshow/slideshow'),
     loadChildren: () => import( '../talk/compress/route')
       .then(c => c.routes),
     data: {
@@ -26,8 +25,7 @@ export const routes: Route[] = [
   {
     path: slideRouteNames.regex,
     loadComponent:
-      () => import('@app/page/mode-presentation/component/slideshow/slideshow')
-        .then(c => c.Slideshow),
+      () => import('@app/page/mode-presentation/component/slideshow/slideshow'),
     loadChildren: () => import( '@app/page/talk/regex/route')
       .then(c => c.routes),
     data: {

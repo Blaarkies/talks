@@ -1,4 +1,3 @@
-import { NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -11,14 +10,11 @@ import {
   getSizedMockText,
   mockTextA,
 } from '@talk/regex/common/mock-text';
-import { PixelationBook } from '@talk/regex/component/pixelation-book/pixelation-book/pixelation-book';
 import { Printer } from '@talk/regex/component/printer/printer';
 
 @Component({
   selector: 'app-flag',
   imports: [
-    PixelationBook,
-    NgTemplateOutlet,
     Printer,
     PaneComponent,
   ],

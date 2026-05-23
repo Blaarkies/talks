@@ -43,6 +43,14 @@
     .active {
       font-weight: bold;
       font-size: 50px;
+
+      &::selection {
+        color: var(--base-color-11);
+        text-shadow: black 2px 2px 2px,
+        black -2px 2px 2px,
+        black -2px -2px 2px,
+        black 2px -2px 2px;
+      }
     }
 
     .empty {

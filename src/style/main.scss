@@ -1,9 +1,9 @@
 @use 'mixin';
 @use 'variable-sets';
+@use './fix';
+@use './font';
 
 @import '@angular/cdk/overlay-prebuilt.css';
-@import './fix';
-@import './font';
 
 // @formatter:off
 :root {

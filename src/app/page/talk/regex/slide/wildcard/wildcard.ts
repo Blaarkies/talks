@@ -26,9 +26,9 @@ export default class SlideWildcard {
     .join('\n');
 
   protected regexList = [
-    [`.*`, 'Wildcard'],
     [`\\d*`, 'Digit'],
     [`\\w*`, 'Alphanumeric'],
+    [`.*`, 'Wildcard'],
     [`[0-4]+`, 'Custom Number'],
     [`[A-Z]+`, 'Custom Letters'],
     [`\\d{2}`, 'Quantifier'],

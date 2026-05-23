@@ -45,7 +45,7 @@ import {
   animations: [routeAnimations],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Slideshow {
+export default class Slideshow {
 
   private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);

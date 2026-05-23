@@ -1,1 +1,39 @@
-<p>cheat-sheet works!</p>
+<div class="s-c-s-layout">
+
+
+  <div class="col2">
+<pre>
+. Anything except linefeed
+\d digit
+\w alphanumeric
+\s whitespace
+\b word boundary
+\D Non-digit
+  \W \S \B ...
+\. Escaped dot
+Escape any special chars
+ to find literal matches
+  \+ \? \! \( ...
+
+[aeiou] Custom character class
+[0-9]
+[^a] Any character except "a"
+</pre>
+    <pre>
+a? Once or none
+a+ Multiple
+a* Zero or multiple
+a&lbrace;2&rbrace; Twice
+a&lbrace;1,3&rbrace; 1-3 times
+a&lbrace;,5&rbrace; Up to 5 times
+a&lbrace;4,&rbrace; At least 4 times
+a+? Makes quantifier lazy
+
+(week|month) Capturing group,
+ either "abc" or "xyz"
+(?:day) Non-capturing group
+
+https://techearl.com/regex-cheat-sheet
+</pre>
+  </div>
+</div>
