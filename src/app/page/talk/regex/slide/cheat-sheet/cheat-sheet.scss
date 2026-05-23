@@ -1,0 +1,10 @@
+.s-c-s-layout {
+  height: 100%;
+  background: var(--color-back-9);
+  padding: var(--space-5);
+
+  .col2 {
+    display: flex;
+    gap: var(--space-5);
+  }
+}

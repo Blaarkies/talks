@@ -10,9 +10,6 @@
     max-width: 90vw;
     translate: -1ch;
     display: grid;
-//    grid-template:
-//'input  dictionary'
-//'output dictionary';
     grid-template:
 'input  '
 'dictionary'
@@ -35,8 +32,12 @@
   }
 }
 
+.inputs-stack {
+  display: grid;
+}
+
 .text-list {
-  margin-top: 1em;
+  margin-top: .5em;
   display: flex;
   gap: 1ch;
 

@@ -1,0 +1,43 @@
+<div class="s-f-layout">
+  <div class="left-panel">
+
+    <app-pane type="2">
+      <div class="grid">
+        @for (tab of tabs; track tab.label) {
+          <button
+            class="anti-button sub-grid list-button"
+            [class.active]="step() === $index"
+            (click)="setActiveTab($index)"
+          >
+            <div>{{ tab.label }}</div>
+            <div>{{ tab.flag }}</div>
+          </button>
+        }
+      </div>
+    </app-pane>
+  </div>
+
+  @let tab = tabs[step()];
+
+  <div class="explained">
+    <app-pane type="2" [header]="tab.label" >
+      <div class="dual-col">
+        <div class="background"><div class="flag">{{ tab.flag }}</div></div>
+        <div class="description">{{ tab.description }}</div>
+      </div>
+
+      <div class="display">Regex <span class="regex">{{ tab.test }}</span>
+      </div>
+    </app-pane>
+
+    <app-pane type="2" [swap]="true">
+      @if (tab.sectionsBefore) {
+        <app-printer [sections]="tab.sectionsBefore"/>
+        <div class="separator padding"></div>
+      }
+
+      <app-printer [sections]="tab.sectionsAfter"/>
+    </app-pane>
+  </div>
+
+</div>

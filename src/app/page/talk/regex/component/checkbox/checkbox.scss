@@ -1,0 +1,34 @@
+.input-container {
+  display: flex;
+  align-items: center;
+
+  input[type="checkbox"] {
+    & ~ label[for] {
+      cursor: pointer;
+      padding-left: var(--space-3);
+    }
+
+    all: unset;
+    appearance: none;
+
+    cursor: pointer;
+    width: 40px;
+    aspect-ratio: 1;
+    border: 2px solid currentColor;
+
+    &:checked {
+      position: relative;
+
+      &:after {
+        content: '';
+        position: absolute;
+        background: currentColor;
+
+        --gutter: 20%;
+        inset: var(--gutter);
+        width: calc(100% - var(--gutter) * 2);
+        aspect-ratio: 1;
+      }
+    }
+  }
+}

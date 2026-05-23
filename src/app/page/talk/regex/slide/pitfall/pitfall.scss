@@ -1,0 +1,52 @@
+.s-p-layout {
+  overflow: hidden;
+  height: 100%;
+  background: var(--color-back-6);
+  padding-top: var(--space-2);
+
+  position: relative;
+}
+
+.pitfalls-table {
+  width: 70%;
+  height: 100%;
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: 17ch auto auto;
+  grid-auto-rows: max-content;
+  gap: var(--space-3);
+
+  align-content: center;
+
+  .header, .row {
+    padding: var(--space-3) var(--space-4);
+    display: grid;
+    grid-column: 1/-1;
+    grid-template-columns: subgrid;
+    gap: var(--space-5);
+  }
+
+  .header {
+    text-align: center;
+    font-family: PTMono;
+    font-size: var(--font-size-4);
+  }
+
+  .row {
+  }
+
+  > :nth-child(2n):not(.selected) {
+    background: color-mix(in srgb, var(--base-color-8), transparent 75%);
+  }
+}
+
+.is-regex {
+  background: var(--base-color-15);
+  padding-inline: var(--space-3);
+  white-space: nowrap;
+}
+
+.selected {
+  background: var(--base-color-10);
+}

@@ -1,0 +1,44 @@
+<app-button class="top-left" (click1)="backward()">&lt;</app-button>
+<app-button class="top-right" (click1)="forward()">&gt;</app-button>
+<app-button class="bottom-right" (click1)="quit()">↰</app-button>
+
+<div
+  class="top-right steps"
+  [style.top.px]="headerHeight() - 2"
+>
+  <app-button [type]="1" (click1)="left()">&lt;</app-button>
+  <app-button [type]="1" (click1)="right()">&gt;</app-button>
+</div>
+
+<router-outlet (activate)="setHeaderHeight($event)"/>
+
+@if (isMobile() && !warningAccepted()) {
+  <div class="is-mobile-warning" (click)="setTinyScreenWarning()">
+    <div class="name">Windows</div>
+    <div class="message">
+      <p>An error has occurred.</p>
+
+      <p>
+        Insufficient screen size: Presentation mode is designed for
+        large desktop monitor presentations.
+      </p>
+
+      <p>Mobile devices are not supported.</p>
+
+      <p
+        class="back-to-main-menu"
+        (click)="linkToBack.click()"
+      >Click here or press BACKSPACE to
+        <a
+          #linkToBack
+          class="anti-a bsod-a"
+          [routerLink]="['../', routeMainMenu]"
+          (click)="$event.stopPropagation()"
+        >go back to main menu</a></p>
+
+    </div>
+    <div class="action">
+      <p>Press any key to continue <span class="blinking">_</span></p>
+    </div>
+  </div>
+}

@@ -1,0 +1,17 @@
+<div class="stack">
+  <div>
+    <app-pixelator #pixelatorA>
+      @if (pageA()) {
+        <ng-container [ngTemplateOutlet]="pageA()"/>
+      }
+    </app-pixelator>
+  </div>
+
+  <div>
+    <app-pixelator #pixelatorB>
+      @if (pageB()) {
+        <ng-container [ngTemplateOutlet]="pageB()"/>
+      }
+    </app-pixelator>
+  </div>
+</div>

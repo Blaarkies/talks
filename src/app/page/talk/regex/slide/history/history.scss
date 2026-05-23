@@ -1,0 +1,8 @@
+.s-h-layout {
+  overflow: hidden;
+  background: radial-gradient(ellipse 100vh 100vw,
+    var(--color-back-5), #110);
+
+  height: 100%; // limit film-roll height to fit page
+  position: relative; // propagate this height to children
+}

@@ -1,13 +1,14 @@
 <div class="s-t-layout">
 
   <app-pane
-    header="Origin"
+    header="Source"
     [type]="2"
     class="alice-desk"
   >
-    <div class="desk alice-desk">
+    <div class="desk">
       <div #alicesStiffy class="stiffy-holder">
-        <div>{{ stiffyText() }}</div></div>
+        <div>{{ stiffyText() }}</div>
+      </div>
       <div>10 MB</div>
       <div #aliceGhost class="ghost">
         <ng-container [ngTemplateOutlet]="ghostlyStiffy"/>
@@ -25,7 +26,7 @@
       <div
         #bobsStiffy
         class="bobs-lines"
-        [class.highlight]="animationIndex()===3"
+        [class.highlight]="animationIndex() === 3"
       >
         @for (line of stiffyDecompressed(); track line) {
           <div class="stiffy-line">{{ line }}</div>

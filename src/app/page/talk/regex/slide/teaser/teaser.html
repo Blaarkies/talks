@@ -1,0 +1,37 @@
+<div class="s-t-layout">
+
+  <div class="heading">REGEX</div>
+
+  <div class="printer">
+    @for (item of items(); track item.id) {
+      <span
+        [class.match]="item.type === 'match'"
+        [class.cursor]="item.type === 'cursor'"
+      >{{ item.content }}</span>
+    }
+  </div>
+
+  <div class="ledger-section" [class.hide]="hideLedger()">
+    <app-pane outline="double" type="5" swap="true">
+      <div class="ledger-book">
+        @for (category of categories(); track category.title) {
+          <div
+            class="ledger"
+            [class.hide]="category.hide"
+            [class.border-line-left]="!$first"
+          >
+            <div class="title">{{ category.title }}</div>
+            <ul>
+              @for (match of category.matches; track match.label + $index) {
+                <li [class.hide]="match.hide">
+                  - {{ match.label }}
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+    </app-pane>
+  </div>
+
+</div>

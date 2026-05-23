@@ -1,0 +1,23 @@
+<span
+  [style.filter]="'url(#'+id+')'"
+>
+  <ng-content/>
+</span>
+
+<svg class="display-none">
+  <defs>
+    <filter [attr.id]="id">
+      <feMorphology
+        operator="dilate"
+        [attr.radius]="dilateRadius()"
+        result="dilated"
+      />
+      <feMorphology
+        operator="erode"
+        [attr.radius]="erodeRadius()"
+        in="dilated"
+        result="eroded"
+      />
+    </filter>
+  </defs>
+</svg>

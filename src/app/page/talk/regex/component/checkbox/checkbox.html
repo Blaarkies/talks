@@ -1,0 +1,11 @@
+<div class="input-container">
+  <input
+    type="checkbox"
+    id="control"
+    [checked]="checked()"
+    [disabled]="disabled()"
+    #input
+    (change)="onInputChange(input.checked)"
+  />
+  <label for="control">{{label()}}</label>
+</div>

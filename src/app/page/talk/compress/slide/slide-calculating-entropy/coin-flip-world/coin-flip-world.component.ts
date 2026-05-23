@@ -34,7 +34,7 @@ import {
 import {
   average,
   makeNumberList,
-  pairItems,
+  zipLists,
 } from '../../../../../../common';
 import { ButtonComponent } from '../../../../../../common/component/button/button.component';
 
@@ -280,7 +280,7 @@ export class CoinFlipWorldComponent {
     let fixtures = fixturesFromList(wallsBody.GetFixtureList());
 
     let boxPosition = fixtures[0].GetBody().GetPosition();
-    let pairs = pairItems<[HTMLDivElement, b2Fixture]>(wallElements, fixtures);
+    let pairs = zipLists<[HTMLDivElement, b2Fixture]>(wallElements, fixtures);
 
     for (let [div, fixture] of pairs) {
       let {vertices, centroid} = fixture.GetUserData() as {

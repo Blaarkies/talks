@@ -1,0 +1,53 @@
+<div class="layout">
+
+  <app-pane
+    class="pane-constraint tabs-container"
+    type="5"
+    swap="true"
+    outline="single"
+    [shadow]="false"
+    [background]="false"
+  >
+    <div class="gaps">
+
+      <div class="tabs">
+        @for (item of regexList(); track $index) {
+          <app-button
+            type="3"
+            [swap]="activeItem() !== item"
+            (click1)="setActiveTab(item)"
+          >
+            {{ item.label }}
+          </app-button>
+        }
+      </div>
+
+      <div class="regex">
+        <app-pane
+          class="pane-constraint"
+          type="5"
+          swap="true"
+          outline="double"
+          [shadow]="false"
+          [background]="false"
+        >
+          <div class="regex-display-wrap">
+            @if (activeItem(); as item) {
+              <div class="active">{{ item.regex }}</div>
+            } @else {
+              <div class="empty">Select a method</div>
+            }
+          </div>
+        </app-pane>
+
+        <app-checkbox
+          [formControl]="globalFlagControl"
+          label="Global search"
+        />
+      </div>
+    </div>
+  </app-pane>
+
+  <app-printer [sections]="displayText()"/>
+
+</div>

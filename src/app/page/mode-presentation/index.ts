@@ -1,6 +1,6 @@
 import { Signal } from '@angular/core';
 
-export { ModePresentationComponent } from './mode-presentation.component';
+export { ModePresentation } from './mode-presentation';
 export { routes } from './route';
 
 export interface HasRimHeader {

@@ -1,0 +1,37 @@
+<div class="s-p-layout">
+  <div class="pitfalls-table">
+    <div class="header">
+      <div>Problem</div>
+      <div>Description</div>
+      <div>Solution</div>
+    </div>
+
+    @for (pf of pitfalls; track pf.problem) {
+      <div
+        class="row"
+        [class.selected]="$index === step()"
+        (pointerenter)="setActiveTab($index)"
+      >
+        <div>{{ pf.problem }}</div>
+        <ng-container
+          [ngTemplateOutlet]="print"
+          [ngTemplateOutletContext]="{list: pf.description}"
+        />
+
+        <ng-container
+          [ngTemplateOutlet]="print"
+          [ngTemplateOutletContext]="{list: pf.solution}"
+        />
+      </div>
+    }
+  </div>
+
+</div>
+
+<ng-template #print let-list="list">
+  <div>@for (s of list; track s.id) {
+    <span
+      [class.is-regex]="s.type === 'match'"
+    >{{ s.content }}</span>&nbsp;
+  }</div>
+</ng-template>
