@@ -3,6 +3,7 @@ import {
   Component,
   computed,
   DestroyRef,
+  effect,
   inject,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -12,6 +13,8 @@ import {
   windowed,
 } from '@app/common';
 import { PaneComponent } from '@app/common/component/pane/pane.component';
+import { ClickerService } from '@app/page/mode-presentation/service/clicker.service';
+import { PresenterNotesService } from '@app/page/presenter-notes';
 import { getSizedMockText } from '@talk/regex/common/mock-text';
 import { TempoGenerator } from '@talk/regex/slide/teaser/tempo-generator';
 import {
@@ -111,6 +114,10 @@ export default class SlideTeaser {
     const indexFirstLine = coerceAtLeast(indexLastLine - this.bufferLines + 1);
     return this.eolPositions[indexFirstLine - 1] ?? 0;
   });
+
+  constructor() {
+    inject(PresenterNotesService).setSlide(1, 0);
+  }
 
   // TODO: better to preprocess all sections, then walk through them to reduce
   // DOM updates
