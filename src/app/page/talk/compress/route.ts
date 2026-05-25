@@ -45,11 +45,11 @@ export const routes: Route[] = [
     loadComponent: () => import( './slide/slide-huffman-coding-tree/slide-huffman-coding-tree.component')
       .then(c => c.SlideHuffmanCodingTreeComponent),
   },
-  {
-    path: compressionSlideRouteNames.aiAndCompression,
-    loadComponent: () => import( './slide/slide-ai-and-compression/slide-ai-and-compression.component')
-      .then(c => c.SlideAiAndCompressionComponent),
-  },
+  // {
+  //   path: compressionSlideRouteNames.aiAndCompression,
+  //   loadComponent: () => import( './slide/slide-ai-and-compression/slide-ai-and-compression.component')
+  //     .then(c => c.SlideAiAndCompressionComponent),
+  // },
   {
     path: compressionSlideRouteNames.lzw,
     loadComponent: () => import( './slide/slide-lzw/slide-lzw.component')

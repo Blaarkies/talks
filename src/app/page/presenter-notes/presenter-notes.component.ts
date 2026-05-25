@@ -3,6 +3,7 @@ import {
   computed,
   effect,
   inject,
+  linkedSignal,
   model,
   signal,
 } from '@angular/core';
@@ -49,7 +50,19 @@ let tagStep = '>';
 })
 export class PresenterNotesComponent {
 
-  protected maxSecondsAllowed = signal(60 * 30);
+  protected maxSecondsAllowed = linkedSignal(() => {
+    const notes = this.inputNotesScript();
+    const timeString = notes.match(/#time-(.+)\s/)?.[1];
+    const [_, h,m,s] = timeString?.match(/(\d+h)?(\d+m)?(\d+s)?/) ?? [];
+
+    const seconds =
+        Number(s?.slice(0, -1) ?? 0)
+      + Number(m?.slice(0, -1) ?? 0) * 60
+      + Number(h?.slice(0, -1) ?? 0) * 3600;
+
+    return seconds || (60 * 30);
+  });
+
   protected maxMinutesAllowed = computed(() =>
     Math.floor(this.maxSecondsAllowed() / 60));
 
@@ -82,13 +95,14 @@ export class PresenterNotesComponent {
   protected lastUsedScript = signal<string | null>(null);
   protected inputNotesScript = model<string>();
   protected heading = computed(() => {
-    let notes = this.notes();
-    let slideStep = this.currentSlideStep();
+    const notes = this.notes();
+    const slideStep = this.currentSlideStep();
     if (!notes || !slideStep || !isArray(slideStep)) {
       return;
     }
-    let key = slideStep[0];
-    return `${key}: ${notes[tagSlide + key].name}`;
+    const key = slideStep[0];
+    const note = notes[tagSlide + key];
+    return note ? `${key}: ${note.name}` : `Error: No notes for [${key}]`;
   });
 
   protected currentNotes = computed(() => {
@@ -124,9 +138,13 @@ export class PresenterNotesComponent {
       return;
     }
 
-    let scriptTrimmed = script.trim();
-    let slides = scriptTrimmed.slice();
-    let notes = slides.trim().split(tagSlide)
+    const scriptTrimmed = script.trim();
+    const timeString = scriptTrimmed.match(/#time-(.+)\s/)?.[1];
+
+    const timeDefinition = timeString?.length ?? 0;
+    const scriptNoTime = scriptTrimmed.slice(timeDefinition);
+
+    const notes = scriptNoTime.split(tagSlide)
       .filter(s => s && s.trim() !== sep)
       .map(section => {
         let [index, ...notTag] = section.split(' ');
@@ -165,7 +183,7 @@ export class PresenterNotesComponent {
       this.lastUsedScript.set(newScript);
 
       this.resetTimer();
-    }, {allowSignalWrites: true});
+    });
   }
 
   protected resetTimer() {

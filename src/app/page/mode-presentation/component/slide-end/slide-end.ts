@@ -60,7 +60,7 @@ export default class SlideEnd {
         });
     });
 
-    inject(PresenterNotesService).setSlide(10, 0);
+    inject(PresenterNotesService).setSlide('end', 0);
   }
 
 }

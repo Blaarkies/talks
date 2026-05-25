@@ -2,9 +2,11 @@ import { NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
   inject,
 } from '@angular/core';
 import { ClickerService } from '@app/page/mode-presentation/service/clicker.service';
+import { PresenterNotesService } from '@app/page/presenter-notes';
 import { SplitSection } from '@talk/regex/common/match-split';
 
 function section(content: string, highlight = false): SplitSection {
@@ -100,5 +102,11 @@ export default class SlidePitfall {
     const difference = index - this.step();
     this.clickerService.autoStep(difference);
   }
+
+  constructor() {
+    const presenterNotesService = inject(PresenterNotesService);
+    effect(() => presenterNotesService.setSlide(7, this.step()));
+  }
+
 
 }

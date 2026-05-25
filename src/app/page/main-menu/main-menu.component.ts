@@ -1,16 +1,8 @@
 import {
-  CdkMenu,
-  CdkMenuBar,
-  CdkMenuItem,
-  CdkMenuTrigger,
-} from '@angular/cdk/menu';
-import {
   Component,
   computed,
-  ElementRef,
   inject,
   signal,
-  viewChild,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
@@ -18,12 +10,12 @@ import {
   RouterLink,
 } from '@angular/router';
 import { routeNames } from '@app/bootstrap/routes';
+import { PaneComponent } from '@app/common/component/pane/pane.component';
+import { RimComponent } from '@app/common/component/rim/rim.component';
+import { TaskbarMenu } from '@app/page/main-menu/component/taskbar-menu/taskbar-menu';
+import { HotkeyLabel } from '@app/page/main-menu/component/taskbar-menu/type';
 import { WA_WINDOW } from '@ng-web-apis/common';
 import { fromEvent } from 'rxjs';
-import { ButtonComponent } from '../../common/component/button/button.component';
-import { PaneComponent } from '../../common/component/pane/pane.component';
-import { RimComponent } from '../../common/component/rim/rim.component';
-import { makeScreenSelectorSignal } from '../../common/function/screen-size';
 import {
   FontSizeService,
   SlideMode,
@@ -35,35 +27,52 @@ import {
 } from './data/navigation-options';
 
 @Component({
-    selector: 'app-main-menu',
-    imports: [
-        RouterLink,
-        PaneComponent,
-        RimComponent,
-        CdkMenuTrigger,
-        CdkMenuBar,
-        CdkMenuItem,
-        CdkMenu,
-        ButtonComponent,
-    ],
-    templateUrl: './main-menu.component.html',
-    styleUrl: './main-menu.component.scss'
+  selector: 'app-main-menu',
+  imports: [
+    RouterLink,
+    PaneComponent,
+    RimComponent,
+    TaskbarMenu,
+  ],
+  templateUrl: './main-menu.component.html',
+  styleUrl: './main-menu.component.scss',
 })
 export class MainMenuComponent {
+
+  private fontSizeService = inject(FontSizeService);
+  protected mode = this.fontSizeService.slideMode;
+
+  private router = inject(Router);
 
   protected routeNames = routeNames;
   protected slideMode = SlideMode;
   protected navigations = signal(navigationOptions);
   protected navigationsList = computed(() => Object.values(this.navigations()));
   protected selectedOption = signal<NavigationOption>(null);
-  protected isMobile = makeScreenSelectorSignal();
   protected isQuit = signal(false);
+  protected optionsMenu = computed(() => {
+    const p = this.mode() === SlideMode.presentation;
 
-  private fontSizeService = inject(FontSizeService);
-  protected mode = this.fontSizeService.slideMode;
+    let presentation: HotkeyLabel = [' Presentation', 1];
+    let interactive: HotkeyLabel = [' Interactive', 1];
 
-  private menuButton = viewChild<ElementRef<HTMLButtonElement>>('menuButton');
-  private router = inject(Router);
+    if (p) {
+      const [s, i] = presentation;
+      presentation = ['▸' + s.slice(1), i];
+    } else {
+      const [s, i] = interactive;
+      interactive = ['▸' + s.slice(1), i];
+    }
+
+    return {
+      title: <HotkeyLabel>['Options', 0],
+      items: <HotkeyLabel[]>[
+        presentation,
+        interactive,
+        [' Quit', 1],
+      ],
+    };
+  });
 
   constructor() {
     this.fontSizeService.updateFontSize();
@@ -108,17 +117,22 @@ export class MainMenuComponent {
       }
       return;
     }
+  }
 
-    if (event.key === 'o') {
-      this.menuButton().nativeElement.click();
-    }
-
-    if (event.key === 'i') {
-      this.setSlideMode(SlideMode.interactive);
-    }
-
-    if (event.key === 'p') {
-      this.setSlideMode(SlideMode.presentation);
+  protected optionsMenuClick(index: number) {
+    switch (index) {
+      case 0:
+        this.setSlideMode(SlideMode.presentation);
+        break;
+      case 1:
+        this.setSlideMode(SlideMode.interactive);
+        break;
+      case 2:
+        this.isQuit.update(v => !v);
+        break;
+      default:
+        throw new Error(`Menu option index [${index}] is not recognized`);
     }
   }
+
 }

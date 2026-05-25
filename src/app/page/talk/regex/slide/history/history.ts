@@ -1,10 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
   inject,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ClickerService } from '@app/page/mode-presentation/service/clicker.service';
+import { PresenterNotesService } from '@app/page/presenter-notes';
 import { WA_WINDOW } from '@ng-web-apis/common';
 import { FilmRoll } from '@talk/regex/component/film-roll/film-roll';
 import { FilmShot } from '@talk/regex/component/film-roll/type';
@@ -61,5 +63,10 @@ export default class SlideHistory {
   protected step = inject(ClickerService)
     .makeSafeStepperSignal(this.filmShots.length - 1);
 
+
+  constructor() {
+    const presenterNotesService = inject(PresenterNotesService);
+    effect(() => presenterNotesService.setSlide(2, this.step()));
+  }
 
 }

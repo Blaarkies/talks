@@ -1,10 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
   inject,
 } from '@angular/core';
 import { PaneComponent } from '@app/common/component/pane/pane.component';
 import { ClickerService } from '@app/page/mode-presentation/service/clicker.service';
+import { PresenterNotesService } from '@app/page/presenter-notes';
 import { matchSplitGroup } from '@talk/regex/common/match-split';
 import {
   getSizedMockText,
@@ -69,5 +71,11 @@ export default class SlideFlag {
     const difference = index - this.step();
     this.clickerService.autoStep(difference);
   }
+
+  constructor() {
+    const presenterNotesService = inject(PresenterNotesService);
+    effect(() => presenterNotesService.setSlide(6, this.step()));
+  }
+
 
 }

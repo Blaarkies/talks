@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ButtonComponent } from '../../../../common/component/button/button.component';
-import { TooltipComponent } from '../../../../common/component/tooltip/tooltip.component';
+import { ButtonComponent } from '@app/common/component/button/button.component';
+import { TooltipComponent } from '@app/common/component/tooltip/tooltip.component';
 import { CustomBinaryConverterComponent } from '../component/custom-binary-converter/custom-binary-converter.component';
 import { CustomHuffmanConverterComponent } from '../component/custom-huffman-converter/custom-huffman-converter.component';
 import { CustomLzwConverterComponent } from '../component/custom-lzw-converter/custom-lzw-converter.component';
@@ -23,7 +23,7 @@ import { CoinFlipWorldComponent } from '../slide/slide-calculating-entropy/coin-
     templateUrl: './sandbox-compression.component.html',
     styleUrl: './sandbox-compression.component.scss'
 })
-export class SandboxCompressionComponent {
+export default class SandboxCompressionComponent {
 
   protected info = `Edit contents to view converted results.
 The arrow buttons swap the encoding direction, letting you decode instead.`;

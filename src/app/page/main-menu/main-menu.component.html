@@ -10,45 +10,22 @@
   autofocus
 >
   <div class="head-footing" head>
-    <div class="menu-bar" cdkMenuBar>
-      <button
-        #menuButton
-        class="dropdown-item"
-        cdkMenuItem
-        [cdkMenuTriggerFor]="options"
-      >
-        @if (isMobile()) {
-          <span class="highlight">≡</span>
-        } @else {
-          <span class="hotkey">O</span>ptions
-        }
-      </button>
+    <div class="taskbar">
+      <app-taskbar-menu
+        [title]="optionsMenu().title"
+        [items]="optionsMenu().items"
+        (itemClick)="optionsMenuClick($event)"
+      />
+      @if (mode() === slideMode.presentation) {
+        <app-taskbar-menu
+          [title]="['Notes', 0]"
+          [items]="[['Start', 0]]"
+          (itemClick)="$event === 0 && notes.click()"
+        />
+        <a #notes [href]="routeNames.presenterNotes"
+           target="_blank" class="invisible"></a>
+      }
     </div>
-    <ng-template #options>
-      <div class="dropdown-menu" cdkMenu>
-        <button
-          class="dropdown-item"
-          cdkMenuItem
-          (click)="setSlideMode(slideMode.presentation)"
-        >
-          <span class="hotkey">P</span>resentation Mode
-          @if (mode() === slideMode.presentation) {
-            <span>(selected)</span>
-          }
-        </button>
-
-        <button
-          class="dropdown-item"
-          cdkMenuItem
-          (click)="setSlideMode(slideMode.interactive)"
-        >
-          <span class="hotkey">I</span>nteractive Mode
-          @if (mode() === slideMode.interactive) {
-            <span>(selected)</span>
-          }
-        </button>
-      </div>
-    </ng-template>
 
     <div class="heading">BLAARKIES TALKS</div>
   </div>
@@ -90,11 +67,6 @@
         swap="true"
         outline="double"
       >
-        @if (mode() === slideMode.presentation) {
-          <a #notes [href]="routeNames.presenterNotes" target="_blank"></a>
-          <app-button type="4" (click1)="notes.click()">OPEN NOTES</app-button>
-        }
-
         <ul class="description-list">
           @let navs = navigations();
 
@@ -131,6 +103,7 @@
     SELECT AN OPTION WITH ↑ ↓ AND ↵ OR CLICK; CTRL+Q TO QUIT
   </div>
 </app-rim>
+
 @if (isQuit()) {
   <div
     class="quit-crt-effect"
