@@ -1,1 +1,75 @@
-<p>sandbox-regex works!</p>
+<div class="sandbox-r-layout">
+
+  <div class="heading">
+    Regex Tools
+    <app-tooltip [text]="info">
+      <app-button type="4" [swap]="true">?</app-button>
+    </app-tooltip>
+  </div>
+
+  <div class="regex-sandbox">
+
+    @if (regexError(); as error) {
+      <app-pane type="1" swap="true">
+        <div>{{ error.errorType }}</div>
+        <div>{{ error.errorValue }}</div>
+      </app-pane>
+    }
+
+    <app-pane type="2">
+      <div class="patterns-content">
+        <textarea
+          class="regex-textarea"
+          [formControl]="regexControl"
+          maxlength="999"
+          rows="2"
+        ></textarea>
+
+        <div class="flags">
+
+          <div cdkMenuBar>
+            <button
+              #menuButton="cdkMenuTriggerFor"
+              class="menu-button"
+              cdkMenuItem
+              [cdkMenuTriggerFor]="options"
+            >
+              Flags
+            </button>
+          </div>
+          <ng-template #options>
+            <div class="dropdown-menu">
+              @for (flag of flags; track flag.value) {
+                <app-checkbox
+                  cdkMenuItem
+                  [label]="flag.label"
+                  [formControl]="flag.control"
+                  (change)="delayClose(menuButton)"
+                />
+              }
+            </div>
+          </ng-template>
+
+        </div>
+
+        <ng-container
+          [ngTemplateOutlet]="print"
+          [ngTemplateOutletContext]="{list: textSections()}"
+        />
+
+      </div>
+    </app-pane>
+
+  </div>
+</div>
+
+<ng-template #print let-list="list">
+  <div class="result-container">
+    @for (s of list; track s.id) {
+      <span
+        [class.is-regex]="s.type === 'match'"
+        [ngClass]="s.group"
+      >{{ s.content }}</span>
+    }
+  </div>
+</ng-template>

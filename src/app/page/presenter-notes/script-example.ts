@@ -12,6 +12,8 @@ Tags
 
 Example (copy&paste this to make your own)
 <div style="margin-left:2ch">
+#time-25m
+
 #slide-0 Main page
 
 Talking points while showing the main menu, the teleprompter slide title doesn't have to match what the audience sees.
@@ -30,6 +32,8 @@ And more talking context regarding the same micro step 2
 
 Tips
 <div style="margin-left:2ch">
+#time-1h20m30s sets the timer to 1 hour, 20 minutes, 30 seconds. Any unit may be omitted, but if the total result is 0 duration, it will default to 30 minutes. The entire "#time-" definition line is optional.
+
 Empty lines around splitters and titles are optional, they are trimmed in the final output.
 Use them if it helps to keep the source script cleaner.
 
@@ -37,7 +41,8 @@ Empty lines within a micro step will be shown on the teleprompter. Use this to g
 
 The slide number 0 is reserved for the main menu, going there will always trigger the teleprompter show the #slide-0 Whatever title.
 
-Make sure slide tags are numbered correctly.
+Make sure slide tags are unique. They can even be strings for names.
+
 Add a micro step tag for every micro step.
 </div>`;
 

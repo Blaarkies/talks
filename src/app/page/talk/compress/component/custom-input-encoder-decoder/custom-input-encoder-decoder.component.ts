@@ -68,8 +68,7 @@ export class CustomInputEncoderDecoderComponent {
   private decodeMode = signal(false);
 
   constructor() {
-    effect(() => this.inputValue.set(this.example()),
-      {allowSignalWrites: true});
+    effect(() => this.inputValue.set(this.example()));
   }
 
   protected toggleDecodeMode() {
