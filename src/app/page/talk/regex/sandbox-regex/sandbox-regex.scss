@@ -22,11 +22,13 @@
 }
 
 .regex-textarea {
-
+  font-size: var(--font-size-3);
 }
 
 .regex-sandbox {
   display: grid;
+  gap: var(--space-5);
+  margin-bottom: calc(2 * var(--space-5));
 
   .patterns-content {
     display: grid;
@@ -51,6 +53,20 @@
     .flags {
       display: flex;
       gap: 1ch;
+    }
+  }
+
+  .edit-button {
+    margin-top: var(--space-5);
+  }
+
+  .edit-pane {
+    //min-width: 80ch;
+
+    .edit-controls {
+      display: flex;
+      gap: var(--space-4);
+      justify-content: end;
     }
   }
 }
@@ -104,21 +120,7 @@
   }
 }
 
-.dropdown-menu {
-  display: grid;
-  padding: var(--space-3);
-  gap: var(--space-2);
-  width: max-content;
-  background: var(--color-pane-1);
-  border: 2px solid var(--base-color-4);
-}
 
-.menu-button {
-  @extend .anti-button;
+.edit-text-textarea {
 
-  text-align: left;
-
-  &[aria-expanded='true'] {
-    background-color: var(--base-color-8);
-  }
 }

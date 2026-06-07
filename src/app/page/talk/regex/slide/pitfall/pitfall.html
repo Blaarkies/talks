@@ -7,21 +7,30 @@
     </div>
 
     @for (pf of pitfalls; track pf.problem) {
+
       <div
         class="row"
         [class.selected]="$index === step()"
+        [class.zebra]="$even && $index <= step()"
         (pointerenter)="setActiveTab($index)"
       >
-        <div>{{ pf.problem }}</div>
-        <ng-container
-          [ngTemplateOutlet]="print"
-          [ngTemplateOutletContext]="{list: pf.description}"
-        />
+        <app-pixelator>
+          <div>{{ pf.problem }}</div>
+        </app-pixelator>
 
-        <ng-container
-          [ngTemplateOutlet]="print"
-          [ngTemplateOutletContext]="{list: pf.solution}"
-        />
+        <app-pixelator>
+          <ng-container
+            [ngTemplateOutlet]="print"
+            [ngTemplateOutletContext]="{list: pf.description}"
+          />
+        </app-pixelator>
+
+        <app-pixelator>
+          <ng-container
+            [ngTemplateOutlet]="print"
+            [ngTemplateOutletContext]="{list: pf.solution}"
+          />
+        </app-pixelator>
       </div>
     }
   </div>

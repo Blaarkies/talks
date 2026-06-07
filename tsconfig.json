@@ -8,6 +8,9 @@
       "@app/*": [
         "./src/app/*"
       ],
+      "@component/*": [
+        "./src/app/common/component/*"
+      ],
       "@app/style/*": [
         "./src/styles/*"
       ],

@@ -39,6 +39,7 @@ export class Pixelator {
 
   protected dilateRadius = signal(0);
   protected erodeRadius = signal(0);
+  protected opacity = signal(1);
 
   constructor() {
     this.dr.onDestroy(() => this.stopAnimation$.complete());
@@ -85,9 +86,13 @@ export class Pixelator {
     if (config?.immediate) {
       this.dilateRadius.set(0);
       this.erodeRadius.set(0);
+      this.opacity.set(this.direction === 'out' ? 0 : 1);
       return;
     }
 
+    if (this.opacity() === 0) {
+      this.opacity.set(1);
+    }
     const forward = this.direction === 'out';
     const timer$ = timer(this.delay, this.interval).pipe(take(this.maxN));
     const cleanTimer$ = forward
@@ -105,6 +110,10 @@ export class Pixelator {
       this.dilateRadius.set(safeDilateR);
       this.erodeRadius.set(n);
     });
+  }
+
+  getDirection(): typeof this.direction {
+    return this.direction;
   }
 
 }

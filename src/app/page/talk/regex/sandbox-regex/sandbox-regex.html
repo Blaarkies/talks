@@ -2,7 +2,7 @@
 
   <div class="heading">
     Regex Tools
-    <app-tooltip [text]="info">
+    <app-tooltip text="Test out your own regex patterns here">
       <app-button type="4" [swap]="true">?</app-button>
     </app-tooltip>
   </div>
@@ -16,49 +16,65 @@
       </app-pane>
     }
 
-    <app-pane type="2">
-      <div class="patterns-content">
-        <textarea
-          class="regex-textarea"
-          [formControl]="regexControl"
-          maxlength="999"
-          rows="2"
-        ></textarea>
+    @if (!isEditing()) {
+      <app-pane type="2">
+        <div class="patterns-content">
+          <textarea
+            class="regex-textarea"
+            [formControl]="regexControl"
+            maxlength="999"
+            rows="2"
+          ></textarea>
 
-        <div class="flags">
-
-          <div cdkMenuBar>
-            <button
-              #menuButton="cdkMenuTriggerFor"
-              class="menu-button"
-              cdkMenuItem
-              [cdkMenuTriggerFor]="options"
-            >
-              Flags
-            </button>
+          <div class="flags">
+            <app-sandbox-flags
+              [flags]="flags"
+              (activeFlags)="activeFlags.set($event)"
+            />
           </div>
-          <ng-template #options>
-            <div class="dropdown-menu">
-              @for (flag of flags; track flag.value) {
-                <app-checkbox
-                  cdkMenuItem
-                  [label]="flag.label"
-                  [formControl]="flag.control"
-                  (change)="delayClose(menuButton)"
-                />
-              }
-            </div>
-          </ng-template>
+
+          <ng-container
+            [ngTemplateOutlet]="print"
+            [ngTemplateOutletContext]="{list: textSections()}"
+          />
 
         </div>
 
-        <ng-container
-          [ngTemplateOutlet]="print"
-          [ngTemplateOutletContext]="{list: textSections()}"
-        />
+        <app-button
+          class="edit-button"
+          type="2"
+          [swap]="true"
+          (click1)="startEdit()"
+        >
+          EDIT
+        </app-button>
+      </app-pane>
+    } @else {
 
-      </div>
+      <app-pane class="edit-pane" type="2" [swap]="true">
+        <textarea
+          class="edit-text-textarea"
+          [formControl]="editTextControl"
+          maxlength="9999"
+          rows="20"
+          cols="80"
+        ></textarea>
+        <div class="edit-controls">
+          <app-button [swap]="true" type="3" (click1)="saveEdit()">SAVE
+          </app-button>
+          <app-button [swap]="true" type="2" (click1)="cancelEdit()">CANCEL
+          </app-button>
+        </div>
+      </app-pane>
+    }
+
+    <app-pane type="4">
+      <div class="heading">Regex matches: {{matches().length}}</div>
+      @for (m of matches(); track m.id) {
+        <div>{{ m.content }}</div>
+      }
     </app-pane>
+
 
   </div>
 </div>

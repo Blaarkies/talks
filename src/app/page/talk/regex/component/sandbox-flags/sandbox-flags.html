@@ -1,0 +1,22 @@
+<div cdkMenuBar>
+  <button
+    #menuButton="cdkMenuTriggerFor"
+    class="menu-button"
+    cdkMenuItem
+    [cdkMenuTriggerFor]="options"
+  >
+    Flags
+  </button>
+</div>
+<ng-template #options>
+  <div #dropdown class="dropdown-menu">
+    @for (flag of flagsWithControl(); track flag.value) {
+      <app-checkbox
+        cdkMenuItem
+        [label]="flag.label"
+        [formControl]="flag.control"
+        (change)="delayClose(menuButton, dropdown)"
+      />
+    }
+  </div>
+</ng-template>

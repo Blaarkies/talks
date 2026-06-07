@@ -36,9 +36,10 @@
   .row {
   }
 
-  > :nth-child(2n):not(.selected) {
+  .zebra {
     background: color-mix(in srgb, var(--base-color-8), transparent 75%);
   }
+
 }
 
 .is-regex {
@@ -48,5 +49,5 @@
 }
 
 .selected {
-  background: var(--base-color-10);
+  outline: 4px solid var(--base-color-10);
 }

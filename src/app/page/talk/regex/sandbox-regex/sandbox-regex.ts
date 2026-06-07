@@ -12,21 +12,16 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  DestroyRef,
-  effect,
-  inject,
+  signal,
 } from '@angular/core';
-import {
-  takeUntilDestroyed,
-  toSignal,
-} from '@angular/core/rxjs-interop';
+import { toSignal } from '@angular/core/rxjs-interop';
 import {
   FormControl,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { ButtonComponent } from '@app/common/component/button/button.component';
-import { PaneComponent } from '@app/common/component/pane/pane.component';
-import { TooltipComponent } from '@app/common/component/tooltip/tooltip.component';
+import { ButtonComponent } from '@component/button/button.component';
+import { PaneComponent } from '@component/pane/pane.component';
+import { TooltipComponent } from '@component/tooltip/tooltip.component';
 import {
   IError,
   Result,
@@ -36,14 +31,10 @@ import { TaskbarMenu } from '@app/page/main-menu/component/taskbar-menu/taskbar-
 import { matchSplitGroup } from '@talk/regex/common/match-split';
 import { mockTextA } from '@talk/regex/common/mock-text';
 import { Checkbox } from '@talk/regex/component/checkbox/checkbox';
+import { PixelationBook } from '@talk/regex/component/pixelation-book/pixelation-book/pixelation-book';
+import { SandboxFlags } from '@talk/regex/component/sandbox-flags/sandbox-flags';
 import { RegexSandboxError } from '@talk/regex/sandbox-regex/type';
-import {
-  map,
-  merge,
-  scan,
-  startWith,
-  timer,
-} from 'rxjs';
+import { startWith } from 'rxjs';
 
 @Component({
   selector: 'app-sandbox-regex',
@@ -60,68 +51,14 @@ import {
     CdkMenuBar,
     CdkMenuItem,
     CdkMenuTrigger,
+    SandboxFlags,
+    PixelationBook,
   ],
   templateUrl: './sandbox-regex.html',
   styleUrl: './sandbox-regex.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class SandboxRegex {
-
-  // protected regexControl = new FormControl(',[\\w\\s]+,');
-  protected regexControl = new FormControl('(\\w+)\\s+(\\w+)');
-  private regexValue = toSignal(this.regexControl.valueChanges.pipe(
-    startWith(this.regexControl.value)));
-
-  private regexResult = computed<Result<RegExp, RegexSandboxError>>(() => {
-    const regexInput = this.regexValue();
-    const flags = this.activeFlags();
-
-    try {
-      const flagString = Array.from(flags).map(f => f.value).join('');
-      return Return.ok(new RegExp(regexInput, flagString));
-    } catch (e) {
-      return Return.error(
-        RegexSandboxError.REG_EXP_PARSE_ERR,
-        e.toString());
-    }
-  });
-
-  protected regexError = computed<null | IError<RegexSandboxError>>(() => {
-    const regexResult = this.regexResult();
-    if (regexResult.ok()) {
-      return null;
-    }
-
-    return regexResult;
-  });
-
-  protected textSections = computed(() => {
-    const text = mockTextA;
-
-    const regexResult = this.regexResult();
-    if (!regexResult.ok()) {
-      return matchSplitGroup(text, new RegExp(''), 1, 0);
-    }
-
-    const hasGroups = this.hasCaptureGroups(regexResult.value);
-    const skipGroups = Number(hasGroups);
-    return matchSplitGroup(text, regexResult.value, 1, skipGroups);
-  });
-
-  private hasCaptureGroups(value: RegExp): boolean {
-    const source = value.source;
-    const normalized = source
-      .replaceAll('\\\\', '\\')
-      .replaceAll('\\\\', '\\');
-    const noIgnored = normalized
-      .replaceAll('(?:', '')
-      .replaceAll('\\(', '');
-    const groups = noIgnored.split('').filter(c => c === '(');
-
-    return !!groups.length;
-  }
-
-  protected info = 'Test out your own regex patterns here';
 
   protected flags = [
     {
@@ -148,41 +85,77 @@ export default class SandboxRegex {
       label: 'Multiline',
       description: 'aZzA',
     },
-    // {value: 'u', default: false, label: 'Unicode', description: 'aZzA',},
-    // {value: 'v', default: false, label: 'Unicode Sets', description: 'aZzA',},
-    // {value: 'd', default: false, label: 'Has Indices', description: 'aZzA',},
-  ].map(data => ({
-    ...data,
-    control: new FormControl(data.default),
-  }));
+  ];
+  protected activeFlags = signal(new Set<typeof this.flags[0]>());
 
-  private flagChanges$$ = this.flags.map(flag =>
-    flag.control.valueChanges.pipe(
-      startWith(flag.control.value),
-      map(active => ({flag, active}))));
-  private activeFlags$ = merge(...this.flagChanges$$).pipe(
-    scan((set, c) => {
-      const newSet = new Set(set);
-      if (c.active) {
-        newSet.add(c.flag);
-      } else {
-        newSet.delete(c.flag);
-      }
-      return newSet;
-    }, new Set<typeof this.flags[0]>()));
-  private activeFlags = toSignal(this.activeFlags$);
+  // protected regexControl = new FormControl(',[\\w\\s]+,');
+  protected regexControl = new FormControl('(\\w+)\\s+(\\w+)');
+  private regexValue = toSignal(this.regexControl.valueChanges.pipe(
+    startWith(this.regexControl.value)));
 
-  log = console.log;
-  // a = effect(() => {
-  //   const s = this.textSections();
-  //   console.log(s);
-  // });
+  private regexResult = computed<Result<RegExp, RegexSandboxError>>(() => {
+    const regexInput = this.regexValue();
+    const flags = this.activeFlags();
 
-  private dr = inject(DestroyRef);
+    try {
+      const flagString = Array.from(flags).map(f => f.value).join('');
+      return Return.ok(new RegExp(regexInput, flagString));
+    } catch (e) {
+      return Return.error(
+        RegexSandboxError.REG_EXP_PARSE_ERR,
+        e.toString());
+    }
+  });
 
-  protected delayClose(ref: CdkMenuTrigger) {
-    timer(500).pipe(takeUntilDestroyed(this.dr))
-      .subscribe(() => ref.close());
+  protected regexError = computed<null | IError<RegexSandboxError>>(() => {
+    const regexResult = this.regexResult();
+    return regexResult.ok() ? null : regexResult;
+  });
+
+  private currentText = signal(mockTextA);
+  protected textSections = computed(() => {
+    const text = this.currentText();
+
+    const regexResult = this.regexResult();
+    if (!regexResult.ok()) {
+      return matchSplitGroup(text, new RegExp(''), 1, 0);
+    }
+
+    const hasGroups = this.hasCaptureGroups(regexResult.value);
+    const skipGroups = Number(hasGroups);
+    return matchSplitGroup(text, regexResult.value, 1, skipGroups);
+  });
+  protected matches = computed(() =>
+    this.textSections().filter(s => s.type === 'match'));
+
+  private hasCaptureGroups(value: RegExp): boolean {
+    const source = value.source;
+    const normalized = source
+      .replaceAll('\\\\', '\\')
+      .replaceAll('\\\\', '\\');
+    const noIgnored = normalized
+      .replaceAll('(?:', '')
+      .replaceAll('\\(', '');
+    const groups = noIgnored.split('').filter(c => c === '(');
+
+    return !!groups.length;
+  }
+
+  protected editTextControl = new FormControl(this.currentText());
+  protected isEditing = signal(false);
+
+  protected startEdit() {
+    this.isEditing.set(true);
+  }
+
+  protected saveEdit() {
+    this.isEditing.set(false);
+    this.currentText.set(this.editTextControl.value);
+  }
+
+  protected cancelEdit() {
+    this.isEditing.set(false);
+    this.editTextControl.setValue(this.currentText());
   }
 
 }
