@@ -104,5 +104,8 @@
     "@schematics/angular:directive": {
       "type": ""
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
