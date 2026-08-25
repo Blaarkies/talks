@@ -46,7 +46,7 @@ export function matchSplitGroup(
   let id = idSeed;
 
   if (matches.some(m => m.slice(skipGroupCount).length)) {
-    const categories = makeNumberList(3).map(n => String.fromCharCode(n + 97));
+    const categories = makeNumberList(26).map(n => String.fromCharCode(n + 97));
     let cursor = 0;
 
     for (const m of matches) {

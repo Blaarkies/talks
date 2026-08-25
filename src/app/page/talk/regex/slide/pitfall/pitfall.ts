@@ -1,13 +1,16 @@
 import { NgTemplateOutlet } from '@angular/common';
 import {
+  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   effect,
   inject,
+  viewChildren,
 } from '@angular/core';
 import { ClickerService } from '@app/page/mode-presentation/service/clicker.service';
 import { PresenterNotesService } from '@app/page/presenter-notes';
 import { SplitSection } from '@talk/regex/common/match-split';
+import { Pixelator } from '@talk/regex/component/pixelator/pixelator';
 
 function section(content: string, highlight = false): SplitSection {
   return {
@@ -29,6 +32,7 @@ function t(c: string): SplitSection {
   selector: 'app-pitfall',
   imports: [
     NgTemplateOutlet,
+    Pixelator,
   ],
   templateUrl: './pitfall.html',
   styleUrl: './pitfall.scss',
@@ -98,14 +102,52 @@ export default class SlidePitfall {
   protected step = inject(ClickerService)
     .makeSafeStepperSignal(this.pitfalls.length - 1, -1);
 
-  protected setActiveTab(index: number) {
-    const difference = index - this.step();
-    this.clickerService.autoStep(difference);
-  }
+  private pixelators = viewChildren(Pixelator);
 
   constructor() {
     const presenterNotesService = inject(PresenterNotesService);
     effect(() => presenterNotesService.setSlide(7, this.step()));
+
+    const clickerService = inject(ClickerService);
+    afterNextRender(() => clickerService.right());
+
+    effect(() => {
+      const step = this.step();
+      const pixelators = this.pixelators();
+      this.managePixelation(pixelators, step);
+    });
+  }
+
+  private managePixelation(pixelators: ReadonlyArray<Pixelator>, step: number) {
+    if (!pixelators.length) {
+      return;
+    }
+
+    if (step === -1) {
+      pixelators.forEach(e => {
+        e.config({direction: 'out'});
+        e.pixelate({immediate: true});
+      });
+      return;
+    }
+
+    const rStep = step * 3;
+    const actives = pixelators.slice(rStep, rStep + 3);
+    for (const e of actives.filter(e => e.getDirection() === 'out')) {
+      e.config({direction: 'in'});
+      e.pixelate();
+    }
+
+    const after = pixelators.slice(rStep + 3);
+    for (const e of after.filter(e => e.getDirection() === 'in')) {
+      e.config({direction: 'out'});
+      e.pixelate();
+    }
+  }
+
+  protected setActiveTab(index: number) {
+    const difference = index - this.step();
+    this.clickerService.autoStep(difference);
   }
 
 
