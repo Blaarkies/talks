@@ -3,7 +3,6 @@ import {
   Component,
   computed,
   DestroyRef,
-  effect,
   inject,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -13,7 +12,6 @@ import {
   windowed,
 } from '@app/common';
 import { PaneComponent } from '@app/common/component/pane/pane.component';
-import { ClickerService } from '@app/page/mode-presentation/service/clicker.service';
 import { PresenterNotesService } from '@app/page/presenter-notes';
 import { getSizedMockText } from '@talk/regex/common/mock-text';
 import { TempoGenerator } from '@talk/regex/slide/teaser/tempo-generator';
@@ -36,7 +34,7 @@ import { startWith } from 'rxjs';
 export default class SlideTeaser {
 
   private book = getSizedMockText(80).replaceAll('\n\n', '\n');
-  private bufferLines = 3; // total lines on screen at a time
+  private bufferLines = 5; // total lines on screen at a time
   private maxIndex = this.book.length;
   private eolPositions
     = Array.from(this.book.matchAll(/\n/g)).map(m => m.index);

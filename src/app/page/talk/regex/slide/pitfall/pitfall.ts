@@ -28,6 +28,7 @@ function t(c: string): SplitSection {
   return section(c);
 }
 
+/** @deprecated Not used in slides */
 @Component({
   selector: 'app-pitfall',
   imports: [

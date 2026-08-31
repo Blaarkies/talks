@@ -7,8 +7,6 @@ export const regexSlideRouteNames = {
   groups: 'groups-and-capturing',
   wildcards: 'wildcard-selectors',
   flags: 'modifier-flags',
-  pitfall: 'pitfalls',
-  cheatSheet: 'cheat-sheet',
   end: 'end-and-questions',
 };
 
@@ -37,20 +35,16 @@ export const routes: Route[] = [
     path: regexSlideRouteNames.flags,
     loadComponent: () => import('@talk/regex/slide/flag/flag'),
   },
-  {
-    path: regexSlideRouteNames.pitfall,
-    loadComponent: () => import('@talk/regex/slide/pitfall/pitfall'),
-  },
-
-  {
-    path: regexSlideRouteNames.cheatSheet,
-    loadComponent: () => import('@talk/regex/slide/cheat-sheet/cheat-sheet'),
-  },
 
   {
     path: regexSlideRouteNames.end,
     loadComponent: () => import( '@app/page/mode-presentation/component/slide-end/slide-end'),
     data: {qrData: 'blaarkies-talks.pages.dev/interactive/regex'},
+  },
+
+  {
+    path: 'pitfalls',
+    loadComponent: () => import('@talk/regex/slide/pitfall/pitfall'),
   },
 
   {

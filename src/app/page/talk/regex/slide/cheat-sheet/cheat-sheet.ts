@@ -21,10 +21,10 @@ export default class SlideCheatSheet {
   protected cheats = content.trim().split('\n')
     .map(line => line.match(/([^\0]*)\0+(.*)/)?.slice(1, 3));
 
-  constructor() {
-    const presenterNotesService = inject(PresenterNotesService);
-    effect(() => presenterNotesService.setSlide(8, 0));
-  }
+  // constructor() {
+  //   const presenterNotesService = inject(PresenterNotesService);
+  //   effect(() => presenterNotesService.setSlide(8, 0));
+  // }
 
 }
 

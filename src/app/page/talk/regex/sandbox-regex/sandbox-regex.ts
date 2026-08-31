@@ -1,10 +1,4 @@
 import {
-  CdkMenu,
-  CdkMenuBar,
-  CdkMenuItem,
-  CdkMenuTrigger,
-} from '@angular/cdk/menu';
-import {
   NgClass,
   NgTemplateOutlet,
 } from '@angular/common';
@@ -27,13 +21,11 @@ import {
   Result,
   Return,
 } from '@app/common/type/result';
-import { TaskbarMenu } from '@app/page/main-menu/component/taskbar-menu/taskbar-menu';
 import { matchSplitGroup } from '@talk/regex/common/match-split';
 import { mockTextA } from '@talk/regex/common/mock-text';
-import { Checkbox } from '@talk/regex/component/checkbox/checkbox';
-import { PixelationBook } from '@talk/regex/component/pixelation-book/pixelation-book/pixelation-book';
 import { SandboxFlags } from '@talk/regex/component/sandbox-flags/sandbox-flags';
 import { RegexSandboxError } from '@talk/regex/sandbox-regex/type';
+import SlideCheatSheet from '@talk/regex/slide/cheat-sheet/cheat-sheet';
 import { startWith } from 'rxjs';
 
 @Component({
@@ -43,16 +35,10 @@ import { startWith } from 'rxjs';
     NgTemplateOutlet,
     ButtonComponent,
     TooltipComponent,
-    Checkbox,
     ReactiveFormsModule,
     NgClass,
-    TaskbarMenu,
-    CdkMenu,
-    CdkMenuBar,
-    CdkMenuItem,
-    CdkMenuTrigger,
     SandboxFlags,
-    PixelationBook,
+    SlideCheatSheet,
   ],
   templateUrl: './sandbox-regex.html',
   styleUrl: './sandbox-regex.scss',
