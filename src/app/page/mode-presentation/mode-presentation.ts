@@ -52,7 +52,7 @@ export class ModePresentation {
   protected headerHeight = signal<number | null>(null);
   protected isMobile = toSignal(
     inject(BreakpointObserver)
-      .observe('(width < 1500px)')
+      .observe('(width < 1360px)')
       .pipe(map(({matches}) => matches)));
   protected warningAccepted = signal(false);
   protected routeMainMenu = routeNames.mainMenu;

@@ -27,41 +27,41 @@ import { Printer } from '@talk/regex/component/printer/printer';
 export default class SlideFlag {
 
   private clickerService = inject(ClickerService);
-  private text = getSizedMockText(60, mockTextA.slice(-154));
+  private text = getSizedMockText(41, mockTextA.slice(-154));
 
   protected tabs = [
     {
       label: 'Global Search', flag: 'g',
       description: 'Instead of stopping at the first match, Global Search will continue testing for more matches until the end of text. This will return a list of all matches.',
-      test: 'the',
+      test: 'th',
       sectionsBefore: matchSplitGroup(this.text,
-        new RegExp('the'), 0, 0),
+        new RegExp('th'), 0, 0),
       sectionsAfter: matchSplitGroup(this.text,
-        new RegExp('the', 'g'), 0, 0),
+        new RegExp('th', 'g'), 0, 0),
     },
     {
       label: 'Case-insensitive', flag: 'i',
       description: 'Matches both uppercase and lowercase occurrences.',
-      test: 'big',
+      test: 'brother',
       sectionsBefore: undefined,
       sectionsAfter: matchSplitGroup(this.text,
-        new RegExp('big', 'i'), 0, 0),
+        new RegExp('brother', 'i'), 0, 0),
     },
     {
       label: 'Dotall', flag: 's',
       description: 'Allows the dot(.) operator to match linefeed characters.',
-      test: 'the.*follow',
+      test: 'WATCHING.*YOU',
       sectionsBefore: undefined,
       sectionsAfter: matchSplitGroup(this.text,
-        new RegExp('the.*follow', 's'), 0, 0),
+        new RegExp('WATCHING.*YOU', 's'), 0, 0),
     },
     {
       label: 'Multiline', flag: 'm',
       description: 'Treats the input text as separate lines, each split between linefeed characters. This changes the behaviour of the line start/end ^ $ operators',
-      test: 'the$',
+      test: 'about$',
       sectionsBefore: undefined,
       sectionsAfter: matchSplitGroup(this.text,
-        new RegExp('the$', 'm'), 0, 0),
+        new RegExp('about$', 'm'), 0, 0),
     },
   ];
 

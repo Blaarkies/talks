@@ -1,7 +1,8 @@
 .printer {
   text-align: center;
-  font-family: PTMono;
   white-space: pre;
+  font-family: PTMono;
+  font-size: calc(var(--font-size-3) * 1.15);
 
   .match {
     --pad: .2ch;

@@ -26,7 +26,7 @@ import {
 export default class SlideWildcard {
 
   protected mockText = mockTextHex.split('\n').slice(0, 5)
-    .map(l => l.replace(/\d+ +/, ''))
+    .map(l => l.replace(/\d+ +/, '').replace(/(\w\w ){4}/, ''))
     .join('\n');
 
   protected regexList = [

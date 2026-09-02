@@ -78,6 +78,10 @@ export class RegexChooser {
     return matchSplitGroup(content, regex, seed, skip);
   });
 
+  constructor() {
+    effect(() => this.globalFlagControl.setValue(false))
+  }
+
   protected setActiveTab(item: RegexEntry) {
     const index = this.regexList().indexOf(item);
     const difference = index - this.step();

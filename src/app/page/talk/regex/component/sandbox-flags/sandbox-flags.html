@@ -1,12 +1,14 @@
 <div cdkMenuBar>
-  <button
+  <app-button
+    type="2"
+    [swap]="true"
     #menuButton="cdkMenuTriggerFor"
     class="menu-button"
     cdkMenuItem
     [cdkMenuTriggerFor]="options"
   >
     Flags
-  </button>
+  </app-button>
 </div>
 <ng-template #options>
   <div #dropdown class="dropdown-menu">

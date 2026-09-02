@@ -20,6 +20,7 @@ import {
   FormControl,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { ButtonComponent } from '@component/button/button.component';
 import { Checkbox } from '@talk/regex/component/checkbox/checkbox';
 import {
   fromEvent,
@@ -50,6 +51,7 @@ type Flag = {
     Checkbox,
     CdkMenuTrigger,
     ReactiveFormsModule,
+    ButtonComponent,
   ],
   templateUrl: './sandbox-flags.html',
   styleUrl: './sandbox-flags.scss',

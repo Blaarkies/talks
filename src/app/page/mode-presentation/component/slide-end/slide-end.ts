@@ -33,15 +33,14 @@ export default class SlideEnd {
       map(v => v === 'right')));
   protected routeMainMenu = routeNames.mainMenu;
 
-  private qrElement = viewChild('qr', {read: ElementRef<SVGElement>});
+  private qrElement = viewChild<ElementRef<SVGElement>>('qr');
+  private qrHostElement = viewChild<ElementRef<HTMLElement>>('qrHost');
 
   constructor() {
     effect(() => {
       let element = this.qrElement()?.nativeElement;
       let data = this.qrData();
-      if (!element || !data) {
-        return;
-      }
+      if (!element || !data) return;
 
       QrCodeToString(
         data,
@@ -54,10 +53,18 @@ export default class SlideEnd {
             element.outerHTML = '<p>Error</p>';
             throw new Error(`Could not encode to QR. Data: [${data}]`, err);
           }
-          let colorParsedSvg = svg
+          const colorParsedSvg = svg
             .replaceAll(`stroke="#000000"`, `stroke="currentColor"`);
           element.outerHTML = colorParsedSvg;
         });
+
+      // Template element does not respond to changes after qrcode lib outputs
+      let realQrElement = this.qrHostElement()
+        ?.nativeElement
+        ?.firstElementChild;
+      if (!realQrElement || !(realQrElement instanceof SVGElement)) return;
+
+      realQrElement.style.setProperty('height','60vh');
     });
 
     inject(PresenterNotesService).setSlide('end', 0);

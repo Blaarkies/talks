@@ -28,7 +28,7 @@ import {
 })
 export default class SlideBasicMatching {
 
-  protected mockText = getSizedMockText(70, mockTextIntFloat.slice(0, 336));
+  protected mockText = getSizedMockText(59, mockTextIntFloat.slice(0, 336));
 
   protected regexList = [
     [`Smith`, 'Ctrl+F Find'],

@@ -35,7 +35,7 @@
             @if (activeItem(); as item) {
               <div class="active">{{ item.regex }}</div>
             } @else {
-              <div class="empty">Select a method</div>
+              <div class="empty">Select a pattern</div>
             }
           </div>
         </app-pane>
@@ -48,6 +48,10 @@
     </div>
   </app-pane>
 
+  <!--  CSS grid spacer--><br/>
+
   <app-printer [sections]="displayText()"/>
+
+  <!--  Center of mass alignment --><br/>
 
 </div>
