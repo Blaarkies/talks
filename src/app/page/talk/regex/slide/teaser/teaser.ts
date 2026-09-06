@@ -3,15 +3,21 @@ import {
   Component,
   computed,
   DestroyRef,
+  effect,
   inject,
 } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import {
+  toObservable,
+  toSignal,
+} from '@angular/core/rxjs-interop';
 import {
   coerceAtLeast,
   isBetween,
+  makeNumberList,
   windowed,
 } from '@app/common';
 import { PaneComponent } from '@app/common/component/pane/pane.component';
+import { ClickerService } from '@app/page/mode-presentation/service/clicker.service';
 import { PresenterNotesService } from '@app/page/presenter-notes';
 import { getSizedMockText } from '@talk/regex/common/mock-text';
 import { TempoGenerator } from '@talk/regex/slide/teaser/tempo-generator';
@@ -20,7 +26,22 @@ import {
   MatchedCategory,
   MatchedWord,
 } from '@talk/regex/slide/teaser/type';
-import { startWith } from 'rxjs';
+import {
+  BehaviorSubject,
+  combineLatest,
+  concatMap,
+  debounceTime,
+  filter,
+  map,
+  mergeWith,
+  sampleTime,
+  startWith,
+  Subject,
+  takeUntil,
+  takeWhile,
+  tap,
+  timer,
+} from 'rxjs';
 
 @Component({
   selector: 'app-slide-teaser',
@@ -33,7 +54,7 @@ import { startWith } from 'rxjs';
 })
 export default class SlideTeaser {
 
-  private book = getSizedMockText(80).replaceAll('\n\n', '\n');
+  private book = getSizedMockText(80).replaceAll('\n\n', '\n') + ' ';
   private bufferLines = 5; // total lines on screen at a time
   private maxIndex = this.book.length;
   private eolPositions
@@ -86,21 +107,19 @@ export default class SlideTeaser {
     return !categories.some(c => !c.hide);
   });
 
-  protected index = toSignal(
-    new TempoGenerator({
-      maxIndex: this.maxIndex,
-      start: 1,
-      destroyRef: inject((DestroyRef)),
-    })
-      .index$.pipe(startWith(0)),
-  );
-
-  protected items = computed(() => {
-    const index = this.index();
-    const indexFirstChar = this.indexFirstChar();
-    const inScopeMatches = this.inScopeMatches();
-    return this.contentSections(index, indexFirstChar, inScopeMatches);
+  private step = inject(ClickerService).makeSafeStepperSignal(1);
+  private pauseIndex$ = new Subject<number>();
+  private tempoGenerator = new TempoGenerator({
+    maxIndex: this.maxIndex,
+    start: 1,
+    destroyRef: inject(DestroyRef),
   });
+  protected index$ = this.tempoGenerator.index$.pipe(
+    startWith(0),
+    filter(() => this.step() === 0),
+    mergeWith(this.pauseIndex$),
+  );
+  protected index = toSignal(this.index$);
 
   private indexFirstChar = computed(() => {
     const index = this.index();
@@ -113,8 +132,65 @@ export default class SlideTeaser {
     return this.eolPositions[indexFirstLine - 1] ?? 0;
   });
 
+  private items$ = combineLatest([
+    toObservable(this.index),
+    toObservable(this.indexFirstChar),
+    toObservable(this.inScopeMatches),
+  ]).pipe(
+    sampleTime(30),
+    map(([index, indexFirstChar, inScopeMatches]) =>
+      this.contentSections(index, indexFirstChar, inScopeMatches)),
+  );
+
+  protected items = toSignal(this.items$);
+  protected isPrinting = toSignal(
+    this.index$.pipe(
+      debounceTime(500),
+      map(() => false),
+      startWith(true),
+    ));
+
   constructor() {
-    inject(PresenterNotesService).setSlide(1, 0);
+    const presenterNotesService = inject(PresenterNotesService);
+    effect(() => presenterNotesService.setSlide(1, this.step()));
+
+    const destroyPauseTimer$ = new Subject<void>();
+    inject(DestroyRef).onDestroy(() => {
+      destroyPauseTimer$.next();
+      destroyPauseTimer$.complete();
+    });
+    effect(() => {
+      if (this.step() === 0) {
+        destroyPauseTimer$.next();
+        return;
+      }
+
+      const min = this.tempoGenerator.currentIndex;
+      const max = this.maxIndex;
+
+      const trimMax = .5 * max;
+      const timeList: number[] = makeNumberList(trimMax)
+        .map(n => {
+          const t = n / trimMax;
+          const dtRate = Math.cos(0.9 * Math.PI * t) * 2;
+          return Math.pow(dtRate, 10);
+        });
+
+      const trigger$ = new BehaviorSubject<number>(min);
+      trigger$.pipe(
+        takeWhile(n => n < max),
+        concatMap(n => {
+          const time = timeList[n - trimMax] ?? 0;
+          return timer(time).pipe(map(() => n));
+        }),
+        tap(n => {
+          const newIndex = ++n;
+          trigger$.next(newIndex);
+          this.pauseIndex$.next(n);
+        }),
+        takeUntil(destroyPauseTimer$),
+      ).subscribe();
+    });
   }
 
   // TODO: better to preprocess all sections, then walk through them to reduce

@@ -69,6 +69,15 @@
   }
 }
 
+.blink-cursor {
+  animation: blink 1.4s infinite steps(1);
+}
+
+@keyframes blink {
+  0% {opacity: 100%}
+  50% {opacity: 0}
+}
+
 .hide {
   clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%) !important;
 }

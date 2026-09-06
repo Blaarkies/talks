@@ -3,10 +3,12 @@
   <div class="heading">REGEX</div>
 
   <div class="printer">
+    @let showBlink = !isPrinting();
     @for (item of items(); track item.id) {
       <span
         [class.match]="item.type === 'match'"
         [class.cursor]="item.type === 'cursor'"
+        [class.blink-cursor]="item.id === -1 && showBlink"
       >{{ item.content }}</span>
     }
   </div>

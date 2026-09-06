@@ -79,7 +79,10 @@ export class RegexChooser {
   });
 
   constructor() {
-    effect(() => this.globalFlagControl.setValue(false))
+    effect(() => {
+      this.step();
+      this.globalFlagControl.setValue(false);
+    });
   }
 
   protected setActiveTab(item: RegexEntry) {

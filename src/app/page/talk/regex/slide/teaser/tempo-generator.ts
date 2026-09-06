@@ -9,6 +9,7 @@ import {
   concatMap,
   map,
   Observable,
+  shareReplay,
   tap,
   timer,
 } from 'rxjs';
@@ -35,6 +36,7 @@ export class TempoGenerator {
   private trigger$: BehaviorSubject<number>;
 
   index$: Observable<number>;
+  currentIndex: number;
 
   constructor(userConfig?: Partial<Config>) {
     const config: Config = Object.assign(
@@ -48,14 +50,19 @@ export class TempoGenerator {
 
     this.trigger$ = new BehaviorSubject(config.start);
 
-    this.index$ = this.trigger$.pipe(
+    const index$ = this.trigger$.pipe(
       concatMap(n => {
         const time = rngSmoothList[n % 100];
         return timer(time).pipe(map(() => n));
       }),
-      tap(n => this.trigger$
-        .next(++n % (config.maxIndex + 1))),
+      tap(n => {
+        const newIndex = ++n % (config.maxIndex + 1);
+        this.trigger$.next(newIndex);
+        this.currentIndex = newIndex;
+      }),
     );
+
+    this.index$ = index$.pipe(shareReplay());
 
     config.destroyRef?.onDestroy(() => this.dispose());
   }
