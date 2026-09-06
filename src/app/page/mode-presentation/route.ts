@@ -1,8 +1,6 @@
 import { Route } from '@angular/router';
 import { compressionHeadingFootingMap } from '@app/page/talk/compress/heading-footing';
 import { compressionSlideRouteNames } from '@app/page/talk/compress/route';
-import { regexHeadingFootingMap } from '@app/page/talk/regex/heading-footing';
-import { regexSlideRouteNames } from '@app/page/talk/regex/route';
 
 export const slideRouteNames = {
   compression: 'compression',
@@ -22,15 +20,10 @@ export const routes: Route[] = [
       headingFootingMap: compressionHeadingFootingMap,
     },
   },
+
   {
     path: slideRouteNames.regex,
-    loadComponent:
-      () => import('@app/page/mode-presentation/component/slideshow/slideshow'),
-    loadChildren: () => import( '@app/page/talk/regex/route')
+    loadChildren: () => import( '@app/page/talk/regex/route-venue-matcher')
       .then(c => c.routes),
-    data: {
-      talkRoutes: regexSlideRouteNames,
-      headingFootingMap: regexHeadingFootingMap,
-    },
   },
 ];

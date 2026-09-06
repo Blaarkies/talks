@@ -13,3 +13,27 @@
 .slide-contents {
   overflow: hidden;
 }
+
+.venue-logo {
+  position: absolute;
+  z-index: 1;
+}
+
+.fade {
+  animation: fade 1s steps(4) forwards;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 100%
+  }
+  15% {
+    opacity: 0
+  }
+  85% {
+    opacity: 0
+  }
+  100% {
+    opacity: 100%
+  }
+}

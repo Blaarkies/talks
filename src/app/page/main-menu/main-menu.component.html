@@ -87,6 +87,16 @@
               <li>How to find text</li>
               <li>Matching advanced patterns</li>
               <li>How to recognize your friends</li>
+              <li><a
+                class="anti-a"
+                [routerLink]="[
+                '../', routeNames.present, selectedOption().url, 'frontmania'
+                ]">Frontmania</a></li>
+              <li><a
+                class="anti-a"
+                [routerLink]="[
+                '../', routeNames.present, selectedOption().url, 'devday'
+                ]">DevDay</a></li>
             }
             @case (navs.asdf) {
               <li>Placeholder 1</li>

@@ -4,7 +4,17 @@
   <div
     class="slide-contents"
     [@routeAnimations]="currentRouteIndex()"
+    (@routeAnimations.start)="animateBusy.set(true)"
+    (@routeAnimations.done)="animateBusy.set(false)"
   >
+    @if (logoVisible() && logo(); as logo) {
+      <img
+        [src]="logo.src"
+        class="venue-logo"
+        [style]="logo.style ?? ''"
+        [class.fade]="animateBusy()"
+      />
+    }
     <router-outlet/>
   </div>
 

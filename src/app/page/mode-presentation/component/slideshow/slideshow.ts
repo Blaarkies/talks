@@ -54,6 +54,7 @@ export default class Slideshow {
   /** Provided by route `data` */
   talkRoutes = input.required<Record<string, string>>();
   headingFootingMap = input.required<Map<string, string[]>>();
+  logo = input<{src: string, style: {}, hideOnRoutes: string[]}>();
 
   private routes = computed(() => Object.values(this.talkRoutes()));
   private headerElement = viewChild('headingElement',
@@ -65,27 +66,28 @@ export default class Slideshow {
       map(([e]) => e.target.clientHeight),
       startWith(34)));
 
+  protected animateBusy = signal(false);
   protected currentRouteIndex = signal(-1);
 
-  private headingFooting = toSignal(
-    combineLatest({
-      textMap: toObservable(this.headingFootingMap),
-      event: this.router.events.pipe(
-        filter(event => event instanceof NavigationEnd),
-        startWith(0)),
-    }).pipe(
-      map(pack => {
-        const path = this.activatedRoute.firstChild.snapshot.url.at(-1).path;
-
-        const textMap = pack?.textMap;
-        if (!textMap || !textMap.has(path)) {
-          return [path, path];
-        }
-
-        return textMap.get(path);
-      }),
-    ),
+  private currentRouteSlide$ = this.router.events.pipe(
+    filter(event => event instanceof NavigationEnd),
+    startWith(0),
+    map(() => this.activatedRoute.firstChild.snapshot.url.at(-1).path),
   );
+  private currentRouteSlideSignal = toSignal(this.currentRouteSlide$);
+  protected logoVisible = computed(() => {
+    const hideOnRoutes = this.logo()?.hideOnRoutes;
+    if (!hideOnRoutes) return true;
+
+    return !hideOnRoutes.includes(this.currentRouteSlideSignal());
+  });
+
+  private headingFooting = computed(() => {
+    const textMap = this.headingFootingMap();
+    const path = this.currentRouteSlideSignal();
+    const noHeadingFooting = !textMap || !textMap.has(path);
+    return noHeadingFooting ? [path, path] : textMap.get(path);
+  });
 
   protected header = computed(() => this.headingFooting()[0] || ' ');
   protected footer = computed(() => this.headingFooting()[1] || ' ');
