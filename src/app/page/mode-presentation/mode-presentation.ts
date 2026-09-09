@@ -16,6 +16,10 @@ import {
   RouterLink,
   RouterOutlet,
 } from '@angular/router';
+import { routeNames } from '@app/bootstrap/routes';
+import { ButtonComponent } from '@app/common/component/button/button.component';
+import Slideshow
+  from '@app/page/mode-presentation/component/slideshow/slideshow';
 import {
   WA_LOCAL_STORAGE,
   WA_WINDOW,
@@ -24,9 +28,6 @@ import {
   fromEvent,
   map,
 } from 'rxjs';
-import { routeNames } from '@app/bootstrap/routes';
-import { ButtonComponent } from '@app/common/component/button/button.component';
-import { HasRimHeader } from './index';
 import { ClickerService } from './service/clicker.service';
 import {
   FontSizeService,
@@ -123,7 +124,7 @@ export class ModePresentation {
     this.router.navigate(['../']);
   }
 
-  protected setHeaderHeight(component: HasRimHeader) {
+  protected setHeaderHeight(component: Slideshow) {
     const injector = this.injector;
     toObservable(component.rimHeaderHeight, {injector})
       .pipe(takeUntilDestroyed(this.destroyRef))

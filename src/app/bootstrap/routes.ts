@@ -12,6 +12,7 @@ export const routes: Routes = [
     path: routeNames.mainMenu,
     loadComponent: () => import('../page/main-menu/main-menu.component')
       .then(m => m.MainMenuComponent),
+    title: 'Blaarkies Talks',
   },
   {
     path: routeNames.present,
@@ -31,6 +32,7 @@ export const routes: Routes = [
     path: routeNames.presenterNotes,
     loadComponent: () => import('../page/presenter-notes')
       .then(m => m.PresenterNotesComponent),
+    title: 'Notes',
   },
 
   {

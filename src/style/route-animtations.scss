@@ -1,0 +1,60 @@
+@keyframes slide-out-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100vw);
+  }
+}
+
+@keyframes slide-in-from-right {
+  0% {
+    transform: translateX(100vw);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-out-right {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100vw);
+  }
+}
+
+@keyframes slide-in-from-left {
+  0% {
+    transform: translateX(-100vw);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Forward: slide exits left, new slide enters from right */
+:root:active-view-transition-type(forward)::view-transition-old(root) {
+  animation: slide-out-left 1s steps(10);
+}
+
+:root:active-view-transition-type(forward)::view-transition-new(root) {
+  animation: slide-in-from-right 1s steps(10);
+}
+
+/* Backward: slide exits right, new slide enters from left */
+:root:active-view-transition-type(backward)::view-transition-old(root) {
+  animation: slide-out-right 1s steps(10);
+}
+
+:root:active-view-transition-type(backward)::view-transition-new(root) {
+  animation: slide-in-from-left 1s steps(10);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*) {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+  }
+}

@@ -159,6 +159,7 @@ export default class SlideTeaser {
       destroyPauseTimer$.next();
       destroyPauseTimer$.complete();
     });
+
     effect(() => {
       if (this.step() === 0) {
         destroyPauseTimer$.next();
@@ -172,16 +173,17 @@ export default class SlideTeaser {
       const timeList: number[] = makeNumberList(trimMax)
         .map(n => {
           const t = n / trimMax;
-          const dtRate = Math.cos(0.9 * Math.PI * t) * 2;
-          return Math.pow(dtRate, 10);
+          const curve = Math.cos(-.2 + 1.2 * Math.PI * t);
+          const dtRate = Math.abs(curve) * 10;
+          return dtRate;
         });
 
       const trigger$ = new BehaviorSubject<number>(min);
       trigger$.pipe(
         takeWhile(n => n < max),
         concatMap(n => {
-          const time = timeList[n - trimMax] ?? 0;
-          return timer(time).pipe(map(() => n));
+          const time = timeList[n % trimMax] ?? 0;
+          return timer(time).pipe(map(() => (time > 0) ? n : (n+1)));
         }),
         tap(n => {
           const newIndex = ++n;

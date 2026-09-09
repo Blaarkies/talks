@@ -33,6 +33,15 @@
     gap: var(--space-5);
     flex-wrap: wrap;
     max-width: 80vw;
+
+    .tab {
+      opacity: 0;
+      transition: .6s steps(3);
+    }
+
+    .visible {
+      opacity: 1;
+    }
   }
 
   .regex {

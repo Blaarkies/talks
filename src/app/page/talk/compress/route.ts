@@ -1,4 +1,5 @@
 import { Route } from '@angular/router';
+import { mapNeighborData } from '@app/common/function/route';
 
 export const compressionSlideRouteNames = {
   teaser: 'compression-should-be-impossible',
@@ -14,7 +15,7 @@ export const compressionSlideRouteNames = {
   calculatingEntropy: 'calculating-entropy',
 };
 
-export const routes: Route[] = [
+const routes: Route[] = [
   {
     path: compressionSlideRouteNames.teaser,
     loadComponent: () => import( './slide/slide-teaser/slide-teaser.component')
@@ -71,11 +72,9 @@ export const routes: Route[] = [
       .then(c => c.SlideCalculatingEntropyComponent),
   },
 
-  {
-    path: '**',
-    redirectTo: compressionSlideRouteNames.teaser,
-  },
+  {path: '**', redirectTo: compressionSlideRouteNames.teaser},
+];
 
-  // NeighborPreloader needs a list of sibling routes for each route.
-  // This allows page route animations to play on first load
-].map((r, i, self) => ({...r, data: {...r.data, siblings: self}}));
+const withNeighborData = mapNeighborData(routes);
+
+export default withNeighborData;

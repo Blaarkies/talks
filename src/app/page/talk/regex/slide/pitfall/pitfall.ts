@@ -1,39 +1,45 @@
-import { NgTemplateOutlet } from '@angular/common';
 import {
-  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   effect,
   inject,
-  viewChildren,
 } from '@angular/core';
 import { ClickerService } from '@app/page/mode-presentation/service/clicker.service';
 import { PresenterNotesService } from '@app/page/presenter-notes';
-import { SplitSection } from '@talk/regex/common/match-split';
-import { Pixelator } from '@talk/regex/component/pixelator/pixelator';
+import {
+  matchSplitGroup,
+} from '@talk/regex/common/match-split';
+import { Problem } from '@talk/regex/slide/pitfall/problem/problem';
+import { PitfallSplitSection } from '@talk/regex/slide/pitfall/type';
 
-function section(content: string, highlight = false): SplitSection {
-  return {
-    id: content.split('').reduce((a, c) => a + c.charCodeAt(0), 0),
-    type: highlight ? 'match' : undefined,
-    content,
-  };
+let id = 1;
+function getId({length}: string): number {
+  return id+=length;
+}
+function section(content: string, type?: PitfallSplitSection['type'])
+  : PitfallSplitSection {
+  return {id: getId(content), type, content};
 }
 
-function r(c: string): SplitSection {
-  return section(c, true);
+/** Wraps `c` to be styled as a regex pattern */
+function r(c: string): PitfallSplitSection {
+  return section(c, 'regex-display');
 }
 
-function t(c: string): SplitSection {
+/** Wraps `c` as plain text */
+function t(c: string): PitfallSplitSection {
   return section(c);
 }
 
-/** @deprecated Not used in slides */
+/** Wraps `c` as a regex result */
+function e(content: string, regex: RegExp): PitfallSplitSection[] {
+  return matchSplitGroup(content, regex, getId(content), 0);
+}
+
 @Component({
   selector: 'app-pitfall',
   imports: [
-    NgTemplateOutlet,
-    Pixelator,
+    Problem,
   ],
   templateUrl: './pitfall.html',
   styleUrl: './pitfall.scss',
@@ -43,113 +49,95 @@ export default class SlidePitfall {
 
   protected pitfalls = [
     {
-      problem: 'Missing anchors',
+      problem: 'Missing Anchors',
       description: [
-        r('abc'),
-        t('finds "abc" anywhere')],
+        r('name'),
+        t('matches every letter sequence "name"')],
+      example: e(
+        'First name: Anamelia\nSurname: Boname\nStreet name: Namenstraat',
+        /name/g),
       solution: [
-        t('Add boundaries with characters or'),
-        r('^'),
-        r('$'),
-        r('\\b')],
+        t('Add hints to refine the match.\n'),
+        t('Add'), r('\\b'), t('boundaries.\n'),
+        t('Specify the position with start/end anchors'),
+        r('^'), r('$'), t('.')],
     },
     {
-      problem: 'Case sensitive',
+      problem: 'Case Sensitivity',
       description: [
-        r('cat'),
-        t('misses "Cat"')],
+        r('rose'),
+        t('won\'t match the name "Rose"')],
+      example: e('Rose picked a rose',
+        /rose/g),
       solution: [
-        t('Use'),
-        r('[Cc]at'),
-        t('or i flag')],
+        t('Use a character class such as'),
+        r('[Rr]ose'), t('\nwhich matches both cases of R.'),
+        t('\nUse the'), r('i'), t('flag.')],
     },
     {
-      problem: 'Special characters',
+      problem: 'Special Characters',
       description: [
-        r('.nl'),
-        t('matches any character, and then "nl"')],
+        t('Finding Netherlands website links using'), r('.nl'),
+        t('\nwill match any character, followed by "nl"'),
+      ],
+      example: e('website unlock www.my-link.nl',
+        /.nl/g),
       solution: [
-        t('Escape the dot with'),
-        r('\\.')],
+        t('Escape the dot with a backslash: '), r('\\.'), t('.'),
+      ],
     },
     {
-      problem: 'Greedy matching',
+      problem: 'Greedy Matching',
       description: [
-        r('www.*com'),
-        t('matches as much as possible')],
+        t('Quantifiers (+,*) will match the most\n'),
+        t('characters that fit between the boundaries.\n'),
+        r('www.*com'), t('through many links')],
+      example: e(
+        'Links: www.my-link-a.com, Not a link, www.my-link-b.com\n'
+        + 'New line: www.my-link-c.com description of link-c',
+        /www.*com/g),
       solution: [
         t('Use lazy matching'),
-        r('www.*?com')],
+        r('www.*?com'), t('.')],
     },
     {
-      problem: 'Ambiguous',
+      problem: 'Stable Patterns',
       description: [
-        r('\\+31[\\s\\d]*'),
-        t('matches any amount of digits')],
+        r('[-:\\d]*'), t('matches all the digits')],
+      example: e(
+        `[2026-09-12 17:23:04.811] INFO
+[2026-09-15 12:01:41.980] ERROR
+[2026-09-19 01:31:29.049] DEBUG`,
+        /[-\d]*/g),
       solution: [
-        t('Try to constrain the search'),
-        r('\\+31 6\\d{8}')],
+        t('Constrain the search by defining limits:\n'),
+        r('\\d{4}-\\d{2}-\\d{2}'),
+        t('will select only the date.')],
     },
     {
-      problem: 'Unreadable',
+      problem: 'Readability',
       description: [
-        t('One gigantic pattern handling all edge cases')],
+        t('Gigantic regex pattern parsing logs\n'),
+        r('^\[\d{4}-(\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3})\]\s(DEBUG|ERROR|INFO)\s+(?:.+\.\S+ - )(.+)')],
+      example: matchSplitGroup(
+        `[2026-09-05 09:00:32.001] DEBUG  auth.session - token refresh attempted for 8812
+service restarted successfully, crash report saved to disk.
+[2026-09-10 12:07:53.847] ERROR  api.gateway - upstream api timed out (retry 1/3)
+[2026-09-12 15:46:14.102] INFO  api.access - "GET /api/v2/search?`,
+        /^\[\d{4}-(\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3})\]\s(DEBUG|ERROR|INFO)\s+(?:.+\.\S+ - )(.+)/gm,
+        getId({length: 99} as string), 1),
       solution: [
-        t('Split into smaller separate patterns')],
+        t('Split into separate patterns where possible.\n'),
+        t('Your future colleague will talk to you about this.')],
     },
   ];
 
-  private clickerService = inject(ClickerService);
   protected step = inject(ClickerService)
-    .makeSafeStepperSignal(this.pitfalls.length - 1, -1);
-
-  private pixelators = viewChildren(Pixelator);
+    .makeSafeStepperSignal(this.pitfalls.length - 1);
 
   constructor() {
     const presenterNotesService = inject(PresenterNotesService);
     effect(() => presenterNotesService.setSlide(7, this.step()));
-
-    const clickerService = inject(ClickerService);
-    afterNextRender(() => clickerService.right());
-
-    effect(() => {
-      const step = this.step();
-      const pixelators = this.pixelators();
-      this.managePixelation(pixelators, step);
-    });
   }
-
-  private managePixelation(pixelators: ReadonlyArray<Pixelator>, step: number) {
-    if (!pixelators.length) {
-      return;
-    }
-
-    if (step === -1) {
-      pixelators.forEach(e => {
-        e.config({direction: 'out'});
-        e.pixelate({immediate: true});
-      });
-      return;
-    }
-
-    const rStep = step * 3;
-    const actives = pixelators.slice(rStep, rStep + 3);
-    for (const e of actives.filter(e => e.getDirection() === 'out')) {
-      e.config({direction: 'in'});
-      e.pixelate();
-    }
-
-    const after = pixelators.slice(rStep + 3);
-    for (const e of after.filter(e => e.getDirection() === 'in')) {
-      e.config({direction: 'out'});
-      e.pixelate();
-    }
-  }
-
-  protected setActiveTab(index: number) {
-    const difference = index - this.step();
-    this.clickerService.autoStep(difference);
-  }
-
 
 }

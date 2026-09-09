@@ -34,6 +34,7 @@ export function matchSplitSimple(content: string, regex: RegExp, idSeed = 0)
   return sections;
 }
 
+/** Does not support nested groups */
 export function matchSplitGroup(
   content: string, regex: RegExp, idSeed = 0, skipGroupCount = 1)
   : SplitSection[] {
@@ -55,10 +56,11 @@ export function matchSplitGroup(
       cursor = m.index;
 
       for (const [i, g] of m.slice(skipGroupCount).entries()) {
-        if (!g) {
-          continue;
-        }
+        if (!g) continue;
+
         const index = content.indexOf(g, cursor);
+        if (index === -1 || index < cursor) continue;
+
         const beforeGroup = content.slice(cursor, index);
         cursor = index + g.length;
 

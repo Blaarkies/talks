@@ -16,6 +16,8 @@
             type="3"
             [swap]="activeItem() !== item"
             (click1)="setActiveTab(item)"
+            class="tab"
+            [class.visible]="$index < lastTabIndexToShow()"
           >
             {{ item.label }}
           </app-button>

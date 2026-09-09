@@ -11,6 +11,7 @@ import { WA_WINDOW } from '@ng-web-apis/common';
 import { FilmRoll } from '@talk/regex/component/film-roll/film-roll';
 import { FilmShot } from '@talk/regex/component/film-roll/type';
 import { Definition } from '@talk/regex/slide/history/film-shot/definition/definition';
+import { ExampleInApp } from '@talk/regex/slide/history/film-shot/example-in-app/example-in-app';
 import { Implementation } from '@talk/regex/slide/history/film-shot/implementation/implementation';
 import { ModernRegex } from '@talk/regex/slide/history/film-shot/modern-regex/modern-regex';
 import { Origin } from '@talk/regex/slide/history/film-shot/origin/origin';
@@ -56,6 +57,7 @@ export default class SlideHistory {
     {component: Implementation, theme: 'paper'},
     {component: Definition, theme: 'paper'},
     {component: ModernRegex},
+    {component: ExampleInApp},
   ];
 
   protected beginAnimation = toSignal(timer(1500).pipe(map(() => true)));

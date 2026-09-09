@@ -1,12 +1,11 @@
 <app-rim>
-  <div #headingElement head class="heading">{{ header() }}</div>
-
   <div
-    class="slide-contents"
-    [@routeAnimations]="currentRouteIndex()"
-    (@routeAnimations.start)="animateBusy.set(true)"
-    (@routeAnimations.done)="animateBusy.set(false)"
-  >
+    #headingElement
+    head
+    class="heading"
+  >{{ headingFooting().header }}</div>
+
+  <div class="slide-contents">
     @if (logoVisible() && logo(); as logo) {
       <img
         [src]="logo.src"
@@ -18,5 +17,5 @@
     <router-outlet/>
   </div>
 
-  <div foot class="footing">{{ footer() }}</div>
+  <div foot class="footing">{{ headingFooting().footer }}</div>
 </app-rim>

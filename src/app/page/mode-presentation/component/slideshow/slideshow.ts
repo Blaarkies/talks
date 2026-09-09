@@ -16,6 +16,7 @@ import {
 import {
   ActivatedRoute,
   NavigationEnd,
+  Route,
   Router,
   RouterOutlet,
 } from '@angular/router';
@@ -24,15 +25,19 @@ import {
   SHARED_RESIZE_OBSERVER,
 } from '@app/common';
 import { RimComponent } from '@app/common/component/rim/rim.component';
+import { VenueLogo } from '@app/page/mode-presentation/component/slideshow/type';
 import { ClickerService } from '@app/page/mode-presentation/service/clicker.service';
-import { routeAnimations } from '@app/page/mode-presentation/component/slideshow/route-animations';
 import {
   combineLatest,
   filter,
   map,
+  Observable,
+  of,
   startWith,
   switchMap,
+  withLatestFrom,
 } from 'rxjs';
+import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 
 @Component({
   selector: 'app-slideshow',
@@ -42,7 +47,6 @@ import {
   ],
   templateUrl: './slideshow.html',
   styleUrl: './slideshow.scss',
-  animations: [routeAnimations],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class Slideshow {
@@ -52,13 +56,14 @@ export default class Slideshow {
   private sharedResizeObserver = inject(SHARED_RESIZE_OBSERVER);
 
   /** Provided by route `data` */
-  talkRoutes = input.required<Record<string, string>>();
   headingFootingMap = input.required<Map<string, string[]>>();
-  logo = input<{src: string, style: {}, hideOnRoutes: string[]}>();
+  logo = input<VenueLogo>();
 
-  private routes = computed(() => Object.values(this.talkRoutes()));
+  private routePaths$ = this.getSlideRoutePaths$();
+  private routePaths = toSignal(this.routePaths$);
   private headerElement = viewChild('headingElement',
     {read: ElementRef<HTMLDivElement>});
+
   rimHeaderHeight = toSignal(
     toObservable(this.headerElement).pipe(
       switchMap(e => this.sharedResizeObserver
@@ -72,9 +77,10 @@ export default class Slideshow {
   private currentRouteSlide$ = this.router.events.pipe(
     filter(event => event instanceof NavigationEnd),
     startWith(0),
-    map(() => this.activatedRoute.firstChild.snapshot.url.at(-1).path),
+    map(() => this.activatedRoute.firstChild?.snapshot.url.at(-1).path),
   );
   private currentRouteSlideSignal = toSignal(this.currentRouteSlide$);
+
   protected logoVisible = computed(() => {
     const hideOnRoutes = this.logo()?.hideOnRoutes;
     if (!hideOnRoutes) return true;
@@ -82,26 +88,27 @@ export default class Slideshow {
     return !hideOnRoutes.includes(this.currentRouteSlideSignal());
   });
 
-  private headingFooting = computed(() => {
+  protected headingFooting = computed(() => {
     const textMap = this.headingFootingMap();
     const path = this.currentRouteSlideSignal();
     const noHeadingFooting = !textMap || !textMap.has(path);
-    return noHeadingFooting ? [path, path] : textMap.get(path);
+    const result = noHeadingFooting
+                   ? [path, path]
+                   : textMap.get(path);
+
+    return result
+           ? {header: result[0], footer: result[1]}
+           : {};
   });
 
-  protected header = computed(() => this.headingFooting()[0] || ' ');
-  protected footer = computed(() => this.headingFooting()[1] || ' ');
-
   constructor() {
-    const routeIndexSetter$ = toObservable(this.talkRoutes).pipe(
-      map(routes => {
-        const firstPath = this.activatedRoute.firstChild
-          .snapshot.url.at(-1).path;
-        const routeValues = Object.values(routes);
-        const index = routeValues.findIndex(path => path === firstPath);
+    const routeIndexSetter$ = this.routePaths$.pipe(
+      withLatestFrom(this.currentRouteSlide$),
+      map(([routePaths, slidePath]) => {
+        const index = routePaths.findIndex(p => p === slidePath);
         this.currentRouteIndex.set(index);
 
-        const routesMaxIndex = routeValues.length - 1;
+        const routesMaxIndex = routePaths.length - 1;
         return (value: number) => coerceBetween(value, 0, routesMaxIndex);
       }),
     );
@@ -118,8 +125,27 @@ export default class Slideshow {
   }
 
   private goToRouteIndex(index: number) {
-    const newRoute = this.routes()[index];
+    const newRoute = this.routePaths()[index];
     this.router.navigate([newRoute], {relativeTo: this.activatedRoute});
+  }
+
+  private getSlideRoutePaths$(): Observable<string[]> {
+    const lazyResult = this.activatedRoute.routeConfig.loadChildren();
+    if (lazyResult instanceof Promise) {
+      return fromPromise(lazyResult).pipe(
+        map((m: { default: Route[] } | Route[]) => {
+          const list = ('default' in m) ? m.default : m;
+          return list
+            .slice(0, -1) // ignore the catch-all route "path: '**'"
+            .map(r => r.path);
+        }),
+      );
+    } else {
+      // Don't throw exception. You can still wing a buggy slideshow on stage.
+      // But a fatal exception exit won't let you present further.
+      console.error('Cannot index routes', lazyResult);
+      return of([]);
+    }
   }
 
 }

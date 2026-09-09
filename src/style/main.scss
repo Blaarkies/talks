@@ -1,6 +1,7 @@
 @use 'mixin';
 @use 'variable-sets';
 @use './fix';
+@use './route-animtations';
 @use './font';
 
 @import '@angular/cdk/overlay-prebuilt.css';
@@ -115,3 +116,4 @@ html, body {
   font-size: var(--font-size-3);
   font-weight: var(--font-weight-3);
 }
+

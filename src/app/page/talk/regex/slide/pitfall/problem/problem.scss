@@ -1,0 +1,46 @@
+.problem-layout {
+  height: 100%;
+  display: grid;
+
+  grid: max-content
+        1fr
+        max-content / 1fr;
+  gap: var(--space-5);
+  align-content: center;
+}
+
+.header {
+  text-align: center;
+  font-family: PTMono;
+  font-size: var(--font-size-4);
+}
+
+.divider {
+  width: 50%;
+  color: var(--color-border-2);
+}
+
+.print-token {
+  white-space: preserve;
+
+  &.a {}
+  &.b {
+    background: var(--base-color-10);
+  }
+  &.c {
+    background: var(--base-color-14);
+  }
+}
+
+.is-regex {
+  color: var(--color-text-5);
+  background: var(--base-color-15);
+  padding-inline: var(--space-3);
+  margin-inline: var(--space-3);
+  white-space: nowrap;
+}
+
+.match {
+  background: var(--base-color-11);
+  white-space: nowrap;
+}

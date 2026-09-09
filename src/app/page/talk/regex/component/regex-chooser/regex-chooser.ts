@@ -22,7 +22,10 @@ import { ClickerService } from '@app/page/mode-presentation/service/clicker.serv
 import { matchSplitGroup } from '@talk/regex/common/match-split';
 import { Checkbox } from '@talk/regex/component/checkbox/checkbox';
 import { Printer } from '@talk/regex/component/printer/printer';
-import { switchMap } from 'rxjs';
+import {
+  scan,
+  switchMap,
+} from 'rxjs';
 
 export type RegexEntry = {
   regex: string
@@ -53,9 +56,12 @@ export class RegexChooser {
   private step = toSignal(
     toObservable(this.regexList).pipe(
       switchMap(({length}) => this.clickerService
-          .makeSafeStepperObservable(length - 1, -1))),
+        .makeSafeStepperObservable(length - 1, -1))),
   );
 
+  protected lastTabIndexToShow = toSignal(
+    toObservable(this.step)
+      .pipe(scan((max, c) => Math.max(max, c + 3), 3)));
   protected activeItem = computed(() =>
     this.regexList()[this.step()]);
 

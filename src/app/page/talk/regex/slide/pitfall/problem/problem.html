@@ -1,0 +1,35 @@
+<div class="problem-layout">
+
+  <app-pane [header]="heading()" type="2">
+    <ng-container
+      [ngTemplateOutlet]="print"
+      [ngTemplateOutletContext]="{list: description()}"
+    />
+  </app-pane>
+
+  <app-pane type="2">
+    <ng-container
+      [ngTemplateOutlet]="print"
+      [ngTemplateOutletContext]="{list: example()}"
+    />
+  </app-pane>
+
+  <app-pane type="1" [swap]="true">
+    <ng-container
+      [ngTemplateOutlet]="print"
+      [ngTemplateOutletContext]="{list: solution()}"
+    />
+  </app-pane>
+
+</div>
+
+<ng-template #print let-list="list">
+  <div>@for (s of list; track s.id) {
+    <span
+      class="print-token"
+      [class.is-regex]="s.type === 'regex-display'"
+      [class.match]="s.type === 'match'"
+      [class]="s.group"
+    >{{ s.content }}</span>
+  }</div>
+</ng-template>

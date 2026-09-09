@@ -49,7 +49,7 @@ export default class SandboxRegex {
   protected flags = [
     {
       value: 'g',
-      default: false && true,
+      default: true,
       label: 'Global search',
       description: 'Glo',
     },
@@ -74,7 +74,6 @@ export default class SandboxRegex {
   ];
   protected activeFlags = signal(new Set<typeof this.flags[0]>());
 
-  // protected regexControl = new FormControl(',[\\w\\s]+,');
   protected regexControl = new FormControl('(\\w+)\\s+(\\w+)');
   private regexValue = toSignal(this.regexControl.valueChanges.pipe(
     startWith(this.regexControl.value)));

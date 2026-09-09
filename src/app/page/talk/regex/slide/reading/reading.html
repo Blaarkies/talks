@@ -1,0 +1,36 @@
+<!--<button (click)="book.previousPage()" [disabled]="book.currentIndex() === 0">← Back</button>-->
+<!--<span>Page {{ book.currentIndex() + 1 }} of {{ 3 }}</span>-->
+<!--<button (click)="book.nextPage()" [disabled]="book.currentIndex() === 2">Next →</button>-->
+
+<!--<app-book #book>-->
+<!--  <ng-template>-->
+<!--    ( three digits followed by a hyphen ) repeated twice-->
+<!--  </ng-template>-->
+<!--  <ng-template>-->
+<!--    must contain an uppercase letter-->
+<!--  </ng-template>-->
+<!--  <ng-template>-->
+<!--    ^(?=.*[A-Z])(?=.*d)[A-Za-zd]$-->
+<!--  </ng-template>-->
+<!--</app-book>-->
+
+<!--<app-book #book>-->
+<!--  <ng-template bookPage>-->
+<!--    ( three digits followed by a hyphen ) repeated twice-->
+<!--  </ng-template>-->
+<!--  <ng-template bookPage>-->
+<!--    must contain an uppercase letter-->
+<!--  </ng-template>-->
+<!--  <ng-template bookPage>-->
+<!--    ^(?=.*[A-Z])(?=.*d)[A-Za-zd]$-->
+<!--  </ng-template>-->
+<!--</app-book>-->
+
+<!--<button (click)="book.pageBackward()" [disabled]="!book.canGoBackward()">‹ Back</button>-->
+<!--<button (click)="book.pageForward()" [disabled]="!book.canGoForward()">Forward ›</button>-->
+
+<div class="s-r-layout">
+  <pre>
+{{text()}}
+  </pre>
+</div>

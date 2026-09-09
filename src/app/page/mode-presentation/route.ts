@@ -13,17 +13,16 @@ export const routes: Route[] = [
     path: slideRouteNames.compression,
     loadComponent:
       () => import('@app/page/mode-presentation/component/slideshow/slideshow'),
-    loadChildren: () => import( '../talk/compress/route')
-      .then(c => c.routes),
+    loadChildren: () => import( '@talk/compress/route'),
+    title: 'Blaarkies- Compression',
     data: {
-      talkRoutes: compressionSlideRouteNames,
       headingFootingMap: compressionHeadingFootingMap,
     },
   },
 
   {
     path: slideRouteNames.regex,
-    loadChildren: () => import( '@app/page/talk/regex/route-venue-matcher')
-      .then(c => c.routes),
+    loadChildren: () => import( '@talk/regex/route/route-venue-matcher'),
+    title: 'Blaarkies- Regex',
   },
 ];

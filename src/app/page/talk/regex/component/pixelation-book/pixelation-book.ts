@@ -42,13 +42,14 @@ export class PixelationBook {
     const safe = coerceBetween(index, 0, max);
     if (safe !== index) {
       throw new Error(
-        `Out of bounds error. ContentChild at index [${index}]`
+        `Out of bounds. ContentChild at index [${index}]`
         + ` does not exist`);
     }
     return safe;
   });
 
-  protected newPage = computed(() => this.pages()[this.safeIndex() + this.skip()]);
+  protected newPage = computed(() =>
+    this.pages()[this.safeIndex() + this.skip()]);
 
   protected pageA = signal<TemplateRef<HTMLElement>>(undefined);
   protected pageB = signal<TemplateRef<HTMLElement>>(undefined);

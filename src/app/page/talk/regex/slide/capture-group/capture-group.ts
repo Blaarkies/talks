@@ -35,6 +35,7 @@ export default class SlideCaptureGroup {
     [`(\\d+ \\w+) ago`, 'Age'],
     [`(\\d+) (year|month|day)s? ago`, 'Separate'],
     [`(\\d+)(K|M|G)? views, (?:\\d+)`, 'Non-Capture'],
+    [`(?<unit>year|month|day)`, 'Named Groups'],
   ].map(([regex, label]) => (<RegexEntry>{regex, label}));
 
   constructor() {
