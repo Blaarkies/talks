@@ -16,6 +16,7 @@ export const routes: Route[] = [
     loadChildren: () => import( '../talk/compress/route')
       .then(c => c.routes),
     data: {
+      // TODO: test if presenter notes still function after removing talkRoutes
       talkRoutes: compressionSlideRouteNames,
       headingFootingMap: compressionHeadingFootingMap,
     },
@@ -23,7 +24,6 @@ export const routes: Route[] = [
 
   {
     path: slideRouteNames.regex,
-    loadChildren: () => import( '@app/page/talk/regex/route-venue-matcher')
-      .then(c => c.routes),
+    loadChildren: () => import( '@talk/regex/route/route-venue-matcher'),
   },
 ];

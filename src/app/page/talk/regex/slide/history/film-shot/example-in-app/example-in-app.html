@@ -1,0 +1,43 @@
+<ng-template #windowLevel>
+  @for (w of windows; track w.heading) {
+    <app-pane-windows-3-1
+      [heading]="w.heading"
+      [dragBoundaryParent]="dragBoundaryElement()"
+      [style.translate]="w.preTranslate"
+      class="type-block-window"
+    >
+      <img
+        [src]="w.src"
+        [width]="w.width"
+        class="image-fill-window"
+      />
+    </app-pane-windows-3-1>
+  }
+</ng-template>
+
+<div class="layers">
+  <div class="radial-glow"></div>
+
+  <ng-container [ngTemplateOutlet]="noise"/>
+  <img src="talk/regex/bliss.webp" class="blur-bliss"/>
+  <div class="scan-lines"></div>
+
+  <ng-container [ngTemplateOutlet]="windowLevel"/>
+</div>
+
+<ng-template #noise>
+  <div class="noise-pattern">
+    <svg>
+      <filter id="crt-noise">
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency=".1"
+          numOctaves="1"/>
+        <feMorphology
+          operator="erode"
+          radius="1"
+        />
+      </filter>
+    </svg>
+  </div>
+</ng-template>

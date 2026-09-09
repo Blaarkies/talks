@@ -37,7 +37,10 @@ export default class SlideWildcard {
     [`[A-Z]+`, 'Custom Letters'],
     [`\\d{2}`, 'Quantifier'],
     [`\\b\\w{3,5}\\b`, 'Bounds'],
-    [`\\s{2}`, 'Space'],
+    [`\\s{2}`, 'White Space'],
+    [`\\S`, 'Non-White Space'],
+    [`\\D`, 'Non-Digit'],
+    [`\\W`, 'Non-Word'],
   ].map(([regex, label]) => (<RegexEntry>{regex, label}));
 
   constructor() {

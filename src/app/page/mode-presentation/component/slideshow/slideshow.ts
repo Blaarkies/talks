@@ -16,6 +16,7 @@ import {
 import {
   ActivatedRoute,
   NavigationEnd,
+  Route,
   Router,
   RouterOutlet,
 } from '@angular/router';
@@ -30,9 +31,12 @@ import {
   combineLatest,
   filter,
   map,
+  Observable,
+  of,
   startWith,
   switchMap,
 } from 'rxjs';
+import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 
 @Component({
   selector: 'app-slideshow',
@@ -52,13 +56,16 @@ export default class Slideshow {
   private sharedResizeObserver = inject(SHARED_RESIZE_OBSERVER);
 
   /** Provided by route `data` */
+  /** @deprecated talkRoutes is now set internally */
   talkRoutes = input.required<Record<string, string>>();
   headingFootingMap = input.required<Map<string, string[]>>();
-  logo = input<{src: string, style: {}, hideOnRoutes: string[]}>();
+  logo = input<{ src: string, style: {}, hideOnRoutes: string[] }>();
 
-  private routes = computed(() => Object.values(this.talkRoutes()));
+  private routePaths$ = this.getSlideRoutePaths$();
+  private routePaths = toSignal(this.routePaths$);
   private headerElement = viewChild('headingElement',
     {read: ElementRef<HTMLDivElement>});
+
   rimHeaderHeight = toSignal(
     toObservable(this.headerElement).pipe(
       switchMap(e => this.sharedResizeObserver
@@ -93,15 +100,16 @@ export default class Slideshow {
   protected footer = computed(() => this.headingFooting()[1] || ' ');
 
   constructor() {
-    const routeIndexSetter$ = toObservable(this.talkRoutes).pipe(
-      map(routes => {
-        const firstPath = this.activatedRoute.firstChild
+    const routeIndexSetter$ = this.routePaths$.pipe(
+      map(routePaths => {
+        const slidePath = this.activatedRoute.firstChild
           .snapshot.url.at(-1).path;
-        const routeValues = Object.values(routes);
-        const index = routeValues.findIndex(path => path === firstPath);
+        const index = routePaths.findIndex(p => p === slidePath);
         this.currentRouteIndex.set(index);
 
-        const routesMaxIndex = routeValues.length - 1;
+        console.log(index, routePaths);
+
+        const routesMaxIndex = routePaths.length - 1;
         return (value: number) => coerceBetween(value, 0, routesMaxIndex);
       }),
     );
@@ -118,8 +126,22 @@ export default class Slideshow {
   }
 
   private goToRouteIndex(index: number) {
-    const newRoute = this.routes()[index];
+    const newRoute = this.routePaths()[index];
     this.router.navigate([newRoute], {relativeTo: this.activatedRoute});
+  }
+
+  private getSlideRoutePaths$(): Observable<string[]> {
+    const lazyResult = this.activatedRoute.routeConfig.loadChildren();
+    if (lazyResult instanceof Promise) {
+      return fromPromise(lazyResult).pipe(
+        map((m: { default: Route[] }) => m.default.map(r => r.path))
+      );
+    } else {
+      // Don't throw exception. You can still wing a buggy slideshow on stage.
+      // But a fatal exception exit won't let you present further
+      console.error('Cannot index routes', lazyResult);
+      return of([]);
+    }
   }
 
 }
