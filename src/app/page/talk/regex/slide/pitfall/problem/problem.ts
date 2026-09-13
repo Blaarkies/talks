@@ -2,10 +2,11 @@ import { NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   input,
 } from '@angular/core';
 import { PaneComponent } from '@component/pane/pane.component';
-import { PitfallSplitSection } from '@talk/regex/slide/pitfall/type';
+import { Pitfall } from '@talk/regex/slide/pitfall/pitfall';
 
 @Component({
   selector: 'app-problem',
@@ -19,9 +20,11 @@ import { PitfallSplitSection } from '@talk/regex/slide/pitfall/type';
 })
 export class Problem {
 
-  heading = input.required<string>();
-  description = input.required<PitfallSplitSection[]>();
-  example = input.required<PitfallSplitSection[]>();
-  solution = input.required<PitfallSplitSection[]>();
+  pitfall = input.required<Pitfall>();
+
+  protected heading = computed(() => this.pitfall().heading);
+  protected description = computed(() => this.pitfall().description);
+  protected example = computed(() => this.pitfall().example);
+  protected solution = computed(() => this.pitfall().solution);
 
 }

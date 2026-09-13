@@ -1,0 +1,40 @@
+<div class="book-layout">
+  <svg class="hide-defs">
+    <defs>
+      @for (a of animators(); track a.id) {
+        <filter [attr.id]="'morph-' + a.id">
+          <feMorphology operator="dilate" radius="0" result="dilated">
+            <animate
+              [attr.id]="'dilate-' + a.id"
+              attributeName="radius"
+              [attr.values]="a.dilateValues"
+              [attr.dur]="a.dur"
+              fill="freeze"
+            />
+          </feMorphology>
+
+          <feMorphology operator="erode" radius="0" in="dilated">
+            <animate
+              [attr.id]="'erode-' + a.id"
+              attributeName="radius"
+              [attr.values]="a.erodeValues"
+              [attr.dur]="a.dur"
+              fill="freeze"
+            />
+          </feMorphology>
+        </filter>
+      }
+    </defs>
+  </svg>
+
+  @for (page of pages(); track $index; let i = $index) {
+    <div
+      class="page"
+      [class.active]="i === currentIndex()"
+      [style.pointer-events]="i === currentIndex() ? 'auto' : 'none'"
+      [style.filter]="'url(#morph-' + i + ')'"
+    >
+      <ng-container [ngTemplateOutlet]="page"/>
+    </div>
+  }
+</div>

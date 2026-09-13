@@ -9,6 +9,7 @@ import { PresenterNotesService } from '@app/page/presenter-notes';
 import {
   matchSplitGroup,
 } from '@talk/regex/common/match-split';
+import { BookComponent } from '@talk/regex/component/eroding-pages/book';
 import { Problem } from '@talk/regex/slide/pitfall/problem/problem';
 import { PitfallSplitSection } from '@talk/regex/slide/pitfall/type';
 
@@ -36,10 +37,18 @@ function e(content: string, regex: RegExp): PitfallSplitSection[] {
   return matchSplitGroup(content, regex, getId(content), 0);
 }
 
+export type Pitfall = {
+  heading: string;
+  description: PitfallSplitSection[];
+  example: PitfallSplitSection[];
+  solution: PitfallSplitSection[];
+}
+
 @Component({
   selector: 'app-pitfall',
   imports: [
     Problem,
+    BookComponent,
   ],
   templateUrl: './pitfall.html',
   styleUrl: './pitfall.scss',
@@ -49,7 +58,7 @@ export default class SlidePitfall {
 
   protected pitfalls = [
     {
-      problem: 'Missing Anchors',
+      heading: 'Missing Anchors',
       description: [
         r('name'),
         t('matches every letter sequence "name"')],
@@ -63,7 +72,7 @@ export default class SlidePitfall {
         r('^'), r('$'), t('.')],
     },
     {
-      problem: 'Case Sensitivity',
+      heading: 'Case Sensitivity',
       description: [
         r('rose'),
         t('won\'t match the name "Rose"')],
@@ -75,7 +84,7 @@ export default class SlidePitfall {
         t('\nUse the'), r('i'), t('flag.')],
     },
     {
-      problem: 'Special Characters',
+      heading: 'Special Characters',
       description: [
         t('Finding Netherlands website links using'), r('.nl'),
         t('\nwill match any character, followed by "nl"'),
@@ -87,7 +96,7 @@ export default class SlidePitfall {
       ],
     },
     {
-      problem: 'Greedy Matching',
+      heading: 'Greedy Matching',
       description: [
         t('Quantifiers (+,*) will match the most\n'),
         t('characters that fit between the boundaries.\n'),
@@ -101,7 +110,7 @@ export default class SlidePitfall {
         r('www.*?com'), t('.')],
     },
     {
-      problem: 'Stable Patterns',
+      heading: 'Stable Patterns',
       description: [
         r('[-:\\d]*'), t('matches all the digits')],
       example: e(
@@ -115,7 +124,7 @@ export default class SlidePitfall {
         t('will select only the date.')],
     },
     {
-      problem: 'Readability',
+      heading: 'Readability',
       description: [
         t('Gigantic regex pattern parsing logs\n'),
         r('^\[\d{4}-(\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3})\]\s(DEBUG|ERROR|INFO)\s+(?:.+\.\S+ - )(.+)')],

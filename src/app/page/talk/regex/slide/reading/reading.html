@@ -1,36 +1,61 @@
-<!--<button (click)="book.previousPage()" [disabled]="book.currentIndex() === 0">← Back</button>-->
-<!--<span>Page {{ book.currentIndex() + 1 }} of {{ 3 }}</span>-->
-<!--<button (click)="book.nextPage()" [disabled]="book.currentIndex() === 2">Next →</button>-->
-
-<!--<app-book #book>-->
-<!--  <ng-template>-->
-<!--    ( three digits followed by a hyphen ) repeated twice-->
-<!--  </ng-template>-->
-<!--  <ng-template>-->
-<!--    must contain an uppercase letter-->
-<!--  </ng-template>-->
-<!--  <ng-template>-->
-<!--    ^(?=.*[A-Z])(?=.*d)[A-Za-zd]$-->
-<!--  </ng-template>-->
-<!--</app-book>-->
-
-<!--<app-book #book>-->
-<!--  <ng-template bookPage>-->
-<!--    ( three digits followed by a hyphen ) repeated twice-->
-<!--  </ng-template>-->
-<!--  <ng-template bookPage>-->
-<!--    must contain an uppercase letter-->
-<!--  </ng-template>-->
-<!--  <ng-template bookPage>-->
-<!--    ^(?=.*[A-Z])(?=.*d)[A-Za-zd]$-->
-<!--  </ng-template>-->
-<!--</app-book>-->
-
-<!--<button (click)="book.pageBackward()" [disabled]="!book.canGoBackward()">‹ Back</button>-->
-<!--<button (click)="book.pageForward()" [disabled]="!book.canGoForward()">Forward ›</button>-->
-
 <div class="s-r-layout">
-  <pre>
-{{text()}}
-  </pre>
+
+  <app-pane
+    [header]="header()"
+    [type]="$any(1 + step() % 5)"
+    [swap]="step() % 3 < 1"
+  >
+
+    <div>
+      @switch (step()) {
+        @case (0) {
+          <table class="table">
+            <tbody>
+            <tr><td>^</td><td>Start of the text (or line)</td></tr>
+            <tr><td>$</td><td>End of the text (or line)</td></tr>
+            <tr><td>g</td><td>Global search</td></tr>
+            <tr><td>i</td><td>Case insensitive</td></tr>
+            </tbody>
+          </table>
+          <br/>
+          <span class="regex">
+            ^(?:\d&lbrace;3&rbrace;-)&lbrace;2&rbrace;\d&lbrace;4&rbrace;$
+          </span>
+        }
+        @case (1) {
+          <span class="regex">
+            ^(?:\d&lbrace;3&rbrace;-)&lbrace;2&rbrace;\d&lbrace;4&rbrace;$
+          </span>
+          <br/>
+          <br/>start anchored
+          <br/> - ( 3 digits, a hyphen ) repeated twice
+          <br/> - 4 digits
+          <br/>end anchored
+        }
+        @case (2) {
+          Be careful when you see the disjunction pipe operator.
+          <br/>It can span large sections, greatly affecting the outcome
+          <br/>
+          <br/><span class="regex">cat|dog</span>
+          <br/><br/><span class="regex">(cat|dog)s</span>
+        }
+        @case (3) {
+          <span class="regex">^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]&lbrace;8,&rbrace;$</span>
+          <br/><br/>
+          <table class="table">
+            <tbody>
+            <tr><td>^</td><td>start</td></tr>
+            <tr><td>(?=.*[A-Z])</td><td>must contain an uppercase letter</td></tr>
+            <tr><td>(?=.*\d)</td><td>must contain a digit</td></tr>
+            <tr><td>[A-Za-z\d]&lbrace;8,&rbrace;</td><td>then use only letters and digits, at least 8 characters</td></tr>
+            <tr><td>$</td><td>end</td></tr>
+            </tbody>
+          </table>
+        }
+        @case (4) {
+          It is read as a set of nested rules
+        }
+      }
+    </div>
+  </app-pane>
 </div>

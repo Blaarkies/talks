@@ -35,9 +35,8 @@ export const headingFootingMap = new Map<string, string[] | null>([
   ]],
   [slideRoutePaths.readingRegex, [
     'READING REGEX',
-    'TODO',
+    'USE ARROW KEYS ← → TO PRACTICE UNDERSTANDING A REGEX PATTERN',
   ]],
-
 
   [slideRoutePaths.end, [
     'THANK YOU',

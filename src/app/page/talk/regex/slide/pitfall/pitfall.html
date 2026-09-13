@@ -1,17 +1,23 @@
 <div class="s-p-layout">
-
-  @for (pf of pitfalls; track pf.problem) {
-    @if ($index === step()) {
-      <app-problem
-        [heading]="pf.problem"
-        [description]="pf.description"
-        [example]="pf.example"
-        [solution]="pf.solution"
-        animate.enter="enter"
-        animate.leave="leave"
-        class="problem"
-      />
-    }
-  }
+  <app-book [currentIndex]="step()" [dilateRadius]="130">
+    <ng-template>
+      <app-problem [pitfall]="pitfalls[0]"/>
+    </ng-template>
+    <ng-template>
+      <app-problem [pitfall]="pitfalls[1]"/>
+    </ng-template>
+    <ng-template>
+      <app-problem [pitfall]="pitfalls[2]"/>
+    </ng-template>
+    <ng-template>
+      <app-problem [pitfall]="pitfalls[3]"/>
+    </ng-template>
+    <ng-template>
+      <app-problem [pitfall]="pitfalls[4]"/>
+    </ng-template>
+    <ng-template>
+      <app-problem [pitfall]="pitfalls[5]"/>
+    </ng-template>
+  </app-book>
 
 </div>

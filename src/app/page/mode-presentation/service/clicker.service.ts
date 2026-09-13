@@ -21,9 +21,6 @@ export class ClickerService {
   navigateAction$ = new Subject<'forward' | 'backward'>();
   stepAction$ = new Subject<'right' | 'left'>();
 
-  constructor() {
-  }
-
   forward() {
     this.navigateAction$.next('forward');
   }
