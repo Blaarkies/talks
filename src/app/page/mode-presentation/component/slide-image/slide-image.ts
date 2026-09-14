@@ -25,6 +25,8 @@ export default class SlideImage {
 
   imageSource = input.required<string>();
   forceFullScreen = input<boolean>(true);
+  style = input<Partial<CSSStyleDeclaration>>();
+
   protected fullScreen = computed(() => this.forceFullScreen() !== false);
 
   private window = inject(WA_WINDOW);

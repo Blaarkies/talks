@@ -18,18 +18,14 @@
             </tbody>
           </table>
           <br/>
-          <span class="regex">
-            ^(?:\d&lbrace;3&rbrace;-)&lbrace;2&rbrace;\d&lbrace;4&rbrace;$
-          </span>
+          <span class="regex">^(?:\d&lbrace;3&rbrace;-)&lbrace;2&rbrace;\d&lbrace;4&rbrace;$</span>
         }
         @case (1) {
-          <span class="regex">
-            ^(?:\d&lbrace;3&rbrace;-)&lbrace;2&rbrace;\d&lbrace;4&rbrace;$
-          </span>
+          <span class="regex">^(?:\d&lbrace;3&rbrace;-)&lbrace;2&rbrace;\d&lbrace;4&rbrace;$</span>
           <br/>
           <br/>start anchored
-          <br/> - ( 3 digits, a hyphen ) repeated twice
-          <br/> - 4 digits
+          <br/> - ( <span class="censor">3 digits, 1 hyphen</span> ) repeated 2x
+          <br/> - <span class="censor">4 digits</span>
           <br/>end anchored
         }
         @case (2) {
@@ -40,19 +36,20 @@
           <br/><br/><span class="regex">(cat|dog)s</span>
         }
         @case (3) {
-          <span class="regex">^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]&lbrace;8,&rbrace;$</span>
+          <span class="regex">^(?:\d&lbrace;3&rbrace;-)&lbrace;2&rbrace;\d&lbrace;4&rbrace;$</span>
           <br/><br/>
           <table class="table">
             <tbody>
-            <tr><td>^</td><td>start</td></tr>
-            <tr><td>(?=.*[A-Z])</td><td>must contain an uppercase letter</td></tr>
-            <tr><td>(?=.*\d)</td><td>must contain a digit</td></tr>
-            <tr><td>[A-Za-z\d]&lbrace;8,&rbrace;</td><td>then use only letters and digits, at least 8 characters</td></tr>
-            <tr><td>$</td><td>end</td></tr>
+            <tr><td>^</td><td>start of text</td></tr>
+            <tr><td>(?:\d&lbrace;3&rbrace;-)</td><td>3 digits then a hyphen</td></tr>
+            <tr><td>&lbrace;2&rbrace;</td><td>repeat previous</td></tr>
+            <tr><td>\d&lbrace;4&rbrace;</td><td>followed by 4 digits</td></tr>
+            <tr><td>$</td><td>end of text</td></tr>
             </tbody>
           </table>
         }
         @case (4) {
+          <br/>
           It is read as a set of nested rules
         }
       }

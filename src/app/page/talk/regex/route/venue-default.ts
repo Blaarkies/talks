@@ -11,7 +11,9 @@ const routesAll: Route[] = [
   slideDefinitions.flags,
   slideDefinitions.pitfalls,
   slideDefinitions.readingRegex,
+
   slideDefinitions.end,
+
   {path: '**', redirectTo: slideDefinitions.teaser.path},
 ];
 const withNeighborData = mapNeighborData(routesAll);

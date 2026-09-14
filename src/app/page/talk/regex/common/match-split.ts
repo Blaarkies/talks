@@ -36,7 +36,8 @@ export function matchSplitSimple(content: string, regex: RegExp, idSeed = 0)
 
 /** Does not support nested groups */
 export function matchSplitGroup(
-  content: string, regex: RegExp, idSeed = 0, skipGroupCount = 1)
+  content: string, regex: RegExp, idSeed = 0,
+  skipGroupCount: number | number[] = 1)
   : SplitSection[] {
   const sections: SplitSection[] = [];
   const matchesUnfiltered = regex.global
@@ -46,7 +47,9 @@ export function matchSplitGroup(
 
   let id = idSeed;
 
-  if (matches.some(m => m.slice(skipGroupCount).length)) {
+  const cleanSkip = typeof skipGroupCount === 'number'
+  ? [skipGroupCount] : skipGroupCount;
+  if (matches.some(m => m.slice(...cleanSkip).length)) {
     const categories = makeNumberList(26).map(n => String.fromCharCode(n + 97));
     let cursor = 0;
 
@@ -55,7 +58,7 @@ export function matchSplitGroup(
       sections.push({id: ++id, content: beforeMatch});
       cursor = m.index;
 
-      for (const [i, g] of m.slice(skipGroupCount).entries()) {
+      for (const [i, g] of m.slice(...cleanSkip).entries()) {
         if (!g) continue;
 
         const index = content.indexOf(g, cursor);

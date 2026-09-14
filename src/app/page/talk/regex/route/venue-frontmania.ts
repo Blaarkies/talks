@@ -11,23 +11,26 @@ export const frontmaniaNoLogoSlides = [
   slideRoutePaths.closing,
 ];
 
+const style: Partial<CSSStyleDeclaration> = {
+  background: '#111',
+};
 const frontmaniaSlideDefinitions = {
   opening: {
     path: slideRoutePaths.opening,
     loadComponent: () => import('@app/page/mode-presentation/component/slide-image/slide-image'),
-    data: {imageSource: 'talk/regex/venue/frontmania/opening.webp'},
+    data: {style, imageSource: 'talk/regex/venue/frontmania/opening.webp'},
   } as Route,
 
   introduction: {
     path: slideRoutePaths.introduction,
     loadComponent: () => import('@app/page/mode-presentation/component/slide-image/slide-image'),
-    data: {imageSource: 'talk/regex/venue/frontmania/introduction.webp'},
+    data: {style, imageSource: 'talk/regex/venue/frontmania/introduction.webp'},
   } as Route,
 
   closing: {
     path: slideRoutePaths.closing,
     loadComponent: () => import('@app/page/mode-presentation/component/slide-image/slide-image'),
-    data: {imageSource: 'talk/regex/venue/frontmania/closing.webp'},
+    data: {style, imageSource: 'talk/regex/venue/frontmania/closing.webp'},
   } as Route,
 };
 

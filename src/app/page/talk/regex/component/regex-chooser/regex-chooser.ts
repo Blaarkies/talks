@@ -5,8 +5,6 @@ import {
   effect,
   inject,
   input,
-  linkedSignal,
-  signal,
 } from '@angular/core';
 import {
   toObservable,
@@ -30,6 +28,9 @@ import {
 export type RegexEntry = {
   regex: string
   label: string
+  /** Nested groups such as backreference breaks the matchSplitGroup skip
+   * counter. Manually define the range of groups to slice */
+  skip?: number[]
 }
 
 @Component({
@@ -81,7 +82,8 @@ export class RegexChooser {
     const index = this.regexList().indexOf(item);
     const seed = index * 100;
     const skip = this.skipGroupCount();
-    return matchSplitGroup(content, regex, seed, skip);
+
+    return matchSplitGroup(content, regex, seed, item?.skip ?? skip);
   });
 
   constructor() {

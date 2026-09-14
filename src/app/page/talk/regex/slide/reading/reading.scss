@@ -20,6 +20,12 @@
   font-size: var(--font-size-4);
 }
 
+.censor {
+  background: #000c;
+  color: var(--base-color-0);
+  padding-inline: var(--space-3);
+}
+
 .table {
   td {
     padding-right: 3ch;

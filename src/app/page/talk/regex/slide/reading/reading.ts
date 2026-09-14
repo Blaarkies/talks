@@ -2,9 +2,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  effect,
   inject,
 } from '@angular/core';
 import { ClickerService } from '@app/page/mode-presentation/service/clicker.service';
+import { PresenterNotesService } from '@app/page/presenter-notes';
 import { PaneComponent } from '@component/pane/pane.component';
 
 @Component({
@@ -27,7 +29,12 @@ export default class Reading {
     'Break it at the main groups',
     'Find the branching logic',
     'Replace with plain language',
-    'A regex is not read as a sentence',
+    'A regex pattern is not read as a sentence',
   ];
+
+  constructor() {
+    const presenterNotesService = inject(PresenterNotesService);
+    effect(() => presenterNotesService.setSlide(8, this.step()));
+  }
 
 }

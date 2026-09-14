@@ -23,7 +23,7 @@ const routes: Route[] = [
       logo: <VenueLogo>{
         src: 'talk/regex/venue/frontmania/logo.webp',
         style: {
-          right: '75px',
+          right: '45px', //'75px',
           top: '60px',
           height: '175px',
         },
@@ -42,7 +42,7 @@ const routes: Route[] = [
       logo: <VenueLogo>{
         src: 'talk/regex/venue/devday/logo.webp',
         style: {
-          right: '75px',
+          right: '45px', //'75px',
           top: '60px',
           height: '175px',
         },

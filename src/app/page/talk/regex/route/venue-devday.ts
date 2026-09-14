@@ -18,7 +18,6 @@ const routes: Route[] = [
 
   {path: '**', redirectTo: slideDefinitions.teaser.path},
 ];
-
 const withNeighborData = mapNeighborData(routes);
 
 export default withNeighborData;

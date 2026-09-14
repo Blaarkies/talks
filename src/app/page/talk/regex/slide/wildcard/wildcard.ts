@@ -41,7 +41,8 @@ export default class SlideWildcard {
     [`\\S`, 'Non-White Space'],
     [`\\D`, 'Non-Digit'],
     [`\\W`, 'Non-Word'],
-  ].map(([regex, label]) => (<RegexEntry>{regex, label}));
+    [`(\\d).+?\\1`, 'Backreference', [0, 1]],
+  ].map(([regex, label, skip]) => (<RegexEntry>{regex, label, skip}));
 
   constructor() {
     const numberedStep = inject(ClickerService).makeSafeStepperSignal(

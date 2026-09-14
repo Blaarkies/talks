@@ -63,7 +63,7 @@ export default class SlidePitfall {
         r('name'),
         t('matches every letter sequence "name"')],
       example: e(
-        'First name: Anamelia\nSurname: Boname\nStreet name: Namenstraat',
+        'name: anamelia\nsurname: boname\nstreet name: namenstraat',
         /name/g),
       solution: [
         t('Add hints to refine the match.\n'),
