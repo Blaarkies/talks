@@ -2,9 +2,29 @@ import { Route } from '@angular/router';
 import { mapNeighborData } from '@app/common/function/route';
 import {
   slideDefinitions,
+  slideRoutePaths,
 } from '@talk/regex/route/slide-definition';
 
+export const devdayNoLogoSlides = [
+  slideRoutePaths.opening,
+  // slideRoutePaths.introduction,
+  // slideRoutePaths.closing,
+];
+
+const style: Partial<CSSStyleDeclaration> = {
+  background: 'radial-gradient(circle, #000 60%, #484)',
+};
+const devdaySlideDefinitions = {
+  opening: {
+    path: slideRoutePaths.opening,
+    loadComponent: () => import('@app/page/mode-presentation/component/slide-image/slide-image'),
+    data: {style, imageSource: 'talk/regex/venue/devday/logo.webp'},
+  } as Route,
+};
+
 const routes: Route[] = [
+  devdaySlideDefinitions.opening,
+
   slideDefinitions.teaser,
   slideDefinitions.history,
   slideDefinitions.basics,
@@ -16,7 +36,7 @@ const routes: Route[] = [
 
   slideDefinitions.end,
 
-  {path: '**', redirectTo: slideDefinitions.teaser.path},
+  {path: '**', redirectTo: slideRoutePaths.opening},
 ];
 const withNeighborData = mapNeighborData(routes);
 

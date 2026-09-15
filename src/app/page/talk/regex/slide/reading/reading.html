@@ -1,58 +1,87 @@
 <div class="s-r-layout">
 
+  @let a = paneAValues();
   <app-pane
-    [header]="header()"
-    [type]="$any(1 + step() % 5)"
-    [swap]="step() % 3 < 1"
+    #paneA
+    [header]="a.header"
+    [type]="a.type"
+    [swap]="a.swap"
   >
-
     <div>
-      @switch (step()) {
-        @case (0) {
-          <table class="table">
-            <tbody>
-            <tr><td>^</td><td>Start of the text (or line)</td></tr>
-            <tr><td>$</td><td>End of the text (or line)</td></tr>
-            <tr><td>g</td><td>Global search</td></tr>
-            <tr><td>i</td><td>Case insensitive</td></tr>
-            </tbody>
-          </table>
-          <br/>
-          <span class="regex">^(?:\d&lbrace;3&rbrace;-)&lbrace;2&rbrace;\d&lbrace;4&rbrace;$</span>
-        }
-        @case (1) {
-          <span class="regex">^(?:\d&lbrace;3&rbrace;-)&lbrace;2&rbrace;\d&lbrace;4&rbrace;$</span>
-          <br/>
-          <br/>start anchored
-          <br/> - ( <span class="censor">3 digits, 1 hyphen</span> ) repeated 2x
-          <br/> - <span class="censor">4 digits</span>
-          <br/>end anchored
-        }
-        @case (2) {
-          Be careful when you see the disjunction pipe operator.
-          <br/>It can span large sections, greatly affecting the outcome
-          <br/>
-          <br/><span class="regex">cat|dog</span>
-          <br/><br/><span class="regex">(cat|dog)s</span>
-        }
-        @case (3) {
-          <span class="regex">^(?:\d&lbrace;3&rbrace;-)&lbrace;2&rbrace;\d&lbrace;4&rbrace;$</span>
-          <br/><br/>
-          <table class="table">
-            <tbody>
-            <tr><td>^</td><td>start of text</td></tr>
-            <tr><td>(?:\d&lbrace;3&rbrace;-)</td><td>3 digits then a hyphen</td></tr>
-            <tr><td>&lbrace;2&rbrace;</td><td>repeat previous</td></tr>
-            <tr><td>\d&lbrace;4&rbrace;</td><td>followed by 4 digits</td></tr>
-            <tr><td>$</td><td>end of text</td></tr>
-            </tbody>
-          </table>
-        }
-        @case (4) {
-          <br/>
-          It is read as a set of nested rules
-        }
+      @switch (a.index) {
+        @case (0) {<ng-container [ngTemplateOutlet]="p0"/>}
+        @case (1) {<ng-container [ngTemplateOutlet]="p1"/>}
+        @case (2) {<ng-container [ngTemplateOutlet]="p2"/>}
+        @case (3) {<ng-container [ngTemplateOutlet]="p3"/>}
+        @case (4) {<ng-container [ngTemplateOutlet]="p4"/>}
+      }
+    </div>
+  </app-pane>
+
+  @let b = paneBValues();
+  <app-pane
+    #paneB
+    [header]="b.header"
+    [type]="b.type"
+    [swap]="b.swap"
+  >
+    <div>
+      @switch (b.index) {
+        @case (0) {<ng-container [ngTemplateOutlet]="p0"/>}
+        @case (1) {<ng-container [ngTemplateOutlet]="p1"/>}
+        @case (2) {<ng-container [ngTemplateOutlet]="p2"/>}
+        @case (3) {<ng-container [ngTemplateOutlet]="p3"/>}
+        @case (4) {<ng-container [ngTemplateOutlet]="p4"/>}
       }
     </div>
   </app-pane>
 </div>
+
+<ng-template #p0>
+  <table class="table">
+    <tbody>
+    <tr><td>^</td><td>Start of the text (or line)</td></tr>
+    <tr><td>$</td><td>End of the text (or line)</td></tr>
+    <tr><td>g</td><td>Global search</td></tr>
+    <tr><td>i</td><td>Case insensitive</td></tr>
+    </tbody>
+  </table>
+  <br/>
+  <span class="regex">^(?:\d&lbrace;3&rbrace;-)&lbrace;2&rbrace;\d&lbrace;4&rbrace;$</span>
+</ng-template>
+
+<ng-template #p1>
+  <span class="regex">^(?:\d&lbrace;3&rbrace;-)&lbrace;2&rbrace;\d&lbrace;4&rbrace;$</span>
+  <br/>
+  <br/>start anchored
+  <br/> - ( <span class="censor">3 digits, 1 hyphen</span> ) repeated 2x
+  <br/> - <span class="censor">4 digits</span>
+  <br/>end anchored
+</ng-template>
+
+<ng-template #p2>
+  Be careful when you see the disjunction pipe operator.
+  <br/>It can span large sections, greatly affecting the outcome
+  <br/>
+  <br/><span class="regex">cat|dog</span>
+  <br/><br/><span class="regex">(cat|dog)s</span>
+</ng-template>
+
+<ng-template #p3>
+  <span class="regex">^(?:\d&lbrace;3&rbrace;-)&lbrace;2&rbrace;\d&lbrace;4&rbrace;$</span>
+  <br/><br/>
+  <table class="table">
+    <tbody>
+    <tr><td>^</td><td>start of text</td></tr>
+    <tr><td>(?:\d&lbrace;3&rbrace;-)</td><td>3 digits then a hyphen</td></tr>
+    <tr><td>&lbrace;2&rbrace;</td><td>repeat previous</td></tr>
+    <tr><td>\d&lbrace;4&rbrace;</td><td>followed by 4 digits</td></tr>
+    <tr><td>$</td><td>end of text</td></tr>
+    </tbody>
+  </table>
+</ng-template>
+
+<ng-template #p4>
+  <br/>
+  It is read as a set of nested rules
+</ng-template>

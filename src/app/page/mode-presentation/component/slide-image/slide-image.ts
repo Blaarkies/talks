@@ -6,6 +6,7 @@ import {
   input,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { PresenterNotesService } from '@app/page/presenter-notes';
 import { WA_WINDOW } from '@ng-web-apis/common';
 import {
   fromEvent,
@@ -41,5 +42,9 @@ export default class SlideImage {
     );
 
   protected dimensions = toSignal(this.resize$);
+
+  constructor() {
+    inject(PresenterNotesService).setSlide('opening', 0);
+  }
 
 }

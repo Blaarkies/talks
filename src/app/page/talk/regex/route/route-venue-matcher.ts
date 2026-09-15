@@ -2,6 +2,7 @@ import { Route } from '@angular/router';
 import { mapNeighborData } from '@app/common/function/route';
 import { VenueLogo } from '@app/page/mode-presentation/component/slideshow/type';
 import { headingFootingMap } from '@talk/regex/route/heading-footing';
+import { devdayNoLogoSlides } from '@talk/regex/route/venue-devday';
 import {
   frontmaniaNoLogoSlides,
 } from '@talk/regex/route/venue-frontmania';
@@ -36,7 +37,7 @@ const routes: Route[] = [
     path: regexVenues.devday,
     loadComponent:
       () => import('@app/page/mode-presentation/component/slideshow/slideshow'),
-    loadChildren: () => import( '@talk/regex/route/venue-devday'),
+    loadChildren: () => import('@talk/regex/route/venue-devday'),
     data: {
       headingFootingMap: headingFootingMap,
       logo: <VenueLogo>{
@@ -46,6 +47,7 @@ const routes: Route[] = [
           top: '60px',
           height: '175px',
         },
+        hideOnRoutes: devdayNoLogoSlides,
       },
     },
   },

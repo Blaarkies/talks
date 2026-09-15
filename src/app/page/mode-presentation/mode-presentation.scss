@@ -27,6 +27,7 @@
 .steps {
   padding-top: 1em;
   background: var(--color-pane-1);
+  z-index: 9;
 
   transition: .5s steps(3);
   transition-delay: 1s;
