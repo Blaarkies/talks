@@ -47,7 +47,7 @@ export const mockTextA = orwellA;
 export const mockTextIntFloat = orwellA
   .slice(0, 500)
   .replaceAll('thirteen', '13')
-  .replaceAll('day in April', '4th of April')
+  .replaceAll('day in April', '14th of April')
   .replaceAll('the glass doors', 'the 3.1415 glass doors')
   .replaceAll('of gritty dust from', 'of gritty dust, with a count of 7, 3 managed')
 ;

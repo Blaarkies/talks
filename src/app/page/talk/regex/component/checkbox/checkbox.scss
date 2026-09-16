@@ -5,6 +5,7 @@
   input[type="checkbox"] {
     & ~ label[for] {
       cursor: pointer;
+      padding: var(--space-5);
       padding-left: var(--space-3);
     }
 

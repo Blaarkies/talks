@@ -10,6 +10,7 @@ import {
   linkedSignal,
   TemplateRef,
 } from '@angular/core';
+import { makeNumberList } from '@app/common';
 
 /** Container that manages morph animations on the provided template refs
  * when `currentIndex` updates.
@@ -34,7 +35,7 @@ export class BookComponent {
 
   dilateRadius = input(15);
   erodeRatio = input(2.7);
-  duration = input(2e3);
+  duration = input(1.5e3);
   currentIndex = input<number>();
 
   protected pages = contentChildren<TemplateRef<HTMLElement>>(TemplateRef);
@@ -53,6 +54,9 @@ export class BookComponent {
 
   private previousIndex: number;
 
+  private stepsCount = 7;
+  private indexCount = this.stepsCount - 1;
+
   constructor() {
     effect(() => {
       const c = this.currentIndex();
@@ -67,12 +71,28 @@ export class BookComponent {
   }
 
   private playAnimationIn(i: number) {
+    const d = this.dilateRadius();
+
+    const ds = makeNumberList(this.stepsCount).map(n => {
+      const norm = n/this.indexCount;
+      return d * norm;
+    }).slice(1);
+    const dFull = ds.concat(ds.slice(0, -1).toReversed());
+
+    const e = this.erodeRadius();
+    const es = makeNumberList(this.stepsCount).map(n => {
+      const norm = n/this.indexCount;
+      return e * norm;
+    }).slice(1).toReversed();
+
     this.animators.update(a => {
       a[i] = {
         id: a[i].id,
         dur: `${this.duration()}ms`,
-        dilateValues: `0;${this.dilateRadius()};0`,
-        erodeValues: `${this.erodeRadius()};0`,
+        dilateValues: `0;${dFull.join(';')};0`,
+          // `0;${this.dilateRadius()};0`,
+        erodeValues: `${es.join(';')};0`,
+          // `${this.erodeRadius()};0`,
       };
       return a;
     });
@@ -81,12 +101,26 @@ export class BookComponent {
 
   private playAnimationOut(i: number) {
     const e = this.erodeRadius();
+    const es = makeNumberList(this.stepsCount).map(n => {
+      const norm = n/this.indexCount;
+      return e * norm * .4;
+    }).slice(1);
+    const eFull = es.concat(es.slice(0, -1).toReversed());
+
+    const d = this.dilateRadius();
+    const ds = makeNumberList(this.stepsCount).map(n => {
+      const norm = n/this.indexCount;
+      return d * norm * .5;
+    }).slice(1,-1);
+
     this.animators.update(a => {
       a[i] = {
         id: a[i].id,
         dur: `${this.duration()}ms`,
-        dilateValues: `0;${this.dilateRadius()}`,
-        erodeValues: `0;${e * .2};${e}`,
+        dilateValues: `0;${ds.join(';')}`,
+          // `0;${this.dilateRadius()}`,
+        erodeValues: `0;${eFull.join(';')};${e}`,
+          // `0;${e * .2};${e}`,
       };
       return a;
     });

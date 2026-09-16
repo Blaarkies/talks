@@ -32,7 +32,8 @@ export default class SlideBasicMatching {
 
   protected regexList = [
     [`Smith`, 'Ctrl+F Find'],
-    [`\\d+`, 'Find Integer'],
+    [`\\d`, 'Find Integer'],
+    [`\\d+`, 'Find Integers'],
     [`\\d+\\.\\d+`, 'Find Decimal Number'],
   ].map(([regex, label]) => (<RegexEntry>{regex, label}));
 

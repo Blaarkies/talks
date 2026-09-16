@@ -33,7 +33,7 @@
           [shadow]="false"
           [background]="false"
         >
-          <div class="regex-display-wrap">
+          <div class="regex-display-wrap cursor-default">
             @if (activeItem(); as item) {
               <div class="active">{{ item.regex }}</div>
             } @else {
@@ -52,7 +52,7 @@
 
   <!--  CSS grid spacer--><br/>
 
-  <app-printer [sections]="displayText()"/>
+  <app-printer [sections]="displayText()" class="cursor-default"/>
 
   <!--  Center of mass alignment --><br/>
 
