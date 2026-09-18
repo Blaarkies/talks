@@ -48,8 +48,8 @@ export default class Reading {
 
   private headers = [
     'Find the outer frame and flags',
-    'Break it at the main groups',
-    'Find the branching logic',
+    'Break up groups',
+    'Branching logic',
     'Replace with plain language',
     'A regex pattern is not read as a sentence',
   ];

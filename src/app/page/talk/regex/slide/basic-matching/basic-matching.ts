@@ -31,10 +31,11 @@ export default class SlideBasicMatching {
   protected mockText = getSizedMockText(59, mockTextIntFloat.slice(0, 336));
 
   protected regexList = [
-    [`Smith`, 'Ctrl+F Find'],
-    [`\\d`, 'Find Integer'],
-    [`\\d+`, 'Find Integers'],
+    [`Smith`, 'Find Text'],
+    [`\\d`, 'Find Digit'],
+    [`\\d+`, 'Find Digits'],
     [`\\d+\\.\\d+`, 'Find Decimal Number'],
+    [`\\d+\\.\\d+|\\d+`, 'Find Either'],
   ].map(([regex, label]) => (<RegexEntry>{regex, label}));
 
   constructor() {
