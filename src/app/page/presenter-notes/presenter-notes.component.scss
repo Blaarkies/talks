@@ -31,18 +31,25 @@
       }
     }
 
-    .timer {
-      min-width: 10ch;
-      margin: 0;
+    .timer-pane {
       cursor: pointer;
 
       &:hover {
-        background: #0003;
+        background: #0003 !important;
       }
+    }
+
+    .timer {
+      min-width: 10ch;
+      margin: 0;
 
       > span {
         opacity: .5;
       }
+    }
+
+    .font-sizer {
+      display: grid;
     }
   }
 }
@@ -52,7 +59,9 @@
 }
 
 .notes {
-  font-size: var(--font-size-4);
+  --font-size: var(--font-size-4);
+
+  font-size: var(--font-size, var(--font-size-4));
   line-height: 1.5em;
 
   &.not-active-yet {

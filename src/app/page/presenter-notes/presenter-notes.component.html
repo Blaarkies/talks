@@ -10,6 +10,7 @@
         [class.cut-off-top]="$count > 1
           && note !== currentStep()
           && $first"
+        [style.--font-size.em]="fontSize()"
       ></p>
     }
 
@@ -24,14 +25,26 @@
         <div class="max-time">max {{ maxMinutesAllowed() }}m</div>
       </div>
 
-      <app-pane type="2" [shadow]="false">
+      <app-pane type="2"
+                [shadow]="false"
+                (click)="resetTimer()"
+                class="timer-pane">
         <pre
           class="timer"
           title="Reset timer"
           [innerHTML]="timeElapsed()"
-          (click)="resetTimer()"
         ></pre>
       </app-pane>
+
+      <div class="font-sizer">
+        <app-button type="2" (click1)="sizeFont(1)">
+          {{ chars.arrowUp }}
+        </app-button>
+
+        <app-button type="2" (click1)="sizeFont(-1)">
+          {{ chars.arrowDown }}
+        </app-button>
+      </div>
 
       <app-button
         type="1"

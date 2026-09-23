@@ -28,6 +28,8 @@ export const chars = {
   singleLineT3: '┬',
   singleLineT4: '├',
   singleLine4Way: '┼',
+  arrowUp: '↑',
+  arrowDown: '↓',
 };
 
 export const sep = '\n';

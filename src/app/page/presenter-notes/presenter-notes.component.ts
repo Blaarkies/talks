@@ -16,19 +16,21 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import {
+  chars,
+  coerceBetween,
+  isArray,
+  sep,
+} from '@app/common';
+import { ButtonComponent } from '@component/button/button.component';
+import { PaneComponent } from '@component/pane/pane.component';
+import { ProgressComponent } from '@component/progress/progress.component';
+import { TooltipComponent } from '@component/tooltip/tooltip.component';
+import { WA_LOCAL_STORAGE } from '@ng-web-apis/common';
+import {
   map,
   switchMap,
   timer,
 } from 'rxjs';
-import {
-  coerceBetween,
-  isArray,
-  sep,
-} from '../../common';
-import { ButtonComponent } from '../../common/component/button/button.component';
-import { PaneComponent } from '../../common/component/pane/pane.component';
-import { ProgressComponent } from '../../common/component/progress/progress.component';
-import { TooltipComponent } from '../../common/component/tooltip/tooltip.component';
 import { PresenterNotesService } from './presenter-notes.service';
 import { scriptExample } from './script-example';
 
@@ -36,27 +38,42 @@ let tagSlide = '#slide-';
 let tagStep = '>';
 
 @Component({
-    selector: 'app-presenter-notes',
-    imports: [
-        ReactiveFormsModule,
-        FormsModule,
-        PaneComponent,
-        ButtonComponent,
-        ProgressComponent,
-        TooltipComponent,
-    ],
-    templateUrl: './presenter-notes.component.html',
-    styleUrl: './presenter-notes.component.scss'
+  selector: 'app-presenter-notes',
+  imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    PaneComponent,
+    ButtonComponent,
+    ProgressComponent,
+    TooltipComponent,
+  ],
+  templateUrl: './presenter-notes.component.html',
+  styleUrl: './presenter-notes.component.scss',
 })
 export class PresenterNotesComponent {
+
+  private storage = inject(WA_LOCAL_STORAGE);
+  private key = 'presenter-font-size';
+
+  protected chars = chars;
+  protected fontSize = linkedSignal(() => +this.storage.getItem(this.key));
+
+  protected sizeFont(increment: number) {
+    const s = this.fontSize();
+    if (s <= .5 && increment < 0) return;
+    if (s >= 1.5 && increment > 0) return;
+
+    this.fontSize.update(v => (v ?? 1) + increment / 8);
+    this.storage.setItem(this.key, this.fontSize().toString());
+  }
 
   protected maxSecondsAllowed = linkedSignal(() => {
     const notes = this.inputNotesScript();
     const timeString = notes.match(/#time-(.+)\s/)?.[1];
-    const [_, h,m,s] = timeString?.match(/(\d+h)?(\d+m)?(\d+s)?/) ?? [];
+    const [_, h, m, s] = timeString?.match(/(\d+h)?(\d+m)?(\d+s)?/) ?? [];
 
     const seconds =
-        Number(s?.slice(0, -1) ?? 0)
+      Number(s?.slice(0, -1) ?? 0)
       + Number(m?.slice(0, -1) ?? 0) * 60
       + Number(h?.slice(0, -1) ?? 0) * 3600;
 
