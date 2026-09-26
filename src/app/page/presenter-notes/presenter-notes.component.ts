@@ -1,248 +1,47 @@
 import {
   Component,
-  computed,
   effect,
   inject,
-  linkedSignal,
-  model,
   signal,
 } from '@angular/core';
-import {
-  toObservable,
-  toSignal,
-} from '@angular/core/rxjs-interop';
 import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import {
-  chars,
-  coerceBetween,
-  isArray,
-  sep,
-} from '@app/common';
-import { ButtonComponent } from '@component/button/button.component';
-import { PaneComponent } from '@component/pane/pane.component';
-import { ProgressComponent } from '@component/progress/progress.component';
-import { TooltipComponent } from '@component/tooltip/tooltip.component';
-import { WA_LOCAL_STORAGE } from '@ng-web-apis/common';
-import {
-  map,
-  switchMap,
-  timer,
-} from 'rxjs';
+import { NotesLoader } from '@app/page/presenter-notes/component/notes-loader/notes-loader';
+import { NotesViewer } from '@app/page/presenter-notes/component/notes-viewer/notes-viewer';
 import { PresenterNotesService } from './presenter-notes.service';
-import { scriptExample } from './script-example';
-
-let tagSlide = '#slide-';
-let tagStep = '>';
 
 @Component({
   selector: 'app-presenter-notes',
   imports: [
     ReactiveFormsModule,
     FormsModule,
-    PaneComponent,
-    ButtonComponent,
-    ProgressComponent,
-    TooltipComponent,
+    NotesLoader,
+    NotesViewer,
   ],
   templateUrl: './presenter-notes.component.html',
   styleUrl: './presenter-notes.component.scss',
 })
 export class PresenterNotesComponent {
 
-  private storage = inject(WA_LOCAL_STORAGE);
-  private key = 'presenter-font-size';
-
-  protected chars = chars;
-  protected fontSize = linkedSignal(() => +this.storage.getItem(this.key));
-
-  protected sizeFont(increment: number) {
-    const s = this.fontSize();
-    if (s <= .5 && increment < 0) return;
-    if (s >= 1.5 && increment > 0) return;
-
-    this.fontSize.update(v => (v ?? 1) + increment / 8);
-    this.storage.setItem(this.key, this.fontSize().toString());
-  }
-
-  protected maxSecondsAllowed = linkedSignal(() => {
-    const notes = this.inputNotesScript();
-    const timeString = notes.match(/#time-(.+)\s/)?.[1];
-    const [_, h, m, s] = timeString?.match(/(\d+h)?(\d+m)?(\d+s)?/) ?? [];
-
-    const seconds =
-      Number(s?.slice(0, -1) ?? 0)
-      + Number(m?.slice(0, -1) ?? 0) * 60
-      + Number(h?.slice(0, -1) ?? 0) * 3600;
-
-    return seconds || (60 * 30);
-  });
-
-  protected maxMinutesAllowed = computed(() =>
-    Math.floor(this.maxSecondsAllowed() / 60));
-
-  private timeMark = signal(Date.now());
-
-  protected elapsedSeconds = toSignal(
-    toObservable(this.timeMark).pipe(
-      switchMap(() => timer(0, 7e3)),
-      map(() => {
-        let elapsedTicks = Date.now() - this.timeMark();
-        return elapsedTicks / 1000;
-      })));
-
-  protected timeElapsed = computed(() => {
-    let elapsedSeconds = this.elapsedSeconds();
-    let hours = elapsedSeconds / 3600;
-    let minutes = (elapsedSeconds / 60) % 60;
-
-    let f = (n: number, u: string, significant = false) => {
-      let measure = ` ${Math.floor(n).toString().padStart(2)}${u}`;
-      return significant
-             ? `<strong>${measure}</strong>`
-             : `<span>${measure}</span>`;
-    };
-
-    return `${f(hours, 'h')}${f(minutes, 'm', true)}`;
-  });
-
-  protected scriptTutorial = signal(scriptExample);
-  protected lastUsedScript = signal<string | null>(null);
-  protected inputNotesScript = model<string>();
-  protected heading = computed(() => {
-    const notes = this.notes();
-    const slideStep = this.currentSlideStep();
-    if (!notes || !slideStep || !isArray(slideStep)) {
-      return;
-    }
-    const key = slideStep[0];
-    const note = notes[tagSlide + key];
-    return note ? `${key}: ${note.name}` : `Error: No notes for [${key}]`;
-  });
-
-  protected currentNotes = computed(() => {
-    let slide = this.currentSlide();
-    let slideStep = this.currentSlideStep();
-    if (!slide || !slideStep || !isArray(slideStep)) {
-      return;
-    }
-
-    let i = parseInt(slideStep[1]);
-    return slide.steps.slice(
-      coerceBetween(i - 1, 0, slide.steps.length),
-      i + 2);
-  });
-  protected currentStep = computed(() => {
-    let i = parseInt(this.currentSlideStep()[1] ?? '0');
-    return this.currentSlide().steps[i];
-  });
-
-  private currentSlide = computed(() => {
-    let notes = this.notes();
-    let slideStep = this.currentSlideStep();
-    if (!notes || !slideStep || !isArray(slideStep)) {
-      return;
-    }
-
-    return notes[tagSlide + slideStep[0]];
-  });
-
-  private notes = computed<{} | null>(() => {
-    let script = this.inputNotesScript();
-    if (!script) {
-      return;
-    }
-
-    const scriptTrimmed = script.trim();
-    const timeString = scriptTrimmed.match(/#time-(.+)\s/)?.[1];
-
-    const timeDefinition = timeString?.length ?? 0;
-    const scriptNoTime = scriptTrimmed.slice(timeDefinition);
-
-    const notes = scriptNoTime.split(tagSlide)
-      .filter(s => s && s.trim() !== sep)
-      .map(section => {
-        let [index, ...notTag] = section.split(' ');
-        let key = tagSlide + index;
-        let [name, ...notName] = notTag.join(' ').trim().split(sep);
-
-        let steps = notName.join(sep).trim().split(tagStep)
-          .map(content => content.trim()
-            .replaceAll(sep + sep, sep)
-            .replaceAll(sep, '<br/>'),
-          );
-
-        return [key, {name, steps}];
-      });
-
-    return Object.fromEntries(notes);
-  });
-
   private presenterNotesService = inject(PresenterNotesService);
-  private currentSlideStep = this.presenterNotesService.slideStep;
+
+  protected rawNotes = signal<string>(undefined);
 
   constructor() {
-    let lastUsedScript = this.presenterNotesService.getLastUsedScript();
-    this.lastUsedScript.set(lastUsedScript);
-
-    if (lastUsedScript) {
-      this.inputNotesScript.set(lastUsedScript);
+    const lastUsed = this.presenterNotesService.lastUsedScript();
+    if (lastUsed) {
+      this.rawNotes.set(lastUsed);
     }
 
     effect(() => {
-      let newScript = this.inputNotesScript();
-      if (!newScript) {
-        return;
-      }
-      this.presenterNotesService.saveNewScript(newScript);
-      this.lastUsedScript.set(newScript);
+      let newScript = this.rawNotes();
+      if (!newScript) return;
 
-      this.resetTimer();
+      this.presenterNotesService.saveNewScript(newScript);
     });
   }
 
-  protected resetTimer() {
-    this.timeMark.set(Date.now());
-  }
 
-  protected async loadFile(element: EventTarget) {
-    if (!(element instanceof HTMLInputElement)) {
-      throw Error('HTMLInputElement not provided');
-    }
-
-    let file = element.files?.[0];
-    if (!file) {
-      throw Error('Error loading file');
-    }
-
-    let text = await file.text();
-
-    if (!text.startsWith('#slide-0')) {
-      element.animate(
-        {translate: ['0%', '-9%', '9%', '0%']}, {
-          duration: 400,
-          iterations: 3,
-          direction: 'alternate',
-          easing: 'ease-in-out',
-        });
-      return;
-    }
-
-    this.inputNotesScript.set(text);
-  }
-
-  protected setNewTimeLimit(e: MouseEvent) {
-    let elementBar = e.target as HTMLElement;
-
-    let widthSelected = e.layerX;
-    let widthMax = elementBar.clientWidth;
-
-    let proportion = widthSelected / widthMax;
-
-    let minutes60 = 60 * 60;
-    let value = Math.floor(proportion * minutes60);
-    this.maxSecondsAllowed.set(value);
-  }
 }

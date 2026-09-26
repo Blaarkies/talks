@@ -1,0 +1,15 @@
+<div
+  #scroller
+  class="scroller"
+  [style.translate]="scrollPosition()"
+>
+  @for (step of controlledSteps(); track step.text) {
+    <div
+      #note
+      class="note"
+      [innerHTML]="step.text"
+      [class]="step.state"
+      [style.--font-size.em]="fontSize()"
+    ></div>
+  }
+</div>

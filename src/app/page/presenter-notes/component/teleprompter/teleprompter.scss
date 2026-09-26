@@ -1,0 +1,27 @@
+
+.note {
+  --font-size: var(--font-size-4);
+
+  font-size: var(--font-size, var(--font-size-4));
+  line-height: 1.5em;
+
+  transition: opacity 1s ease-in;
+
+  &.active {
+
+  }
+
+  &.next {
+    color: gray;
+  }
+
+  &.old {
+    color: gray;
+    opacity: 0;
+  }
+}
+
+.scroller {
+  transition: translate 1s ease-in-out;
+  will-change: translate;
+}

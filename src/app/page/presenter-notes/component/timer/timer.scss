@@ -1,0 +1,40 @@
+.timer-layout {
+  display: flex;
+  gap: 0 1ch;
+}
+
+.progress-layout {
+  position: relative;
+  width: max(50vw, 30ch);
+  color: var(--color-text-2);
+
+  .progress {
+    cursor: cell;
+    overflow: hidden;
+  }
+
+  .max-time {
+    position: absolute;
+    top: 0;
+    right: 0;
+    translate: 0 100%;
+    pointer-events: none;
+  }
+}
+
+.timer-pane {
+  cursor: pointer;
+
+  &:hover {
+    background: #0003 !important;
+  }
+}
+
+.timer {
+  min-width: 10ch;
+  margin: 0;
+
+  > span {
+    opacity: .5;
+  }
+}

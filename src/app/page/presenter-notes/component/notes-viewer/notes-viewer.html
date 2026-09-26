@@ -1,0 +1,17 @@
+<div class="layout">
+  <div class="heading">{{ heading() }}</div>
+
+  <div class="teleprompter">
+    <app-teleprompter
+      [slide]="currentSlide().steps"
+      [step]="currentIndex()"
+      [fontSize]="fontSize()"
+    />
+  </div>
+</div>
+
+<div class="controls">
+  <app-timer [timeString]="timeString()"/>
+  <app-font-sizer (fontSized)="fontSize.set($event)"/>
+  <app-button type="1" [swap]="true" (click1)="exit.emit()">X</app-button>
+</div>

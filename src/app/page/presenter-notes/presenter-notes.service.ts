@@ -1,6 +1,7 @@
 import {
   inject,
   Injectable,
+  linkedSignal,
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -29,6 +30,7 @@ let headerKey = '0';
 export class PresenterNotesService {
 
   slideStep = signal<[string, string] | null>([headerKey, '0']);
+  lastUsedScript = linkedSignal(() => this.getLastUsedScript());
 
   private storage = inject(WA_LOCAL_STORAGE);
   private storage$ = fromEvent<StorageEvent>(
@@ -58,6 +60,7 @@ export class PresenterNotesService {
 
   saveNewScript(script: string) {
     this.storage.setItem(lastUsedKey, script || '');
+    this.lastUsedScript.set(script);
   }
 
   getLastUsedScript(): string {

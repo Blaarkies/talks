@@ -1,0 +1,21 @@
+.layout {
+  padding: var(--space-5);
+}
+
+.heading {
+  font-size: var(--font-size-4);
+}
+
+.teleprompter {
+  padding-top: var(--space-4);
+  overflow: hidden;
+}
+
+.controls {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+
+  display: flex;
+  gap: 1ch;
+}
