@@ -5,9 +5,9 @@ import {
   inject,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { WINDOW_INNER_HEIGHT_RESIZED } from '@app/common';
 import { ClickerService } from '@app/page/mode-presentation/service/clicker.service';
 import { PresenterNotesService } from '@app/page/presenter-notes';
-import { WA_WINDOW } from '@ng-web-apis/common';
 import { FilmRoll } from '@talk/regex/component/film-roll/film-roll';
 import { FilmShot } from '@talk/regex/component/film-roll/type';
 import { Definition } from '@talk/regex/slide/history/film-shot/definition/definition';
@@ -16,13 +16,7 @@ import { Implementation } from '@talk/regex/slide/history/film-shot/implementati
 import { ModernRegex } from '@talk/regex/slide/history/film-shot/modern-regex/modern-regex';
 import { Origin } from '@talk/regex/slide/history/film-shot/origin/origin';
 import {
-  concatMap,
-  distinctUntilChanged,
-  fromEvent,
   map,
-  merge,
-  of,
-  startWith,
   timer,
 } from 'rxjs';
 
@@ -35,22 +29,7 @@ import {
 })
 export default class SlideHistory {
 
-  private window = inject(WA_WINDOW);
-
-  // Going fullscreen breaks app-film-roll, because projection items are forced
-  // to the current viewport height.
-  // Detect resize events, destroy app-film-roll, wait, then render a new one
-  protected isResizing = toSignal(
-    fromEvent(this.window, 'resize').pipe(
-      map(() => this.window.innerHeight),
-      distinctUntilChanged(),
-      concatMap(() => merge(
-        timer(0).pipe(map(() => false)),
-        of(true),
-      )),
-      startWith(false),
-    ),
-  );
+  protected isResizing = inject(WINDOW_INNER_HEIGHT_RESIZED);
 
   protected filmShots: FilmShot[] = [
     {component: Origin, theme: 'sepia'},

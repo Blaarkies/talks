@@ -1,117 +1,12 @@
 <div class="layout">
-  @if (inputNotesScript()) {
-    <div class="heading">{{ heading() }}</div>
-
-    @for (note of currentNotes(); track note) {
-      <p
-        class="notes"
-        [innerHTML]="note"
-        [class.not-active-yet]="note !== currentStep()"
-        [class.cut-off-top]="$count > 1
-          && note !== currentStep()
-          && $first"
-        [style.--font-size.em]="fontSize()"
-      ></p>
-    }
-
-    <div class="controls">
-      <div class="progress-layout">
-        <app-progress
-          class="progress"
-          [value]="elapsedSeconds() / maxSecondsAllowed()"
-          [class.overtime]="elapsedSeconds() > maxSecondsAllowed()"
-          (click)="setNewTimeLimit($event)"
-        />
-        <div class="max-time">max {{ maxMinutesAllowed() }}m</div>
-      </div>
-
-      <app-pane type="2"
-                [shadow]="false"
-                (click)="resetTimer()"
-                class="timer-pane">
-        <pre
-          class="timer"
-          title="Reset timer"
-          [innerHTML]="timeElapsed()"
-        ></pre>
-      </app-pane>
-
-      <div class="font-sizer">
-        <app-button type="2" (click1)="sizeFont(1)">
-          {{ chars.arrowUp }}
-        </app-button>
-
-        <app-button type="2" (click1)="sizeFont(-1)">
-          {{ chars.arrowDown }}
-        </app-button>
-      </div>
-
-      <app-button
-        type="1"
-        [swap]="true"
-        (click1)="inputNotesScript.set(null)"
-      >
-        X
-      </app-button>
-    </div>
+  @if (rawNotes()) {
+    <app-notes-viewer
+      [rawNotes]="rawNotes()"
+      (exit)="rawNotes.set(null)"
+    />
   } @else {
-    <app-pane
-      class="load-notes-pane"
-      header="Load notes script"
-      type="4"
-    >
-      <div class="load-notes-layout">
-        <div class="dos-row">
-          <div class="from-storage">
-            Last used script
-            <app-tooltip
-              class="tuck-right"
-              [text]="scriptTutorial()"
-              type="2"
-              swap="false"
-            >
-              <app-button type="4" [swap]="false">EXAMPLE</app-button>
-            </app-tooltip>
-
-            <app-button
-              type="4"
-              [swap]="true"
-              (click1)="inputNotesScript.set(lastUsedScript())"
-            >
-              LOAD
-            </app-button>
-          </div>
-          <pre class="last-used-script">{{ lastUsedScript() || 'None' }}</pre>
-        </div>
-
-        <div class="dos-row">
-          <div>Copy&paste script</div>
-          <textarea
-            [(ngModel)]="inputNotesScript"
-            maxlength="500000"
-            rows="5"
-          ></textarea>
-        </div>
-
-        <div class="dos-row">
-          <div>Upload .txt file</div>
-          <input
-            class="drag-drop-here"
-            type="file"
-            accept="text/plain"
-            (change)="loadFile($event.target)"
-          />
-        </div>
-
-        <div class="dos-row">
-          <div>Record script</div>
-          <app-button>
-            <div class="fake-record-button">●</div>
-          </app-button>
-        </div>
-      </div>
-    </app-pane>
+    <app-notes-loader
+      (scriptSelect)="rawNotes.set($event)"
+    />
   }
-
-
 </div>

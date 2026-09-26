@@ -25,6 +25,11 @@ export function average(list: number[]): number {
   return sum(list) / list.length;
 }
 
+export function median(list: number[]): number {
+  const center = Math.round((list.length - 1) / 2);
+  return list.sort()[center];
+}
+
 function getDifferences(list: number[]): number[] {
   return list
     .map((t, i, self) => self[i + 1] - t)
@@ -99,7 +104,7 @@ export function windowed<T, N extends number>(
   }
 
   const windows = Array.from({length: list.length + offset}, () => <T[]>[]);
-  for (let lI = 0; lI < list.length; lI++){
+  for (let lI = 0; lI < list.length; lI++) {
     const item = list[lI];
 
     for (let oI = 0; oI <= offset; oI++) {

@@ -1,0 +1,24 @@
+<div class="timer-layout">
+  <div class="progress-layout">
+    <app-progress
+      class="progress"
+      [value]="elapsedSeconds() / maxSecondsAllowed()"
+      [class.overtime]="elapsedSeconds() > maxSecondsAllowed()"
+      (click)="setNewTimeLimit($event)"
+    />
+    <div class="max-time">max {{ maxMinutesAllowed() }}m</div>
+  </div>
+
+  <app-pane
+    type="2"
+    [shadow]="false"
+    (click)="resetTimer()"
+    class="timer-pane"
+  >
+    <pre
+      class="timer"
+      title="Reset timer"
+      [innerHTML]="timeElapsed()"
+    ></pre>
+  </app-pane>
+</div>

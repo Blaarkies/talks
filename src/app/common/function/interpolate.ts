@@ -5,6 +5,7 @@
  * @param v1 number larger than `v0`
  * @param t number in range [0-1]
  */
-export function lerp(v0: number, v1: number, t: number = .5): number {
+export function lerp(...args: [number, number] | [number, number, number])
+export function lerp(v0: number, v1: number, t = .5): number {
   return (1 - t) * v0 + t * v1;
 }
