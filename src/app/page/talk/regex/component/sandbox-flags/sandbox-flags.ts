@@ -1,6 +1,5 @@
 import {
-  CdkMenuBar,
-  CdkMenuItem,
+  CdkMenu,
   CdkMenuTrigger,
 } from '@angular/cdk/menu';
 import {
@@ -46,12 +45,11 @@ type Flag = {
 @Component({
   selector: 'app-sandbox-flags',
   imports: [
-    CdkMenuBar,
-    CdkMenuItem,
     Checkbox,
     CdkMenuTrigger,
     ReactiveFormsModule,
     ButtonComponent,
+    CdkMenu,
   ],
   templateUrl: './sandbox-flags.html',
   styleUrl: './sandbox-flags.scss',
@@ -64,10 +62,12 @@ export class SandboxFlags {
 
   flags = input.required<Flag[]>();
 
-  protected flagsWithControl = computed(() => this.flags().map(data => ({
-    ...data,
-    control: new FormControl(data.default),
-  })));
+  protected flagsWithControl = computed(() =>
+    this.flags().map(data => ({
+      ...data,
+      control: new FormControl(data.default),
+    })));
+
   private flagChanges$ = toObservable(this.flagsWithControl).pipe(
     switchMap(flags => flags.map(flag =>
       flag.control.valueChanges.pipe(
@@ -89,9 +89,7 @@ export class SandboxFlags {
   activeFlags = outputFromObservable(this.activeFlags$);
 
   constructor() {
-    this.dr.onDestroy(() => {
-      this.stopClose$.complete();
-    });
+    this.dr.onDestroy(() => this.stopClose$.complete());
   }
 
   protected delayClose(ref: CdkMenuTrigger, dropdown: HTMLDivElement) {
@@ -101,7 +99,7 @@ export class SandboxFlags {
     fromEvent(panel, 'pointermove').pipe(
       throttleTime(50),
       startWith(0),
-      switchMap(() => timer(500)),
+      switchMap(() => timer(700)),
       take(1),
       takeUntil(this.stopClose$),
       takeUntilDestroyed(this.dr))

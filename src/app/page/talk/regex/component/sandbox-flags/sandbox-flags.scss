@@ -1,7 +1,6 @@
 .dropdown-menu {
   display: grid;
   padding: var(--space-3);
-  gap: var(--space-2);
   width: max-content;
   background: var(--color-pane-1);
   border: 2px solid var(--base-color-4);
@@ -13,4 +12,9 @@
   &[aria-expanded='true'] {
     background-color: var(--base-color-8);
   }
+}
+
+app-checkbox {
+  // TODO: fix checkbox padding added for regex-chooser component
+  margin-top: -20px;
 }

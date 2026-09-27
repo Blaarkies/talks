@@ -5,7 +5,7 @@
     <app-tooltip text="Test out your own regex patterns here">
       <app-button type="4" [swap]="true">?</app-button>
     </app-tooltip>
-    <app-tooltip text="Scroll down for Cheat Sheet">
+    <app-tooltip text="Scroll down for the Cheat Sheet">
       <app-button type="2" [swap]="true">i</app-button>
     </app-tooltip>
   </div>
@@ -29,12 +29,21 @@
             rows="2"
           ></textarea>
 
-          <div class="flags">
-            <app-sandbox-flags
-              [flags]="flags"
-              (activeFlags)="activeFlags.set($event)"
-            />
-          </div>
+          <app-sandbox-flags
+            class="flags"
+            [flags]="flags"
+            (activeFlags)="activeFlags.set($event)"
+          />
+
+          <app-button
+            class="edit-button"
+            type="1"
+
+            outline="single"
+            (click1)="startEdit()"
+          >
+            Edit
+          </app-button>
 
           <ng-container
             [ngTemplateOutlet]="print"
@@ -42,25 +51,15 @@
           />
 
         </div>
-
-        <app-button
-          class="edit-button"
-          type="2"
-          [swap]="true"
-          (click1)="startEdit()"
-        >
-          EDIT
-        </app-button>
       </app-pane>
     } @else {
 
-      <app-pane class="edit-pane" type="2" [swap]="true">
+      <app-pane class="edit-pane" type="2" swap="true">
         <textarea
           class="edit-text-textarea"
           [formControl]="editTextControl"
           maxlength="9999"
           rows="20"
-          cols="80"
         ></textarea>
         <div class="edit-controls">
           <app-button [swap]="true" type="3" (click1)="saveEdit()">SAVE
@@ -71,8 +70,7 @@
       </app-pane>
     }
 
-    <app-pane type="4">
-      <div class="heading">Regex matches: {{matches().length}}</div>
+    <app-pane type="4" [header]="'Regex matches:' + matches().length">
       @for (m of matches(); track m.id) {
         <div>{{ m.content }}</div>
       }

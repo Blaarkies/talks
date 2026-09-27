@@ -49,7 +49,7 @@ export default class SandboxRegex {
   protected flags = [
     {
       value: 'g',
-      default: true,
+      default: false,
       label: 'Global search',
       description: 'Glo',
     },

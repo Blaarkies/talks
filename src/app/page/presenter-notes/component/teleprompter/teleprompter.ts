@@ -40,7 +40,7 @@ type ControlledStep = {
   text: string
   state: 'active' | 'next' | 'old'
   active: boolean
-  totalSeconds: number
+  length: number
 }
 
 type ScrollerMove = {
@@ -104,21 +104,15 @@ export class Teleprompter {
     Array.from(this.notesViews().map(e => e.nativeElement).values()));
 
   protected controlledSteps = computed(() => {
-    const steps = this.slide();
     const currentIndex = this.step();
-    const charsPerSecond = this.charSpeakSpeed();
-
-    return steps.map((text, i) => {
-      const totalSeconds = text.length / charsPerSecond;
-      return {
+    return this.slide().map((text, i) => ({
         text,
         state: i < currentIndex
                ? 'old' : i === currentIndex
                          ? 'active' : 'next',
         active: i === currentIndex,
-        totalSeconds,
-      } as ControlledStep;
-    });
+        length: text.length,
+      } as ControlledStep));
   });
 
   constructor() {
@@ -145,9 +139,10 @@ export class Teleprompter {
       toObservable(this.step),
       scrollerWithFontSize$,
       inject(WINDOW_INNER_HEIGHT$),
+      toObservable(this.charSpeakSpeed),
     ]).pipe(
       filter(([elements]) => !!elements?.length),
-      switchMap(([elements, i, scroller, screenHeight]) => {
+      switchMap(([elements, i, scroller, screenHeight, speed]) => {
         stop$.next();
 
         const topBuffer = scroller.top;
@@ -164,7 +159,8 @@ export class Teleprompter {
         }
 
         const measure = this.controlledSteps()[i];
-        const timeMs = measure.totalSeconds * 1e3;
+        const timeMs = 1e3 * measure.length / speed;
+
         return timer(timeMs / 2).pipe(
           map(() => ({value: next, type: 'slow-pan'})),
           startWith(({value: initial, type: 'snap'})),

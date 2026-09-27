@@ -2,10 +2,7 @@ import { NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  effect,
-  inject,
 } from '@angular/core';
-import { PresenterNotesService } from '@app/page/presenter-notes';
 
 @Component({
   selector: 'app-cheat-sheet',
@@ -20,11 +17,6 @@ export default class SlideCheatSheet {
 
   protected cheats = content.trim().split('\n')
     .map(line => line.match(/([^\0]*)\0+(.*)/)?.slice(1, 3));
-
-  // constructor() {
-  //   const presenterNotesService = inject(PresenterNotesService);
-  //   effect(() => presenterNotesService.setSlide(8, 0));
-  // }
 
 }
 
@@ -42,15 +34,15 @@ const content = `
 [aeiou]\0 Custom character class
 [0-9]\0 Character range
 [^a]\0 Any character except "a"
-a?\0 Once or none
-a+\0 Multiple
-a*\0 Multiple or none
+a?\0 Zero or once
+a+\0 At least once
+a*\0 Zero or more
 a{2}\0 Twice
 a{1,3}\0 1-3 times
 a{,5}\0 Up to 5 times
 a{4,}\0 At least 4 times
 a+?\0 Lazy quantifier
 (a|b)\0 Capturing group, either "a" or "b"
-(?:day)\0 Non-capturing group, ignores "day"
+(?:day)\0 Non-capturing group, ignores result
 More...\0https://techearl.com/regex-cheat-sheet
 `;
