@@ -107,7 +107,7 @@ export default class SlideTeaser {
     return !categories.some(c => !c.hide);
   });
 
-  private step = inject(ClickerService).makeSafeStepperSignal(1);
+  protected step = inject(ClickerService).makeSafeStepperSignal(1);
   private pauseIndex$ = new Subject<number>();
   private tempoGenerator = new TempoGenerator({
     maxIndex: this.maxIndex,

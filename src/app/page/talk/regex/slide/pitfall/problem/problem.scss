@@ -23,6 +23,8 @@
 .print-token {
   white-space: preserve;
 
+  cursor: default;
+
   &.a {}
   &.b {
     background: var(--base-color-10);

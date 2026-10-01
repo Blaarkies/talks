@@ -25,7 +25,7 @@ import { matchSplitGroup } from '@talk/regex/common/match-split';
 import { mockTextA } from '@talk/regex/common/mock-text';
 import { SandboxFlags } from '@talk/regex/component/sandbox-flags/sandbox-flags';
 import { RegexSandboxError } from '@talk/regex/sandbox-regex/type';
-import SlideCheatSheet from '@talk/regex/slide/cheat-sheet/cheat-sheet';
+import { RegexCheatSheet } from '@talk/regex/sandbox-regex/component/cheat-sheet/cheat-sheet';
 import { startWith } from 'rxjs';
 
 @Component({
@@ -38,7 +38,7 @@ import { startWith } from 'rxjs';
     ReactiveFormsModule,
     NgClass,
     SandboxFlags,
-    SlideCheatSheet,
+    RegexCheatSheet,
   ],
   templateUrl: './sandbox-regex.html',
   styleUrl: './sandbox-regex.scss',

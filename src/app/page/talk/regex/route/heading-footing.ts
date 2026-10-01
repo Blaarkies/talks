@@ -15,19 +15,19 @@ export const headingFootingMap = new Map<string, string[] | null>([
   ]],
   [slideRoutePaths.basics, [
     'BASIC MATCHING',
-    'USE ARROW KEYS ← → TO SELECT A PATTERN',
+    'USE ARROW KEYS ← → TO INTRODUCE A PATTERN',
   ]],
   [slideRoutePaths.groups, [
-    'CAPTURE GROUP',
+    'CAPTURE GROUPS',
     'USE ARROW KEYS ← → TO SELECT A PATTERN',
   ]],
   [slideRoutePaths.wildcards, [
-    'WILDCARDS',
-    'USE ARROW KEYS ← → TO SELECT A PATTERN',
+    'CHARACTER CLASSES',
+    'USE ARROW KEYS ← → TO SELECT A CLASS',
   ]],
   [slideRoutePaths.flags, [
     'CONFIGURATION FLAGS',
-    'USE ARROW KEYS ← → TO SELECT A FLAG',
+    'USE ARROW KEYS ← → TO LEARN MORE ABOUT EACH FLAG',
   ]],
   [slideRoutePaths.pitfalls, [
     'PITFALLS',

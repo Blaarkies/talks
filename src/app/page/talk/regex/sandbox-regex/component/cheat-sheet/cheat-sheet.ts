@@ -13,7 +13,7 @@ import {
   styleUrl: './cheat-sheet.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class SlideCheatSheet {
+export class RegexCheatSheet {
 
   protected cheats = content.trim().split('\n')
     .map(line => line.match(/([^\0]*)\0+(.*)/)?.slice(1, 3));

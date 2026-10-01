@@ -16,7 +16,15 @@
   text-align: center;
 
   animation: glow 2s infinite alternate;
-  animation-timing-function: cubic-bezier(.96, 2.6, 0.7, 0);
+  animation-timing-function: cubic-bezier(.96, 2.6, .7, 0);
+
+  transition: opacity 1s cubic-bezier(.8, 1.9, .7, .6),
+  scale .4s cubic-bezier(.1, .7, .8, .6);
+
+  &.hidden {
+    opacity: 0;
+    scale: 15;
+  }
 }
 
 @keyframes glow {
@@ -51,7 +59,7 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 8em;
+    height: 9em;
     background: linear-gradient(#000f, #0000 7em);
   }
 
@@ -74,8 +82,12 @@
 }
 
 @keyframes blink {
-  0% {opacity: 100%}
-  50% {opacity: 0}
+  0% {
+    opacity: 100%
+  }
+  50% {
+    opacity: 0
+  }
 }
 
 .hide {

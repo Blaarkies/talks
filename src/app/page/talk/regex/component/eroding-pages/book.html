@@ -35,6 +35,7 @@
       [class.active]="i === currentIndex()"
       [style.pointer-events]="i === currentIndex() ? 'auto' : 'none'"
       [style.filter]="'url(#morph-' + i + ')'"
+      [style.z-index]="i"
     >
       <ng-container [ngTemplateOutlet]="page"/>
     </div>
