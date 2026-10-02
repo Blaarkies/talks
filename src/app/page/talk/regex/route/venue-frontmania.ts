@@ -17,19 +17,19 @@ const style: Partial<CSSStyleDeclaration> = {
 const frontmaniaSlideDefinitions = {
   opening: {
     path: slideRoutePaths.opening,
-    loadComponent: () => import('@app/page/mode-presentation/component/slide-image/slide-image'),
+    loadComponent: () => import('@app/page/mode-presentation/component/slide-image/image'),
     data: {style, imageSource: 'talk/regex/venue/frontmania/opening.webp'},
   } as Route,
 
   introduction: {
     path: slideRoutePaths.introduction,
-    loadComponent: () => import('@app/page/mode-presentation/component/slide-image/slide-image'),
+    loadComponent: () => import('@app/page/mode-presentation/component/slide-image/image'),
     data: {style, imageSource: 'talk/regex/venue/frontmania/introduction.webp'},
   } as Route,
 
   closing: {
     path: slideRoutePaths.closing,
-    loadComponent: () => import('@app/page/mode-presentation/component/slide-image/slide-image'),
+    loadComponent: () => import('@app/page/mode-presentation/component/slide-image/image'),
     data: {style, imageSource: 'talk/regex/venue/frontmania/closing.webp'},
   } as Route,
 };

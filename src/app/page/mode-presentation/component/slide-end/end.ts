@@ -21,8 +21,8 @@ import { ClickerService } from '../../service/clicker.service';
     PaneComponent,
     RouterLink,
   ],
-  templateUrl: './slide-end.html',
-  styleUrl: './slide-end.scss',
+  templateUrl: './end.html',
+  styleUrl: './end.scss',
 })
 export default class SlideEnd {
 
@@ -40,6 +40,7 @@ export default class SlideEnd {
     effect(() => {
       let element = this.qrElement()?.nativeElement;
       let data = this.qrData();
+
       if (!element || !data) return;
 
       QrCodeToString(

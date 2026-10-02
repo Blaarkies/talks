@@ -12,13 +12,13 @@ export const devdayNoLogoSlides = [
 ];
 
 const style: Partial<CSSStyleDeclaration> = {
-  background: 'radial-gradient(circle, #000 60%, #484)',
+  background: '#793',
 };
 const devdaySlideDefinitions = {
   opening: {
     path: slideRoutePaths.opening,
-    loadComponent: () => import('@app/page/mode-presentation/component/slide-image/slide-image'),
-    data: {style, imageSource: 'talk/regex/venue/devday/logo.webp'},
+    loadComponent: () => import('@app/page/mode-presentation/component/slide-image/image'),
+    data: {style, imageSource: 'talk/regex/venue/devday/devday-opening.webp'},
   } as Route,
 };
 

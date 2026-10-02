@@ -18,8 +18,8 @@ import {
 @Component({
   selector: 'app-slide-image',
   imports: [],
-  templateUrl: './slide-image.html',
-  styleUrl: './slide-image.scss',
+  templateUrl: './image.html',
+  styleUrl: './image.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class SlideImage {
