@@ -43,6 +43,7 @@ export class MainMenuComponent {
   protected mode = this.fontSizeService.slideMode;
 
   private router = inject(Router);
+  private window = inject(WA_WINDOW);
 
   protected routeNames = routeNames;
   protected slideMode = SlideMode;
@@ -73,6 +74,18 @@ export class MainMenuComponent {
       ],
     };
   });
+
+  protected aboutMenu = {
+    title: <HotkeyLabel>['About', 0],
+    items: <HotkeyLabel[]>[
+      [' Source Code', 1],
+      [' Blaarkies Hub', 11],
+    ],
+    urls: [
+      'https://github.com/Blaarkies/talks',
+      'https://blaarkies.com'
+    ],
+  };
 
   constructor() {
     this.fontSizeService.updateFontSize();
@@ -133,6 +146,14 @@ export class MainMenuComponent {
       default:
         throw new Error(`Menu option index [${index}] is not recognized`);
     }
+  }
+
+  protected navigateToUrl(url: string, external = false) {
+    if (external) {
+      this.window.open(url, '_blank');
+      return;
+    }
+    void this.router.navigate([url], {});
   }
 
 }

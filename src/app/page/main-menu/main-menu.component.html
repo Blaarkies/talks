@@ -20,11 +20,14 @@
         <app-taskbar-menu
           [title]="['Notes', 0]"
           [items]="[['Start', 0]]"
-          (itemClick)="$event === 0 && notes.click()"
+          (itemClick)="$event === 0 && navigateToUrl(routeNames.presenterNotes)"
         />
-        <a #notes [href]="routeNames.presenterNotes"
-           target="_blank" class="invisible"></a>
       }
+      <app-taskbar-menu
+        [title]="aboutMenu.title"
+        [items]="aboutMenu.items"
+        (itemClick)="navigateToUrl(aboutMenu.urls[$event], true)"
+      />
     </div>
 
     <div class="heading">BLAARKIES TALKS</div>
