@@ -13,6 +13,6 @@ export const routes: Route[] = [
   },
   {
     path: sandboxRouteNames.regex,
-    loadComponent: () => import( '../talk/regex/sandbox-regex/sandbox-regex'),
+    loadComponent: () => import( '../talk/regex/sandbox/sandbox-regex'),
   },
 ];

@@ -9,9 +9,7 @@ import {
   of,
 } from 'rxjs';
 
-/**
- * Loads adjacent routes so that route animations function correctly.
- */
+/** Loads adjacent routes so that route animations function correctly */
 export class NeighborPreloader implements PreloadingStrategy {
 
   private router = inject(Router);

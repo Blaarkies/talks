@@ -24,8 +24,8 @@ import {
 import { matchSplitGroup } from '@talk/regex/common/match-split';
 import { mockTextA } from '@talk/regex/common/mock-text';
 import { SandboxFlags } from '@talk/regex/component/sandbox-flags/sandbox-flags';
-import { RegexSandboxError } from '@talk/regex/sandbox-regex/type';
-import { RegexCheatSheet } from '@talk/regex/sandbox-regex/component/cheat-sheet/cheat-sheet';
+import { RegexSandboxError } from '@talk/regex/sandbox/type';
+import { RegexCheatSheet } from '@talk/regex/sandbox/component/cheat-sheet/cheat-sheet';
 import { startWith } from 'rxjs';
 
 @Component({

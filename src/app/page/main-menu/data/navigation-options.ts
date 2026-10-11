@@ -22,9 +22,4 @@ export const navigationOptions: Record<string, NavigationOption> = {
     url: slideRouteNames.regex,
     title: 'Learn about Regex',
   },
-  asdf: {
-    label: 'Using a Hard Disk',
-    url: 'asdfasdfs',
-    title: 'Learn about placeholders',
-  },
 };

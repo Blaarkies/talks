@@ -20,7 +20,7 @@
         <app-taskbar-menu
           [title]="['Notes', 0]"
           [items]="[['Start', 0]]"
-          (itemClick)="$event === 0 && navigateToUrl(routeNames.presenterNotes)"
+          (itemClick)="$event === 0 && navigateToUrl(routeNames.presenterNotes, true)"
         />
       }
       <app-taskbar-menu
@@ -105,11 +105,6 @@
                 [routerLink]="[
                 '../', routeNames.present, selectedOption().url, 'engineers-week'
                 ]">Engineer's Week</a></li>
-            }
-            @case (navs.asdf) {
-              <li>Placeholder 1</li>
-              <li>Holder of la Place</li>
-              <li>Hold the place</li>
             }
           }
         </ul>
