@@ -5,25 +5,25 @@ import {
   slideRoutePaths,
 } from '@talk/regex/route/slide-definition';
 
-export const devdayNoLogoSlides = [
+export const engineersWeekNoLogoSlides = [
   slideRoutePaths.opening,
   // slideRoutePaths.introduction,
   // slideRoutePaths.closing,
 ];
 
 const style: Partial<CSSStyleDeclaration> = {
-  background: '#793',
+  background: '#379',
 };
-const devdaySlideDefinitions = {
+const engineersWeekSlideDefinitions = {
   opening: {
     path: slideRoutePaths.opening,
     loadComponent: () => import('@app/page/mode-presentation/component/slide-image/image'),
-    data: {style, imageSource: 'talk/regex/venue/devday/devday-opening.webp'},
+    data: {style, imageSource: 'talk/regex/venue/engineers-week/opening.webp'},
   } as Route,
 };
 
 const routes: Route[] = [
-  devdaySlideDefinitions.opening,
+  engineersWeekSlideDefinitions.opening,
 
   slideDefinitions.teaser,
   slideDefinitions.history,
