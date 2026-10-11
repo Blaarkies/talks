@@ -1,0 +1,12 @@
+<app-pane
+  [header]="navigationOption()?.title"
+  type="2"
+  swap="true"
+  outline="double"
+>
+  <ul class="description-list">
+    @for (content of navigationOption()?.content; track content.text) {
+      <li>{{ content.text }}</li>
+    }
+  </ul>
+</app-pane>

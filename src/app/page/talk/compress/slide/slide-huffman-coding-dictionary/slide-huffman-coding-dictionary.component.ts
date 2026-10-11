@@ -55,10 +55,10 @@ export class SlideHuffmanCodingDictionaryComponent {
       .map(c => parseInt(c, 2)));
 
   private dictionary = toHuffmanDictionary(toHuffmanTree(exampleText));
-  private reversedDictionary = new Map(Array.from(this.dictionary.values())
+  private reversedDictionary = new Map(this.dictionary.values().toArray()
     .map(p => [p.path, p]));
 
-  protected dictionaryList = signal(Array.from(this.dictionary.values())
+  protected dictionaryList = signal(this.dictionary.values().toArray()
     .sort((a, b) => a.path.length - b.path.length));
   protected dictionaryListSize = computed(() => Math.ceil(
     sum(this.dictionaryList().map(p => 8 + p.path.length))

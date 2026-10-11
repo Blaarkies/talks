@@ -1,0 +1,24 @@
+<div class="absolute-container">
+  <app-selection-list
+    [header]="'SELECT VENUE FOR ' + trimmedName()"
+    [type]="2"
+    [options]="venues()"
+    (launch)="launchSelected($event.data.url)"
+    (exitFocus)="exit.emit()"
+  >
+    <ng-template let-option="option">
+      <a class="anti-a full-a" [routerLink]="option.data.url">
+        {{ option.label }}
+      </a>
+    </ng-template>
+  </app-selection-list>
+
+  <app-button
+    type="2"
+    [swap]="true"
+    (click)="exit.emit()"
+    class="overlap-top"
+  >
+    {{ chars.arrowLeft }}
+  </app-button>
+</div>

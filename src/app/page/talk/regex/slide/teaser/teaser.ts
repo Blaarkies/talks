@@ -58,13 +58,13 @@ export default class SlideTeaser {
   private bufferLines = 5; // total lines on screen at a time
   private maxIndex = this.book.length;
   private eolPositions
-    = Array.from(this.book.matchAll(/\n/g)).map(m => m.index);
+    = this.book.matchAll(/\n/g).toArray().map(m => m.index);
 
   private allMatches = [
     {m: this.book.matchAll(/\b(\w+ing)\b/g), title: '+ ing'},
     {m: this.book.matchAll(/\b(\w+ed)\b/g), title: '+ ed'},
     {m: this.book.matchAll(/\b(\w+-\w+)\b/g), title: 'Hyphenated'},
-  ].flatMap(it => Array.from(it.m).map(m => ({m, title: it.title})))
+  ].flatMap(it => it.m.toArray().map(m => ({m, title: it.title})))
     .sort((a, b) => a.m.index - b.m.index);
 
   private inScopeMatches = computed(() => {

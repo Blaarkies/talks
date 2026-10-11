@@ -41,7 +41,7 @@ export function matchSplitGroup(
   : SplitSection[] {
   const sections: SplitSection[] = [];
   const matchesUnfiltered = regex.global
-                  ? Array.from(content.matchAll(regex))
+                  ? content.matchAll(regex).toArray()
                   : [content.match(regex)];
   const matches = matchesUnfiltered.filter(Boolean);
 

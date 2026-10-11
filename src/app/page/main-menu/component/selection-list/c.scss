@@ -1,0 +1,17 @@
+.navigation-list {
+  padding-left: 0;
+
+  .list-option {
+    padding-inline: calc(var(--panel-padding) + var(--space-5)) calc(var(--panel-padding) + var(--space-3));
+    display: block;
+    padding-block: var(--space-3);
+    color: var(--color-text-2);
+    cursor: pointer;
+    margin-inline: calc(-1 * var(--panel-padding));
+
+    &[aria-selected="true"] {
+      color: var(--color-swap-text-1);
+      background: var(--color-swap-pane-1);
+    }
+  }
+}

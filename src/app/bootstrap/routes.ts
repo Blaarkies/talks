@@ -10,8 +10,7 @@ export const routeNames = {
 export const routes: Routes = [
   {
     path: routeNames.mainMenu,
-    loadComponent: () => import('../page/main-menu/main-menu.component')
-      .then(m => m.MainMenuComponent),
+    loadComponent: () => import('../page/main-menu/c'),
     title: 'Blaarkies Talks',
   },
   {

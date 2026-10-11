@@ -1,0 +1,14 @@
+.full-a {
+  // Fills more space for direct link clicking
+  width: 100%;
+  display: block;
+}
+
+.absolute-container {
+  position: relative;
+
+  .overlap-top {
+    position: absolute;
+    bottom: 0;
+  }
+}

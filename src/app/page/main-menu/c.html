@@ -1,0 +1,55 @@
+<app-rim tabindex="0" autofocus>
+  <div class="head-footing" head>
+    <div class="taskbar">
+      <app-taskbar-menu
+        [config]="modeMenu()"
+        (itemClick)="$event.action()"
+      />
+      @if (notesMenu()) {
+        <app-taskbar-menu
+          [config]="notesMenu()"
+          (itemClick)="$event.action()"
+        />
+      }
+      <app-taskbar-menu
+        [config]="aboutMenu"
+        (itemClick)="$event.action()"
+      />
+    </div>
+
+    <div class="heading">BLAARKIES TALKS</div>
+  </div>
+
+  <div class="layout-main-menu">
+    <div class="content-menus">
+      <app-main-selector
+        #mainSelector
+        [mode]="mode()"
+        (selectOption)="selectedOption.set($event)"
+        (openVenueSelector)="venueSelections.set($event)"
+        [class.inactive]="venueSelections()"
+      />
+
+      @if (venueSelections()) {
+        <app-venue-selector
+          [talk]="selectedOption().label"
+          [options]="venueSelections()"
+          (exit)="venueSelections.set(null); mainSelector.setDisabled(false)"
+        />
+      } @else {
+        <app-description-list [navigationOption]="selectedOption().data"/>
+      }
+    </div>
+  </div>
+
+  <div class="head-footing" foot>
+    SELECT AN OPTION WITH ↑ ↓ → AND ↵ OR CLICK; CTRL+Q TO QUIT
+  </div>
+</app-rim>
+
+@if (isQuit()) {
+  <div
+    class="quit-crt-effect"
+    (click)="isQuit.set(false)"
+  ></div>
+}

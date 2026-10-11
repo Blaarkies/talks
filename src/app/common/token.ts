@@ -16,6 +16,14 @@ import {
   timer,
 } from 'rxjs';
 
+let id = 1;
+export const ID = new InjectionToken(
+  'ID generator',
+  {
+    factory: () => ({make: () => id++}),
+  },
+);
+
 export const SHARED_RESIZE_OBSERVER = new InjectionToken(
   'Shared Resize Observer',
   {

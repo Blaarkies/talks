@@ -167,8 +167,7 @@ export class EntropyPreviewComponent {
     let nowState = this.tokensRefsMap.delete(token)
       || !this.tokensRefsMap.set(token, tokenRef);
 
-    this.tokensRefs.set(
-      Array.from(this.tokensRefsMap.entries())
+    this.tokensRefs.set(this.tokensRefsMap.entries().toArray()
         .sort(([, a], [, b]) => a - b),
     );
 

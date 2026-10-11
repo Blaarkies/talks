@@ -73,6 +73,7 @@ function onViewTransitionCreated({transition, from, to}: ViewTransitionInfo)
   const toSlide = siblings
     .findIndex(({path}) => path === toRoute.url.at(-1).path);
 
+  // @ts-ignore
   transition.types.add(
     toSlide < fromSlide ? 'backward' : 'forward',
   );

@@ -101,7 +101,7 @@ export class Teleprompter {
 
   private notesViews = viewChildren('note', {read: ElementRef<HTMLElement>});
   private notesElements = computed<HTMLElement[]>(() =>
-    Array.from(this.notesViews().map(e => e.nativeElement).values()));
+    this.notesViews().map(e => e.nativeElement).values().toArray());
 
   protected controlledSteps = computed(() => {
     const currentIndex = this.step();

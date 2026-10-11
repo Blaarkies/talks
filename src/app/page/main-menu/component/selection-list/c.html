@@ -1,0 +1,21 @@
+<app-pane [header]="header()" [type]="type()" #navPane>
+  <ul
+    class="navigation-list"
+    [style.--panel-padding]="navPane.outerPadding()"
+    role="menu"
+  >
+    @for (o of options(); track o.label) {
+      <li
+        class="list-option"
+        [attr.aria-selected]="selectedOption() === o"
+        (pointerenter)="setSelection(o)"
+      >
+        <ng-container
+          [ngTemplateOutlet]="itemAdaptor()"
+          [ngTemplateOutletContext]="{ option: o }"
+        />
+      </li>
+    }
+
+  </ul>
+</app-pane>

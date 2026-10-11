@@ -17,13 +17,13 @@
 </div>
 <ng-template #options>
   <div class="dropdown-menu" cdkMenu>
-    @for (item of itemsSectioned(); track item.sections) {
+    @for (entry of itemsSectioned(); track entry.sections) {
       <button
         class="dropdown-item"
         cdkMenuItem
-        (click)="itemClick.emit(item.index)"
+        (click)="itemClick.emit(entry.item)"
       >
-        @for (s of item.sections; track s.content) {
+        @for (s of entry.sections; track s.content) {
           @if (s.highlight) {
             <span class="hotkey">{{ s.content }}</span>
           } @else {

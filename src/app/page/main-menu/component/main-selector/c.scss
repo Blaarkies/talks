@@ -1,0 +1,11 @@
+.full-a {
+  // Fills more space for direct link clicking
+  width: 100%;
+  display: block;
+}
+
+.columns {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+}

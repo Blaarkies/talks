@@ -2,7 +2,7 @@ import { isArray } from './type-check';
 
 export function makeNumberList(count: number, offset: number = 0): number[] {
   let safeCount = Math.round(count);
-  let list = Array.from(Array(safeCount).keys());
+  let list = Array(safeCount).keys().toArray();
   return offset
          ? list.map(n => n + offset)
          : list;

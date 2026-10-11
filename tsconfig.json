@@ -30,7 +30,8 @@
     "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2024",
-    "module": "ES2022"
+    "module": "ES2022",
+    "lib": ["ESNext", "DOM"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -30,6 +30,8 @@ export const chars = {
   singleLine4Way: '┼',
   arrowUp: '↑',
   arrowDown: '↓',
+  arrowRight: '→',
+  arrowLeft: '←',
 };
 
 export const sep = '\n';

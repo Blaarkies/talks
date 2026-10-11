@@ -10,7 +10,8 @@
           "style": "scss",
           "skipTests": true,
           "changeDetection": "OnPush",
-          "skipImport": true
+          "skipImport": true,
+          "name": "c"
         },
         "@schematics/angular:service": {
           "skipTests": true
@@ -34,7 +35,7 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "stylePreprocessorOptions": {
-              "includePaths": ["src/style/setup"]
+              "includePaths": ["src/style/setup", "src/style"]
             },
             "assets": [
               {
