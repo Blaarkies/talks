@@ -6,7 +6,7 @@ export const sandboxRouteNames = {
   regex: 'regex',
 };
 
-export const routes: Route[] = [
+const routes: Route[] = [
   {
     path: sandboxRouteNames.compression,
     loadComponent: () => import( '../talk/compress/sandbox-compression/sandbox-compression.component'),
@@ -16,3 +16,5 @@ export const routes: Route[] = [
     loadComponent: () => import( '../talk/regex/sandbox/sandbox-regex'),
   },
 ];
+
+export default routes;

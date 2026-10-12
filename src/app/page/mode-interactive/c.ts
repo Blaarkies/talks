@@ -2,19 +2,14 @@ import {
   Component,
   inject,
 } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   Router,
-  RouterLink,
   RouterOutlet,
 } from '@angular/router';
 import { routeNames } from '@app/bootstrap/routes';
-import { WA_WINDOW } from '@ng-web-apis/common';
-import {
-  filter,
-  fromEvent,
-} from 'rxjs';
 import { RimComponent } from '@app/common/component/rim/rim.component';
+import { TaskbarMenu } from '@app/page/main-menu/component/taskbar-menu/c';
+import { TaskBarMenuConfig } from '@app/page/main-menu/component/taskbar-menu/type';
 import {
   FontSizeService,
   SlideMode,
@@ -25,27 +20,28 @@ import {
   imports: [
     RouterOutlet,
     RimComponent,
-    RouterLink,
+    TaskbarMenu,
   ],
-  templateUrl: './mode-interactive.component.html',
-  styleUrl: './mode-interactive.component.scss',
+  templateUrl: './c.html',
+  styleUrl: './c.scss',
 })
-export class ModeInteractiveComponent {
-
-  protected routeMainMenu = routeNames.mainMenu;
+export default class ModeInteractiveComponent {
 
   private router = inject(Router);
+
+  protected taskbar: TaskBarMenuConfig = {
+    title: {
+      label: 'Back',
+      hotkey: 'B',
+    },
+    titleAction: () => void this.router.navigate(['../', routeNames.mainMenu]),
+    items: [],
+  };
 
   constructor() {
     let fontSizeService = inject(FontSizeService);
     fontSizeService.setSlideMode(SlideMode.interactive);
     fontSizeService.updateFontSize();
-
-    fromEvent<KeyboardEvent>(inject(WA_WINDOW), 'keydown')
-      .pipe(
-        filter(e => e.altKey && e.key === 'b'),
-        takeUntilDestroyed())
-      .subscribe(() => this.router.navigate(['../', this.routeMainMenu]));
   }
 
 }

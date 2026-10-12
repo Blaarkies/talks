@@ -11,7 +11,8 @@ export type ActionItem = {
 
 export type TaskBarMenuConfig = {
   title: HotkeyLabel
-  items: ActionItem[]
+  titleAction?: () => void
+  items?: ActionItem[]
 }
 
 export type HighlightSection = {

@@ -1,12 +1,11 @@
 <app-rim>
 
   <div head class="heading">
-    <div
-      class="main-menu-button"
-      [routerLink]="['../', routeMainMenu]"
-    >
-      <span class="highlight">B</span>ACK
-    </div>
+    <app-taskbar-menu
+      [config]="taskbar"
+      [hotkeysActive]="false"
+      (mainClick)="$event.titleAction()"
+    />
 
     <div class="text">INTERACTIVE MODE</div>
   </div>

@@ -22,10 +22,8 @@ export const routes: Routes = [
   },
   {
     path: routeNames.interact,
-    loadComponent: () => import('../page/mode-interactive')
-      .then(m => m.ModeInteractiveComponent),
-    loadChildren: () => import('../page/mode-interactive')
-      .then(m => m.routes),
+    loadComponent: () => import('../page/mode-interactive/c'),
+    loadChildren: () => import('../page/mode-interactive/route'),
   },
   {
     path: routeNames.presenterNotes,

@@ -52,7 +52,9 @@ export class TaskbarMenu {
   private menuService = inject(MenuService);
 
   config = input.required<TaskBarMenuConfig>();
+  hotkeysActive = input(true);
 
+  mainClick = output<TaskBarMenuConfig>();
   itemClick = output<ActionItem>();
 
   private menuTrigger = viewChild(CdkMenuTrigger);
@@ -103,7 +105,7 @@ export class TaskbarMenu {
   }
 
   protected itemsSectioned = computed(() => {
-    const items = this.config().items;
+    const items = this.config().items ?? [];
     return items.map((item, i) => ({
       index: i,
       sections: this.convertToSections(item.hotkeyLabel),
@@ -114,7 +116,7 @@ export class TaskbarMenu {
   private shortcutMain = computed(() => this.config().title.hotkey.toLowerCase());
 
   private shortcutsMap = computed(() => {
-    const items = this.config().items;
+    const items = this.config().items ?? [];
     const hotkeyedItems = items.map(item => <[string, ActionItem]>[
       item.hotkeyLabel.hotkey.toLowerCase(), item
     ]);
@@ -132,7 +134,7 @@ export class TaskbarMenu {
       this.menuService.deregister(this.id));
 
     this.menuService.menuRequest$.pipe(
-      filter(({id}) => id === this.id),
+      filter(({id}) => id === this.id && this.hotkeysActive()),
       takeUntilDestroyed())
       .subscribe(({key}) => this.handleShortcuts(key));
   }

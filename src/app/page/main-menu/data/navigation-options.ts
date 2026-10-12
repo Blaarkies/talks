@@ -20,7 +20,7 @@ const regexUrl = ['../', routeNames.present, slideRouteNames.regex].join('/');
 
 export const navigationOptions: Record<string, NavigationOption> = {
   compression: {
-    label: 'What is Compression?',
+    label: 'Data Compression',
     url: slideRouteNames.compression,
     title: 'Learn about data compression',
     content: [
@@ -30,7 +30,7 @@ export const navigationOptions: Record<string, NavigationOption> = {
     ],
   },
   imageProcessing: {
-    label: 'An image is worth 1000 pixels',
+    label: 'An image is worth 1000px',
     url: slideRouteNames.imageProcessing,
     title: 'Learn about image processing',
     content: [
@@ -40,7 +40,7 @@ export const navigationOptions: Record<string, NavigationOption> = {
     ],
   },
   regex: {
-    label: 'Regex matching text patterns',
+    label: 'Regex Fundamentals',
     url: slideRouteNames.regex,
     title: 'Learn about Regex',
     content: [

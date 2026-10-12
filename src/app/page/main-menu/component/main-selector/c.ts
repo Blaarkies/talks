@@ -59,15 +59,15 @@ export class MainSelector {
   private list = viewChild(SelectionList);
 
   protected options = computed(() => {
-    const modeUrl = this.mode() === SlideMode.presentation
-                    ? routeNames.present
-                    : routeNames.interact;
+    const p = this.mode() === SlideMode.presentation;
+    const modeUrl = p ? routeNames.present : routeNames.interact;
     return Object.values(navigationOptions)
       .map(o => (<SelectionListOption<NavigationOption>>{
         label: o.label,
         data: {
           ...o,
           url: ['..', modeUrl, o.url].join('/'),
+          venues: p ? o.venues : undefined,
         },
       }));
   });

@@ -4,6 +4,7 @@
     class="dropdown-item"
     cdkMenuItem
     [cdkMenuTriggerFor]="options"
+    (cdkMenuOpened)="mainClick.emit(config())"
   >
 
     @for (s of headingSections(); track s.content) {
