@@ -12,7 +12,7 @@ App uses ngsw to ensure stability in low web connection environments, such as cr
 
 ## Structure
 
-- **`app/`** - Application root
+- **`src/app/`** - Application root
   - **`bootstrap/`** - App initialization and base route configuration
   - **`common/`** - Top-level shared utilities (used across all talks)
   - **`page/`** - Main pages loaded by app
@@ -32,17 +32,14 @@ App uses ngsw to ensure stability in low web connection environments, such as cr
         - **`slide/`** - Individual slide definitions
           - `intro/` - Example of a slide
             - `nested-component/` - Sub-components for this slide
-            - 
-- **`style/`** - Global SCSS
+- **`src/style/`** - Global SCSS
   - `setup/` - Generates CSS variables based on config input
-
-- **`../asset/`** - Web-server assets
+- **`script/`** - Project scripts to simplify bulk changes
+- **`asset/`** - Web-server assets
   - **`talk/`** - Specific to each talk
     - **`new-talk/`** - Example talk. Contains .webp files used in this talk
       - **`venue/`** - Contains a directory for each venue 
         - **`new-venue/`** - Example venue. Contains .webp files used for this venue's logo, opening/closing slides, etc.
-
-- **`../script/`** - Project scripts to simplify bulk changes
   
 
 ---

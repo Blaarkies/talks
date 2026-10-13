@@ -1,11 +1,14 @@
 import {
+  provideHttpClient,
+  withFetch,
+} from '@angular/common/http';
+import {
   ApplicationRef,
   isDevMode,
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection,
 } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import {
   ActivatedRouteSnapshot,
   provideRouter,
@@ -14,17 +17,13 @@ import {
   withPreloading,
   withViewTransitions,
 } from '@angular/router';
-import { BootstrapCmp } from './bootstrap';
 import { provideServiceWorker } from '@angular/service-worker';
-import {
-  provideHttpClient,
-  withFetch,
-} from '@angular/common/http';
+import { BootstrapComponent } from './c';
 import { NeighborPreloader } from './neighbor-preloader';
-import { routes } from './routes';
+import { routes } from './route';
 
 export async function bootstrapApp(): Promise<ApplicationRef> {
-  return bootstrapApplication(BootstrapCmp, {
+  return bootstrapApplication(BootstrapComponent, {
     providers: [
       provideBrowserGlobalErrorListeners(),
       provideZonelessChangeDetection(),
@@ -38,7 +37,6 @@ export async function bootstrapApp(): Promise<ApplicationRef> {
           skipInitialTransition: true,
         }),
       ),
-      provideAnimations(), // TODO: remove from Talk-Compress
       provideServiceWorker('ngsw-worker.js', {
         enabled: !isDevMode(),
         registrationStrategy: 'registerWhenStable:30000',

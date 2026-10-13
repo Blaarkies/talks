@@ -3,19 +3,15 @@ import {
   inject,
   Injectable,
 } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { flattenNestedValues } from '@app/common';
 import {
-  takeUntilDestroyed,
-  toSignal,
-} from '@angular/core/rxjs-interop';
-import {
-  filter,
   map,
   Observable,
   ReplaySubject,
   Subject,
   take,
 } from 'rxjs';
-import { flattenNestedValues } from '../../../../../common';
 import { toHuffmanTree } from '../../common/encode';
 import { HuffmanCodingTreeNodeComponent } from '../huffman-coding-tree-node/huffman-coding-tree-node.component';
 

@@ -16,7 +16,7 @@ import {
   map,
   switchMap,
 } from 'rxjs';
-import { lerp } from '../../../../../common';
+import { lerp } from '@app/common';
 import { toHuffmanTree } from '../../common/encode';
 import { HierarchyService } from '../huffman-coding-tree/hierarchy.service';
 

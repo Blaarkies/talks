@@ -20,6 +20,12 @@
     &.shadow {
       box-shadow: -1ch 1ch 0 0 var(--color-shadow-1);
     }
+
+    &.disabled, &.disabled:hover {
+      background: lightgray;
+      color: gray;
+      cursor: default;
+    }
   }
 
 }

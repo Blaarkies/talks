@@ -32,6 +32,7 @@ export class ButtonComponent {
   shadow = input<boolean>(false);
   outline = input<'single' | 'double'>();
   tabindex = input(0);
+  disabled = input(false);
 
   click1 = output<MouseEvent | KeyboardEvent>();
 
@@ -61,6 +62,7 @@ export class ButtonComponent {
   }
 
   protected onClick(event: PointerEvent) {
+    if (this.disabled()) return;
     this.click1.emit(event);
   }
 

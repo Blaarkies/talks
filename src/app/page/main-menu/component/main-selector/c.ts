@@ -19,7 +19,7 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
-import { routeNames } from '@app/bootstrap/routes';
+import { routeNames } from '@app/bootstrap/route';
 import { chars } from '@app/common';
 import {
   SelectionList,

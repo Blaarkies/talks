@@ -1,4 +1,4 @@
-import { sep } from '../../../../common';
+import { sep } from '@app/common';
 
 export function getRunLengthEncodings(data: string)
   : { encodings: [number, string][], width: number } {

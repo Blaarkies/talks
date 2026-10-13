@@ -3,7 +3,7 @@ import {
   input,
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
-import { PaneComponent } from '../../../../../../common/component/pane/pane.component';
+import { PaneComponent } from '@component/pane';
 
 @Component({
     selector: 'app-predictive-text-generator-pane',

@@ -7,7 +7,6 @@ import {
   viewChildren,
 } from '@angular/core';
 import { toHuffmanTree } from '../../common/encode';
-import { Data } from '../../common/entropy';
 import { HuffmanCodingTreeNodeComponent } from '../huffman-coding-tree-node/huffman-coding-tree-node.component';
 import { HierarchyService } from './hierarchy.service';
 import { addGridPositionsToTree } from './tree';

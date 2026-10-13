@@ -12,8 +12,8 @@ import {
   signal,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonComponent } from '../../../../../common/component/button/button.component';
-import { PaneComponent } from '../../../../../common/component/pane/pane.component';
+import { ButtonComponent } from '@component/button';
+import { PaneComponent } from '@component/pane';
 
 function toggle(value: boolean) {
   return !value;
@@ -45,9 +45,7 @@ export class CustomInputEncoderDecoderComponent {
   protected inputValue = model('');
   protected outputValue = computed(() => {
     let input = this.inputValue();
-    if (!input) {
-      return;
-    }
+    if (!input) return;
 
     return this.decodeMode()
            ? this.decodeFn()(input)

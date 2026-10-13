@@ -77,11 +77,23 @@
     padding-inline: 2ch;
     display: flex;
     flex-wrap: wrap;
+
+    height: 0;
+    max-height: 0;
+
+    transition: .7s steps(5);
+    overflow: hidden;
+
+    &.grow {
+      height: 100%;
+      max-height: 100%;
+    }
   }
 
   .char-option {
     cursor: pointer;
     padding: var(--font-size-1);
+    margin-block: 2px;
 
     &:hover {
       color: white;

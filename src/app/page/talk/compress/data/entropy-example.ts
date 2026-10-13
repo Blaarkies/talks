@@ -1,7 +1,7 @@
 import {
   makeLoremIpsum,
   randomNumber,
-} from '../../../../common';
+} from '@app/common';
 
 export const entropyTextLow = `
 This house is falling in space above the air and around the Earth. People

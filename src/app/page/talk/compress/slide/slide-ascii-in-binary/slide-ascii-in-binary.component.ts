@@ -9,14 +9,13 @@ import {
   coerceBetween,
   makeNumberList,
   unique,
-} from '../../../../../common';
-import { ClickerService } from '../../../../mode-presentation/service/clicker.service';
-import { PresenterNotesService } from '../../../../presenter-notes';
+} from '@app/common';
+import { ClickerService } from '@app/page/mode-presentation/service/clicker.service';
+import { PresenterNotesService } from '@app/page/presenter-notes';
 import { CharOrBin } from '../../common';
 import { toBinary } from '../../common/encode';
 import { AsciiTableComponent } from '../../component/ascii-table/ascii-table.component';
 import { TextCharacterLighterComponent } from '../../component/text-character-lighter/text-character-lighter.component';
-import { lineRevealOnStep } from './animations';
 
 const exampleText = 'Example Text';
 const asciiBitLength = 7;
@@ -38,7 +37,6 @@ const stepsMax = 4;
     ],
     templateUrl: './slide-ascii-in-binary.component.html',
     styleUrl: './slide-ascii-in-binary.component.scss',
-    animations: [lineRevealOnStep]
 })
 export class SlideAsciiInBinaryComponent {
 

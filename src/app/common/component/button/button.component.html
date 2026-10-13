@@ -1,6 +1,7 @@
 <button
   class="anti-button"
   [class.shadow]="shadow()"
+  [class.disabled]="disabled()"
   [ngClass]="[typeClass(), outlineClass()]"
   (click)="onClick($event)"
 >

@@ -6,7 +6,7 @@ import {
   output,
   signal,
 } from '@angular/core';
-import { unique } from '../../../../../common';
+import { unique } from '@app/common';
 import { toHuffmanTree } from '../../common/encode';
 
 type HctNode = ReturnType<typeof toHuffmanTree>;

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { chunked } from '../../../../../common';
-import { PaneComponent } from '../../../../../common/component/pane/pane.component';
+import { chunked } from '@app/common';
+import { PaneComponent } from '@component/pane';
 import { CustomInputEncoderDecoderComponent } from '../custom-input-encoder-decoder/custom-input-encoder-decoder.component';
 
 @Component({

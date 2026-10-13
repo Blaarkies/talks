@@ -40,7 +40,7 @@
           </app-button>
         </div>
         <div class="char-selector">
-          <div class="height-animator" [@height]="quickSelectionIsOpen()">
+          <div class="height-animator" [class.grow]="quickSelectionIsOpen()">
             @for (char of chars; track char[0] + $index) {
               <span
                 class="char-option"

@@ -1,5 +1,5 @@
 <div class="token-list" (pointerleave)="pointsAt(activeStep())">
-  @for (step of dictionary(); track step.output) {
+  @for (step of activeDictionary(); track step.output) {
     <div
       class="token"
       [class.is-lit]="step.dictionaryCode === litStep()?.code"

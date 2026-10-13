@@ -1,18 +1,17 @@
 import { Component } from '@angular/core';
-import { sep } from '../../../../../common';
-import { PaneComponent } from '../../../../../common/component/pane/pane.component';
+import { PaneComponent } from '@component/pane';
 import { decodeLZW } from '../../common/decode';
 import { encodeToLzw } from '../../common/encode';
 import { CustomInputEncoderDecoderComponent } from '../custom-input-encoder-decoder/custom-input-encoder-decoder.component';
 
 @Component({
-    selector: 'app-custom-lzw-converter',
-    imports: [
-        CustomInputEncoderDecoderComponent,
-        PaneComponent,
-    ],
-    templateUrl: './custom-lzw-converter.component.html',
-    styleUrl: './custom-lzw-converter.component.scss'
+  selector: 'app-custom-lzw-converter',
+  imports: [
+    CustomInputEncoderDecoderComponent,
+    PaneComponent,
+  ],
+  templateUrl: './custom-lzw-converter.component.html',
+  styleUrl: './custom-lzw-converter.component.scss',
 })
 export class CustomLzwConverterComponent {
 

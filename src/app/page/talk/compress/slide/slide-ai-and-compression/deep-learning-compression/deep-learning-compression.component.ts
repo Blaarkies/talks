@@ -2,7 +2,7 @@ import {
   Component,
   input,
 } from '@angular/core';
-import { PaneComponent } from '../../../../../../common/component/pane/pane.component';
+import { PaneComponent } from '@component/pane';
 
 @Component({
     selector: 'app-deep-learning-compression',

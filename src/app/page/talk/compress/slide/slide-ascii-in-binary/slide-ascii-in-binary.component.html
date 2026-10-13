@@ -1,9 +1,9 @@
-<div [@lineRevealOnStep]="step()" class="s-a-i-b-layout">
+<div class="s-a-i-b-layout">
 
   @switch (step()) {
     @case (0) {
-      <div>
-        <div class="tile half-ascii-table">
+      <div class="clip-animator" animate.enter="enter" animate.leave="leave">
+        <div class="tile">
           <div>ASCII Table (0-63)</div>
           <div class="tile-contents">
             <app-ascii-table [filterTemplate]="asciiHalf1()"/>
@@ -12,8 +12,8 @@
       </div>
     }
     @case (1) {
-      <div>
-        <div class="tile half-ascii-table">
+      <div class="clip-animator" animate.enter="enter" animate.leave="leave">
+        <div class="tile">
           <div>ASCII Table (64-127)</div>
           <div class="tile-contents">
             <app-ascii-table [filterTemplate]="asciiHalf2()"/>
@@ -22,7 +22,8 @@
       </div>
     }
     @default {
-      <div class="step-2">
+      <div class="step-2 clip-animator" animate.enter="enter"
+           animate.leave="leave">
         <div class="tile">
           <div>Text as Characters</div>
           <div class="tile-contents">
@@ -36,30 +37,30 @@
         </div>
 
         @if (step() >= 3) {
-        <div class="tile truncated-ascii-table">
-          <div>ASCII Table (Truncated)</div>
-          <div class="tile-contents">
-            <app-ascii-table
-              [filterTemplate]="exampleAscii()"
-              [litBinary]="litBinary()"
-              (userPointsAt)="updateLitCharacter($event)"
-            />
+          <div class="tile truncated-ascii-table clip-animator" animate.enter="enter" animate.leave="leave">
+            <div>ASCII Table (Truncated)</div>
+            <div class="tile-contents">
+              <app-ascii-table
+                [filterTemplate]="exampleAscii()"
+                [litBinary]="litBinary()"
+                (userPointsAt)="updateLitCharacter($event)"
+              />
+            </div>
           </div>
-        </div>
         }
 
         @if (step() >= 4) {
-        <div class="tile">
-          <div>Text in Binary</div>
-          <div class="tile-contents">
-            <app-text-character-lighter
-              [characters]="exampleBinary()"
-              [litCharacter]="litBinary()"
-              [litColor]="3"
-              (userPointsAt)="updateLitCharacter($event)"
-            />
+          <div class="tile clip-animator" animate.enter="enter" animate.leave="leave">
+            <div>Text in Binary</div>
+            <div class="tile-contents">
+              <app-text-character-lighter
+                [characters]="exampleBinary()"
+                [litCharacter]="litBinary()"
+                [litColor]="3"
+                (userPointsAt)="updateLitCharacter($event)"
+              />
+            </div>
           </div>
-        </div>
         }
       </div>
     }

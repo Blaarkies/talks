@@ -1,4 +1,4 @@
-import { routeNames } from '@app/bootstrap/routes';
+import { routeNames } from '@app/bootstrap/route';
 import { slideRouteNames } from '../../mode-presentation/route';
 
 type Content = {

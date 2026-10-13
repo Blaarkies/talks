@@ -16,7 +16,7 @@ import {
   RouterLink,
   RouterOutlet,
 } from '@angular/router';
-import { routeNames } from '@app/bootstrap/routes';
+import { routeNames } from '@app/bootstrap/route';
 import { ButtonComponent } from '@app/common/component/button/button.component';
 import Slideshow
   from '@app/page/mode-presentation/component/slideshow/slideshow';

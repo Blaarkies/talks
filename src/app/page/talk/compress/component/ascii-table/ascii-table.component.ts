@@ -4,7 +4,7 @@ import {
   input,
   output,
 } from '@angular/core';
-import { makeNumberList } from '../../../../../common';
+import { makeNumberList } from '@app/common';
 import { unprintableCharLabelMap } from '../../data/ascii-table';
 
 @Component({

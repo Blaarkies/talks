@@ -6,7 +6,7 @@ import {
   Router,
   RouterOutlet,
 } from '@angular/router';
-import { routeNames } from '@app/bootstrap/routes';
+import { routeNames } from '@app/bootstrap/route';
 import { RimComponent } from '@app/common/component/rim/rim.component';
 import { TaskbarMenu } from '@app/page/main-menu/component/taskbar-menu/c';
 import { TaskBarMenuConfig } from '@app/page/main-menu/component/taskbar-menu/type';

@@ -40,8 +40,8 @@ import { startWith } from 'rxjs';
     SandboxFlags,
     RegexCheatSheet,
   ],
-  templateUrl: './sandbox-regex.html',
-  styleUrl: './sandbox-regex.scss',
+  templateUrl: './c.html',
+  styleUrl: './c.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class SandboxRegex {

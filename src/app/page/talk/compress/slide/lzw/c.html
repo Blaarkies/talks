@@ -1,0 +1,62 @@
+<div class="s-l-layout">
+  <div class="s-l-inner-grid">
+    <app-pane
+      class="input"
+      header="Input Data&nbsp;"
+      headerPosition="left"
+      [type]="2"
+      [swap]="true"
+      outline="single"
+    >
+      <div class="inputs-stack">
+        <app-text-character-lighter
+          [characters]="text()"
+          [litIndexes]="litIndexes()"
+          [litColor]="3"
+          (userPointsAtIndex)="updateLitIndex($event);"
+        />
+        <div
+          class="text-list"
+          (pointerleave)="userPointAtDictionary(activeDictionary().at(-1))"
+        >
+          @for (c of testInAscii(); track c.toString() + $index) {
+            <span
+              class="token-code"
+              [class.is-lit]="litIndexes()?.includes($index)"
+              (pointerenter)="updateLitIndex($index)"
+            >
+          {{ c }}
+        </span>
+          }
+        </div>
+      </div>
+    </app-pane>
+
+    <app-pane
+      class="output"
+      header="Output Data"
+      headerPosition="left"
+      [type]="2"
+      [swap]="true"
+      outline="double"
+    >
+      <app-lzw-code-lighter/>
+    </app-pane>
+
+    <div class="dictionary">
+      <app-pane [type]="4">
+        <app-lzw-controller/>
+      </app-pane>
+
+      <app-pane
+        header="Dictionary"
+        headerPosition="left"
+        [type]="4"
+        outline="double"
+      >
+        <app-lzw-dictionary/>
+      </app-pane>
+    </div>
+
+  </div>
+</div>

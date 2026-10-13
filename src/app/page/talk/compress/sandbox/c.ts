@@ -20,8 +20,8 @@ import { CoinFlipWorldComponent } from '../slide/slide-calculating-entropy/coin-
         TooltipComponent,
         ButtonComponent,
     ],
-    templateUrl: './sandbox-compression.component.html',
-    styleUrl: './sandbox-compression.component.scss'
+    templateUrl: './c.html',
+    styleUrl: './c.scss'
 })
 export default class SandboxCompressionComponent {
 

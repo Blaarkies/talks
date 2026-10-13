@@ -4,7 +4,7 @@ import {
   input,
   output,
 } from '@angular/core';
-import { sep } from '../../../../../common';
+import { sep } from '@app/common';
 import { splitStringToRunLengthEncoding } from '../../common/encode';
 
 @Component({

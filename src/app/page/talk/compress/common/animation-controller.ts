@@ -4,7 +4,7 @@ import {
   signal,
   WritableSignal,
 } from '@angular/core';
-import { coerceBetween } from '../../../../common';
+import { coerceBetween } from '@app/common';
 import { AnimationJob } from './type';
 
 interface Config {

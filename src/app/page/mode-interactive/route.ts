@@ -9,11 +9,11 @@ export const sandboxRouteNames = {
 const routes: Route[] = [
   {
     path: sandboxRouteNames.compression,
-    loadComponent: () => import( '../talk/compress/sandbox-compression/sandbox-compression.component'),
+    loadComponent: () => import( '../talk/compress/sandbox/c'),
   },
   {
     path: sandboxRouteNames.regex,
-    loadComponent: () => import( '../talk/regex/sandbox/sandbox-regex'),
+    loadComponent: () => import( '@talk/regex/sandbox/c'),
   },
 ];
 

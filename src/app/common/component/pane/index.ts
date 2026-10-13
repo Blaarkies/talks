@@ -1,0 +1,1 @@
+export { PaneComponent } from './pane.component';

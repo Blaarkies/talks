@@ -3,8 +3,8 @@ import {
   computed,
   input,
 } from '@angular/core';
-import { isArray } from '../../../../../common';
-import { ProgressComponent } from '../../../../../common/component/progress/progress.component';
+import { isArray } from '@app/common';
+import { ProgressComponent } from '@component/progress/progress.component';
 import { Data } from '../../common';
 import { toEntropyInBytes } from '../../common/entropy';
 

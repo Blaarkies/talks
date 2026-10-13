@@ -10,9 +10,9 @@ import { FormsModule } from '@angular/forms';
 import {
   chars,
   sep,
-} from '../../../../../common';
-import { ButtonComponent } from '../../../../../common/component/button/button.component';
-import { PaneComponent } from '../../../../../common/component/pane/pane.component';
+} from '@app/common';
+import { ButtonComponent } from '@component/button';
+import { PaneComponent } from '@component/pane';
 import {
   decodeRunLength,
   getRunLengthEncodings,
@@ -21,7 +21,6 @@ import {
 import { splitStringToRunLengthEncoding } from '../../common/encode';
 import { RunLengthDefinitionComponent } from '../run-length-definition/run-length-definition.component';
 import { RunLengthPreviewComponent } from '../run-length-preview/run-length-preview.component';
-import { animateHeight } from './animations';
 
 let defaultImage =
   `
@@ -32,17 +31,16 @@ let defaultImage =
     .slice(1);
 
 @Component({
-    selector: 'app-custom-run-length-input',
-    imports: [
-        RunLengthPreviewComponent,
-        ButtonComponent,
-        FormsModule,
-        RunLengthDefinitionComponent,
-        PaneComponent,
-    ],
-    templateUrl: './custom-run-length-input.component.html',
-    styleUrl: './custom-run-length-input.component.scss',
-    animations: [animateHeight]
+  selector: 'app-custom-run-length-input',
+  imports: [
+    RunLengthPreviewComponent,
+    ButtonComponent,
+    FormsModule,
+    RunLengthDefinitionComponent,
+    PaneComponent,
+  ],
+  templateUrl: './custom-run-length-input.component.html',
+  styleUrl: './custom-run-length-input.component.scss',
 })
 export class CustomRunLengthInputComponent {
 

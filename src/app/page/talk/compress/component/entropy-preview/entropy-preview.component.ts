@@ -15,13 +15,13 @@ import {
   filter,
   Subject,
 } from 'rxjs';
-import { findNumberGaps } from '../../../../../common';
-import { ButtonComponent } from '../../../../../common/component/button/button.component';
+import { findNumberGaps } from '@app/common';
+import { ButtonComponent } from '@component/button';
 import {
   BooleanAny,
   PaneComponent,
   ThemeNumberAny,
-} from '../../../../../common/component/pane/pane.component';
+} from '@component/pane/pane.component';
 import {
   Data,
   TokenElementGroup,
@@ -29,15 +29,15 @@ import {
 import { EntropyMeasureComponent } from '../entropy-measure/entropy-measure.component';
 
 @Component({
-    selector: 'app-entropy-preview',
-    imports: [
-        PaneComponent,
-        EntropyMeasureComponent,
-        ButtonComponent,
-        FormsModule,
-    ],
-    templateUrl: './entropy-preview.component.html',
-    styleUrl: './entropy-preview.component.scss'
+  selector: 'app-entropy-preview',
+  imports: [
+    PaneComponent,
+    EntropyMeasureComponent,
+    ButtonComponent,
+    FormsModule,
+  ],
+  templateUrl: './entropy-preview.component.html',
+  styleUrl: './entropy-preview.component.scss',
 })
 export class EntropyPreviewComponent {
 
@@ -168,7 +168,7 @@ export class EntropyPreviewComponent {
       || !this.tokensRefsMap.set(token, tokenRef);
 
     this.tokensRefs.set(this.tokensRefsMap.entries().toArray()
-        .sort(([, a], [, b]) => a - b),
+      .sort(([, a], [, b]) => a - b),
     );
 
     let isActive = !nowState;

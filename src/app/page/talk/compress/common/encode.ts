@@ -1,7 +1,7 @@
 import {
   makeNumberList,
   sep,
-} from '../../../../common';
+} from '@app/common';
 import { unprintableCharLabelMap } from '../data/ascii-table';
 import {
   Data,

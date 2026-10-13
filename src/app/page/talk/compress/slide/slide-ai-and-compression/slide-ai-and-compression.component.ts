@@ -6,9 +6,9 @@ import {
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { sum } from '../../../../../common';
-import { ClickerService } from '../../../../mode-presentation/service/clicker.service';
-import { PresenterNotesService } from '../../../../presenter-notes';
+import { sum } from '@app/common';
+import { ClickerService } from '@app/page/mode-presentation/service/clicker.service';
+import { PresenterNotesService } from '@app/page/presenter-notes';
 import { DeepLearningCompressionComponent } from './deep-learning-compression/deep-learning-compression.component';
 import { PredictiveTextGeneratorPaneComponent } from './predictive-text-generator-pane/predictive-text-generator-pane.component';
 

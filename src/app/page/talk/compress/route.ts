@@ -53,8 +53,7 @@ const routes: Route[] = [
   // },
   {
     path: compressionSlideRouteNames.lzw,
-    loadComponent: () => import( './slide/slide-lzw/slide-lzw.component')
-      .then(c => c.SlideLzwComponent),
+    loadComponent: () => import( './slide/lzw/c'),
   },
   {
     path: compressionSlideRouteNames.otherAlgorithms,

@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
-import { routeNames } from '@app/bootstrap/routes';
+import { routeNames } from '@app/bootstrap/route';
 import { RimComponent } from '@app/common/component/rim/rim.component';
 import { DescriptionList } from '@app/page/main-menu/component/description-list/c';
 import { MainSelector } from '@app/page/main-menu/component/main-selector/c';

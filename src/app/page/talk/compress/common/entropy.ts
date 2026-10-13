@@ -2,7 +2,7 @@ import {
   isArray,
   isString,
   sum,
-} from '../../../../common';
+} from '@app/common';
 
 type FrequencyRecord = Record<string, number>;
 

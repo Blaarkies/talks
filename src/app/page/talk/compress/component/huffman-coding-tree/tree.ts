@@ -1,7 +1,7 @@
 import {
   average,
   makeNumberList,
-} from '../../../../../common';
+} from '@app/common';
 
 export function addGridPositionsToTree(tree) {
 

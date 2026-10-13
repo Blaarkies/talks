@@ -1,0 +1,43 @@
+<div class="controller-layout">
+  <div class="headings">
+    <div>Current</div>
+    <div>Next</div>
+    <div>Output</div>
+    <div>Add</div>
+  </div>
+
+  <div class="carousel-window">
+    @for (code of codesWithState(); track code.id) {
+      <div
+        class="content carousel-item"
+        [class.future]="code.state === 'future'"
+        [class.present]="code.state === 'present'"
+        [class.past]="code.state === 'past'"
+      >
+        <div>{{ code.current }}</div>
+        <div>{{ code.next }}</div>
+        <div>{{ code.output }}</div>
+        <div>{{ code.add }}
+        </div>
+      </div>
+    }
+
+    <div
+      class="done carousel-item"
+      [class.future]="!isDone()"
+      [class.present]="isDone()">
+      &lt;DONE&gt;
+    </div>
+  </div>
+
+  <div class="buttons-layout">
+    <app-button [type]="1" [swap]="true" (click1)="reset()">
+      RESET
+    </app-button>
+
+    <app-button [type]="4" [swap]="true" [disabled]="!canContinue()"
+                (click1)="continue()">
+      CONTINUE
+    </app-button>
+  </div>
+</div>

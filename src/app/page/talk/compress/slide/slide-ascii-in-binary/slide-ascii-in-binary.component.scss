@@ -44,11 +44,6 @@
   }
 }
 
-.half-ascii-table {
-  .tile-contents {
-  }
-}
-
 .truncated-ascii-table {
   .tile-contents {
     overflow: auto;
@@ -59,4 +54,23 @@
     scrollbar-color: var(--color) transparent;
     scrollbar-width: auto;
   }
+}
+
+.clip-animator {
+  // full
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  transition: 1.3s steps(9);
+}
+
+.enter {
+  @starting-style {
+    // clip top
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+  }
+  transition-delay: .15s;
+}
+
+.leave {
+  // clip bottom
+  clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
 }
