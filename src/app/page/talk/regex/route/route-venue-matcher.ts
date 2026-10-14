@@ -60,7 +60,7 @@ const routes: Route[] = [
     data: {
       headingFootingMap: headingFootingMap,
       logo: <VenueLogo>{
-        src: 'talk/regex/venue/engineers-week/logo.webp',
+        src: 'talk/regex/venue/engineers-week/logo-2.webp',
         style: {
           right: '45px',
           top: '60px',

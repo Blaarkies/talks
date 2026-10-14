@@ -50,9 +50,9 @@ export const navigationOptions: Record<string, NavigationOption> = {
 
     ],
     venues: [
-      {text: 'Frontmania', url: [regexUrl, 'frontmania'].join('/')},
-      {text: 'DevDay', url: [regexUrl, 'devday'].join('/')},
-      {text: 'Engineer\'s Week', url: [regexUrl, 'engineers-week'].join('/')},
+      {text: 'Frontmania 2026', url: [regexUrl, 'frontmania'].join('/')},
+      {text: 'Entelect DevDay 2026', url: [regexUrl, 'devday'].join('/')},
+      {text: 'Rabobank Engineers* Week 2026', url: [regexUrl, 'engineers-week'].join('/')},
     ],
   },
 };

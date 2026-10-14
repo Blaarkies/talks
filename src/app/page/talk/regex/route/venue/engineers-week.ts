@@ -7,12 +7,10 @@ import {
 
 export const engineersWeekNoLogoSlides = [
   slideRoutePaths.opening,
-  // slideRoutePaths.introduction,
-  // slideRoutePaths.closing,
 ];
 
 const style: Partial<CSSStyleDeclaration> = {
-  background: '#379',
+  background: '#020060',
 };
 const engineersWeekSlideDefinitions = {
   opening: {
