@@ -46,7 +46,8 @@ export async function bootstrapApp(): Promise<ApplicationRef> {
   });
 }
 
-function getLeafRoute(snapshot: ActivatedRouteSnapshot): ActivatedRouteSnapshot {
+function getLeafRoute(snapshot: ActivatedRouteSnapshot)
+  : ActivatedRouteSnapshot | null {
   let route = snapshot;
 
   while (route.firstChild) {
@@ -61,15 +62,19 @@ function onViewTransitionCreated({transition, from, to}: ViewTransitionInfo)
   const fromRoute = getLeafRoute(from);
   const toRoute = getLeafRoute(to);
 
-  const routeConfig = fromRoute.routeConfig;
-  if (!routeConfig.data) return;
+  if (!fromRoute || !toRoute) return;
 
-  const siblings = routeConfig.data.siblings;
+  const routeConfig = fromRoute.routeConfig;
+  if (!routeConfig?.data) return;
+
+  const unknownSiblings = routeConfig.data.siblings as object[];
+  if (unknownSiblings.some(s => !('path' in s))) return;
+  const siblings = unknownSiblings as { path: string }[];
 
   const fromSlide = siblings
-    .findIndex(({path}) => path === fromRoute.url.at(-1).path);
+    .findIndex(({path}) => path === fromRoute.url.at(-1)?.path);
   const toSlide = siblings
-    .findIndex(({path}) => path === toRoute.url.at(-1).path);
+    .findIndex(({path}) => path === toRoute.url.at(-1)?.path);
 
   // @ts-ignore
   transition.types.add(

@@ -34,9 +34,14 @@
     "lib": ["ESNext", "DOM"]
   },
   "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
+    "strictNullChecks": false,
+    "strictPropertyInitialization": false,
+    "strictFunctionTypes": false,
+    "strictBindCallApply": true,
+    "noImplicitAny": false,
+    "noImplicitThis": true
   }
 }

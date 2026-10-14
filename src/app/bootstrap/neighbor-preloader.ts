@@ -15,20 +15,16 @@ export class NeighborPreloader implements PreloadingStrategy {
   private router = inject(Router);
 
   preload(route: Route, load: () => Observable<any>): Observable<any> {
-    let siblings: Route[] = route.data?.siblings;
-    if (!siblings) {
-      return of(null);
-    }
+    const siblings: Route[] = route.data?.siblings;
+    if (!siblings) return of(null);
 
-    let selfIndex = siblings.findIndex(r => r.path === route.path);
-    let neighbors = siblings
+    const selfIndex = siblings.findIndex(r => r.path === route.path);
+    const neighbors = siblings
       .slice(Math.max(selfIndex - 1, 0), selfIndex + 2)
-      .filter(s => s.path !== route.path);
+      .filter(s => s.path !== route.path && s.path);
 
-    let url = this.router.url;
-    if (neighbors.every(n => !url.includes(n.path))) {
-      return of(null);
-    }
+    const url = this.router.url;
+    if (neighbors.every(n => !url.includes(n.path ?? ''))) return of(null);
 
     return load();
   }

@@ -71,6 +71,12 @@ const routes: Route[] = [
       .then(c => c.SlideCalculatingEntropyComponent),
   },
 
+  {
+    path: compressionSlideRouteNames.end,
+    loadComponent: () => import( '@app/page/mode-presentation/component/slide-end/end'),
+    data: {qrData: 'blaarkies-talks.pages.dev/interactive/compression'},
+  },
+
   {path: '**', redirectTo: compressionSlideRouteNames.teaser},
 ];
 
