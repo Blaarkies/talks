@@ -1,7 +1,4 @@
-import {
-  provideHttpClient,
-  withFetch,
-} from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 import {
   ApplicationRef,
   isDevMode,
@@ -41,7 +38,7 @@ export async function bootstrapApp(): Promise<ApplicationRef> {
         enabled: !isDevMode(),
         registrationStrategy: 'registerWhenStable:30000',
       }),
-      provideHttpClient(withFetch()),
+      provideHttpClient(),
     ],
   });
 }

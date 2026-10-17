@@ -4,7 +4,10 @@ import {
   InjectionToken,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { WA_WINDOW } from '@ng-web-apis/common';
+import {
+  WA_LOCAL_STORAGE,
+  WA_WINDOW,
+} from '@ng-web-apis/common';
 import {
   concatMap,
   distinctUntilChanged,
@@ -20,7 +23,21 @@ let id = 1;
 export const ID = new InjectionToken(
   'ID generator',
   {
+    providedIn: 'root',
     factory: () => ({make: () => id++}),
+  },
+);
+
+export const LOCAL_STORAGE_NN = new InjectionToken(
+  'ID generator',
+  {
+    providedIn: 'root',
+    factory: () => {
+      const storage = inject(WA_LOCAL_STORAGE);
+      if (!storage) throw new Error('Could not find Local Storage');
+
+      return storage;
+    },
   },
 );
 

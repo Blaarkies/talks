@@ -25,7 +25,7 @@ import {
   timer,
 } from 'rxjs';
 import { PaneComponent } from '../../../../../common/component/pane/pane.component';
-import { ClickerService } from '../../../../mode-presentation/service/clicker.service';
+import { Clicker } from '../../../../mode-presentation/service/clicker';
 import { PresenterNotesService } from '../../../../presenter-notes';
 import { AnimationController } from '../../common/animation-controller';
 import { stiffyAsset } from '../../data/stiffy';
@@ -131,7 +131,7 @@ export class SlideTeaserComponent {
       ['left', () => this.animationController.backward()],
     ]);
 
-    inject(ClickerService).stepAction$.pipe(takeUntilDestroyed())
+    inject(Clicker).stepAction$.pipe(takeUntilDestroyed())
       .subscribe(newAction => actionAnimationMap.get(newAction)?.());
 
     let presenterNotesService = inject(PresenterNotesService);

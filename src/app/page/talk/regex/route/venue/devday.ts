@@ -1,5 +1,6 @@
 import { Route } from '@angular/router';
 import { mapNeighborData } from '@app/common/function/route';
+import { SlideImageData } from '@app/page/mode-presentation/component/slide-image/c';
 import {
   slideDefinitions,
   slideRoutePaths,
@@ -17,8 +18,12 @@ const style: Partial<CSSStyleDeclaration> = {
 const devdaySlideDefinitions = {
   opening: {
     path: slideRoutePaths.opening,
-    loadComponent: () => import('@app/page/mode-presentation/component/slide-image/image'),
-    data: {style, imageSource: 'talk/regex/venue/devday/opening.webp'},
+    loadComponent: () => import('@app/page/mode-presentation/component/slide-image/c'),
+    data: <SlideImageData>{
+      slideName: 'opening',
+      imageSource: 'talk/regex/venue/devday/opening.webp',
+      style,
+    },
   } as Route,
 };
 

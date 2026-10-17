@@ -1,22 +1,20 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  effect,
   inject,
 } from '@angular/core';
-import { ClickerService } from '@app/page/mode-presentation/service/clicker.service';
-import { PresenterNotesService } from '@app/page/presenter-notes';
-import {
-  matchSplitGroup,
-} from '@talk/regex/common/match-split';
+import { Clicker } from '@app/page/mode-presentation/service/clicker';
+import { matchSplitGroup } from '@talk/regex/common/match-split';
 import { BookComponent } from '@talk/regex/component/eroding-pages/book';
 import { Problem } from '@talk/regex/slide/pitfall/problem/problem';
 import { PitfallSplitSection } from '@talk/regex/slide/pitfall/type';
 
 let id = 1;
+
 function getId({length}: string): number {
-  return id+=length;
+  return id += length;
 }
+
 function section(content: string, type?: PitfallSplitSection['type'])
   : PitfallSplitSection {
   return {id: getId(content), type, content};
@@ -141,12 +139,7 @@ service restarted successfully, crash report saved to disk.
     },
   ];
 
-  protected step = inject(ClickerService)
-    .makeSafeStepperSignal(this.pitfalls.length - 1);
-
-  constructor() {
-    const presenterNotesService = inject(PresenterNotesService);
-    effect(() => presenterNotesService.setSlide(7, this.step()));
-  }
+  protected step = inject(Clicker)
+    .registerSlide(7, this.pitfalls.length - 1);
 
 }

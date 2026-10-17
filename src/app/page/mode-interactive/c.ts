@@ -13,7 +13,7 @@ import { TaskBarMenuConfig } from '@app/page/main-menu/component/taskbar-menu/ty
 import {
   FontSizeService,
   SlideMode,
-} from '../mode-presentation/service/font-size.service';
+} from '../mode-presentation/service/font-size';
 
 @Component({
   selector: 'app-mode-interactive',

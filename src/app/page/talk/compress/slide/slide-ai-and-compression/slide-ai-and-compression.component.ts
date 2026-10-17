@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { sum } from '@app/common';
-import { ClickerService } from '@app/page/mode-presentation/service/clicker.service';
+import { Clicker } from '@app/page/mode-presentation/service/clicker';
 import { PresenterNotesService } from '@app/page/presenter-notes';
 import { DeepLearningCompressionComponent } from './deep-learning-compression/deep-learning-compression.component';
 import { PredictiveTextGeneratorPaneComponent } from './predictive-text-generator-pane/predictive-text-generator-pane.component';
@@ -37,7 +37,7 @@ export class SlideAiAndCompressionComponent {
       ['left', () => this.step.update(v => Math.max(--v, 0))],
     ]);
 
-    inject(ClickerService).stepAction$.pipe(takeUntilDestroyed())
+    inject(Clicker).stepAction$.pipe(takeUntilDestroyed())
       .subscribe(newAction => actionStepMap.get(newAction)?.());
 
     let presenterNotesService = inject(PresenterNotesService);

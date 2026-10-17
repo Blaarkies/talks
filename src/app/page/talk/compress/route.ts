@@ -62,7 +62,7 @@ const routes: Route[] = [
   },
   {
     path: compressionSlideRouteNames.end,
-    loadComponent: () => import( '@app/page/mode-presentation/component/slide-end/end'),
+    loadComponent: () => import( '@app/page/mode-presentation/component/slide-end/c'),
     data: {qrData: 'blaarkies-talks.pages.dev/interactive/compression'},
   },
   {
@@ -73,7 +73,7 @@ const routes: Route[] = [
 
   {
     path: compressionSlideRouteNames.end,
-    loadComponent: () => import( '@app/page/mode-presentation/component/slide-end/end'),
+    loadComponent: () => import( '@app/page/mode-presentation/component/slide-end/c'),
     data: {qrData: 'blaarkies-talks.pages.dev/interactive/compression'},
   },
 

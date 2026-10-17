@@ -5,8 +5,8 @@ import {
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { LOCAL_STORAGE_NN } from '@app/common';
 import {
-  WA_LOCAL_STORAGE,
   WA_WINDOW,
 } from '@ng-web-apis/common';
 import {
@@ -32,7 +32,7 @@ export class PresenterNotesService {
   slideStep = signal<[string, string] | null>([headerKey, '0']);
   lastUsedScript = linkedSignal(() => this.getLastUsedScript());
 
-  private storage = inject(WA_LOCAL_STORAGE);
+  private storage = inject(LOCAL_STORAGE_NN);
   private storage$ = fromEvent<StorageEvent>(
     inject(WA_WINDOW), 'storage')
     .pipe(

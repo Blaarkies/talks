@@ -10,7 +10,7 @@ import {
   makeNumberList,
   unique,
 } from '@app/common';
-import { ClickerService } from '@app/page/mode-presentation/service/clicker.service';
+import { Clicker } from '@app/page/mode-presentation/service/clicker';
 import { PresenterNotesService } from '@app/page/presenter-notes';
 import { CharOrBin } from '../../common';
 import { toBinary } from '../../common/encode';
@@ -61,7 +61,7 @@ export class SlideAsciiInBinaryComponent {
       ['left', () => this.step.update(v => coerceBetween(v - 1, 0, stepsMax))],
     ]);
 
-    inject(ClickerService).stepAction$.pipe(takeUntilDestroyed())
+    inject(Clicker).stepAction$.pipe(takeUntilDestroyed())
       .subscribe(newAction => actionAnimationMap.get(newAction)?.());
     let presenterNotesService = inject(PresenterNotesService);
     effect(() => presenterNotesService.setSlide(4, this.step()));

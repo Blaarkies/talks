@@ -1,12 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  effect,
   inject,
 } from '@angular/core';
 import { PaneComponent } from '@app/common/component/pane/pane.component';
-import { ClickerService } from '@app/page/mode-presentation/service/clicker.service';
-import { PresenterNotesService } from '@app/page/presenter-notes';
+import { Clicker } from '@app/page/mode-presentation/service/clicker';
 import { matchSplitGroup } from '@talk/regex/common/match-split';
 import {
   getSizedMockText,
@@ -26,7 +24,7 @@ import { Printer } from '@talk/regex/component/printer/printer';
 })
 export default class SlideFlag {
 
-  private clickerService = inject(ClickerService);
+  private clickerService = inject(Clicker);
   private text = getSizedMockText(41, mockTextA.slice(-154));
 
   protected tabs = [
@@ -65,17 +63,12 @@ export default class SlideFlag {
     },
   ];
 
-  protected step = inject(ClickerService).makeSafeStepperSignal(this.tabs.length - 1);
+  protected step = inject(Clicker)
+    .registerSlide(6, this.tabs.length - 1);
 
   protected setActiveTab(index: number) {
     const difference = index - this.step();
     this.clickerService.autoStep(difference);
   }
-
-  constructor() {
-    const presenterNotesService = inject(PresenterNotesService);
-    effect(() => presenterNotesService.setSlide(6, this.step()));
-  }
-
 
 }

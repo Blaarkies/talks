@@ -4,6 +4,7 @@ import {
   computed,
   effect,
   inject,
+  Injector,
   input,
 } from '@angular/core';
 import {
@@ -16,11 +17,15 @@ import {
 } from '@angular/forms';
 import { ButtonComponent } from '@app/common/component/button/button.component';
 import { PaneComponent } from '@app/common/component/pane/pane.component';
-import { ClickerService } from '@app/page/mode-presentation/service/clicker.service';
+import {
+  Clicker,
+  SlideName,
+} from '@app/page/mode-presentation/service/clicker';
 import { matchSplitGroup } from '@talk/regex/common/match-split';
 import { Checkbox } from '@talk/regex/component/checkbox/checkbox';
 import { Printer } from '@talk/regex/component/printer/printer';
 import {
+  combineLatest,
   scan,
   switchMap,
 } from 'rxjs';
@@ -48,17 +53,24 @@ export type RegexEntry = {
 })
 export class RegexChooser {
 
-  private clickerService = inject(ClickerService);
+  private clickerService = inject(Clicker);
+  private injector = inject(Injector);
 
   content = input.required<string>();
   regexList = input.required<RegexEntry[]>();
+  slideName = input.required<SlideName>();
+
   skipGroupCount = input(0);
 
-  private step = toSignal(
-    toObservable(this.regexList).pipe(
-      switchMap(({length}) => this.clickerService
-        .makeSafeStepperObservable(length - 1, -1))),
-  );
+  private step$ = combineLatest([
+    toObservable(this.regexList),
+    toObservable(this.slideName),
+  ]).pipe(
+    switchMap(([list, name]) => toObservable(
+      this.clickerService.registerSlide(name, list.length - 1, -1),
+      {injector: this.injector})));
+
+  private step = toSignal(this.step$, {initialValue: -1});
 
   protected lastTabIndexToShow = toSignal(
     toObservable(this.step)

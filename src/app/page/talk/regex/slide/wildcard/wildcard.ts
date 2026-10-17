@@ -1,12 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  effect,
-  inject,
 } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ClickerService } from '@app/page/mode-presentation/service/clicker.service';
-import { PresenterNotesService } from '@app/page/presenter-notes';
 import { mockTextHex } from '@talk/regex/common/mock-text';
 import {
   RegexChooser,
@@ -43,13 +39,5 @@ export default class SlideWildcard {
     [`\\W`, 'Non-Word'],
     [`(\\d).+?\\1`, 'Backreference', [0, 1]],
   ].map(([regex, label, skip]) => (<RegexEntry>{regex, label, skip}));
-
-  constructor() {
-    const numberedStep = inject(ClickerService).makeSafeStepperSignal(
-      this.regexList.length);
-    const presenterNotesService = inject(PresenterNotesService);
-    effect(() => presenterNotesService.setSlide(5, numberedStep()));
-  }
-
 
 }

@@ -39,7 +39,7 @@ const keyRoutes = imports
     key: 'end',
     route: {
       path: slideRoutePaths.end,
-      loadComponent: () => import( '@app/page/mode-presentation/component/slide-end/end'),
+      loadComponent: () => import( '@app/page/mode-presentation/component/slide-end/c'),
       data: {qrData: 'blaarkies-talks.pages.dev/interactive/regex'},
     },
   }]);

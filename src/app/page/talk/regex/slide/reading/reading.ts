@@ -9,8 +9,7 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { ClickerService } from '@app/page/mode-presentation/service/clicker.service';
-import { PresenterNotesService } from '@app/page/presenter-notes';
+import { Clicker } from '@app/page/mode-presentation/service/clicker';
 import {
   PaneComponent,
   ThemeNumberAny,
@@ -35,7 +34,8 @@ type PaneValue = {
 })
 export default class Reading {
 
-  private step = inject(ClickerService).makeSafeStepperSignal(4);
+  protected step = inject(Clicker).registerSlide(8, 4);
+
   private duration = 1.7e3;
 
   private paneA = viewChild('paneA', {read: ElementRef});
@@ -58,9 +58,6 @@ export default class Reading {
   protected paneBValues = signal(this.getStepValues(0));
 
   constructor() {
-    const presenterNotesService = inject(PresenterNotesService);
-    effect(() => presenterNotesService.setSlide(8, this.step()));
-
     let previous = this.step();
     effect(() => {
       const elementA = this.paneAElement();

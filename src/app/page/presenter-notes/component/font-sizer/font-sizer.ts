@@ -9,9 +9,9 @@ import {
 import {
   chars,
   lerp,
+  LOCAL_STORAGE_NN,
 } from '@app/common';
 import { ButtonComponent } from '@component/button/button.component';
-import { WA_LOCAL_STORAGE } from '@ng-web-apis/common';
 
 @Component({
   selector: 'app-font-sizer',
@@ -24,7 +24,7 @@ import { WA_LOCAL_STORAGE } from '@ng-web-apis/common';
 })
 export class FontSizer {
 
-  private storage = inject(WA_LOCAL_STORAGE);
+  private storage = inject(LOCAL_STORAGE_NN);
   private key = 'presenter-font-size';
   private fontLimits: [number, number] = [.5, 2.5];
 

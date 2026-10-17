@@ -17,7 +17,7 @@ const routes: Route[] = [
   {
     path: regexVenues.frontmania,
     loadComponent:
-      () => import('@app/page/mode-presentation/component/slideshow/slideshow'),
+      () => import('@app/page/mode-presentation/component/slideshow/c'),
     loadChildren: () => import( '@talk/regex/route/venue/frontmania'),
     data: {
       headingFootingMap: headingFootingMap,
@@ -36,7 +36,7 @@ const routes: Route[] = [
   {
     path: regexVenues.devday,
     loadComponent:
-      () => import('@app/page/mode-presentation/component/slideshow/slideshow'),
+      () => import('@app/page/mode-presentation/component/slideshow/c'),
     loadChildren: () => import('@talk/regex/route/venue/devday'),
     data: {
       headingFootingMap: headingFootingMap,
@@ -55,7 +55,7 @@ const routes: Route[] = [
   {
     path: regexVenues.engineersWeek,
     loadComponent:
-      () => import('@app/page/mode-presentation/component/slideshow/slideshow'),
+      () => import('@app/page/mode-presentation/component/slideshow/c'),
     loadChildren: () => import('@talk/regex/route/venue/engineers-week'),
     data: {
       headingFootingMap: headingFootingMap,
@@ -74,7 +74,7 @@ const routes: Route[] = [
   {
     path: regexVenues.default,
     loadComponent:
-      () => import('@app/page/mode-presentation/component/slideshow/slideshow'),
+      () => import('@app/page/mode-presentation/component/slideshow/c'),
     loadChildren: () => import( '@talk/regex/route/venue/default'),
     data: {
       headingFootingMap: headingFootingMap,

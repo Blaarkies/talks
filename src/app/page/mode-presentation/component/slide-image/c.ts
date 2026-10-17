@@ -2,11 +2,20 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  effect,
   inject,
   input,
 } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { PresenterNotesService } from '@app/page/presenter-notes';
+import {
+  takeUntilDestroyed,
+  toObservable,
+  toSignal,
+} from '@angular/core/rxjs-interop';
+import { ExtractInputs } from '@app/common/type/extract-signal-input';
+import {
+  Clicker,
+  SlideName,
+} from '@app/page/mode-presentation/service/clicker';
 import { WA_WINDOW } from '@ng-web-apis/common';
 import {
   fromEvent,
@@ -15,16 +24,22 @@ import {
   startWith,
 } from 'rxjs';
 
+export type SlideImageData = ExtractInputs<SlideImage,
+  | 'imageSource'
+  | 'slideName'
+>
+
 @Component({
   selector: 'app-slide-image',
   imports: [],
-  templateUrl: './image.html',
-  styleUrl: './image.scss',
+  templateUrl: './c.html',
+  styleUrl: './c.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class SlideImage {
 
   imageSource = input.required<string>();
+  slideName = input.required<SlideName>();
   forceFullScreen = input<boolean>(true);
   style = input<Partial<CSSStyleDeclaration>>();
 
@@ -38,13 +53,15 @@ export default class SlideImage {
       map(() => ({
         width: this.window.innerWidth,
         height: this.window.innerHeight,
-      }))
+      })),
     );
 
   protected dimensions = toSignal(this.resize$);
 
   constructor() {
-    inject(PresenterNotesService).setSlide('opening', 0);
+    const clickerService = inject(Clicker);
+    toObservable(this.slideName).pipe(takeUntilDestroyed())
+      .subscribe(name => clickerService.registerSlide(name, 0));
   }
 
 }

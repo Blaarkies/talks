@@ -1,5 +1,6 @@
 import { Route } from '@angular/router';
 import { mapNeighborData } from '@app/common/function/route';
+import { SlideImageData } from '@app/page/mode-presentation/component/slide-image/c';
 import {
   slideDefinitions,
   slideRoutePaths,
@@ -17,20 +18,32 @@ const style: Partial<CSSStyleDeclaration> = {
 const frontmaniaSlideDefinitions = {
   opening: {
     path: slideRoutePaths.opening,
-    loadComponent: () => import('@app/page/mode-presentation/component/slide-image/image'),
-    data: {style, imageSource: 'talk/regex/venue/frontmania/opening.webp'},
+    loadComponent: () => import('@app/page/mode-presentation/component/slide-image/c'),
+    data: <SlideImageData>{
+      slideName: 'opening',
+      imageSource: 'talk/regex/venue/frontmania/opening.webp',
+      style,
+    },
   } as Route,
 
   introduction: {
     path: slideRoutePaths.introduction,
-    loadComponent: () => import('@app/page/mode-presentation/component/slide-image/image'),
-    data: {style, imageSource: 'talk/regex/venue/frontmania/introduction.webp'},
+    loadComponent: () => import('@app/page/mode-presentation/component/slide-image/c'),
+    data: <SlideImageData>{
+      slideName: 'opening',
+      imageSource: 'talk/regex/venue/frontmania/introduction.webp',
+      style,
+    },
   } as Route,
 
   closing: {
     path: slideRoutePaths.closing,
-    loadComponent: () => import('@app/page/mode-presentation/component/slide-image/image'),
-    data: {style, imageSource: 'talk/regex/venue/frontmania/closing.webp'},
+    loadComponent: () => import('@app/page/mode-presentation/component/slide-image/c'),
+    data: <SlideImageData>{
+      slideName: 'closing',
+      imageSource: 'talk/regex/venue/frontmania/closing.webp',
+      style,
+    },
   } as Route,
 };
 

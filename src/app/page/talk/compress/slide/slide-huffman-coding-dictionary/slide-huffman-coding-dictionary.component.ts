@@ -11,7 +11,7 @@ import {
   sum,
 } from '../../../../../common';
 import { PaneComponent } from '../../../../../common/component/pane/pane.component';
-import { ClickerService } from '../../../../mode-presentation/service/clicker.service';
+import { Clicker } from '../../../../mode-presentation/service/clicker';
 import { PresenterNotesService } from '../../../../presenter-notes';
 import { CharOrBin } from '../../common';
 import {
@@ -70,7 +70,7 @@ export class SlideHuffmanCodingDictionaryComponent {
       ['left', () => this.step.update(v => coerceBetween(v - 1, 0, stepsMax))],
     ]);
 
-    inject(ClickerService).stepAction$.pipe(takeUntilDestroyed())
+    inject(Clicker).stepAction$.pipe(takeUntilDestroyed())
       .subscribe(newAction => actionAnimationMap.get(newAction)?.());
     let presenterNotesService = inject(PresenterNotesService);
     effect(() => presenterNotesService.setSlide(5, this.step()));

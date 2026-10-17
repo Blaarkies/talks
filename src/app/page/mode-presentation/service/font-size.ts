@@ -1,20 +1,17 @@
-
 import {
+  DOCUMENT,
   inject,
-  Injectable,
+  Service,
   signal,
-  DOCUMENT
 } from '@angular/core';
-import { WA_LOCAL_STORAGE } from '@ng-web-apis/common';
+import { LOCAL_STORAGE_NN } from '@app/common';
 
 export enum SlideMode {
   interactive,
   presentation
 }
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class FontSizeService {
 
   private currentMode = signal(SlideMode.interactive);
@@ -22,7 +19,7 @@ export class FontSizeService {
   slideMode = this.currentMode.asReadonly();
 
   private storageKey = 'mode';
-  private storage = inject(WA_LOCAL_STORAGE);
+  private storage = inject(LOCAL_STORAGE_NN);
   private document = inject(DOCUMENT);
 
   constructor() {

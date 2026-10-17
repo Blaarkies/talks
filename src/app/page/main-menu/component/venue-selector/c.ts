@@ -38,20 +38,11 @@ export class VenueSelector {
 
   exit = output<void>();
 
-  protected trimmedName = computed(() => {
-    const name = this.talk();
-    const extra = name.length > 10 ? '...' : '';
-    return name.slice(0, 10).toUpperCase() + extra;
-  });
-
-  protected venues = computed(() => {
-    return this.options().map(o => (<SelectionListOption<{ url: string }>>{
+  protected venues = computed(() => this.options()
+    .map(o => (<SelectionListOption<{ url: string }>>{
       label: o.text,
-      data: {
-        url: o.url,
-      },
-    }));
-  });
+      data: {url: o.url},
+    })));
 
   protected chars = chars;
 

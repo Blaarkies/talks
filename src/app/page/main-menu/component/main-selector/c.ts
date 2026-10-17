@@ -30,7 +30,7 @@ import {
   navigationOptions,
   VenueSelection,
 } from '@app/page/main-menu/data/navigation-options';
-import { SlideMode } from '@app/page/mode-presentation/service/font-size.service';
+import { SlideMode } from '@app/page/mode-presentation/service/font-size';
 import { ButtonComponent } from '@component/button/button.component';
 import { PaneComponent } from '@component/pane/pane.component';
 import { WA_WINDOW } from '@ng-web-apis/common';

@@ -15,7 +15,7 @@ import {
 import { coerceBetween } from '../../../../../common';
 import { ButtonComponent } from '../../../../../common/component/button/button.component';
 import { PaneComponent } from '../../../../../common/component/pane/pane.component';
-import { ClickerService } from '../../../../mode-presentation/service/clicker.service';
+import { Clicker } from '../../../../mode-presentation/service/clicker';
 import { PresenterNotesService } from '../../../../presenter-notes';
 import { toHuffmanTree } from '../../common/encode';
 import { HuffmanCodingPathTrackerTableComponent } from '../../component/huffman-coding-path-tracker-table/huffman-coding-path-tracker-table.component';
@@ -55,7 +55,7 @@ export class SlideHuffmanCodingTreeComponent {
       (e: KeyboardEvent) => e.key)
       .pipe(
         filter(key => key === 'Enter'),
-        mergeWith(inject(ClickerService)
+        mergeWith(inject(Clicker)
           .stepAction$.pipe(filter(s => s === 'right'))),
         takeUntilDestroyed())
       .subscribe(() => this.table().sumNextPair());
@@ -70,7 +70,7 @@ export class SlideHuffmanCodingTreeComponent {
       presenterNotesService.setSlide(6, presenterStep());
     });
 
-    inject(ClickerService).stepAction$.pipe(takeUntilDestroyed())
+    inject(Clicker).stepAction$.pipe(takeUntilDestroyed())
       .subscribe(a => presenterStep.update(n => {
         let difference = a === 'right' ? 1 : -1;
         return coerceBetween(n + difference, 0, 7);

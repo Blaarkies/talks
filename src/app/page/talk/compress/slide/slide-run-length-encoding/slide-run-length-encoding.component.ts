@@ -23,7 +23,7 @@ import {
   makeNumberList,
   sep,
 } from '../../../../../common';
-import { ClickerService } from '../../../../mode-presentation/service/clicker.service';
+import { Clicker } from '../../../../mode-presentation/service/clicker';
 import { PresenterNotesService } from '../../../../presenter-notes';
 import { splitStringToRunLengthEncoding } from '../../common/encode';
 import { EntropyMeasureComponent } from '../../component/entropy-measure/entropy-measure.component';
@@ -87,7 +87,7 @@ export class SlideRunLengthEncodingComponent {
     let presenterStep = signal(0);
     let presenterNotesService = inject(PresenterNotesService);
     effect(() => presenterNotesService.setSlide(3, presenterStep()));
-    inject(ClickerService).stepAction$.pipe(takeUntilDestroyed())
+    inject(Clicker).stepAction$.pipe(takeUntilDestroyed())
       .subscribe(a => presenterStep.update(n => {
         let difference = a === 'right' ? 1 : -1;
         return coerceBetween(n + difference, 0, 2);

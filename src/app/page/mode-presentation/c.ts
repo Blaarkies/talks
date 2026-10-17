@@ -17,22 +17,21 @@ import {
   RouterOutlet,
 } from '@angular/router';
 import { routeNames } from '@app/bootstrap/route';
+import { LOCAL_STORAGE_NN } from '@app/common';
 import { ButtonComponent } from '@app/common/component/button/button.component';
 import Slideshow
-  from '@app/page/mode-presentation/component/slideshow/slideshow';
-import {
-  WA_LOCAL_STORAGE,
-  WA_WINDOW,
-} from '@ng-web-apis/common';
+  from '@app/page/mode-presentation/component/slideshow/c';
+import { SlideDeck } from '@app/page/mode-presentation/service/slide-deck';
+import { WA_WINDOW } from '@ng-web-apis/common';
 import {
   fromEvent,
   map,
 } from 'rxjs';
-import { ClickerService } from './service/clicker.service';
+import { Clicker } from './service/clicker';
 import {
   FontSizeService,
   SlideMode,
-} from './service/font-size.service';
+} from './service/font-size';
 
 @Component({
   selector: 'app-mode-presentation',
@@ -41,13 +40,13 @@ import {
     ButtonComponent,
     RouterLink,
   ],
-  providers: [ClickerService],
-  templateUrl: './mode-presentation.html',
-  styleUrl: './mode-presentation.scss',
+  templateUrl: './c.html',
+  styleUrl: './c.scss',
+  providers: [SlideDeck, Clicker],
 })
 export class ModePresentation {
 
-  private storage = inject(WA_LOCAL_STORAGE);
+  private storage = inject(LOCAL_STORAGE_NN);
   private keyWarning = 'tiny-screen-warning-accepted';
 
   protected headerHeight = signal<number | null>(null);
@@ -59,18 +58,9 @@ export class ModePresentation {
   protected routeMainMenu = routeNames.mainMenu;
 
   private router = inject(Router);
-  private clickerService = inject(ClickerService);
+  private clickerService = inject(Clicker);
   private injector = inject(Injector);
   private destroyRef = inject(DestroyRef);
-
-  private keydownActionMap = new Map<string, (event?: KeyboardEvent) => void>([
-    ['ArrowRight', e => (e.ctrlKey || e.metaKey)
-                        ? this.clickerService.forward()
-                        : this.clickerService.right()],
-    ['ArrowLeft', e => (e.ctrlKey || e.metaKey)
-                       ? this.clickerService.backward()
-                       : this.clickerService.left()],
-  ]);
 
   constructor() {
     const fontSizeService = inject(FontSizeService);
@@ -97,31 +87,26 @@ export class ModePresentation {
              ? this.router.navigate(['../', this.routeMainMenu])
              : this.setTinyScreenWarning();
     }
-
-    this.keydownActionMap.get(event.key)?.(event);
-    if (event.metaKey) {
-      event.preventDefault();
-    }
   }
 
-  forward() {
-    this.clickerService.forward();
+  protected slideNext() {
+    this.clickerService.slideNext();
   }
 
-  backward() {
-    this.clickerService.backward();
+  protected slideBack() {
+    this.clickerService.slideBack();
   }
 
-  right() {
-    this.clickerService.right();
+  protected stepNext() {
+    this.clickerService.stepNext();
   }
 
-  left() {
-    this.clickerService.left();
+  protected stepBack() {
+    this.clickerService.stepBack();
   }
 
-  quit() {
-    this.router.navigate(['../']);
+  protected quit() {
+    this.clickerService.quit();
   }
 
   protected setHeaderHeight(component: Slideshow) {

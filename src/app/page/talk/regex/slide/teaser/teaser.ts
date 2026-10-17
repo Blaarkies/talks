@@ -17,8 +17,7 @@ import {
   windowed,
 } from '@app/common';
 import { PaneComponent } from '@app/common/component/pane/pane.component';
-import { ClickerService } from '@app/page/mode-presentation/service/clicker.service';
-import { PresenterNotesService } from '@app/page/presenter-notes';
+import { Clicker } from '@app/page/mode-presentation/service/clicker';
 import { getSizedMockText } from '@talk/regex/common/mock-text';
 import { TempoGenerator } from '@talk/regex/slide/teaser/tempo-generator';
 import {
@@ -107,7 +106,8 @@ export default class SlideTeaser {
     return !categories.some(c => !c.hide);
   });
 
-  protected step = inject(ClickerService).makeSafeStepperSignal(1);
+  protected step = inject(Clicker).registerSlide(1, 1);
+
   private pauseIndex$ = new Subject<number>();
   private tempoGenerator = new TempoGenerator({
     maxIndex: this.maxIndex,
@@ -151,9 +151,6 @@ export default class SlideTeaser {
     ));
 
   constructor() {
-    const presenterNotesService = inject(PresenterNotesService);
-    effect(() => presenterNotesService.setSlide(1, this.step()));
-
     const destroyPauseTimer$ = new Subject<void>();
     inject(DestroyRef).onDestroy(() => {
       destroyPauseTimer$.next();

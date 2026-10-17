@@ -1,12 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  effect,
-  inject,
 } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ClickerService } from '@app/page/mode-presentation/service/clicker.service';
-import { PresenterNotesService } from '@app/page/presenter-notes';
 import {
   RegexChooser,
   RegexEntry,
@@ -37,12 +33,5 @@ export default class SlideCaptureGroup {
     [`(\\d+)(K|M|G)? views, (?:\\d+)`, 'Non-Capture'],
     [`(?<unit>year|month|day)`, 'Named Groups'],
   ].map(([regex, label]) => (<RegexEntry>{regex, label}));
-
-  constructor() {
-    const numberedStep = inject(ClickerService).makeSafeStepperSignal(
-      this.regexList.length);
-    const presenterNotesService = inject(PresenterNotesService);
-    effect(() => presenterNotesService.setSlide(4, numberedStep()));
-  }
 
 }

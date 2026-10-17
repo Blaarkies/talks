@@ -1,5 +1,6 @@
 import {
   Component,
+  computed,
   effect,
   ElementRef,
   inject,
@@ -13,7 +14,7 @@ import { PaneComponent } from '@app/common/component/pane/pane.component';
 import { toString as QrCodeToString } from 'qrcode';
 import { map } from 'rxjs';
 import { PresenterNotesService } from '../../../presenter-notes';
-import { ClickerService } from '../../service/clicker.service';
+import { Clicker } from '../../service/clicker';
 
 @Component({
   selector: 'app-slide-end',
@@ -21,16 +22,16 @@ import { ClickerService } from '../../service/clicker.service';
     PaneComponent,
     RouterLink,
   ],
-  templateUrl: './end.html',
-  styleUrl: './end.scss',
+  templateUrl: './c.html',
+  styleUrl: './c.scss',
 })
 export default class SlideEnd {
 
   qrData = input.required<string>();
 
-  protected isEnded = toSignal(
-    inject(ClickerService).stepAction$.pipe(
-      map(v => v === 'right')));
+  protected step = inject(Clicker).registerSlide('end', 1);
+
+  protected isEnded = computed(() => this.step());
   protected routeMainMenu = routeNames.mainMenu;
 
   private qrElement = viewChild<ElementRef<SVGElement>>('qr');
@@ -65,10 +66,8 @@ export default class SlideEnd {
         ?.firstElementChild;
       if (!realQrElement || !(realQrElement instanceof SVGElement)) return;
 
-      realQrElement.style.setProperty('height','60vh');
+      realQrElement.style.setProperty('height', '60vh');
     });
-
-    inject(PresenterNotesService).setSlide('end', 0);
   }
 
 }

@@ -22,7 +22,7 @@ import { fromEvent } from 'rxjs';
 import {
   FontSizeService,
   SlideMode,
-} from '../mode-presentation/service/font-size.service';
+} from '../mode-presentation/service/font-size';
 import { PresenterNotesService } from '../presenter-notes';
 import {
   NavigationOption,

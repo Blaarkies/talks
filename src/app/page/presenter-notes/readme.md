@@ -9,7 +9,7 @@ Every slide must call the `setSlide()` method on `PresenterNotesService` when an
 - Upon slide construction
 - On every step change
 
-The method requires a slide tag/name/number, and a step number. In the following example, the `ClickerService` steps are used in the slide to control animations, but also used for updating the notes service for slide `6`
+The method requires a slide tag/name/number, and a step number. In the following example, the `Clicker` steps are used in the slide to control animations, but also used for updating the notes service for slide `6`
 ```typescript
 constructor() {
   const numberedStep = inject(ClickerService).makeSafeStepperSignal(2);

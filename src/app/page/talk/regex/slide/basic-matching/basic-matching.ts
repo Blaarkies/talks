@@ -1,12 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  effect,
-  inject,
 } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ClickerService } from '@app/page/mode-presentation/service/clicker.service';
-import { PresenterNotesService } from '@app/page/presenter-notes';
 import {
   getSizedMockText,
   mockTextIntFloat,
@@ -37,12 +33,5 @@ export default class SlideBasicMatching {
     [`\\d+\\.\\d+`, 'Find Decimal Number'],
     [`\\d+\\.\\d+|\\d+`, 'Find Either'],
   ].map(([regex, label]) => (<RegexEntry>{regex, label}));
-
-  constructor() {
-    const numberedStep = inject(ClickerService).makeSafeStepperSignal(
-      this.regexList.length);
-    const presenterNotesService = inject(PresenterNotesService);
-    effect(() => presenterNotesService.setSlide(3, numberedStep()));
-  }
 
 }
