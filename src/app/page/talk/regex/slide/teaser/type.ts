@@ -1,13 +1,15 @@
+export type MatchedWord = {
+  m: RegExpExecArray
+  title: string
+  word: string
+  index: number
+}
+
 export type LightableContent = {
   id: number
   type: 'normal' | 'match' | 'cursor';
   content: string
-}
-
-export type MatchedWord = {
-  i: number
-  regex: RegExpExecArray
-  title: string
+  index: number
 }
 
 export type MatchedCategory = {

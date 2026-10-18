@@ -20,7 +20,7 @@ type TypeLoadComponent = Route['loadComponent']
 export type SlideKey = keyof typeof slideRoutePaths
 
 const imports: [SlideKey, TypeLoadComponent][] = [
-  ['teaser', () => import('@talk/regex/slide/teaser/teaser')],
+  ['teaser', () => import('@talk/regex/slide/teaser/c')],
   ['history', () => import('@talk/regex/slide/history/history')],
   ['basics', () => import('@talk/regex/slide/basic-matching/basic-matching')],
   ['groups', () => import('@talk/regex/slide/capture-group/capture-group')],

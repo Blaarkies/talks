@@ -4,7 +4,7 @@
 
   <div class="printer">
     @let showBlink = !isPrinting();
-    @for (item of items(); track item.id) {
+    @for (item of contents(); track item.id) {
       <span
         [class.match]="item.type === 'match'"
         [class.cursor]="item.type === 'cursor'"

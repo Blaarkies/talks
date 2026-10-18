@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 @keyframes slide-out-left {
   0% {
     transform: translateX(0);
@@ -37,27 +39,27 @@
 // line printing animation
 @keyframes print-forward {
   $line-count: 12;
+  $lineHeight: math.div(100%, $line-count);
   0% {
-    $bottomFirst: (100% / $line-count);
     clip-path: polygon(0 0, 100% 0, 100% 0, 0 0,
-    0 #{$bottomFirst}, 0 #{$bottomFirst});
+    0 #{$lineHeight}, 0 #{$lineHeight});
   }
   @for $i from 1 through $line-count {
-    $top: ($i - 1) * (100% / $line-count);
-    $bottom: $i * (100% / $line-count);
-    $bottomExtra: ($i + 1) * (100% / $line-count);
-    $percent: $i * (100 / $line-count);
-    $percentJump: $percent + 0.001;
+    $top: ($i - 1) * $lineHeight;
+    $mid: $i * $lineHeight;
+    $bottom: ($i + 1) * $lineHeight;
+    $progress: $i * math.div(100, $line-count);
+    $progressFix: $progress + 0.001;
 
-    #{$percent}% {
+    #{$progress}% {
       clip-path: polygon(0 0, 100% 0, 100% #{$top}, 100% #{$top},
-      100% #{$bottom}, 0 #{$bottom});
+      100% #{$mid}, 0 #{$mid});
     }
     @if $i < $line-count {
-      #{$percentJump}% {
+      #{$progressFix}% {
         clip-path: polygon(0 0, 100% 0,
-        100% #{$bottom},
-        0 #{$bottom}, 0 #{$bottomExtra}, 0 #{$bottomExtra});
+        100% #{$mid},
+        0 #{$mid}, 0 #{$bottom}, 0 #{$bottom});
       }
     }
   }

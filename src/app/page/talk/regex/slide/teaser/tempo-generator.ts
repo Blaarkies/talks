@@ -16,7 +16,7 @@ import {
 
 type Config = {
   maxIndex: number
-  scale?: number
+  scale: number
   smoothness: number
   start: number
   destroyRef?: DestroyRef
@@ -36,7 +36,7 @@ export class TempoGenerator {
   private trigger$: BehaviorSubject<number>;
 
   index$: Observable<number>;
-  currentIndex: number;
+  currentIndex = 0;
 
   constructor(userConfig?: Partial<Config>) {
     const config: Config = Object.assign(

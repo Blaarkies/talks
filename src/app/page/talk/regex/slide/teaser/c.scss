@@ -10,8 +10,9 @@
 }
 
 .heading {
-  font-family: monospace;
-  font-size: calc(2 * var(--font-size-5));
+  z-index: 1;
+  font-family: OrangeTypewriter;
+  font-size: calc(2.5 * var(--font-size-5));
   color: var(--base-color-10);
   text-align: center;
 
