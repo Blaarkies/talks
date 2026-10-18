@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  effect,
   inject,
   input,
 } from '@angular/core';
@@ -11,7 +10,7 @@ import {
   toObservable,
   toSignal,
 } from '@angular/core/rxjs-interop';
-import { ExtractInputs } from '@app/common/type/extract-signal-input';
+import { ExtractInputs} from '@app/common/type/extract-signal-input';
 import {
   Clicker,
   SlideName,

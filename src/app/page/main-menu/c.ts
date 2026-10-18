@@ -133,7 +133,7 @@ export default class MainMenu {
 
   constructor() {
     this.fontSizeService.updateFontSize();
-    let presenterNotesService = inject(PresenterNotesService);
+    const presenterNotesService = inject(PresenterNotesService);
     presenterNotesService.setSlide(null, 0);
 
     fromEvent<KeyboardEvent>(inject(WA_WINDOW), 'keydown')
@@ -147,20 +147,16 @@ export default class MainMenu {
   }
 
   private menuShortcut(event: KeyboardEvent) {
+    if (this.isQuit()) return this.isQuit.set(false);
+
     if (event.altKey) return;
 
-    if (event.ctrlKey && event.key === 'q') {
-      return this.isQuit.update(v => !v);
-    }
-
-    if (this.isQuit()) return this.isQuit.update(v => !v);
+    if (event.key === 'q') return this.isQuit.set(true);
   }
 
   protected navigateToUrl(url: string, external = false) {
-    if (external) {
-      this.window.open(url, '_blank');
-      return;
-    }
+    if (external) return this.window.open(url, '_blank');
+
     void this.router.navigate([url], {});
   }
 

@@ -53,6 +53,7 @@ import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 export default class Slideshow {
 
   private sharedResizeObserver = inject(SHARED_RESIZE_OBSERVER);
+  private currentRouteSlideSignal = inject(SlideDeck).currentRouteSlide;
 
   /** Provided by route `data` */
   headingFootingMap = input.required<Map<string, string[]>>();
@@ -70,7 +71,6 @@ export default class Slideshow {
 
   protected animateBusy = signal(false);
 
-  private currentRouteSlideSignal = inject(SlideDeck).currentRouteSlide;
   protected logoVisible = computed(() => {
     const hideOnRoutes = this.logo()?.hideOnRoutes;
     if (!hideOnRoutes) return true;
@@ -92,6 +92,8 @@ export default class Slideshow {
   });
 
   constructor() {
+    // ActivatedRoute is determined by injection context.
+    // It MUST use this one, that is relative to the slideshow in router-outlet
     inject(SlideDeck).setActivatedRoute(inject(ActivatedRoute));
   }
 

@@ -34,22 +34,61 @@
   }
 }
 
+// line printing animation
+@keyframes print-forward {
+  $line-count: 12;
+  0% {
+    $bottomFirst: (100% / $line-count);
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0,
+    0 #{$bottomFirst}, 0 #{$bottomFirst});
+  }
+  @for $i from 1 through $line-count {
+    $top: ($i - 1) * (100% / $line-count);
+    $bottom: $i * (100% / $line-count);
+    $bottomExtra: ($i + 1) * (100% / $line-count);
+    $percent: $i * (100 / $line-count);
+    $percentJump: $percent + 0.001;
+
+    #{$percent}% {
+      clip-path: polygon(0 0, 100% 0, 100% #{$top}, 100% #{$top},
+      100% #{$bottom}, 0 #{$bottom});
+    }
+    @if $i < $line-count {
+      #{$percentJump}% {
+        clip-path: polygon(0 0, 100% 0,
+        100% #{$bottom},
+        0 #{$bottom}, 0 #{$bottomExtra}, 0 #{$bottomExtra});
+      }
+    }
+  }
+}
+
+// required to keep the old page visible
+@keyframes wait {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 /* Forward: slide exits left, new slide enters from right */
 :root:active-view-transition-type(forward)::view-transition-old(root) {
-  animation: slide-out-left 1s steps(10);
+  animation: wait 1.4s;
 }
 
 :root:active-view-transition-type(forward)::view-transition-new(root) {
-  animation: slide-in-from-right 1s steps(10);
+  animation: print-forward 1.4s steps(7);
 }
 
 /* Backward: slide exits right, new slide enters from left */
 :root:active-view-transition-type(backward)::view-transition-old(root) {
-  animation: slide-out-right 1s steps(10);
+  animation: wait 1s;
 }
 
 :root:active-view-transition-type(backward)::view-transition-new(root) {
-  animation: slide-in-from-left 1s steps(10);
+  animation: print-forward .7s steps(7);
 }
 
 @media (prefers-reduced-motion: reduce) {
