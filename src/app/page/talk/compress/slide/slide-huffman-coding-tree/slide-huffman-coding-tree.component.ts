@@ -12,11 +12,11 @@ import {
   fromEvent,
   mergeWith,
 } from 'rxjs';
-import { coerceBetween } from '../../../../../common';
-import { ButtonComponent } from '../../../../../common/component/button/button.component';
-import { PaneComponent } from '../../../../../common/component/pane/pane.component';
-import { Clicker } from '../../../../mode-presentation/service/clicker';
-import { PresenterNotesService } from '../../../../presenter-notes';
+import { coerceBetween } from '@app/common';
+import { ButtonComponent } from '@component/button';
+import { PaneComponent } from '@component/pane';
+import { Clicker } from '@app/page/mode-presentation/service/clicker';
+import { PresenterNotesData } from '@app/page/presenter-notes';
 import { toHuffmanTree } from '../../common/encode';
 import { HuffmanCodingPathTrackerTableComponent } from '../../component/huffman-coding-path-tracker-table/huffman-coding-path-tracker-table.component';
 import { HuffmanCodingTableComponent } from '../../component/huffman-coding-table/huffman-coding-table.component';
@@ -62,7 +62,7 @@ export class SlideHuffmanCodingTreeComponent {
 
     let presenterStep = signal(0);
 
-    let presenterNotesService = inject(PresenterNotesService);
+    let presenterNotesService = inject(PresenterNotesData);
     effect(() => {
       if (this.isResetting()) {
         presenterStep.set(0);

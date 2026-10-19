@@ -6,10 +6,10 @@ import {
   viewChild,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { makeNumberList } from '../../../../../common';
-import { PaneComponent } from '../../../../../common/component/pane/pane.component';
-import { Clicker } from '../../../../mode-presentation/service/clicker';
-import { PresenterNotesService } from '../../../../presenter-notes';
+import { makeNumberList } from '@app/common';
+import { PaneComponent } from '@component/pane';
+import { Clicker } from '@app/page/mode-presentation/service/clicker';
+import { PresenterNotesData } from '@app/page/presenter-notes';
 import { AnimationController } from '../../common/animation-controller';
 import { CoinFlipWorldComponent } from './coin-flip-world/coin-flip-world.component';
 import { EntropyEquationExplainedComponent } from './entropy-equation-explained/entropy-equation-explained.component';
@@ -92,7 +92,7 @@ export class SlideCalculatingEntropyComponent {
     inject(Clicker).stepAction$.pipe(takeUntilDestroyed())
       .subscribe(newAction => actionAnimationMap.get(newAction)?.());
 
-    let presenterNotesService = inject(PresenterNotesService);
+    let presenterNotesService = inject(PresenterNotesData);
     effect(() => presenterNotesService.setSlide(11, this.animationIndex()));
   }
 

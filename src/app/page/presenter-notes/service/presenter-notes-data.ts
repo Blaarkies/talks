@@ -1,14 +1,13 @@
 import {
   inject,
-  Injectable,
   linkedSignal,
+  Service,
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { LOCAL_STORAGE_NN } from '@app/common';
-import {
-  WA_WINDOW,
-} from '@ng-web-apis/common';
+import { SlideName } from '@app/page/mode-presentation/service/clicker';
+import { WA_WINDOW } from '@ng-web-apis/common';
 import {
   fromEvent,
   map,
@@ -20,21 +19,18 @@ interface SlideUpdate {
   stepIndex?: string;
 }
 
-let updateKey = '#slide-update';
-let lastUsedKey = '#slide-last-used';
-let headerKey = '0';
+const updateKey = '#slide-update';
+const lastUsedKey = '#slide-last-used';
+const headerKey = '0';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class PresenterNotesService {
+@Service()
+export class PresenterNotesData {
 
   slideStep = signal<[string, string] | null>([headerKey, '0']);
   lastUsedScript = linkedSignal(() => this.getLastUsedScript());
 
   private storage = inject(LOCAL_STORAGE_NN);
-  private storage$ = fromEvent<StorageEvent>(
-    inject(WA_WINDOW), 'storage')
+  private storage$ = fromEvent<StorageEvent>(inject(WA_WINDOW), 'storage')
     .pipe(
       map(e => e.newValue),
       startWith(this.storage.getItem(updateKey)));
@@ -42,16 +38,17 @@ export class PresenterNotesService {
   constructor() {
     this.storage$.pipe(takeUntilDestroyed())
       .subscribe(data => {
-        let detail = <SlideUpdate>JSON.parse(data);
-        if (detail) {
-          this.slideStep.set(
-            [detail.slideIndex, detail.stepIndex]);
-        }
+        const detail = <SlideUpdate>JSON.parse(data);
+        if (!detail) return;
+
+        this.slideStep.set([detail.slideIndex, detail.stepIndex]);
       });
   }
 
-  setSlide(slide: number | string | null, step: number) {
-    let storageValue: SlideUpdate = {
+  setSlide(slide: SlideName, step: number) {
+    if (step < 0) console.error('Negative slide step numbers are not supported');
+
+    const storageValue: SlideUpdate = {
       slideIndex: slide?.toString() ?? headerKey,
       stepIndex: step.toString(),
     };

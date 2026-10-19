@@ -7,10 +7,10 @@ import {
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { coerceBetween } from '../../../../../common';
-import { PaneWindows31Component } from '../../../../../common/component/pane-windows-3-1/pane-windows-3-1.component';
-import { Clicker } from '../../../../mode-presentation/service/clicker';
-import { PresenterNotesService } from '../../../../presenter-notes';
+import { coerceBetween } from '@app/common';
+import { PaneWindows31Component } from '@component/pane-windows-3-1/pane-windows-3-1.component';
+import { Clicker } from '@app/page/mode-presentation/service/clicker';
+import { PresenterNotesData } from '@app/page/presenter-notes';
 
 @Component({
     selector: 'app-slide-other-algorithms',
@@ -30,7 +30,7 @@ export class SlideOtherAlgorithmsComponent {
 
   constructor() {
     let presenterStep = signal(0);
-    let presenterNotesService = inject(PresenterNotesService);
+    let presenterNotesService = inject(PresenterNotesData);
     effect(() => presenterNotesService.setSlide(9, presenterStep()));
     inject(Clicker).stepAction$.pipe(takeUntilDestroyed())
       .subscribe(a => presenterStep.update(n => {

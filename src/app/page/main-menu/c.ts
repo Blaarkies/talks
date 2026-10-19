@@ -23,7 +23,7 @@ import {
   FontSizeService,
   SlideMode,
 } from '../mode-presentation/service/font-size';
-import { PresenterNotesService } from '../presenter-notes';
+import { PresenterNotesData } from '../presenter-notes';
 import {
   NavigationOption,
   VenueSelection,
@@ -133,7 +133,7 @@ export default class MainMenu {
 
   constructor() {
     this.fontSizeService.updateFontSize();
-    const presenterNotesService = inject(PresenterNotesService);
+    const presenterNotesService = inject(PresenterNotesData);
     presenterNotesService.setSlide(null, 0);
 
     fromEvent<KeyboardEvent>(inject(WA_WINDOW), 'keydown')

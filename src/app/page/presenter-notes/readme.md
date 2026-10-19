@@ -5,7 +5,7 @@ This is intended for the presenter as a type of teleprompter. See [Features](#fe
 
 ## Setup
 
-Every slide must call the `setSlide()` method on `PresenterNotesService` when an update occurs:
+Every slide must call the `setSlide()` method on `PresenterNotesData` when an update occurs:
 - Upon slide construction
 - On every step change
 

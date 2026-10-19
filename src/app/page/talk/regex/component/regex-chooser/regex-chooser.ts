@@ -67,7 +67,8 @@ export class RegexChooser {
     toObservable(this.slideName),
   ]).pipe(
     switchMap(([list, name]) => toObservable(
-      this.clickerService.registerSlide(name, list.length - 1, -1),
+      // +1 step, permits empty step at start
+      this.clickerService.registerSlide(name, list.length),
       {injector: this.injector})));
 
   private step = toSignal(this.step$, {initialValue: -1});
@@ -76,7 +77,7 @@ export class RegexChooser {
     toObservable(this.step)
       .pipe(scan((max, c) => Math.max(max, c + 3), 3)));
   protected activeItem = computed(() =>
-    this.regexList()[this.step()]);
+    this.regexList()[this.step() - 1]);
 
   protected globalFlagControl = new FormControl(false);
   private globalFlag = toSignal(this.globalFlagControl.valueChanges);
@@ -106,7 +107,8 @@ export class RegexChooser {
   }
 
   protected setActiveTab(item: RegexEntry) {
-    const index = this.regexList().indexOf(item);
+    // +1 step, permits empty step at start
+    const index = this.regexList().indexOf(item) + 1;
     const difference = index - this.step();
 
     this.clickerService.autoStep(difference);

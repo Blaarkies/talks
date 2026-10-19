@@ -8,7 +8,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { coerceBetween } from '@app/common';
 import { Clicker } from '@app/page/mode-presentation/service/clicker';
-import { PresenterNotesService } from '@app/page/presenter-notes';
+import { PresenterNotesData } from '@app/page/presenter-notes';
 import { PaneComponent } from '@component/pane';
 import { LzwOrchestratorService } from '@talk/compress/slide/lzw/service/lzw-orchestrator';
 import { LzwStep } from '../../common';
@@ -55,7 +55,7 @@ export default class SlideLzwComponent {
                         : 0);
 
     let presenterStep = signal(0);
-    let presenterNotesService = inject(PresenterNotesService);
+    let presenterNotesService = inject(PresenterNotesData);
     effect(() => presenterNotesService.setSlide(8, presenterStep()));
     inject(Clicker).stepAction$.pipe(takeUntilDestroyed())
       .subscribe(a => presenterStep.update(n => {

@@ -53,17 +53,24 @@
 <ng-template #p1>
   <span class="regex">^(?:\d&lbrace;3&rbrace;-)&lbrace;2&rbrace;\d&lbrace;4&rbrace;$</span>
   <br/>
-  <br/>start anchored
-  <br/> - ( <span class="censor">3 digits, 1 hyphen</span> ) repeated 2x
-  <br/> - <span class="censor">4 digits</span>
-  <br/>end anchored
+  <br/>
+  <table class="table">
+    <tbody>
+      <tr><td><span class="regex">^</span></td><td>Starts anchored</td></tr>
+      <tr><td><span class="regex">(?:<span class="censor">\d&lbrace;3&rbrace;-</span>)&lbrace;2&rbrace;</span></td>
+        <td>Non-capture group, repeated 2x</td></tr>
+      <tr><td><span class="regex"><span class="censor">\d</span>&lbrace;4&rbrace;</span></td>
+        <td>Selector, repeated 4x</td></tr>
+      <tr><td><span class="regex">$</span></td><td>Ends anchored</td></tr>
+    </tbody>
+  </table>
 </ng-template>
 
 <ng-template #p2>
-  Be careful when you see the disjunction pipe operator.
-  <br/>It can span large sections, greatly affecting the outcome
+  Be careful when you spot a disjunction pipe operator.
+  <br/>It can span large sections, greatly affecting the outcome.
   <br/>
-  <br/><span class="regex">cat|dog</span>
+  <br/><span class="regex">cat|(dog|wolf)</span>
   <br/><br/><span class="regex">(cat|dog)s</span>
 </ng-template>
 
@@ -72,16 +79,28 @@
   <br/><br/>
   <table class="table">
     <tbody>
-    <tr><td>^</td><td>start of text</td></tr>
-    <tr><td>(?:\d&lbrace;3&rbrace;-)</td><td>3 digits then a hyphen</td></tr>
-    <tr><td>&lbrace;2&rbrace;</td><td>repeat previous</td></tr>
-    <tr><td>\d&lbrace;4&rbrace;</td><td>followed by 4 digits</td></tr>
-    <tr><td>$</td><td>end of text</td></tr>
+    <tr><td><span class="regex">^<span class="censor">^W^&lbrace;3&rbrace;-)&lbrace;2&rbrace;\d&lbrace;4&rbrace;$</span></span></td>
+      <td>Starts anchored</td></tr>
+    <tr><td><span class="regex">
+      (?:<span class="censor">\d&lbrace;3&rbrace;-</span>)&lbrace;2&rbrace;<span class="censor">\d&lbrace;4&rbrace;$</span>
+    </span></td><td>Non-capture group, repeated 2x</td></tr>
+    <tr><td><span class="regex">
+      <span class="censor">(?:</span>\d&lbrace;3&rbrace;<span class="censor">-)&lbrace;2&rbrace;\d&lbrace;4&rbrace;$</span>
+    </span></td>
+      <td>3 Digits</td></tr>
+    <tr><td><span class="regex">
+      <span class="censor">(?:\d&lbrace;3&rbrace;</span>-<span class="censor">)&lbrace;2&rbrace;\d&lbrace;4&rbrace;$</span>
+    </span></td>
+      <td>Regular hyphen character</td></tr>
+    <tr><td><span class="regex"><span class="censor">(?:\d&lbrace;3&rbrace;-)&lbrace;2&rbrace;</span>\d&lbrace;4&rbrace;<span class="censor">$</span></span></td>
+      <td>4 Digits</td></tr>
+    <tr><td><span class="regex"><span class="censor">(?:\d&lbrace;3&rbrace;-)&lbrace;2&rbrace;\d&lbrace;4&rbrace;</span>$<span class="censor"></span></span></td>
+      <td>Ends anchored</td></tr>
     </tbody>
   </table>
 </ng-template>
 
 <ng-template #p4>
-  <br/>
-  It is read as a set of nested rules
+  <h1 class="text-center-align regex-logo">(.*)</h1>
+  <div class="text-center-align">It is a set of nested rules</div>
 </ng-template>

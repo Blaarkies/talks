@@ -9,10 +9,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   coerceBetween,
   sum,
-} from '../../../../../common';
-import { PaneComponent } from '../../../../../common/component/pane/pane.component';
-import { Clicker } from '../../../../mode-presentation/service/clicker';
-import { PresenterNotesService } from '../../../../presenter-notes';
+} from '@app/common';
+import { PaneComponent } from '@component/pane';
+import { Clicker } from '@app/page/mode-presentation/service/clicker';
+import { PresenterNotesData } from '@app/page/presenter-notes';
 import { CharOrBin } from '../../common';
 import {
   encodeToHuffmanCoding,
@@ -72,7 +72,7 @@ export class SlideHuffmanCodingDictionaryComponent {
 
     inject(Clicker).stepAction$.pipe(takeUntilDestroyed())
       .subscribe(newAction => actionAnimationMap.get(newAction)?.());
-    let presenterNotesService = inject(PresenterNotesService);
+    let presenterNotesService = inject(PresenterNotesData);
     effect(() => presenterNotesService.setSlide(5, this.step()));
   }
 

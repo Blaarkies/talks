@@ -14,8 +14,8 @@ import {
     ReactiveFormsModule,
     RegexChooser,
   ],
-  templateUrl: './capture-group.html',
-  styleUrl: './capture-group.scss',
+  templateUrl: './c.html',
+  styleUrl: './c.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class SlideCaptureGroup {
@@ -30,7 +30,7 @@ export default class SlideCaptureGroup {
   protected regexList = [
     [`(\\d+ \\w+) ago`, 'Age'],
     [`(\\d+) (year|month|day)s? ago`, 'Separate'],
-    [`(\\d+)(K|M|G)? views, (?:\\d+)`, 'Non-Capture'],
+    [`(\\d+)(K|M|G)? (?:views|view)`, 'Non-Capture'],
     [`(?<unit>year|month|day)`, 'Named Groups'],
   ].map(([regex, label]) => (<RegexEntry>{regex, label}));
 

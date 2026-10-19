@@ -8,9 +8,9 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { NotesLoader } from '@app/page/presenter-notes/component/notes-loader/notes-loader';
-import { NotesViewer } from '@app/page/presenter-notes/component/notes-viewer/notes-viewer';
-import { PresenterNotesService } from './presenter-notes.service';
+import { NotesLoader } from './component/notes-loader/notes-loader';
+import { NotesViewer } from './component/notes-viewer/notes-viewer';
+import { PresenterNotesData } from './service/presenter-notes-data';
 
 @Component({
   selector: 'app-presenter-notes',
@@ -20,23 +20,21 @@ import { PresenterNotesService } from './presenter-notes.service';
     NotesLoader,
     NotesViewer,
   ],
-  templateUrl: './presenter-notes.component.html',
-  styleUrl: './presenter-notes.component.scss',
+  templateUrl: './c.html',
+  styleUrl: './c.scss',
 })
 export class PresenterNotesComponent {
 
   protected rawNotes = signal<string>(undefined);
 
   constructor() {
-    const presenterNotesService = inject(PresenterNotesService);
+    const presenterNotesService = inject(PresenterNotesData);
 
     const lastUsed = presenterNotesService.lastUsedScript();
-    if (lastUsed) {
-      this.rawNotes.set(lastUsed);
-    }
+    if (lastUsed) this.rawNotes.set(lastUsed);
 
     effect(() => {
-      let newScript = this.rawNotes();
+      const newScript = this.rawNotes();
       if (!newScript) return;
 
       presenterNotesService.saveNewScript(newScript);

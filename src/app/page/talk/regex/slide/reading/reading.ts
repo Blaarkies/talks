@@ -47,11 +47,11 @@ export default class Reading {
     this.paneB().nativeElement as HTMLDivElement);
 
   private headers = [
-    'Find the outer frame and flags',
-    'Break up groups',
+    'Find outer frame',
+    'Break into parts',
     'Branching logic',
     'Replace with plain language',
-    'A regex pattern is not read as a sentence',
+    'A regex patterns is not human language',
   ];
 
   protected paneAValues = signal(this.getStepValues(1));

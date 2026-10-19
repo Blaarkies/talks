@@ -7,13 +7,10 @@ import {
   input,
   viewChild,
 } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { routeNames } from '@app/bootstrap/route';
 import { PaneComponent } from '@app/common/component/pane/pane.component';
 import { toString as QrCodeToString } from 'qrcode';
-import { map } from 'rxjs';
-import { PresenterNotesService } from '../../../presenter-notes';
 import { Clicker } from '../../service/clicker';
 
 @Component({

@@ -7,7 +7,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { SlideDeck } from '@app/page/mode-presentation/service/slide-deck';
 import { StepPack } from '@app/page/mode-presentation/common/step-pack';
-import { PresenterNotesService } from '@app/page/presenter-notes';
+import { PresenterNotesData } from '@app/page/presenter-notes';
 import { WA_WINDOW } from '@ng-web-apis/common';
 import {
   fromEvent,
@@ -29,12 +29,11 @@ export class Clicker {
 
   private deck = inject(SlideDeck);
   private router = inject(Router);
-  private presenterNotesService = inject(PresenterNotesService);
+  private presenterNotes = inject(PresenterNotesData);
 
   private activeSlide?: ActiveSlideInfo;
   private oldSlide?: ActiveSlideInfo;
 
-  slideAction$ = new Subject<'next' | 'back'>();
   stepAction$ = new Subject<'right' | 'left'>();
 
   constructor() {
@@ -62,12 +61,10 @@ export class Clicker {
   }
 
   slideNext() {
-    this.slideAction$.next('next');
     this.deck.slideNext();
   }
 
   slideBack() {
-    this.slideAction$.next('back');
     this.deck.slideBack();
   }
 
@@ -94,22 +91,26 @@ export class Clicker {
                       : undefined;
 
     const pack = new StepPack(max, min, startStep);
+    this.presenterNotes.setSlide(name, pack.index());
+
     const sub = this.stepActionDigit$.subscribe(direction => {
       const oob = pack.wouldBeOob(direction);
       switch (oob) {
         case 0:
           pack.commit(direction);
-          return this.presenterNotesService.setSlide(name, pack.index());
+          return this.presenterNotes.setSlide(name, pack.index());
         case -1:
-          if (!this.deck.canSlideBack()) return;
+          if (!this.deck.slideBack()) break;
+
           this.activeSlide.latestStep = pack.index();
           sub.unsubscribe();
-          return this.slideBack();
+          break;
         case 1:
-          if (!this.deck.canSlideNext()) return;
+          if (!this.deck.slideNext()) break;
+
           this.activeSlide.latestStep = pack.index();
           sub.unsubscribe();
-          return this.slideNext();
+          break;
       }
     });
 

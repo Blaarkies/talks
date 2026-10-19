@@ -83,6 +83,11 @@
     align-self: center;
   }
 
+  .definitions {
+    display: grid;
+    gap: var(--space-3);
+  }
+
   .description, .display {
     max-width: 60ch;
 

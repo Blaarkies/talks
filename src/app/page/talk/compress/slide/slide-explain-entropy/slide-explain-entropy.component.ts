@@ -7,8 +7,8 @@ import {
   viewChild,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Clicker } from '../../../../mode-presentation/service/clicker';
-import { PresenterNotesService } from '../../../../presenter-notes';
+import { Clicker } from '@app/page/mode-presentation/service/clicker';
+import { PresenterNotesData } from '@app/page/presenter-notes';
 import { AnimationController } from '../../common/animation-controller';
 import { EntropyPreviewComponent } from '../../component/entropy-preview/entropy-preview.component';
 import {
@@ -78,7 +78,7 @@ export class SlideExplainEntropyComponent {
     inject(Clicker).stepAction$.pipe(takeUntilDestroyed())
       .subscribe(newAction => actionAnimationMap.get(newAction)?.());
 
-    let presenterNotesService = inject(PresenterNotesService);
+    let presenterNotesService = inject(PresenterNotesData);
     effect(() => presenterNotesService.setSlide(2, this.animationController.animationIndex()));
   }
 

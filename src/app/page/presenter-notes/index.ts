@@ -1,2 +1,2 @@
-export { PresenterNotesComponent } from './presenter-notes.component';
-export { PresenterNotesService } from './presenter-notes.service';
+export { PresenterNotesComponent } from './c';
+export { PresenterNotesData } from './service/presenter-notes-data';

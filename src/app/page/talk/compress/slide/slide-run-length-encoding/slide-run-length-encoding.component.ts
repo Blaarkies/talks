@@ -22,9 +22,9 @@ import {
   coerceBetween,
   makeNumberList,
   sep,
-} from '../../../../../common';
-import { Clicker } from '../../../../mode-presentation/service/clicker';
-import { PresenterNotesService } from '../../../../presenter-notes';
+} from '@app/common';
+import { Clicker } from '@app/page/mode-presentation/service/clicker';
+import { PresenterNotesData } from '@app/page/presenter-notes';
 import { splitStringToRunLengthEncoding } from '../../common/encode';
 import { EntropyMeasureComponent } from '../../component/entropy-measure/entropy-measure.component';
 import { RunLengthDefinitionComponent } from '../../component/run-length-definition/run-length-definition.component';
@@ -85,7 +85,7 @@ export class SlideRunLengthEncodingComponent {
 
   constructor() {
     let presenterStep = signal(0);
-    let presenterNotesService = inject(PresenterNotesService);
+    let presenterNotesService = inject(PresenterNotesData);
     effect(() => presenterNotesService.setSlide(3, presenterStep()));
     inject(Clicker).stepAction$.pipe(takeUntilDestroyed())
       .subscribe(a => presenterStep.update(n => {

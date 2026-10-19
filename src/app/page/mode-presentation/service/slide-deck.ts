@@ -61,14 +61,20 @@ export class SlideDeck {
     this.activatedRoute.set(activatedRoute);
   }
 
-  slideBack() {
+  slideBack(): boolean {
+    if (!this.canSlideBack()) return false;
+
     this.currentRouteIndex.update(v => v - 1);
     this.goToRouteIndex(this.currentRouteIndex());
+    return true;
   }
 
-  slideNext() {
+  slideNext(): boolean {
+    if (!this.canSlideNext()) return false;
+
     this.currentRouteIndex.update(v => v + 1);
     this.goToRouteIndex(this.currentRouteIndex());
+    return true;
   }
 
   canSlideBack() {

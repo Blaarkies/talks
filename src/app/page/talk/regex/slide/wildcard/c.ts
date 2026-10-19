@@ -15,8 +15,8 @@ import {
     ReactiveFormsModule,
     RegexChooser,
   ],
-  templateUrl: './wildcard.html',
-  styleUrl: './wildcard.scss',
+  templateUrl: './c.html',
+  styleUrl: './c.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class SlideWildcard {
@@ -29,15 +29,16 @@ export default class SlideWildcard {
     [`\\d*`, 'Digit'],
     [`\\w*`, 'Alphanumeric'],
     [`.*`, 'Wildcard'],
-    [`[0-4]+`, 'Custom Number'],
-    [`[A-Z]+`, 'Custom Letters'],
+    [`[0-4]`, 'Custom Digits'],
+    [`[A-Z]`, 'Custom Letters'],
+    [`[^aouieAOUIE]`, 'Custom Exclusions'],
     [`\\d{2}`, 'Quantifier'],
     [`\\b\\w{3,5}\\b`, 'Bounds'],
-    [`\\s{2}`, 'White Space'],
+    [`\\s`, 'White Space'],
     [`\\S`, 'Non-White Space'],
     [`\\D`, 'Non-Digit'],
     [`\\W`, 'Non-Word'],
-    [`(\\d).+?\\1`, 'Backreference', [0, 1]],
+    [`([^\\w\\s]).*\\1`, 'Backreference', [0, 1]],
   ].map(([regex, label, skip]) => (<RegexEntry>{regex, label, skip}));
 
 }

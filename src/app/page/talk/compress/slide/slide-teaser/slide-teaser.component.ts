@@ -24,9 +24,9 @@ import {
   take,
   timer,
 } from 'rxjs';
-import { PaneComponent } from '../../../../../common/component/pane/pane.component';
-import { Clicker } from '../../../../mode-presentation/service/clicker';
-import { PresenterNotesService } from '../../../../presenter-notes';
+import { PaneComponent } from '@component/pane';
+import { Clicker } from '@app/page/mode-presentation/service/clicker';
+import { PresenterNotesData } from '../../../../presenter-notes';
 import { AnimationController } from '../../common/animation-controller';
 import { stiffyAsset } from '../../data/stiffy';
 
@@ -134,7 +134,7 @@ export class SlideTeaserComponent {
     inject(Clicker).stepAction$.pipe(takeUntilDestroyed())
       .subscribe(newAction => actionAnimationMap.get(newAction)?.());
 
-    let presenterNotesService = inject(PresenterNotesService);
+    let presenterNotesService = inject(PresenterNotesData);
     effect(() => presenterNotesService.setSlide(1, this.animationIndex()));
   }
 

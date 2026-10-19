@@ -4,7 +4,7 @@ import {
   inject,
   output,
 } from '@angular/core';
-import { PresenterNotesService } from '@app/page/presenter-notes';
+import { PresenterNotesData } from '@app/page/presenter-notes';
 import { scriptExample } from '@app/page/presenter-notes/script-example';
 import { ButtonComponent } from '@component/button/button.component';
 import { PaneComponent } from '@component/pane/pane.component';
@@ -25,7 +25,7 @@ import { TooltipComponent } from '@component/tooltip/tooltip.component';
 })
 export class NotesLoader {
 
-  private presenterNotesService = inject(PresenterNotesService);
+  private presenterNotesService = inject(PresenterNotesData);
 
   scriptSelect = output<string>();
 

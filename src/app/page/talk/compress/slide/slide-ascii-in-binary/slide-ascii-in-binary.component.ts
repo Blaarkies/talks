@@ -11,7 +11,7 @@ import {
   unique,
 } from '@app/common';
 import { Clicker } from '@app/page/mode-presentation/service/clicker';
-import { PresenterNotesService } from '@app/page/presenter-notes';
+import { PresenterNotesData } from '@app/page/presenter-notes';
 import { CharOrBin } from '../../common';
 import { toBinary } from '../../common/encode';
 import { AsciiTableComponent } from '../../component/ascii-table/ascii-table.component';
@@ -63,7 +63,7 @@ export class SlideAsciiInBinaryComponent {
 
     inject(Clicker).stepAction$.pipe(takeUntilDestroyed())
       .subscribe(newAction => actionAnimationMap.get(newAction)?.());
-    let presenterNotesService = inject(PresenterNotesService);
+    let presenterNotesService = inject(PresenterNotesData);
     effect(() => presenterNotesService.setSlide(4, this.step()));
   }
 

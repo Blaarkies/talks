@@ -27,8 +27,9 @@
 }
 
 .censor {
-  background: #000c;
-  color: var(--base-color-0);
+  background: var(--color-pane-2);
+  opacity: .5;
+  color: transparent;
   padding-inline: var(--space-3);
 }
 
@@ -36,4 +37,13 @@
   td {
     padding-right: 3ch;
   }
+}
+
+.text-center-align {
+  text-align: center;
+}
+
+.regex-logo {
+  color: #0c0;
+  text-shadow: lime 0 0 15px;
 }

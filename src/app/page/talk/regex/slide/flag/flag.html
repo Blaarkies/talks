@@ -20,13 +20,24 @@
   @let tab = tabs[step()];
 
   <div class="explained">
-    <app-pane type="2" [header]="tab.label" >
-      <div class="dual-col">
-        <div class="background"><div class="flag">{{ tab.flag }}</div></div>
-        <div class="description">{{ tab.description }}</div>
-      </div>
+    <app-pane type="2" [header]="tab.label">
+      <div class="definitions">
 
-      <div class="display">Regex <span class="regex">{{ tab.test }}</span>
+        <div class="dual-col">
+          <div class="background">
+            <div class="flag">{{ tab.flag }}</div>
+          </div>
+          <div class="description">{{ tab.description }}</div>
+        </div>
+
+        <div class="display">
+          Regex <span class="regex">{{ tab.test }}</span>
+        </div>
+        @if (tab.alternative) {
+          <div class="display">
+            Alternative <span class="regex">{{ tab.alternative }}</span>
+          </div>
+        }
       </div>
     </app-pane>
 

@@ -11,7 +11,7 @@ import {
   isArray,
   sep,
 } from '@app/common';
-import { PresenterNotesService } from '@app/page/presenter-notes';
+import { PresenterNotesData } from '@app/page/presenter-notes';
 import { FontSizer } from '@app/page/presenter-notes/component/font-sizer/font-sizer';
 import { Teleprompter } from '@app/page/presenter-notes/component/teleprompter/teleprompter';
 import { Timer } from '@app/page/presenter-notes/component/timer/timer';
@@ -36,9 +36,10 @@ import {
 export class NotesViewer {
 
   rawNotes = input.required<string>();
+
   exit = output<void>();
 
-  private currentSlideStep = inject(PresenterNotesService).slideStep;
+  private currentSlideStep = inject(PresenterNotesData).slideStep;
 
   protected timeString = computed(() =>
     this.rawNotes().match(/#time-(.+)\s/)?.[1]);
